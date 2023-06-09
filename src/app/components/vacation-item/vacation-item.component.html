@@ -3,8 +3,8 @@
     <mat-card-header>
       <div mat-card-avatar>
         <to-vacation-button
-          (changed)="onClick($event)"
-          [selected]="iconStateWithTimer$ | async"
+          (changed)="onButtonClick($event)"
+          [selected]="selected"
         ></to-vacation-button>
       </div>
       <mat-card-title>Card Title</mat-card-title>

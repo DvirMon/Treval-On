@@ -1,8 +1,10 @@
-<button mat-icon-button (click)="onClick()" class="hover-color">
+<button mat-icon-button (click)="onButtonClick()" color="warn">
+  {{ selected }}
+
   <mat-icon
-    [@iconAnimation]="selected"
+    [@iconAnimation]="(iconStateWithTimer$ | async)"
     [ngClass]="{
-      selected: selected === 'selected'
+      selected: (iconStateWithTimer$ | async) === 'selected'
     }"
     fontIcon="favorite"
   ></mat-icon>

@@ -1,10 +1,16 @@
-import { ChangeDetectionStrategy, Component, Input, Signal, WritableSignal, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Signal, WritableSignal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { VacationItemService } from './vacation-item.service';
-import { Observable } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop'
-import { VacationItemButtonComponent } from '../vacation-item-button/vacation-item-button.component';
+import { ButtonClickEvent, VacationItemButtonComponent } from '../vacation-item-button/vacation-item-button.component';
+import { Vacation } from 'src/app/vacation.model';
+
+export interface SelectChangedEvent {
+  /** The source button of the event. */
+  source: VacationItemComponent;
+
+  /** The new event of the button. */
+  selected: boolean;
+}
 
 @Component({
   selector: 'to-vacation-item',
@@ -12,29 +18,33 @@ import { VacationItemButtonComponent } from '../vacation-item-button/vacation-it
   imports: [CommonModule, MatCardModule, VacationItemButtonComponent],
   templateUrl: './vacation-item.component.html',
   styleUrls: ['./vacation-item.component.scss'],
-  providers: [VacationItemService],
-
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VacationItemComponent {
 
+  @Input() vacation!: Vacation
   @Input() selected!: boolean
+  @Input() selectedMap!: Signal<Record<string, boolean >>
 
-  public iconStateWithTimer$!: Observable<string>; // Observable that includes a timer delay for the default state
+    @Output() readonly changed: EventEmitter<SelectChangedEvent> = new EventEmitter();
 
+onButtonClick(event: ButtonClickEvent): void {
+  this._emitChangeEvent(event)
+}
 
-  constructor(
-    private vacationItemService: VacationItemService
-  ) { }
+  private _emitChangeEvent(event: ButtonClickEvent): void {
+  this.changed.emit(this._createChangeEvent(event))
+}
 
-  ngOnInit(): void {
-    this.iconStateWithTimer$ = this.vacationItemService.getIconStateWithTimerObservable(this.selected);
-  }
+  protected _createChangeEvent(value: ButtonClickEvent): SelectChangedEvent {
+  const event: SelectChangedEvent = {
 
-  onClick(value: string): void {
-    const newState = this.vacationItemService.getNewState(value);
-    this.vacationItemService.setIconSelectedValue(newState);
-  }
+    source: this,
+    selected: value.selected
+  };
+  return event;
+}
+
 
 
 
