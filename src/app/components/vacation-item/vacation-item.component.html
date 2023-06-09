@@ -1,0 +1,23 @@
+<div class="card-container">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <button mat-icon-button (click)="onClick()" class="hover-color">
+          <mat-icon
+            [@iconAnimation]="iconStateWithTimer$ | async"
+            [ngClass]="{
+              selected: (iconStateWithTimer$ | async) === 'selected'
+            }"
+            >favorite</mat-icon
+          >
+        </button>
+      </div>
+      <mat-card-title>Card Title</mat-card-title>
+      <mat-card-subtitle>Card Subtitle</mat-card-subtitle>
+    </mat-card-header>
+    <!-- Rest of the card content -->
+    <ng-container *ngIf="iconStateWithTimer$ | async as state">
+      <div>{{ state }}</div>
+    </ng-container>
+  </mat-card>
+</div>
