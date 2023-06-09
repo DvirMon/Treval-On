@@ -1,16 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, WritableSignal, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { VacationItemComponent } from './components/vacation-item/vacation-item.component';
+import { Vacation } from './vacation.model';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'to-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [RouterOutlet, VacationItemComponent]
+  imports: [RouterOutlet, VacationItemComponent, NgFor]
 })
 export class AppComponent {
   title = 'travel-on';
 
+  readonly vacations: Vacation[] = [{ id: '1' }, { id: '2' }, { id: '3' }, { id: '4' }, { id: '5' }, { id: '6' }]
 
+  readonly selectedVacations: WritableSignal<Record<string, boolean>> = signal({ 1: true, 4: true })
 }

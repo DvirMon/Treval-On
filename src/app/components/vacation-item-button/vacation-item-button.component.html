@@ -1,0 +1,9 @@
+<button mat-icon-button (click)="onClick()" class="hover-color">
+  <mat-icon
+    [@iconAnimation]="selected"
+    [ngClass]="{
+      selected: selected === 'selected'
+    }"
+    fontIcon="favorite"
+  ></mat-icon>
+</button>

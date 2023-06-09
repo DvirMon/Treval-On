@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, merge, of, skip, switchMap, timer } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map, merge, of, skip, switchMap, timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,42 +10,42 @@ export class VacationItemService {
   private readonly selectedChangedState = 'selectedChanged';
   private readonly selectedState = 'selected';
 
-  private readonly iconState$ = new BehaviorSubject<string>(this.defaultState);
+  private readonly iconStateSource$ = new BehaviorSubject<string>(this.defaultState);
 
   readonly isSelected$: Observable<boolean>; // Observable that emits true when the icon is selected
-
-  readonly iconStateWithTimer$: Observable<string>; // Observable that includes a timer delay for the default state
 
   constructor(
   ) {
     this.isSelected$ = this.getIsSelectedObservable();
-    this.iconStateWithTimer$ = this.getIconStateWithTimerObservable();
   }
 
   public getNewState(currentState: string): string {
     return currentState === this.defaultState ? this.selectedState : this.defaultState
   }
 
-  public getIconSelectedValue(): string {
-    return this.iconState$.value
-  }
-  public setIconSelectedValue(value: string): void {
-    return this.iconState$.next(value)
+  public getIconState$(): Observable<string> {
+    return this.iconStateSource$.asObservable()
   }
 
-  public getIconStateWithTimer$() {
-    return this.iconStateWithTimer$
+  public setIconSelectedValue(value: string): void {
+    return this.iconStateSource$.next(value)
+  }
+
+
+  public getIconStateWithTimerObservable(selected: boolean): Observable<string> {
+    return merge(this.getInitialState(selected), this.getSelectedStateObservable())
+  }
+
+  // Returns an observable that emits initial state based on input
+  private getInitialState(selected: boolean) {
+    return of(selected ? this.selectedState : this.defaultState)
   }
 
   // Returns an observable that emits true when the icon is selected
   private getIsSelectedObservable(): Observable<boolean> {
-    return this.iconState$.pipe(
+    return this.iconStateSource$.pipe(
       map(state => state === this.selectedState),
     );
-  }
-
-  private getIconStateWithTimerObservable(): Observable<string> {
-    return merge(of(this.defaultState), this.getSelectedStateObservable())
   }
 
   // Returns an observable that switches between the timer observable and the default state observable based on the selected state

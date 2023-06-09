@@ -1,3 +1,5 @@
 <div class="card-container">
-  <to-vacation-item></to-vacation-item>
+  <ng-container *ngFor="let v of vacations">
+    <to-vacation-item [selected]="selectedVacations()[v.id]"></to-vacation-item>
+  </ng-container>
 </div>

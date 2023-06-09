@@ -1,50 +1,38 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Signal, WritableSignal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { BehaviorSubject, Observable, delay, filter, map, merge, of, skip, skipWhile, switchMap, tap, timer } from 'rxjs';
 import { VacationItemService } from './vacation-item.service';
+import { Observable } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop'
+import { VacationItemButtonComponent } from '../vacation-item-button/vacation-item-button.component';
 
 @Component({
   selector: 'to-vacation-item',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatCardModule, VacationItemButtonComponent],
   templateUrl: './vacation-item.component.html',
   styleUrls: ['./vacation-item.component.scss'],
-  animations: [
-    trigger('iconAnimation', [
-      state('default', style({
-        transform: 'scale(1)',
-        color: '#9E9E9E'
-      })),
-      state('selectedChanged', style({
-        transform: 'scale(1.2)',
-        color: '#fb3958'
-      })),
-      state('selected', style({
-        transform: 'scale(1)',
-        color: '#fb3958'
-      })),
-      transition('default <=> selectedChanged', animate('0.2s ease')),
-      transition('selected <=> selectedChanged', animate('0.2s ease'))
-    ])
-  ],
+  providers: [VacationItemService],
+
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VacationItemComponent {
-  readonly iconStateWithTimer$: Observable<string>; // Observable that includes a timer delay for the default state
+
+  @Input() selected!: boolean
+
+  public iconStateWithTimer$!: Observable<string>; // Observable that includes a timer delay for the default state
+
 
   constructor(
     private vacationItemService: VacationItemService
-  ) {
-    this.iconStateWithTimer$ = this.vacationItemService.getIconStateWithTimer$();
+  ) { }
+
+  ngOnInit(): void {
+    this.iconStateWithTimer$ = this.vacationItemService.getIconStateWithTimerObservable(this.selected);
   }
 
-  onClick(): void {
-    const currentState = this.vacationItemService.getIconSelectedValue();
-    const newState = this.vacationItemService.getNewState(currentState);
+  onClick(value: string): void {
+    const newState = this.vacationItemService.getNewState(value);
     this.vacationItemService.setIconSelectedValue(newState);
   }
 
