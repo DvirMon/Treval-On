@@ -3,15 +3,15 @@ import { RouterOutlet } from '@angular/router';
 import { Vacation } from './vacation.model';
 import { CommonModule } from '@angular/common';
 import { arrayToRecord } from './utilities/helpers';
-import { SelectChangedEvent } from './components/vacation-item-button/vacation-item-button.component';
-import { VacationItemComponent } from './components/vacation-item/vacation-item.component';
+import { VacationCardComponent } from './components/vacation-item/vacation-card.component';
+import { SelectChangedEvent } from './components/vacation-item-button/vacation-card-button.component';
 
 @Component({
   selector: 'to-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [RouterOutlet, VacationItemComponent, CommonModule],
+  imports: [RouterOutlet, VacationCardComponent, CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })

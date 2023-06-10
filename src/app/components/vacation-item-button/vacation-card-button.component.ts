@@ -23,8 +23,8 @@ export enum SelectState {
   selector: 'to-vacation-button',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule],
-  templateUrl: './vacation-item-button.component.html',
-  styleUrls: ['./vacation-item-button.component.scss'],
+  templateUrl: './vacation-card-button.component.html',
+  styleUrls: ['./vacation-card-button.component.scss'],
   animations: [
     trigger('iconAnimation', [
       state('default', style({
@@ -44,35 +44,28 @@ export enum SelectState {
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class VacationItemButtonComponent {
+export class VacationCardButtonComponent {
 
   private readonly clickEvent: BehaviorSubject<SelectState>;
   private readonly selectStateWithDelay$: Observable<SelectState>;
 
-  protected readonly selectState: WritableSignal<SelectState>;
+  protected readonly isSelected: WritableSignal<SelectState>;
   protected readonly iconState: Signal<SelectState | undefined>;
 
-  private _selected!: boolean;
-
-  @Input('selectedState') selectedSignal!: Signal<SelectState>
 
   @Output() readonly changed: EventEmitter<SelectChangedEvent> = new EventEmitter();
 
   constructor() {
-    this.selectState = signal<SelectState>(SelectState.DEFAULT);
+    this.isSelected = signal<SelectState>(SelectState.DEFAULT);
     this.clickEvent = new BehaviorSubject<SelectState>(SelectState.DEFAULT);
     this.selectStateWithDelay$ = this._getSelectStateWithDelay$();
     this.iconState = toSignal(this.selectStateWithDelay$);
   }
 
-  @Input()
-  get selected(): boolean {
-    return this._selected;
-  }
 
+  @Input()
   set selected(value: boolean) {
-    this._selected = value;
-    this.selectState.set(this._getSelectedState(value))
+    this.isSelected.set(this._getSelectedState(value))
   }
 
   private _getSelectedState(value: boolean): SelectState {
@@ -102,7 +95,7 @@ export class VacationItemButtonComponent {
   protected onButtonClick(currentState: SelectState | undefined): void {
 
     if (currentState === undefined) {
-      currentState = this.selectState()
+      currentState = this.isSelected()
     }
 
     if (currentState === SelectState.CHANGED) {
