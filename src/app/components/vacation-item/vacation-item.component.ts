@@ -30,7 +30,7 @@ export class VacationItemComponent {
 
 
   readonly isSelected: Signal<boolean> = computed(() => !!this.selectedMap()[this.vacation.id])
-  readonly selected: Signal<SelectState> = computed(() => this.isSelected() ? 'selected' : 'default')
+  readonly selected: Signal<SelectState> = computed(() => this.isSelected() ? SelectState.SELECTED : SelectState.DEFAULT)
 
   @Output() readonly changed: EventEmitter<SelectChangedEvent> = new EventEmitter();
 

@@ -1,9 +1,7 @@
 <button mat-icon-button (click)="onButtonClick(iconState())" color="warn">
   <mat-icon
     [@iconAnimation]="iconState() === undefined ? selectState() : iconState()"
-    [ngClass]="{
-      selected: iconState() === undefined ? selectState() : iconState() === 'selected'
-    }"
+
     fontIcon="favorite"
   ></mat-icon>
 </button>

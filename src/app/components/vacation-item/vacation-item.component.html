@@ -4,7 +4,7 @@
       <div mat-card-avatar>
         <to-vacation-button
           (changed)="onButtonClick($event)"
-          [selected]="selected"
+          [selected]="isSelected()"
         ></to-vacation-button>
       </div>
       <mat-card-title>Card Title</mat-card-title>

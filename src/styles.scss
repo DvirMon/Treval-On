@@ -9,11 +9,82 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+
+$plt-primary :(
+  50 : #fceae0,
+  100 : #f8cbb3,
+  200 : #f3a880,
+  300 : #ee854d,
+  400 : #ea6b26,
+  500 : #e65100,
+  600 : #e34a00,
+  700 : #df4000,
+  800 : #db3700,
+  900 : #d52700,
+  A100 : #fffdfc,
+  A200 : #ffd0c9,
+  A400 : #ffa396,
+  A700 : #ff8d7d,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+$plt-accent :(
+    50 : #fceae0,
+    100 : #f8cbb3,
+    200 : #f3a880,
+    300 : #ee854d,
+    400 : #ea6b26,
+    500 : #e65100,
+    600 : #e34a00,
+    700 : #df4000,
+    800 : #db3700,
+    900 : #d52700,
+    A100 : #fffdfc,
+    A200 : #ffd0c9,
+    A400 : #ffa396,
+    A700 : #ff8d7d,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$travel-on-primary: mat.define-palette(mat.$indigo-palette);
-$travel-on-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$travel-on-primary: mat.define-palette($plt-primary);
+$travel-on-accent: mat.define-palette($plt-accent, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $travel-on-warn: mat.define-palette(mat.$red-palette);
