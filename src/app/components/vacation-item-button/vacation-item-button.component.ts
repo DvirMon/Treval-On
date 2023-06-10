@@ -48,93 +48,52 @@ export class VacationItemButtonComponent {
 
   @Input() selected!: Signal<SelectState>
 
-
   private readonly defaultState = 'default';
   private readonly changedState = 'changeState';
   private readonly selectedState = 'selected';
 
-  // private _iconStateSource$!: BehaviorSubject<SelectState>;
-  // private _isSelected$!: Observable<boolean>; // Observable that emits true when the icon is selected
-  // public iconStateWithTimer$!: Observable<SelectState>; // Observable that includes a timer delay for the default state
+  private readonly clickEvent: BehaviorSubject<SelectState>;
+  private readonly selectStateWithDelay$: Observable<SelectState>;
 
-  public selectState: Signal<SelectState> = computed(() => this.selected() !== undefined ? this.selected() : this.defaultState)
-
-  private readonly clickEvent: BehaviorSubject<SelectState> = new BehaviorSubject<SelectState>(this.defaultState)
-
-  readonly mergeClickState$ = merge(this.clickEvent.asObservable().pipe(skip(1), map(() => this.changedState as SelectState)), this._getDelayClickEvent())
-
-  readonly iconState: Signal<SelectState | undefined> = toSignal(this.mergeClickState$);
+  protected readonly selectState: Signal<SelectState>;
+  protected readonly iconState: Signal<SelectState | undefined>;
 
   @Output() readonly changed: EventEmitter<ButtonClickEvent> = new EventEmitter();
 
   constructor() {
+    this.selectState = this._getSelectedState()
+    this.clickEvent = new BehaviorSubject<SelectState>(this.defaultState);
+    this.selectStateWithDelay$ = this._getSelectStateWithDelay$();
+    this.iconState = toSignal(this.selectStateWithDelay$);
   }
 
-  ngOnInit(): void {
-    // this._iconStateSource$ = new BehaviorSubject<SelectState>(this.selectState());
-    // this._isSelected$ = this._getIsSelectedObservable();
-    // this.iconStateWithTimer$ = this._getIconStateWithTimerObservable();
+  private _getSelectedState(): Signal<SelectState> {
+    return computed(() => this.selected() !== undefined ? this.selected() : this.defaultState)
+  }
+
+  private _getSelectStateWithDelay$(): Observable<SelectState> {
+    return merge(this._getSelectState$(), this._getDelayClickEvent$())
+  }
+
+  private _getSelectState$(): Observable<SelectState> {
+    return this.clickEvent.asObservable().pipe(
+      skip(1),
+      map(() => this.changedState as SelectState))
   }
 
 
-  private _getDelayClickEvent(): Observable<SelectState> {
+  private _getDelayClickEvent$(): Observable<SelectState> {
     return this.clickEvent.asObservable().pipe(
       skip(1),
       delay(500),
-      tap((selected) => console.log(selected)),
       map((state: SelectState) => state === this.selectedState),
       map((selected: boolean) => selected ? this.defaultState : this.selectedState)
     )
   }
 
-  // // Returns an observable that emits true when the icon is selected
-  // private _getIsSelectedObservable(): Observable<boolean> {
-  //   return this._iconStateSource$.pipe(
-  //     map(state => state === this.selectedState),
-  //   );
-  // }
 
-  // private _getIconStateWithTimerObservable(): Observable<SelectState> {
-  //   return merge(this._getInitialState$(), this._getSelectedStateObservable())
-  // }
+  protected onButtonClick(selectState: SelectState | undefined): void {
 
-  // // Returns an observable that emits initial state based on input
-  // private _getInitialState$(): Observable<SelectState> {
-  //   return this._iconStateSource$.asObservable().pipe(take(1))
-  // }
-
-
-  // // Returns an observable that switches between the timer observable and the default state observable based on the selected state
-  // private _getSelectedStateObservable(): Observable<SelectState> {
-  //   return this._isSelected$.pipe(
-  //     skip(1),
-  //     switchMap(selected => this._getIconStateObservable(selected, this.changedState))
-  //   );
-  // }
-
-  // // Return an observable that combines the next state based on the selected state and the timer observable with the selected changed state.
-  // private _getIconStateObservable(selected: boolean, changeState: SelectState): Observable<SelectState> {
-
-  //   const nextState = selected ? this.selectedState : this.defaultState;
-  //   const timerObservable = this._getTimerObservable(nextState);
-
-  //   return this._mergeStateWithTimerObservable(changeState, timerObservable);
-  // }
-
-  // // Create an Observable that emits the specified state after a delay of 200 milliseconds
-  // private _getTimerObservable(state: SelectState): Observable<SelectState> {
-  //   return timer(500).pipe(
-  //     map(() => state),
-  //     tap(() => this._emitChangeEvent(state, state)))
-  // }
-
-  // private _mergeStateWithTimerObservable(state: SelectState, timerObservable: Observable<SelectState>): Observable<SelectState> {
-  //   const stateObservable = of(state);
-  //   return merge(stateObservable, timerObservable);
-  // }
-
-
-  public onButtonClick(selectState: SelectState | undefined): void {
     if (selectState === undefined) {
       selectState = this.selectState()
     }
@@ -148,8 +107,6 @@ export class VacationItemButtonComponent {
   }
 
   private _handleButtonClick(newState: SelectState): void {
-    // this._iconStateSource$.next(newState);
-    // this._emitChangeEvent(newState, this.changedState);
     this._emitChangeEvent(newState, newState);
   }
 

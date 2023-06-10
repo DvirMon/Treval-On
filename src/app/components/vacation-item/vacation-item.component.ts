@@ -11,7 +11,7 @@ export interface SelectChangedEvent {
   /** The new event of the button. */
   selected: boolean;
 
-  selectedState : SelectState
+  selectedState: SelectState
 
 }
 
@@ -29,7 +29,8 @@ export class VacationItemComponent {
   @Input() selectedMap!: Signal<Record<string, SelectState>>
 
 
-  readonly selected: Signal<SelectState> = computed(() => this.selectedMap()[this.vacation.id])
+  readonly isSelected: Signal<boolean> = computed(() => !!this.selectedMap()[this.vacation.id])
+  readonly selected: Signal<SelectState> = computed(() => this.isSelected() ? 'selected' : 'default')
 
   @Output() readonly changed: EventEmitter<SelectChangedEvent> = new EventEmitter();
 
@@ -46,7 +47,7 @@ export class VacationItemComponent {
 
       source: this,
       selected: value.selected,
-      selectedState : value.selectedState
+      selectedState: value.selectedState
     };
     return event;
   }
