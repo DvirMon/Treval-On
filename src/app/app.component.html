@@ -1,5 +1,12 @@
+<pre>
+  {{ selectedVacations() | json }}
+</pre>
 <div class="card-container">
   <ng-container *ngFor="let v of vacations">
-    <to-vacation-item  [vacation]="v" [selectedMap]="selectedVacations" (changed)="onSelectChanged($event)"></to-vacation-item>
+    <to-vacation-item
+      [vacation]="v"
+      [selectedMap]="selectedVacations"
+      (changed)="onSelectChanged($event)"
+    ></to-vacation-item>
   </ng-container>
 </div>

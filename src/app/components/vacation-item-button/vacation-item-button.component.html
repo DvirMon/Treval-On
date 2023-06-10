@@ -1,11 +1,18 @@
 <button mat-icon-button (click)="onButtonClick()" color="warn">
-  {{ selected }}
-
-  <mat-icon
-    [@iconAnimation]="(iconStateWithTimer$ | async)"
+  <!-- <mat-icon
+    [@iconAnimation]="iconStateWithTimer$ | async"
     [ngClass]="{
       selected: (iconStateWithTimer$ | async) === 'selected'
     }"
     fontIcon="favorite"
+  ></mat-icon> -->
+  <mat-icon
+    [@iconAnimation]="selectState()"
+    [ngClass]="{
+      selected: (selectState()) === 'selected'
+    }"
+    fontIcon="favorite"
   ></mat-icon>
 </button>
+
+<ng-container *ngIf="(iconStateWithTimer$ | async)"></ng-container>
