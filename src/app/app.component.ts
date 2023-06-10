@@ -1,4 +1,4 @@
-import { Component, Signal, WritableSignal, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SelectChangedEvent, VacationItemComponent } from './components/vacation-item/vacation-item.component';
 import { Vacation } from './vacation.model';
@@ -10,7 +10,9 @@ import { SelectState } from './components/vacation-item-button/vacation-item-but
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [RouterOutlet, VacationItemComponent, CommonModule]
+  imports: [RouterOutlet, VacationItemComponent, CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class AppComponent {
   title = 'travel-on';

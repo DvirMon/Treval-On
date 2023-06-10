@@ -1,4 +1,4 @@
-<button mat-icon-button (click)="onButtonClick()" color="warn">
+<button mat-icon-button (click)="onButtonClick(iconState())" color="warn">
   <!-- <mat-icon
     [@iconAnimation]="iconStateWithTimer$ | async"
     [ngClass]="{
@@ -6,13 +6,14 @@
     }"
     fontIcon="favorite"
   ></mat-icon> -->
+
+  {{ iconState()}}
   <mat-icon
-    [@iconAnimation]="selectState()"
+    [@iconAnimation]="iconState() === undefined ? selectState() : iconState()"
     [ngClass]="{
-      selected: (selectState()) === 'selected'
+      selected: iconState() === undefined ? selectState() : iconState() === 'selected'
     }"
     fontIcon="favorite"
   ></mat-icon>
 </button>
 
-<ng-container *ngIf="(iconStateWithTimer$ | async)"></ng-container>
