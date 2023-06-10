@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SelectChangedEvent, VacationItemComponent } from './components/vacation-item/vacation-item.component';
 import { Vacation } from './vacation.model';
 import { CommonModule } from '@angular/common';
-import { SelectState } from './components/vacation-item-button/vacation-item-button.component';
+import { arrayToRecord } from './utilities/helpers';
+import { SelectChangedEvent } from './components/vacation-item-button/vacation-item-button.component';
+import { VacationItemComponent } from './components/vacation-item/vacation-item.component';
 
 @Component({
   selector: 'to-root',
@@ -19,17 +20,29 @@ export class AppComponent {
 
   readonly vacations: Vacation[] = [{ id: '1' }, { id: '2' }, { id: '3' }, { id: '4' }, { id: '5' }, { id: '6' }]
 
-  readonly selectedVacations: WritableSignal<Record<string, SelectState>> = signal({ 1: SelectState.SELECTED, 4: SelectState.SELECTED })
+  readonly selectedVacations: string[] = ['1', '4']
+
+  readonly selectedMap: WritableSignal<Record<string, boolean>> = signal(arrayToRecord(this.selectedVacations))
 
   onSelectChanged(event: SelectChangedEvent): void {
-    const { source, selectedState, selected } = event
+    const { source, selected } = event
     const { vacation } = source
 
-    this.selectedVacations.update((state) => {
-      return {
-        ...state,
-        [vacation.id]: selectedState
+    this.selectedMap.update((state) => {
+
+      if(selected) {
+        state = {
+          ...state,
+          [vacation.id]: selected
+        }
       }
+
+      if(!selected) {
+
+        delete state[vacation.id]
+      }
+
+      return state
     })
   }
 }

@@ -6,13 +6,11 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { BehaviorSubject, Observable, merge, skip, map, delay } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop'
 
-export interface ButtonClickEvent {
+export interface SelectChangedEvent {
   /** The source button of the event. */
-  source: VacationItemButtonComponent;
+  source: any;
   /** The new `selected` value of the button. */
   selected: boolean;
-
-  selectedState: SelectState
 }
 
 export enum SelectState {
@@ -58,7 +56,7 @@ export class VacationItemButtonComponent {
 
   @Input('selectedState') selectedSignal!: Signal<SelectState>
 
-  @Output() readonly changed: EventEmitter<ButtonClickEvent> = new EventEmitter();
+  @Output() readonly changed: EventEmitter<SelectChangedEvent> = new EventEmitter();
 
   constructor() {
     this.selectState = signal<SelectState>(SelectState.DEFAULT);
@@ -83,13 +81,13 @@ export class VacationItemButtonComponent {
   }
 
   private _getSelectStateWithDelay$(): Observable<SelectState> {
-    return merge(this._getSelectState$(), this._getDelayClickEvent$());
+    return merge(this._getChangeState$(), this._getDelayClickEvent$());
   }
 
-  private _getSelectState$(): Observable<SelectState> {
+  private _getChangeState$(): Observable<SelectState> {
     return this.clickEvent.asObservable().pipe(
       skip(1),
-      map(() => SelectState.CHANGED as SelectState))
+      map(() => SelectState.CHANGED))
   }
 
   private _getDelayClickEvent$(): Observable<SelectState> {
@@ -127,16 +125,14 @@ export class VacationItemButtonComponent {
   }
 
 
-  private _emitChangeEvent(event: ButtonClickEvent): void {
+  private _emitChangeEvent(event: SelectChangedEvent): void {
     this.changed.emit(event)
   }
 
-  private _createChangeEvent(newState: SelectState): ButtonClickEvent {
-    const event: ButtonClickEvent = {
-
+  private _createChangeEvent(newState: SelectState): SelectChangedEvent {
+    const event: SelectChangedEvent = {
       source: this,
       selected: newState !== SelectState.DEFAULT,
-      selectedState: newState
     };
     return event;
   }
