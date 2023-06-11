@@ -1,0 +1,19 @@
+:host {
+  div {
+    height: 100%;
+  }
+
+  div.login-wrapper {
+    background-image: url("../../../assets/images/backgrounds/login.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right 350px top 25px;
+    display: grid;
+    grid-template-columns: 1fr .6fr;
+
+    div.login-form {
+      background-color: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+    }
+  }
+}
