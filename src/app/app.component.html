@@ -1,9 +1,1 @@
-<div class="card-container">
-  <ng-container *ngFor="let v of vacations">
-    <to-vacation-card
-      [vacation]="v"
-      [selected]="selectedMap()[v.id]"
-      (selectChanged)="onSelectChanged($event)"
-    ></to-vacation-card>
-  </ng-container>
-</div>
+<router-outlet></router-outlet>
