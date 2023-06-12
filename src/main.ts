@@ -4,16 +4,21 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app/app.routes';
+
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideEffects } from '@ngrx/effects';
+import { vacationReducer } from './app/store/vacations/vacation.reducer';
+import { vacationsFeatureKey } from './app/store/vacations/vacation.state';
+import { VacationEffects } from './app/store/vacations/vacation.effects';
+
 import { provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';
-import { environment } from './environments/environment';
 
+import { environment } from './environments/environment';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -28,9 +33,9 @@ bootstrapApplication(AppComponent, {
       ),
     provideRouter(appRoutes),
     provideAnimations(),
-    provideStore(),
+    provideStore({ [vacationsFeatureKey]: vacationReducer }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects(),
+    provideEffects(VacationEffects),
     {
       provide: ScreenTrackingService, useClass: ScreenTrackingService
     },

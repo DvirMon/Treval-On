@@ -4,6 +4,5 @@ export interface Vacation {
   price: number,
   takeoff : Date,
   landing: Date,
-  description: string,
   imageUrl: string
 }
