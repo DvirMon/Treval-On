@@ -11,7 +11,7 @@ export const appRoutes: Routes = [
     loadComponent: () => import("./pages/register/register.component").then(m => m.RegisterComponent)
   },
   {
-    path: 'home',
+    path: 'places',
     loadComponent: () => import("./pages/home/home.component").then(m => m.HomeComponent)
   },
   {
