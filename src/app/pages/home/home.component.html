@@ -1,5 +1,5 @@
 <div>
-  <ng-container *ngFor="let v of vacations$ | async">
+  <ng-container *ngFor="let v of vacations()">
     <pre>
 
       {{v | json}}

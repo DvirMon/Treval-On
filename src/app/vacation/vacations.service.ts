@@ -6,7 +6,7 @@ import { Vacation } from '../store/vacations/vacation.model';
 @Injectable({
   providedIn: 'root'
 })
-export class VacationsService {
+export class VacationService {
 
   private readonly vacationsCollection: CollectionReference<DocumentData>;
 

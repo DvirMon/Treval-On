@@ -1,10 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, Signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Firestore, collectionData, collection, CollectionReference, DocumentData, DocumentReference, addDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { VACATIONS_DATA } from 'src/assets/MOCK_DATA';
 import { Vacation } from 'src/app/store/vacations/vacation.model';
 import { Store } from '@ngrx/store';
+import { VacationSelectors } from 'src/app/store/vacations/vacation.selectors';
+import { StoreService } from 'src/app/store/store.service';
 
 
 
@@ -17,21 +17,12 @@ import { Store } from '@ngrx/store';
 })
 export class HomeComponent {
 
-  private readonly firestore: Firestore = inject(Firestore);
-  private readonly vacationsCollection: CollectionReference<DocumentData>;
-  protected readonly vacations$: Observable<Vacation[]>;
-
-
-  private readonly store : Store = inject(Store);
+  private readonly storeService : StoreService = inject(StoreService)
+  protected readonly vacations: Signal<Vacation[]>;
 
   constructor() {
-    this.vacationsCollection = collection(this.firestore, 'vacations')
-    this.vacations$ = collectionData(this.vacationsCollection, { idField: 'id' }) as Observable<Vacation[]>;
+    this.vacations = this.storeService.getVacations();
   }
 
-  readonly vacations = VACATIONS_DATA
 
-
-  ngOnInit() {
-  }
 }
