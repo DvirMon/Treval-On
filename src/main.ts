@@ -19,6 +19,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 
 import { environment } from './environments/environment';
+import { provideHttpClient } from '@angular/common/http';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -26,12 +27,13 @@ bootstrapApplication(AppComponent, {
       (
         BrowserModule,
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-        provideAnalytics(() => getAnalytics()),
         provideAuth(() => getAuth()),
         provideFirestore(() => getFirestore()),
-        provideMessaging(() => getMessaging())
+        provideMessaging(() => getMessaging()),
+        provideAnalytics(() => getAnalytics()),
       ),
     provideRouter(appRoutes),
+    provideHttpClient(),
     provideAnimations(),
     provideStore({ [vacationsFeatureKey]: vacationReducer }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),

@@ -1,0 +1,23 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Sign In</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <pre>
+        {{ user$ | async | json }}
+      </pre>
+
+      <button
+        mat-raised-button
+        class="google-btn"
+        [disableRipple]="true"
+        (click)="onButtonClick()"
+      >
+        <mat-icon svgIcon="google" class="google-icon"></mat-icon>
+        Sign in with Google
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>

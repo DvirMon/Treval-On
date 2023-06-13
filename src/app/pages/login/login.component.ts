@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LoginFormComponent } from 'src/app/auth/login/login.component';
 
 @Component({
-  selector: 'to-login',
+  selector: 'to-login-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LoginFormComponent],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
-export class LoginComponent {
+export class LoginPageComponent {
 
 }
