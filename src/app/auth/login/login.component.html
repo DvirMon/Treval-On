@@ -5,9 +5,7 @@
     </mat-card-header>
 
     <mat-card-content>
-      <pre>
-        {{ user$ | async | json }}
-      </pre>
+      {{ user() | json }}
 
       <button
         mat-raised-button

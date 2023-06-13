@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '../auth.service';
-import { Observable, Subject, catchError, switchMap, throwError } from 'rxjs';
-import { UserCredential } from '@angular/fire/auth';
+import { EMPTY, Observable, Subject, catchError, exhaustMap, switchMap, throwError } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { User } from 'src/app/store/user/user.model';
 
 @Component({
   selector: 'to-login-form',
@@ -17,30 +18,43 @@ import { UserCredential } from '@angular/fire/auth';
 })
 export class LoginFormComponent {
 
-  readonly loginSource = new Subject<void>;
+  private readonly loginSource = new Subject<void>;
 
-  readonly user$ = this.signInWithGoogle();
+  // private readonly user: Signal<User> = toSignal(this._signInWithGoogle$(), { initialValue: {} as User })
+   readonly user: Signal<User> = this.authService.getUser()
 
   constructor(
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
-    private authService: AuthService
+    private authService: AuthService,
+    private domSanitizer : DomSanitizer,
+    private matIconRegistry : MatIconRegistry,
   ) {
-    this.matIconRegistry.addSvgIcon(
-      "google",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/icons/google-icon.svg")
-    );
+
+    this._setGoogleIcon();
+    this._signInWithGoogle$().subscribe(user => this.authService.setUser(user))
+
   }
 
   protected onButtonClick(): void {
-    this.loginSource.next()
+    this.loginSource.next();
   }
 
-  private signInWithGoogle(){
+  private _signInWithGoogle$(): Observable<User> {
     return this.loginSource.asObservable().pipe(
-      switchMap(() => this.authService.googleAuth().pipe(catchError((error) => {
-        console.log('error', error)
-        return error
-      }))))
+      exhaustMap(() => this.authService.googleAuth$()),
+      catchError((error: Error) => {
+        console.log('error', error);
+        return EMPTY
+      })
+    )
+  }
+
+
+private _setGoogleIcon() {
+  this.matIconRegistry.addSvgIcon(
+    "google",
+    this.domSanitizer.bypassSecurityTrustResourceUrl("assets/icons/google-icon.svg")
+    );
   }
 }
+
+
