@@ -1,18 +1,22 @@
-import { Component, Signal, computed, effect } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '../auth.service';
-import { EMPTY, Observable, Subject, catchError, exhaustMap, switchMap, throwError } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { EMPTY, Observable, Subject, catchError, exhaustMap } from 'rxjs';
 import { User } from 'src/app/store/user/user.model';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'to-login-form',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -20,17 +24,16 @@ export class LoginFormComponent {
 
   private readonly loginSource = new Subject<void>;
 
-  // private readonly user: Signal<User> = toSignal(this._signInWithGoogle$(), { initialValue: {} as User })
-   readonly user: Signal<User> = this.authService.getUser()
-
   constructor(
     private authService: AuthService,
-    private domSanitizer : DomSanitizer,
-    private matIconRegistry : MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+    private matIconRegistry: MatIconRegistry,
   ) {
 
     this._setGoogleIcon();
-    this._signInWithGoogle$().subscribe(user => this.authService.setUser(user))
+    this._signInWithGoogle$()
+      .pipe(takeUntilDestroyed())
+      .subscribe(user => this.authService.setUser(user))
 
   }
 
@@ -48,12 +51,14 @@ export class LoginFormComponent {
     )
   }
 
-
-private _setGoogleIcon() {
-  this.matIconRegistry.addSvgIcon(
-    "google",
-    this.domSanitizer.bypassSecurityTrustResourceUrl("assets/icons/google-icon.svg")
+  private _setGoogleIcon() {
+    this.matIconRegistry.addSvgIcon(
+      "google",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/icons/google-icon.svg")
     );
+  }
+
+  protected onSubmit(value : any) {
   }
 }
 
