@@ -17,8 +17,8 @@ import { MatInputModule } from '@angular/material/input';
   selector: 'to-login-form',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NgOptimizedImage, MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './login-form.component.html',
+  styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent {
 

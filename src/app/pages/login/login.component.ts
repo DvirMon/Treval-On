@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginFormComponent } from 'src/app/auth/login/login.component';
+import { LoginFormComponent } from 'src/app/auth/login-form/login-form.component';
 
 @Component({
   selector: 'to-login-page',
