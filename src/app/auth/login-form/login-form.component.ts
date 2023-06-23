@@ -6,17 +6,18 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { AuthService } from '../auth.service';
-import { EMPTY, Observable, Subject, catchError, exhaustMap } from 'rxjs';
-import { User } from 'src/app/store/user/user.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { EMPTY, Observable, Subject, catchError, exhaustMap } from 'rxjs';
+import { User } from 'src/app/store/user/user.model';
 
 @Component({
   selector: 'to-login-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgOptimizedImage, MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, NgOptimizedImage, MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule],
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
@@ -40,6 +41,7 @@ export class LoginFormComponent {
   protected onButtonClick(): void {
     this.loginSource.next();
   }
+
 
   private _signInWithGoogle$(): Observable<User> {
     return this.loginSource.asObservable().pipe(
