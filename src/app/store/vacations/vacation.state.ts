@@ -17,3 +17,6 @@ export const initialState: State = adapter.getInitialState({
   // additional entity state properties
 });
 
+
+
+

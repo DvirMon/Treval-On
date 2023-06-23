@@ -8,6 +8,15 @@
 mat-card {
   width: 50%;
 
+  mat-card-header {
+    display: flex;
+    justify-content: center;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
   form,
   footer {
     display: flex;
@@ -38,7 +47,7 @@ section.divider {
 
   span {
     margin: 8px;
-    white-space: nowrap;
+    flex-shrink: 0;
     text-align: center;
   }
 }

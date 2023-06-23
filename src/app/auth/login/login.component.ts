@@ -1,5 +1,5 @@
-import { Component, Signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDividerModule } from '@angular/material/divider';
@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'to-login-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgOptimizedImage, MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -58,7 +58,7 @@ export class LoginFormComponent {
     );
   }
 
-  protected onSubmit(value : any) {
+  protected onSubmit(value: any) {
   }
 }
 

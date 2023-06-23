@@ -3,14 +3,26 @@
     height: 100%;
   }
 
+  // div.login-container {
+  //   background-image: url("../../../assets/images/backgrounds/login.png");
+  //   background-repeat: no-repeat;
+  //   background-size: cover;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  // }
+
   div.login-wrapper {
     background-image: url("../../../assets/images/backgrounds/login.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
-    // background-position: right 350px top 25px;
-    
+
     display: grid;
-    grid-template-columns: 1fr .6fr;
+    grid-template-columns: 1fr 0.6fr;
+
+    // width: 90%;
+    // height: 85%;
+    // border-radius: 1%;
 
     div.login-form {
       background-color: rgba(255, 255, 255, 0.15);
@@ -18,3 +30,5 @@
     }
   }
 }
+
+
