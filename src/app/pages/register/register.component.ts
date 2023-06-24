@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegisterFormComponent } from 'src/app/auth/register-form/register-form.component';
 import { FloatingButtonComponent } from 'src/app/components/floating-button/floating-button.component';
@@ -8,13 +8,15 @@ import { FloatingButtonComponent } from 'src/app/components/floating-button/floa
   standalone: true,
   imports: [CommonModule, RegisterFormComponent, FloatingButtonComponent],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  changeDetection : ChangeDetectionStrategy.OnPush
+
 })
 export class RegisterComponent {
 
 
   protected onButtonClick() {
-    
+
   }
 
 }
