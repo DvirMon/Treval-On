@@ -9,7 +9,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'register',
-    loadComponent: () => import("./pages/register/register.component").then(m => m.RegisterComponent)
+    loadComponent: () => import("./pages/register/register.component").then(m => m.RegisterPageComponent)
   },
   {
     path: 'places',

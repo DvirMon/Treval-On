@@ -1,0 +1,15 @@
+<form [formGroup]="otpForm">
+  <ng-container *ngFor="let index of otpLengthArray;  let i = index">
+    <label>{{ index }}</label>
+    <input
+      #input
+      type="text"
+      maxlength="1"
+      [class.focus]="index === focusedIndex"
+      [formControlName]="'digit' + i"
+      (keydown)="onKeyDown($event, index)"
+    />
+  </ng-container>
+  <!-- <div class="otp-input">
+  </div> -->
+</form>
