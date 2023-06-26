@@ -1,9 +1,12 @@
 <div class="container">
   <mat-card>
     <mat-card-header class="center-header">
-      <img ngSrc="../../../assets/images/logo2.png" width="60" height="60" />
-      <!-- <div mat-card-avatar>
-      </div> -->
+      <img
+        ngSrc="../../../assets/images/logo2.png"
+        width="60"
+        height="60"
+        priority
+      />
     </mat-card-header>
     <mat-card-content>
       <ng-container
@@ -11,7 +14,10 @@
       ></ng-container>
 
       <div class="login-form-wrapper">
-        <form (ngSubmit)="onSubmit($event)">
+        <form
+          [formGroup]="loginFormGroup"
+          (ngSubmit)="onSubmit($event, loginFormGroup.value)"
+        >
           <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
             <input autocomplete="off" formControlName="email" matInput />
@@ -22,7 +28,13 @@
             <input autocomplete="off" formControlName="password" matInput />
           </mat-form-field>
 
-          <button class="login-btn" mat-raised-button type="submit" color="primary">
+          <button
+            class="login-btn"
+            mat-raised-button
+            type="submit"
+            color="primary"
+            [disabled]="!loginFormGroup.valid"
+          >
             Login
           </button>
         </form>
@@ -38,14 +50,6 @@
       ></ng-container>
 
       <footer>
-        <!-- <button
-          mat-raised-button
-          [disableRipple]="true"
-          color="accent"
-          [routerLink]="'register'"
-        >
-          Sign-Up
-        </button> -->
         <button
           mat-raised-button
           class="google-btn"
@@ -54,6 +58,13 @@
         >
           <mat-icon svgIcon="google" class="google-icon"></mat-icon>
           Sign in with Google
+        </button>
+        <button
+          mat-raised-button
+          [disableRipple]="true"
+          color="accent"
+        >
+        Sign in with OTP
         </button>
       </footer>
     </mat-card-content>
