@@ -6,13 +6,14 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { AbstractControl, FormControl, FormGroup, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { EMPTY, Observable, Subject, catchError, exhaustMap } from 'rxjs';
 import { User } from 'src/app/store/user/user.model';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 export interface LoginForm {
   email: FormControl<string>
@@ -25,6 +26,19 @@ export interface LoginForm {
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, NgOptimizedImage, MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule],
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
+  animations: [
+    trigger('flip', [
+      state('front', style({
+        transform: 'perspective(800px) rotateY(0deg)'
+      })),
+      state('back', style({
+        transform: 'perspective(800px) rotateY(180deg)'
+      })),
+      transition('front <=> back', [
+        animate('0.5s')
+      ])
+    ])
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })
@@ -85,7 +99,8 @@ export class LoginFormComponent {
   }
 
 
-  protected flipCard(value: boolean) {
+  protected onFlipCard(value: boolean) {
+    console.log(value);
     this.isFlipped.set(!value);
   }
 }

@@ -1,5 +1,24 @@
 <div class="container">
-  <mat-card>
+  <mat-card
+    [@flip]="isFlipped() ? 'back' : 'front'"
+    (click)="onFlipCard(isFlipped())"
+  >
+    <div class="card-inner">
+      <div class="card-front">
+        <!-- Front content -->
+        <h3>Front Content</h3>
+      </div>
+      <div class="card-back">
+        <!-- Back content -->
+        <h3>Back Content</h3>
+        <p>This is the back side of the card.</p>
+      </div>
+      <!-- <mat-card-content>
+    </mat-card-content> -->
+    </div>
+  </mat-card>
+
+  <!-- <mat-card [@flip]="isFlipped ? 'back' : 'front'" (click)="onFlipCard(isFlipped())">
     <mat-card-header class="center-header">
       <img
         ngSrc="../../../assets/images/logo2.png"
@@ -68,7 +87,7 @@
         </button>
       </footer>
     </mat-card-content>
-  </mat-card>
+  </mat-card> -->
 </div>
 
 <ng-template #dividerTemplate let-label>
