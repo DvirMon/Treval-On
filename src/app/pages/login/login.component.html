@@ -6,7 +6,9 @@
         [label]="'Sign-Up'"
         [navigation]="'/register'"
       ></to-floating-button>
-      <to-login-form></to-login-form>
+      <to-flip-card [isFlipped]="isFlipped()">
+        <to-login-form class="front"> </to-login-form>
+      </to-flip-card>
     </div>
   </div>
 </div>

@@ -14,6 +14,7 @@ import { AuthService } from '../auth.service';
 import { EMPTY, Observable, Subject, catchError, exhaustMap } from 'rxjs';
 import { User } from 'src/app/store/user/user.model';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { FlipCardComponent } from 'src/app/components/flip-card/flip-card.component';
 
 export interface LoginForm {
   email: FormControl<string>
@@ -23,23 +24,33 @@ export interface LoginForm {
 @Component({
   selector: 'to-login-form',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, NgOptimizedImage, MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule],
+  imports: [
+    CommonModule, RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgOptimizedImage,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule, MatIconModule,
+    MatDividerModule,
+    ],
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
-  animations: [
-    trigger('flip', [
-      state('front', style({
-        transform: 'perspective(800px) rotateY(0deg)'
-      })),
-      state('back', style({
-        transform: 'perspective(800px) rotateY(180deg)'
-      })),
-      transition('front <=> back', [
-        animate('0.5s')
-      ])
-    ])
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // animations: [
+  //   trigger('flip', [
+  //     state('front', style({
+  //       transform: 'rotateY(0deg)'
+  //     })),
+  //     state('back', style({
+  //       transform: 'rotateY(180deg)'
+  //     })),
+  //     transition('front <=> back', [
+  //       animate('0.5s')
+  //     ])
+  //   ])
+  // ],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 
 })
 export class LoginFormComponent {
