@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, WritableSignal, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, WritableSignal, inject, runInInjectionContext, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -36,34 +36,15 @@ export interface LoginForm {
   ],
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
-  // animations: [
-  //   trigger('flip', [
-  //     state('front', style({
-  //       transform: 'rotateY(0deg)'
-  //     })),
-  //     state('back', style({
-  //       transform: 'rotateY(180deg)'
-  //     })),
-  //     transition('front <=> back', [
-  //       animate('0.5s')
-  //     ])
-  //   ])
-  // ],
-  // changeDetection: ChangeDetectionStrategy.OnPush
-
 })
 export class LoginFormComponent {
 
   private readonly loginSource = new Subject<void>;
   protected readonly loginFormGroup: FormGroup<LoginForm>;
-  protected isFlipped: WritableSignal<boolean> = signal(false);
+  private readonly injector = inject(Injector);
 
   constructor(
     private authService: AuthService,
-    private domSanitizer: DomSanitizer,
-    private matIconRegistry: MatIconRegistry,
-    private nfb: NonNullableFormBuilder,
-    private flipService: FlipCardService
   ) {
 
     this._setGoogleIcon();
@@ -72,21 +53,16 @@ export class LoginFormComponent {
       .pipe(takeUntilDestroyed())
       .subscribe(user => this.authService.setUser(user))
 
-    this.loginFormGroup = this._getLoginFormGroup()
+    this.loginFormGroup = this._getLoginFormGroup(inject(NonNullableFormBuilder))
 
   }
 
-  private _getLoginFormGroup(): FormGroup<LoginForm> {
-    return this.nfb.group({
-      email: this.nfb.control('', [Validators.required, Validators.email]),
-      password: this.nfb.control('', [Validators.required]),
-    })
+  private _setGoogleIcon(): void {
+    inject(MatIconRegistry).addSvgIcon(
+      "google",
+      inject(DomSanitizer).bypassSecurityTrustResourceUrl("assets/icons/google-icon.svg")
+    );
   }
-
-  protected onButtonClick(): void {
-    this.loginSource.next();
-  }
-
 
   private _signInWithGoogle$(): Observable<User> {
     return this.loginSource.asObservable().pipe(
@@ -98,11 +74,15 @@ export class LoginFormComponent {
     )
   }
 
-  private _setGoogleIcon(): void {
-    this.matIconRegistry.addSvgIcon(
-      "google",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/icons/google-icon.svg")
-    );
+  private _getLoginFormGroup(nfb: NonNullableFormBuilder ): FormGroup<LoginForm> {
+    return nfb.group({
+      email: nfb.control('', [Validators.required, Validators.email]),
+      password: nfb.control('', [Validators.required]),
+    })
+  }
+
+  protected onButtonClick(): void {
+    this.loginSource.next();
   }
 
   protected onSubmit(event: SubmitEvent, value: Partial<{ email: string; password: string; }>): void {
@@ -110,8 +90,10 @@ export class LoginFormComponent {
   }
 
 
-  protected onFlipCard(value: boolean): void {
-    this.flipService.flip()
+  protected onOTP(): void {
+    runInInjectionContext(this.injector, () => {
+      inject(FlipCardService).flip()
+    })
   }
 }
 
