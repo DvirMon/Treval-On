@@ -1,0 +1,15 @@
+<mat-card
+  [style.width.px]="width || 400"
+  [style.height.px]="height || 540"
+  [@flip]="isFlipped() ? 'back' : 'front'"
+  (click)="onCardClick()"
+>
+  <div class="card-inner">
+    <div class="card-front">
+      <ng-content select=".front"></ng-content>
+    </div>
+    <div class="card-back">
+      <ng-content select=".back"></ng-content>
+    </div>
+  </div>
+</mat-card>

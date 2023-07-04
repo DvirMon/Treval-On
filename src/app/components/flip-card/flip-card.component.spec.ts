@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegisterComponent } from './register.component';
+import { FlipCardComponent } from './flip-card.component';
 
-describe('RegisterComponent', () => {
-  let component: RegisterComponent;
-  let fixture: ComponentFixture<RegisterComponent>;
+describe('FlipCardComponent', () => {
+  let component: FlipCardComponent;
+  let fixture: ComponentFixture<FlipCardComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RegisterComponent]
+      imports: [FlipCardComponent]
     });
-    fixture = TestBed.createComponent(RegisterComponent);
+    fixture = TestBed.createComponent(FlipCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

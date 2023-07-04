@@ -1,33 +1,12 @@
-.container {
-  display: flex;
+mat-card-header {
   justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-mat-card {
-  width: 50%;
-
-  mat-card-header {
-    display: flex;
-    justify-content: center;
-
-    img {
-      border-radius: 50%;
-    }
-  }
-
-  form,
-  footer {
-    display: flex;
-    justify-content: center;
-  }
 }
 
 div.login-form-wrapper {
   padding: 0 16px;
 }
 form {
+  display: flex;
   flex-direction: column;
   padding: 16px 0;
 
@@ -52,12 +31,6 @@ section.divider {
   }
 }
 
-button.login-btn {
-  width: 100%;
-  // background-color: black;
-  // color: white;
-}
-
 section.forget-btn {
   width: 100%;
   display: flex;
@@ -69,15 +42,14 @@ section.forget-btn {
 }
 
 footer {
+  display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: 0 16px;
 
   button {
     margin: 8px 0;
-
-
   }
-
 }
 
 button.google-btn {

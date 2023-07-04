@@ -1,63 +1,73 @@
-<div class="container">
-  <mat-card>
-    <mat-card-header class="center-header">
-      <img ngSrc="../../../assets/images/logo2.png" width="60" height="60" />
-      <!-- <div mat-card-avatar>
-      </div> -->
-    </mat-card-header>
-    <mat-card-content>
-      <ng-container
-        *ngTemplateOutlet="dividerTemplate; context: { $implicit: 'Sign In' }"
-      ></ng-container>
+<div>
+  <mat-card-header class="center-header">
+    <img
+      ngSrc="../../../assets/images/logo2.png"
+      width="60"
+      height="60"
+      priority
+    />
+  </mat-card-header>
+  <mat-card-content>
+    <ng-container
+      *ngTemplateOutlet="dividerTemplate; context: { $implicit: 'Sign In' }"
+    ></ng-container>
 
-      <div class="login-form-wrapper">
-        <form (ngSubmit)="onSubmit($event)">
-          <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input autocomplete="off" formControlName="email" matInput />
-          </mat-form-field>
+    <div class="login-form-wrapper">
+      <form
+        [formGroup]="loginFormGroup"
+        (ngSubmit)="onSubmit($event, loginFormGroup.value)"
+      >
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input autocomplete="off" formControlName="email" matInput />
+        </mat-form-field>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
-            <input autocomplete="off" formControlName="password" matInput />
-          </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input autocomplete="off" formControlName="password" matInput />
+        </mat-form-field>
 
-          <button class="login-btn" mat-raised-button type="submit" color="primary">
-            Login
-          </button>
-        </form>
-
-        <section class="forget-btn">
-          <button [disableRipple]="true" mat-button type="button">
-            Forget your password ?
-          </button>
-        </section>
-      </div>
-      <ng-container
-        *ngTemplateOutlet="dividerTemplate; context: { $implicit: 'or' }"
-      ></ng-container>
-
-      <footer>
         <button
+          class="login-btn"
           mat-raised-button
-          [disableRipple]="true"
-          color="accent"
-          [routerLink]="'register'"
+          type="submit"
+          color="primary"
+          [disabled]="!loginFormGroup.valid"
         >
-          Sign-Up
+          Login
         </button>
-        <button
-          mat-raised-button
-          class="google-btn"
-          [disableRipple]="true"
-          (click)="onButtonClick()"
-        >
-          <mat-icon svgIcon="google" class="google-icon"></mat-icon>
-          Sign in with Google
+      </form>
+
+      <section class="forget-btn">
+        <button [disableRipple]="true" mat-button type="button">
+          Forget your password ?
         </button>
-      </footer>
-    </mat-card-content>
-  </mat-card>
+      </section>
+    </div>
+    <ng-container
+      *ngTemplateOutlet="dividerTemplate; context: { $implicit: 'or' }"
+    ></ng-container>
+
+    <footer>
+      <button
+        mat-raised-button
+        class="google-btn"
+        [disableRipple]="true"
+        (click)="onButtonClick()"
+      >
+        <mat-icon svgIcon="google" class="google-icon"></mat-icon>
+        Sign in with Google
+      </button>
+      <button
+        mat-raised-button
+        [disableRipple]="true"
+        color="accent"
+        (click)="onOTP()"
+      >
+        Sign in with OTP
+      </button>
+    </footer>
+  </mat-card-content>
 </div>
 
 <ng-template #dividerTemplate let-label>
