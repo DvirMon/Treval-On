@@ -15,7 +15,4 @@ import { FlipCardComponent } from 'src/app/components/flip-card/flip-card.compon
 })
 export class LoginPageComponent {
 
-
-  protected isFlipped: WritableSignal<boolean> = signal(false);
-
 }

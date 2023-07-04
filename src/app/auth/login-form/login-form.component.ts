@@ -13,8 +13,7 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { EMPTY, Observable, Subject, catchError, exhaustMap } from 'rxjs';
 import { User } from 'src/app/store/user/user.model';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { FlipCardComponent } from 'src/app/components/flip-card/flip-card.component';
+import { FlipCardService } from 'src/app/components/flip-card/flip-card.service';
 
 export interface LoginForm {
   email: FormControl<string>
@@ -34,7 +33,7 @@ export interface LoginForm {
     MatCardModule,
     MatButtonModule, MatIconModule,
     MatDividerModule,
-    ],
+  ],
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
   // animations: [
@@ -63,7 +62,8 @@ export class LoginFormComponent {
     private authService: AuthService,
     private domSanitizer: DomSanitizer,
     private matIconRegistry: MatIconRegistry,
-    private nfb: NonNullableFormBuilder
+    private nfb: NonNullableFormBuilder,
+    private flipService: FlipCardService
   ) {
 
     this._setGoogleIcon();
@@ -98,21 +98,20 @@ export class LoginFormComponent {
     )
   }
 
-  private _setGoogleIcon() {
+  private _setGoogleIcon(): void {
     this.matIconRegistry.addSvgIcon(
       "google",
       this.domSanitizer.bypassSecurityTrustResourceUrl("assets/icons/google-icon.svg")
     );
   }
 
-  protected onSubmit(event: SubmitEvent, value: Partial<{ email: string; password: string; }>) {
+  protected onSubmit(event: SubmitEvent, value: Partial<{ email: string; password: string; }>): void {
     console.log(value);
   }
 
 
-  protected onFlipCard(value: boolean) {
-    console.log(value);
-    this.isFlipped.set(!value);
+  protected onFlipCard(value: boolean): void {
+    this.flipService.flip()
   }
 }
 
