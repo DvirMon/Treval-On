@@ -2,7 +2,7 @@ import { importProvidersFrom, isDevMode } from '@angular/core';
 import { AppComponent } from './app/app.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { appRoutes } from './app/app.routes';
 
 import { provideStore } from '@ngrx/store';
@@ -32,7 +32,7 @@ bootstrapApplication(AppComponent, {
         provideMessaging(() => getMessaging()),
         provideAnalytics(() => getAnalytics()),
       ),
-    provideRouter(appRoutes),
+    provideRouter(appRoutes, withComponentInputBinding()),
     provideHttpClient(),
     provideAnimations(),
     provideStore({ [vacationsFeatureKey]: vacationReducer }),
