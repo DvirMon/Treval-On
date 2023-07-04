@@ -12,7 +12,7 @@ export const appRoutes: Routes = [
     loadComponent: () => import("./pages/register/register.component").then(m => m.RegisterPageComponent)
   },
   {
-    path: 'places',
+    path: 'places/:userId',
     loadComponent: () => import("./pages/home/home.component").then(m => m.HomeComponent)
   },
   {

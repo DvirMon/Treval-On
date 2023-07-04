@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Signal, WritableSignal, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Signal, WritableSignal, booleanAttribute, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -63,7 +63,7 @@ export class VacationCardButtonComponent {
   }
 
 
-  @Input()
+  @Input({ required: true, transform : booleanAttribute })
   set selected(value: boolean) {
     this.isSelected.set(this._getSelectedState(value))
   }

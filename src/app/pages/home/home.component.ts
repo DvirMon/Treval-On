@@ -1,4 +1,4 @@
-import { Component, Signal, inject } from '@angular/core';
+import { Component, Input, Signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Vacation } from 'src/app/store/vacations/vacation.model';
 import { StoreService } from 'src/app/store/store.service';
@@ -13,6 +13,8 @@ import { StoreService } from 'src/app/store/store.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+
+  @Input() userId! : string
 
   private readonly storeService : StoreService = inject(StoreService)
   protected readonly vacations: Signal<Vacation[]>;
