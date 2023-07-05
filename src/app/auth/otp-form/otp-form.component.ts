@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
+import { ContactFormComponent, MessageType } from '../contact-form/contact-form.component';
 
 @Component({
   selector: 'to-otp-form',
@@ -26,12 +27,18 @@ import { tap } from 'rxjs';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatDividerModule,
+    ContactFormComponent
+
   ],
   templateUrl: './otp-form.component.html',
   styleUrls: ['./otp-form.component.scss']
 })
 export class OtpFormComponent {
+
+
+  phoneOtp : MessageType = MessageType.SMS
+  emailOtp : MessageType = MessageType.Email
+
 
   phoneNumberForm: FormControl<string>;
   otpForm: FormControl<string>;
@@ -48,14 +55,6 @@ export class OtpFormComponent {
     this.otpForm = this.createOTPForm();
 
   }
-
-  // ngOnInit(): void {
-  //   this.buildPhoneNumberForm();
-  //   this.buildOTPForm();
-  // }
-
-  // private buildPhoneNumberForm(): void {
-  // }
 
   private createPhoneNumberForm(): FormControl<string> {
     return this.nfb.control('', [Validators.required])

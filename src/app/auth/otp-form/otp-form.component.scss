@@ -27,25 +27,4 @@ section.tab-label {
 
 section.tab-content {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  // justify-content: center;
-  align-items: center;
-  gap: 16px;
-
-  span {
-    flex: .5;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-  }
 }

@@ -1,0 +1,18 @@
+<div class="contact-form">
+  <span> Get OPT with {{ contactType }} </span>
+  <form (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter {{ label }}</mat-label>
+      <input matInput [formControl]="formControl" />
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!formControl.valid"
+      [disableRipple]="true"
+    >
+      Send OTP
+    </button>
+  </form>
+</div>

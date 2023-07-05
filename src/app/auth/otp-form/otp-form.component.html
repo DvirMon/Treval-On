@@ -8,29 +8,9 @@
             context: { icon: 'sms', label: 'SMS' }
           "
         ></ng-container>
-        <!-- <section class="tab-label">
-          <mat-icon>sms</mat-icon>
-          <span> Use SMS </span>
-        </section> -->
       </ng-template>
       <section class="tab-content">
-        <span> Get OPT with SMS </span>
-
-        <form (ngSubmit)="onPhoneNumberSubmit()">
-          <mat-form-field appearance="fill">
-            <mat-label>Enter Phone Number</mat-label>
-            <input matInput [formControl]="phoneNumberForm" />
-          </mat-form-field>
-          <button
-            mat-raised-button
-            color="primary"
-            type="submit"
-            [disabled]="!phoneNumberForm.valid"
-            [disableRipple]="true"
-          >
-            Send OTP
-          </button>
-        </form>
+        <to-contact-form [type]="phoneOtp"></to-contact-form>
       </section>
     </mat-tab>
 
@@ -44,19 +24,7 @@
         ></ng-container>
       </ng-template>
       <section class="tab-content">
-        <!-- <form (ngSubmit)="onPhoneNumberSubmit()">
-          <mat-form-field appearance="fill" color="accent">
-            <mat-label>Email</mat-label>
-            <input
-              matInput
-              [formControl]="phoneNumberForm"
-              placeholder="Enter phone number"
-            />
-          </mat-form-field>
-          <button mat-raised-button color="primary" type="submit">
-            Send OTP
-          </button>
-        </form> -->
+        <to-contact-form  [type]="emailOtp"></to-contact-form>
       </section>
     </mat-tab>
   </mat-tab-group>
