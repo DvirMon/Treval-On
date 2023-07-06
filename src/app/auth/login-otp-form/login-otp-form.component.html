@@ -1,0 +1,52 @@
+<mat-stepper
+  class="otp-form-stepper"
+  [selectedIndex]="selectedIndex()"
+  #stepper
+>
+  <mat-step>
+    <mat-tab-group
+      class="contact-form-tab-group"
+      animationDuration="0ms"
+      mat-stretch-tabs
+    >
+      <ng-container *ngFor="let tab of tabs">
+        <mat-tab>
+          <ng-template matTabLabel>
+            <ng-container
+              *ngTemplateOutlet="
+                labelTemplate;
+                context: { icon: tab.icon, label: tab.label }
+              "
+            ></ng-container>
+          </ng-template>
+          <ng-template matTabContent>
+            <ng-container
+              *ngTemplateOutlet="
+                contentTemplate;
+                context: { $implicit: tab.type }
+              "
+            ></ng-container>
+          </ng-template>
+        </mat-tab>
+      </ng-container>
+    </mat-tab-group>
+  </mat-step>
+  <mat-step>
+    <div class="otp-step">
+      <to-otp-form></to-otp-form>
+    </div>
+  </mat-step>
+</mat-stepper>
+
+<ng-template #labelTemplate let-icon="icon" let-label="label">
+  <section class="tab-label">
+    <mat-icon>{{ icon }}</mat-icon>
+    <span> Use {{ label }} </span>
+  </section>
+</ng-template>
+
+<ng-template #contentTemplate let-type>
+  <section class="tab-content">
+    <to-contact-form [type]="type"></to-contact-form>
+  </section>
+</ng-template>

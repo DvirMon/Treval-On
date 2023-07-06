@@ -42,14 +42,10 @@ interface Tab {
 })
 export class OtpFormComponent {
 
-  tabs: Tab[] = [
+  protected readonly tabs: Tab[] = [
     { icon: 'sms', label: 'SMS', type: MessageType.SMS },
     { icon: 'mail', label: 'Email', type: MessageType.Email }
   ];
-
-
-  phoneOtp: MessageType = MessageType.SMS
-  emailOtp: MessageType = MessageType.Email
 
 
   phoneNumberForm: FormControl<string>;

@@ -1,0 +1,46 @@
+@use "variables" as main;
+
+div,
+section {
+  height: 100%;
+}
+
+::ng-deep mat-stepper.otp-form-stepper {
+  height: 100%;
+
+  div.mat-horizontal-stepper-header-container {
+    display: none;
+  }
+
+  div.mat-horizontal-stepper-wrapper {
+    height: 100% !important;
+    div.mat-horizontal-content-container {
+      height: inherit;
+    }
+  }
+
+  // mat-horizontal-stepper-content
+
+  mat-tab-group.contact-form-tab-group {
+    height: 100%;
+
+    div.mat-mdc-tab {
+      height: main.spacing(10) !important;
+    }
+
+    div.mdc-tab--active {
+      background-color: main.primary-palate(50);
+    }
+
+    div.mat-mdc-tab-body-wrapper {
+      height: 400px;
+    }
+  }
+
+  div.otp-step {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

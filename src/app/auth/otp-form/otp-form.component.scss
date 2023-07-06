@@ -1,48 +1,9 @@
 @use "variables" as main;
 
-div,
-section {
-  height: 100%;
-}
-
-::ng-deep mat-stepper.otp-form-stepper {
-  height: 100%;
-
-  div.mat-horizontal-stepper-header-container {
-    display: none;
-  }
-
-  div.mat-horizontal-stepper-wrapper,
-  div.mat-horizontal-stepper-content,
-  div.mat-horizontal-content-container {
-    height: 100% !important;
-  }
-
-  mat-tab-group.contact-form-tab-group {
-    height: 100%;
-
-    div.mat-mdc-tab {
-      height: main.spacing(10) !important;
-    }
-
-    div.mdc-tab--active {
-      background-color: main.primary-palate(50);
-    }
-
-    div.mat-mdc-tab-body-wrapper {
-      height: 100%;
-    }
-  }
-}
-
-section.tab-label {
+form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: main.spacing(1);
-
-  span {
-    font-size: main.spacing(1.6);
-  }
 }
