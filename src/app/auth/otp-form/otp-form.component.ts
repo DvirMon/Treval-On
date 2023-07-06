@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {  FormControl, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
@@ -12,6 +12,12 @@ import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
 import { ContactFormComponent, MessageType } from '../contact-form/contact-form.component';
+
+interface Tab {
+  icon: string;
+  label: string;
+  type: MessageType;
+}
 
 @Component({
   selector: 'to-otp-form',
@@ -35,9 +41,14 @@ import { ContactFormComponent, MessageType } from '../contact-form/contact-form.
 })
 export class OtpFormComponent {
 
+  tabs: Tab[] = [
+    { icon: 'sms', label: 'SMS', type: MessageType.SMS },
+    { icon: 'mail', label: 'Email', type: MessageType.Email }
+  ];
 
-  phoneOtp : MessageType = MessageType.SMS
-  emailOtp : MessageType = MessageType.Email
+
+  phoneOtp: MessageType = MessageType.SMS
+  emailOtp: MessageType = MessageType.Email
 
 
   phoneNumberForm: FormControl<string>;

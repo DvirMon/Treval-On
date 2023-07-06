@@ -1,33 +1,36 @@
 <div *ngIf="!showOtp">
   <mat-tab-group class="otp-form" animationDuration="0ms" mat-stretch-tabs>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <ng-container
-          *ngTemplateOutlet="
-            headerTemplate;
-            context: { icon: 'sms', label: 'SMS' }
-          "
-        ></ng-container>
-      </ng-template>
-      <section class="tab-content">
-        <to-contact-form [type]="phoneOtp"></to-contact-form>
-      </section>
-    </mat-tab>
-
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <ng-container
-          *ngTemplateOutlet="
-            headerTemplate;
-            context: { icon: 'mail', label: 'Email' }
-          "
-        ></ng-container>
-      </ng-template>
-      <section class="tab-content">
-        <to-contact-form  [type]="emailOtp"></to-contact-form>
-      </section>
-    </mat-tab>
+    <ng-container *ngFor="let tab of tabs">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <ng-container
+            *ngTemplateOutlet="
+              headerTemplate;
+              context: { icon: tab.icon, label: tab.label }
+            "
+          ></ng-container>
+        </ng-template>
+        <ng-template matTabContent>
+          <ng-container
+          *ngTemplateOutlet="contentTemplate; context: { $implicit: tab.type }"
+          ></ng-container>
+        </ng-template>
+      </mat-tab>
+    </ng-container>
   </mat-tab-group>
+
+  <ng-template #headerTemplate let-icon="icon" let-label="label">
+    <section class="tab-label">
+      <mat-icon>{{ icon }}</mat-icon>
+      <span> Use {{ label }} </span>
+    </section>
+  </ng-template>
+
+  <ng-template #contentTemplate let-type>
+    <section class="tab-content">
+      <to-contact-form [type]="type"></to-contact-form>
+    </section>
+  </ng-template>
 </div>
 
 <div *ngIf="showOtp">
@@ -49,9 +52,3 @@
   </form>
 </div>
 
-<ng-template #headerTemplate let-icon="icon" let-label="label">
-  <section class="tab-label">
-    <mat-icon>{{ icon }}</mat-icon>
-    <span> Use {{ label }} </span>
-  </section>
-</ng-template>
