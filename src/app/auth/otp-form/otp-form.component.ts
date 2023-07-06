@@ -60,9 +60,6 @@ export class OtpFormComponent {
     return this.nfb.control('', [Validators.required])
   }
 
-  // private buildOTPForm(): void {
-  // }
-
   private createOTPForm(): FormControl<string> {
     return this.nfb.control('', [Validators.required])
 

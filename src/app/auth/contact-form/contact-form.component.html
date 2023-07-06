@@ -1,6 +1,6 @@
 <div class="contact-form">
   <span> Get OPT with {{ contactType }} </span>
-  <form (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="onSubmit(type, formControl.value)">
     <mat-form-field appearance="fill">
       <mat-label>Enter {{ label }}</mat-label>
       <input matInput [formControl]="formControl" />
