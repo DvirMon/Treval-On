@@ -1,84 +1,17 @@
+
+
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use "@angular/material" as mat;
-// Plus imports for other components in your app.
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-
-$plt-primary: (
-  50: #fff8e1,
-  100: #ffecb5,
-  200: #ffe083,
-  300: #ffd451,
-  400: #ffca2c,
-  500: #ffc107,
-  600: #ffbb06,
-  700: #ffb305,
-  800: #ffab04,
-  900: #ff9e02,
-  A100: #ffffff,
-  A200: #fffaf2,
-  A400: #ffe4bf,
-  A700: #ffd9a6,
-  contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #000000,
-    400: #000000,
-    500: #000000,
-    600: #000000,
-    700: #000000,
-    800: #000000,
-    900: #000000,
-    A100: #000000,
-    A200: #000000,
-    A400: #000000,
-    A700: #000000,
-  ),
-);
-
-$plt-accent: (
-  50: #ffebe4,
-  100: #ffcdbd,
-  200: #ffab91,
-  300: #ff8964,
-  400: #ff7043,
-  500: #ff5722,
-  600: #ff4f1e,
-  700: #ff4619,
-  800: #ff3c14,
-  900: #ff2c0c,
-  A100: #ffffff,
-  A200: #fff7f6,
-  A400: #ffc9c3,
-  A700: #ffb2a9,
-  contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #000000,
-    400: #000000,
-    500: #000000,
-    600: #ffffff,
-    700: #ffffff,
-    800: #ffffff,
-    900: #ffffff,
-    A100: #000000,
-    A200: #000000,
-    A400: #000000,
-    A700: #000000,
-  ),
-);
+@use 'color-palettes' as palettes;
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 
-$travel-on-primary: mat.define-palette($plt-primary);
-$travel-on-accent: mat.define-palette($plt-accent);
+$travel-on-primary: mat.define-palette(palettes.primary-palette());
+$travel-on-accent: mat.define-palette(palettes.accent-palette());
 
 // The warn palette is optional (defaults to red).
 $travel-on-warn: mat.define-palette(mat.$red-palette);
@@ -118,11 +51,11 @@ $a-keys: (
 
   :root {
     @each $key in $p-keys {
-      --p-#{$key}: #{map-get($plt-primary, $key)};
+      --p-#{$key}: #{map-get(palettes.primary-palette(), $key)};
     }
 
     @each $key, $value in $a-keys {
-      --a-#{$key}: #{map-get($plt-accent, $value)};
+      --a-#{$key}: #{map-get(palettes.accent-palette(), $value)};
     }
 
     @each $key, $value in $plt-background {

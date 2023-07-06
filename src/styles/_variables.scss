@@ -1,11 +1,7 @@
+@use "color-palettes" as palettes;
+
 $colors: (
-  info: #5bc0de,
-  text-primary: #673ab7,
-  text-secondary: #8c52f0,
-  success-primary: #56c04d,
-  success-secondary: #1d8813,
-  paper: #ffffff,
-  coin-panel: #71c9db,
+  primary: #ffc107,
 );
 
 $grid-breakpoints: (
@@ -16,8 +12,12 @@ $grid-breakpoints: (
   xl: 1200px,
 );
 
-@function color($color-name) {
-  @return map-get($colors, $color-name);
+@function primary-palate($code) {
+  @return map-get(palettes.primary-palette(), $code);
+}
+
+@function accent-palate($code) {
+  @return map-get(palettes.accent-palette(), $code);
 }
 
 @function spacing($padding) {

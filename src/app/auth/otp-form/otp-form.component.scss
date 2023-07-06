@@ -1,4 +1,4 @@
-@use 'variables' as vars;
+@use "variables" as main;
 
 div {
   height: 100%;
@@ -8,11 +8,11 @@ mat-tab-group.otp-form {
   height: 100%;
 }
 ::ng-deep div.mat-mdc-tab {
-  height: 72px !important;
+  height: main.spacing(10) !important;
 }
 
 ::ng-deep div.mdc-tab--active {
-  background-color: grey !important
+  background-color: main.primary-palate(50);
 }
 
 ::ng-deep div.mat-mdc-tab-body-wrapper {
@@ -24,7 +24,7 @@ section.tab-label {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: main.spacing(1);
 
   span {
     font-size: 14px;
