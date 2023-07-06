@@ -2,10 +2,10 @@
   <mat-tab-group class="otp-form" animationDuration="0ms" mat-stretch-tabs>
     <ng-container *ngFor="let tab of tabs">
       <mat-tab>
-        <ng-template mat-tab-label>
+        <ng-template matTabLabel>
           <ng-container
             *ngTemplateOutlet="
-              headerTemplate;
+              labelTemplate;
               context: { icon: tab.icon, label: tab.label }
             "
           ></ng-container>
@@ -19,7 +19,7 @@
     </ng-container>
   </mat-tab-group>
 
-  <ng-template #headerTemplate let-icon="icon" let-label="label">
+  <ng-template #labelTemplate let-icon="icon" let-label="label">
     <section class="tab-label">
       <mat-icon>{{ icon }}</mat-icon>
       <span> Use {{ label }} </span>
