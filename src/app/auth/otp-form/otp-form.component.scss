@@ -1,22 +1,38 @@
 @use "variables" as main;
 
-div {
+div,
+section {
   height: 100%;
 }
 
-mat-tab-group.otp-form {
+::ng-deep mat-stepper.otp-form-stepper {
   height: 100%;
-}
-::ng-deep div.mat-mdc-tab {
-  height: main.spacing(10) !important;
-}
 
-::ng-deep div.mdc-tab--active {
-  background-color: main.primary-palate(50);
-}
+  div.mat-horizontal-stepper-header-container {
+    display: none;
+  }
 
-::ng-deep div.mat-mdc-tab-body-wrapper {
-  height: 100%;
+  div.mat-horizontal-stepper-wrapper,
+  div.mat-horizontal-stepper-content,
+  div.mat-horizontal-content-container {
+    height: 100% !important;
+  }
+
+  mat-tab-group.contact-form-tab-group {
+    height: 100%;
+
+    div.mat-mdc-tab {
+      height: main.spacing(10) !important;
+    }
+
+    div.mdc-tab--active {
+      background-color: main.primary-palate(50);
+    }
+
+    div.mat-mdc-tab-body-wrapper {
+      height: 100%;
+    }
+  }
 }
 
 section.tab-label {
@@ -27,10 +43,6 @@ section.tab-label {
   gap: main.spacing(1);
 
   span {
-    font-size: 14px;
+    font-size: main.spacing(1.6);
   }
-}
-
-section.tab-content {
-  height: 100%;
 }

@@ -4,9 +4,9 @@ import { FormControl, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, 
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -27,6 +27,7 @@ interface Tab {
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    MatStepperModule,
     MatTabsModule,
     MatFormFieldModule,
     MatInputModule,
