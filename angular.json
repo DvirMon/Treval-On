@@ -17,6 +17,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "stylePreprocessorOptions": {
+              "includePaths": ["src", "src/styles"]
+            },
             "outputPath": "dist/travel-on",
             "index": "src/index.html",
             "main": "src/main.ts",

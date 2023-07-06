@@ -1,0 +1,29 @@
+$colors: (
+  info: #5bc0de,
+  text-primary: #673ab7,
+  text-secondary: #8c52f0,
+  success-primary: #56c04d,
+  success-secondary: #1d8813,
+  paper: #ffffff,
+  coin-panel: #71c9db,
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 840px,
+  lg: 992px,
+  xl: 1200px,
+);
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+@function spacing($padding) {
+  @return $padding * 8px;
+}
+
+@function size($breakpoints) {
+  @return map-get($grid-breakpoints, $breakpoints);
+}
