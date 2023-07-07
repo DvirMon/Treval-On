@@ -68,7 +68,7 @@ export class LoginFormComponent {
 
   private _signInWithGoogle$(): Observable<User> {
     return this.loginSource.asObservable().pipe(
-      exhaustMap(() => this.authService.googleAuth$()),
+      exhaustMap(() => this.authService.signInWithGoogle$()),
       catchError((error: Error) => {
         console.log('error', error);
         return EMPTY
