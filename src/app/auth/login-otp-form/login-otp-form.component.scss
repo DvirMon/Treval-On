@@ -19,8 +19,10 @@ section {
     }
   }
 
-  // mat-horizontal-stepper-content
-
+  div.otp-step {
+    height: 460px;
+  }
+  
   mat-tab-group.contact-form-tab-group {
     height: 100%;
 
@@ -33,14 +35,7 @@ section {
     }
 
     div.mat-mdc-tab-body-wrapper {
-      height: 400px;
+      height: 100%;
     }
-  }
-
-  div.otp-step {
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 }

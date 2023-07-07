@@ -4,32 +4,34 @@
   #stepper
 >
   <mat-step>
-    <mat-tab-group
-      class="contact-form-tab-group"
-      animationDuration="0ms"
-      mat-stretch-tabs
-    >
-      <ng-container *ngFor="let tab of tabs">
-        <mat-tab>
-          <ng-template matTabLabel>
-            <ng-container
-              *ngTemplateOutlet="
-                labelTemplate;
-                context: { icon: tab.icon, label: tab.label }
-              "
-            ></ng-container>
-          </ng-template>
-          <ng-template matTabContent>
-            <ng-container
-              *ngTemplateOutlet="
-                contentTemplate;
-                context: { $implicit: tab.type }
-              "
-            ></ng-container>
-          </ng-template>
-        </mat-tab>
-      </ng-container>
-    </mat-tab-group>
+    <div class="otp-step">
+      <mat-tab-group
+        class="contact-form-tab-group"
+        animationDuration="0ms"
+        mat-stretch-tabs
+      >
+        <ng-container *ngFor="let tab of tabs">
+          <mat-tab>
+            <ng-template matTabLabel>
+              <ng-container
+                *ngTemplateOutlet="
+                  labelTemplate;
+                  context: { icon: tab.icon, label: tab.label }
+                "
+              ></ng-container>
+            </ng-template>
+            <ng-template matTabContent>
+              <ng-container
+                *ngTemplateOutlet="
+                  contentTemplate;
+                  context: { $implicit: tab.type }
+                "
+              ></ng-container>
+            </ng-template>
+          </mat-tab>
+        </ng-container>
+      </mat-tab-group>
+    </div>
   </mat-step>
   <mat-step>
     <div class="otp-step">
@@ -47,6 +49,9 @@
 
 <ng-template #contentTemplate let-type>
   <section class="tab-content">
-    <to-contact-form [type]="type"></to-contact-form>
+    <to-contact-form
+      [type]="type"
+      (contactSubmit)="onContactSubmit($event)"
+    ></to-contact-form>
   </section>
 </ng-template>

@@ -1,5 +1,15 @@
 import { Injectable, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { Auth, signInWithPhoneNumber, signInWithPopup, GoogleAuthProvider, ApplicationVerifier, UserCredential, User as UserFirebase, ConfirmationResult } from '@angular/fire/auth';
+import {
+  Auth,
+  signInWithPhoneNumber,
+  signInWithPopup,
+  GoogleAuthProvider,
+  ApplicationVerifier,
+  RecaptchaVerifier,
+  UserCredential,
+  User as UserFirebase,
+  ConfirmationResult
+} from '@angular/fire/auth';
 import { Observable, from, map } from 'rxjs';
 import { User } from '../store/user/user.model';
 
@@ -15,10 +25,11 @@ class PhoneVerifier implements ApplicationVerifier {
     // Implement your custom verification logic here
     // This method should return a Promise that resolves with a verification ID
 
-    return Promise.resolve('verificationId');
+    return Promise.resolve('658695');
   }
 }
 
+@Injectable({ providedIn: "root" })
 
 export class AuthService {
 
@@ -47,16 +58,16 @@ export class AuthService {
       .pipe(
         map((credential: UserCredential) => credential.user),
         map((userFirebase: UserFirebase) => {
-          const user = this.mapUser(userFirebase)
+          const user = this._mapUser(userFirebase)
           return user
         }))
   }
 
-  public signInWithPhone(phone: string, verify: ApplicationVerifier): Observable<ConfirmationResult> {
-    return from(signInWithPhoneNumber(this.auth, phone, new PhoneVerifier()))
+  public signInWithPhone$(phone: string): Observable<ConfirmationResult> {
+    return from(signInWithPhoneNumber(this.auth, phone, new RecaptchaVerifier('recaptcha', { size: 'invisible' }, this.auth)))
   }
 
-  private mapUser(user: UserFirebase): User {
+  private _mapUser(user: UserFirebase): User {
     return {
       uid: user.uid,
       displayName: user.displayName,

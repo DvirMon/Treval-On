@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
+import { AuthService } from '../auth.service';
 
 export enum MessageType {
   Email = 'Email',
@@ -39,12 +40,13 @@ export class ContactFormComponent implements OnInit {
   @Input() contactType!: string
   @Input() label!: string
 
-  @Output() submit: EventEmitter<ContactSubmitEvent> = new EventEmitter();
+  @Output() contactSubmit: EventEmitter<ContactSubmitEvent> = new EventEmitter();
 
   protected formControl!: FormControl<string>
 
   constructor(
     private nfb: NonNullableFormBuilder,
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -58,7 +60,8 @@ export class ContactFormComponent implements OnInit {
   }
 
   private _getPhoneNumberForm(): FormControl<string> {
-    return this.nfb.control('', [Validators.required])
+    // return this.nfb.control('', [Validators.required])
+    return this.nfb.control('')
   }
 
   private _getEmailForm(): FormControl<string> {
@@ -76,7 +79,7 @@ export class ContactFormComponent implements OnInit {
 
   protected onSubmit(type: MessageType, value: string): void {
     const event: ContactSubmitEvent = { type, value }
-    this.submit.emit(event)
+    this.contactSubmit.emit(event)
   }
 
 

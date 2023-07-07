@@ -27,15 +27,10 @@ interface Tab {
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    MatStepperModule,
-    MatTabsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule,
     MatButtonModule,
     MatIconModule,
-    ContactFormComponent
-
   ],
   templateUrl: './otp-form.component.html',
   styleUrls: ['./otp-form.component.scss']

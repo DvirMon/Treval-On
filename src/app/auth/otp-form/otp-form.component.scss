@@ -1,9 +1,39 @@
 @use "variables" as main;
 
-form {
+div.otp-form {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: main.spacing(1);
+  justify-content: space-between;
+
+  section.otp-form-header {
+    flex: 0.3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    mat-icon {
+      scale: 2;
+      flex: 0.3;
+    }
+  }
+
+  form {
+    flex: 0.7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: main.spacing(5);
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: main.spacing(1);
+    button {
+      text-decoration: underline;
+    }
+  }
 }
