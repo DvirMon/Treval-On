@@ -3,25 +3,14 @@
     <mat-icon color="primary" fontIcon="security_update_good"></mat-icon>
     <span> Ender your one time password</span>
   </section>
-  <form (ngSubmit)="onOTPSubmit()">
-    <mat-form-field appearance="outline">
-      <mat-label>OTP</mat-label>
-      <input matInput [formControl]="otpForm" placeholder="Enter OTP" />
-      <!-- <mat-error *ngIf="otpForm.controls.otp.errors?.required">OTP is required</mat-error> -->
-    </mat-form-field>
 
-    <section>
-      <span>Didn't receive code?</span>
-      <button mat-button type="button" color="primary">Resend</button>
-    </section>
+  <code-input [codeLength]="6"> </code-input>
 
-    <button
-      mat-raised-button
-      color="primary"
-      type="submit"
-      [disabled]="otpForm.invalid"
-    >
-      Verify
-    </button>
-  </form>
+  <section>
+    <span>Didn't receive code?</span>
+    <button mat-button type="button" color="primary">Resend</button>
+  </section>
+  <section>
+    <button mat-raised-button color="primary" type="submit">Verify</button>
+  </section>
 </div>

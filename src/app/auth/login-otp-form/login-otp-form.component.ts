@@ -26,7 +26,7 @@ export class LoginOtpFormComponent {
     { icon: 'mail', label: 'Email', type: MessageType.Email }
   ];
 
-  protected selectedIndex: WritableSignal<number> = signal(0);
+  protected selectedIndex: WritableSignal<number> = signal(1);
 
 
 
