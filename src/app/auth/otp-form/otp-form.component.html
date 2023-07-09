@@ -1,16 +1,18 @@
-<div class="otp-form">
-  <section class="otp-form-header">
+<to-otp-form-template>
+  <header class="header">
     <mat-icon color="primary" fontIcon="security_update_good"></mat-icon>
     <span> Ender your one time password</span>
-  </section>
+  </header>
 
-  <code-input [codeLength]="6"> </code-input>
+  <main class="content">
+    <code-input [codeLength]="6"> </code-input>
+    <section>
+      <span>Didn't receive code?</span>
+      <button mat-button type="button" color="primary">Resend</button>
+    </section>
+  </main>
 
-  <section>
-    <span>Didn't receive code?</span>
-    <button mat-button type="button" color="primary">Resend</button>
-  </section>
-  <section>
+  <footer class="footer">
     <button mat-raised-button color="primary" type="submit">Verify</button>
-  </section>
-</div>
+  </footer>
+</to-otp-form-template>

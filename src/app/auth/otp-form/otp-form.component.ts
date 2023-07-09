@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
 import { MessageType } from '../contact-form/contact-form.component';
 import { CodeInputModule } from 'angular-code-input';
+import { OtpFormTemplateComponent } from '../otp-form-template/otp-form-template.component';
 
 interface Tab {
   icon: string;
@@ -29,7 +30,8 @@ interface Tab {
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    CodeInputModule
+    CodeInputModule,
+    OtpFormTemplateComponent
 
   ],
   templateUrl: './otp-form.component.html',
