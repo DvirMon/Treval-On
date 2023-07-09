@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AuthService } from '../auth.service';
+import { OtpFormTemplateComponent } from '../otp-form-template/otp-form-template.component';
 
 export enum MessageType {
   Email = 'Email',
@@ -29,7 +30,9 @@ export interface ContactSubmitEvent {
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule],
+    MatIconModule,
+    OtpFormTemplateComponent
+  ],
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.scss']
 })
