@@ -1,0 +1,51 @@
+@use "variables" as main;
+
+header {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: main.spacing(2);
+
+  mat-icon {
+    scale: 2;
+  }
+}
+
+main,
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  gap: main.spacing(5);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+section {
+  gap: main.spacing(1);
+  button.mat-button {
+    text-decoration: underline;
+  }
+}
+
+code-input {
+  --item-spacing: 2.5rem;
+  --item-height: 2em;
+  --item-border: none;
+  --item-border-bottom: 2px solid black;
+  --item-border-has-value: none;
+  --item-border-bottom-has-value: 2px solid #ffc107;
+  --item-border-focused: none;
+  --item-border-bottom-focused: 2px solid #ffc107;
+  --item-shadow-focused: none;
+  --item-border-radius: 0px;
+  font-size: 18px;
+}

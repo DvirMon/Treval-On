@@ -1,0 +1,22 @@
+<div class="otp-form-template">
+  <header>
+    <ng-content select=".header"></ng-content>
+  </header>
+  <main>
+    <ng-content select=".content"></ng-content>
+  </main>
+  <footer>
+    <ng-content select=".footer"></ng-content>
+  </footer>
+  <footer class="footer">
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit"
+      [disableRipple]="true"
+      (click)="onEmailAndPasswordSighIn()"
+    >
+      Sign-In With Email and Password
+    </button>
+  </footer>
+</div>

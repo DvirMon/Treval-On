@@ -1,0 +1,22 @@
+<to-otp-form-template>
+  <header class="header">
+    <span> Get OPT with {{ type }} </span>
+  </header>
+  <main class="content" role="main">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter {{ label }}</mat-label>
+      <input matInput [formControl]="formControl" />
+    </mat-form-field>
+  </main>
+  <footer class="footer">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disableRipple]="true"
+      (click)="onSubmit(type, formControl.value)"
+    >
+      Send OTP
+    </button>
+  </footer>
+</to-otp-form-template>

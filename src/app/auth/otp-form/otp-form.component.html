@@ -1,0 +1,18 @@
+<to-otp-form-template>
+  <header class="header">
+    <mat-icon color="primary" [fontIcon]="icon | lowercase"></mat-icon>
+    <span> Ender your one time password</span>
+  </header>
+
+  <main class="content">
+    <code-input [codeLength]="6"> </code-input>
+    <section>
+      <span>Didn't receive code?</span>
+      <button mat-button type="button" color="primary">Resend</button>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <button mat-raised-button color="primary" type="submit">Verify</button>
+  </footer>
+</to-otp-form-template>

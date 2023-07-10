@@ -1,0 +1,29 @@
+@use "color-palettes" as palettes;
+
+$colors: (
+  primary: #ffc107,
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 840px,
+  lg: 992px,
+  xl: 1200px,
+);
+
+@function primary-palate($code) {
+  @return map-get(palettes.primary-palette(), $code);
+}
+
+@function accent-palate($code) {
+  @return map-get(palettes.accent-palette(), $code);
+}
+
+@function spacing($padding) {
+  @return $padding * 8px;
+}
+
+@function size($breakpoints) {
+  @return map-get($grid-breakpoints, $breakpoints);
+}

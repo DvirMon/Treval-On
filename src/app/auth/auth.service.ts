@@ -1,11 +1,36 @@
 import { Injectable, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { Auth, signInWithPopup, GoogleAuthProvider, UserCredential, User as UserFirebase } from '@angular/fire/auth';
+import {
+  Auth,
+  signInWithPhoneNumber,
+  signInWithPopup,
+  GoogleAuthProvider,
+  ApplicationVerifier,
+  RecaptchaVerifier,
+  UserCredential,
+  User as UserFirebase,
+  ConfirmationResult
+} from '@angular/fire/auth';
 import { Observable, from, map } from 'rxjs';
 import { User } from '../store/user/user.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+
+class PhoneVerifier implements ApplicationVerifier {
+  public type: string;
+
+  constructor() {
+    this.type = 'phone'; // Assign a default value or initialize it in the constructor
+  }
+
+  verify(): Promise<string> {
+    // Implement your custom verification logic here
+    // This method should return a Promise that resolves with a verification ID
+
+    return Promise.resolve('658695');
+  }
+}
+
+@Injectable({ providedIn: "root" })
+
 export class AuthService {
 
   private readonly _user: WritableSignal<User> = signal({} as User)
@@ -28,18 +53,21 @@ export class AuthService {
     return this._logged
   }
 
-  public googleAuth$(): Observable<User> {
-    const provider = new GoogleAuthProvider();
-    return from(signInWithPopup(this.auth, provider))
+  public signInWithGoogle$(): Observable<User> {
+    return from(signInWithPopup(this.auth, new GoogleAuthProvider()))
       .pipe(
         map((credential: UserCredential) => credential.user),
         map((userFirebase: UserFirebase) => {
-          const user = this.mapUser(userFirebase)
+          const user = this._mapUser(userFirebase)
           return user
         }))
   }
 
-  private mapUser(user: UserFirebase): User {
+  public signInWithPhone$(phone: string): Observable<ConfirmationResult> {
+    return from(signInWithPhoneNumber(this.auth, phone, new RecaptchaVerifier('recaptcha', { size: 'invisible' }, this.auth)))
+  }
+
+  private _mapUser(user: UserFirebase): User {
     return {
       uid: user.uid,
       displayName: user.displayName,

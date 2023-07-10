@@ -20,6 +20,7 @@ import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 
 import { environment } from './environments/environment';
 import { provideHttpClient } from '@angular/common/http';
+import { CodeInputModule } from 'angular-code-input';
 
 bootstrapApplication(AppComponent, {
   providers: [

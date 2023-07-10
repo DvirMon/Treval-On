@@ -1,0 +1,69 @@
+
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+
+@use 'color-palettes' as palettes;
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+$travel-on-primary: mat.define-palette(palettes.primary-palette());
+$travel-on-accent: mat.define-palette(palettes.accent-palette());
+
+// The warn palette is optional (defaults to red).
+$travel-on-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$travel-on-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $travel-on-primary,
+      accent: $travel-on-accent,
+      warn: $travel-on-warn,
+    ),
+  )
+);
+
+$plt-background: map-get($travel-on-theme, background);
+$plt-foreground: map-get($travel-on-theme, foreground);
+
+$p-keys: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900;
+$a-keys: (
+  100: A100,
+  200: A200,
+  400: A400,
+  700: A700,
+  500: 500,
+);
+
+@mixin travel-on-theme {
+  @include mat.core();
+
+  // Include theme styles for core and each component used in your app.
+  // Alternatively, you can import and @include the theme mixins for each component
+  // that you are using.
+
+  @include mat.all-component-themes($travel-on-theme);
+
+  :root {
+    @each $key in $p-keys {
+      --p-#{$key}: #{map-get(palettes.primary-palette(), $key)};
+    }
+
+    @each $key, $value in $a-keys {
+      --a-#{$key}: #{map-get(palettes.accent-palette(), $value)};
+    }
+
+    @each $key, $value in $plt-background {
+      --b-#{$key}: #{$value};
+    }
+
+    @each $key, $value in $plt-foreground {
+      --f-#{$key}: #{$value};
+    }
+  }
+}

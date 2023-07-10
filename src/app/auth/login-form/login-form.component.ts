@@ -24,18 +24,22 @@ export interface LoginForm {
   selector: 'to-login-form',
   standalone: true,
   imports: [
-    CommonModule, RouterModule,
+    CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     NgOptimizedImage,
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatButtonModule, MatIconModule,
+    MatButtonModule,
+    MatIconModule,
     MatDividerModule,
   ],
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class LoginFormComponent {
 
@@ -66,7 +70,7 @@ export class LoginFormComponent {
 
   private _signInWithGoogle$(): Observable<User> {
     return this.loginSource.asObservable().pipe(
-      exhaustMap(() => this.authService.googleAuth$()),
+      exhaustMap(() => this.authService.signInWithGoogle$()),
       catchError((error: Error) => {
         console.log('error', error);
         return EMPTY
@@ -74,7 +78,7 @@ export class LoginFormComponent {
     )
   }
 
-  private _getLoginFormGroup(nfb: NonNullableFormBuilder ): FormGroup<LoginForm> {
+  private _getLoginFormGroup(nfb: NonNullableFormBuilder): FormGroup<LoginForm> {
     return nfb.group({
       email: nfb.control('', [Validators.required, Validators.email]),
       password: nfb.control('', [Validators.required]),
