@@ -1,10 +1,19 @@
-
 @use "theme" as main;
-
 
 @include main.travel-on-theme();
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body, to-root { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body,
+to-root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+button {
+  font-size: 14px;
+}

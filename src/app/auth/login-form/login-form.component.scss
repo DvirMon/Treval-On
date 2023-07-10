@@ -1,14 +1,16 @@
+@use "variables" as main;
+
 mat-card-header {
   justify-content: center;
 }
 
 div.login-form-wrapper {
-  padding: 0 16px;
+  padding: 0 main.spacing(2);
 }
 form {
   display: flex;
   flex-direction: column;
-  padding: 16px 0;
+  padding: main.spacing(2) 0;
 
   mat-form-field {
     width: 100%;
@@ -25,7 +27,7 @@ section.divider {
   }
 
   span {
-    margin: 8px;
+    margin: main.spacing(1);
     flex-shrink: 0;
     text-align: center;
   }
@@ -45,38 +47,21 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 16px;
+  padding: 0 main.spacing(2);
+  gap: main.spacing(2);
 
-  button {
-    margin: 8px 0;
-  }
 }
 
 button.google-btn {
-  background-color: #4285f4;
-  color: white;
-  height: 50px;
-  padding: 0 15px;
-  border-radius: 2px;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
-  white-space: nowrap;
+  border-radius: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  user-select: none;
-  transition: background-color 0.218s, border-color 0.218s, box-shadow 0.218s;
-  font-size: 14px;
   letter-spacing: 0.21px;
-  font-weight: 500;
+  font-weight: bold;
 }
 
-.google-btn:hover {
-  box-shadow: 0 0 3px 3px rgba(66, 133, 244, 0.3);
-  transition: box-shadow 0.218s;
-}
 
 mat-icon.google-icon {
-  height: 40px;
-  width: 40px;
-  margin-right: 10px;
+  margin-right: main.spacing(2);
 }

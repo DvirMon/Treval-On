@@ -51,20 +51,19 @@
     <footer>
       <button
         mat-raised-button
-        class="google-btn"
-        [disableRipple]="true"
-        (click)="onButtonClick()"
-      >
-        <mat-icon svgIcon="google" class="google-icon"></mat-icon>
-        Sign in with Google
-      </button>
-      <button
-        mat-raised-button
         [disableRipple]="true"
         color="accent"
         (click)="onOTP()"
       >
         Sign in with OTP
+      </button>
+      <button
+        mat-stroked-button
+        class="google-btn"
+        [disableRipple]="true"
+      >
+        <mat-icon svgIcon="google" class="google-icon"></mat-icon>
+        Continue with Google
       </button>
     </footer>
   </mat-card-content>
