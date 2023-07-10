@@ -1,6 +1,6 @@
 <to-otp-form-template>
   <header class="header">
-    <span> Get OPT with {{ contactType }} </span>
+    <span> Get OPT with {{ type }} </span>
   </header>
   <main class="content" role="main">
     <mat-form-field appearance="fill">
@@ -13,7 +13,6 @@
       mat-raised-button
       color="primary"
       type="submit"
-      [disabled]="!formControl.valid"
       [disableRipple]="true"
       (click)="onSubmit(type, formControl.value)"
     >

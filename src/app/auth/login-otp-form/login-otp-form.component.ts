@@ -23,14 +23,17 @@ export class LoginOtpFormComponent {
 
   protected readonly tabs: Tab[] = [
     { icon: 'sms', label: 'SMS', type: MessageType.SMS },
-    { icon: 'mail', label: 'Email', type: MessageType.Email }
+    { icon: 'mail', label: 'Mail', type: MessageType.Mail }
   ];
 
   protected selectedIndex: WritableSignal<number> = signal(0);
 
+  protected contactEvent! : ContactSubmitEvent
+
 
 
   onContactSubmit(event: ContactSubmitEvent) {
+    this.contactEvent = event;
     this._changeStep();
   }
   private _changeStep() {

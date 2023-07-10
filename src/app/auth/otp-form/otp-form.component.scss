@@ -4,9 +4,9 @@ header {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
-  gap: main.spacing(3);
+  gap: main.spacing(2);
 
   mat-icon {
     scale: 2;

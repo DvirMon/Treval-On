@@ -34,9 +34,11 @@
     </div>
   </mat-step>
   <mat-step>
-    <div class="otp-step">
-      <to-otp-form></to-otp-form>
-    </div>
+    <ng-template matStepContent>
+      <div class="otp-step">
+        <to-otp-form [contactEvent]="contactEvent"></to-otp-form>
+      </div>
+    </ng-template>
   </mat-step>
 </mat-stepper>
 
