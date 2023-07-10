@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,7 +35,9 @@ interface Tab {
 
   ],
   templateUrl: './otp-form.component.html',
-  styleUrls: ['./otp-form.component.scss']
+  styleUrls: ['./otp-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class OtpFormComponent {
 

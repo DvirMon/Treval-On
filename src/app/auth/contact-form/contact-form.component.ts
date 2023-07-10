@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -34,7 +34,9 @@ export interface ContactSubmitEvent {
     OtpFormTemplateComponent
   ],
   templateUrl: './contact-form.component.html',
-  styleUrls: ['./contact-form.component.scss']
+  styleUrls: ['./contact-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class ContactFormComponent implements OnInit {
 

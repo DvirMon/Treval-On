@@ -38,6 +38,8 @@ export interface LoginForm {
   ],
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class LoginFormComponent {
 

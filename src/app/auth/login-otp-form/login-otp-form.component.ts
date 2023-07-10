@@ -1,4 +1,4 @@
-import { Component, Signal, WritableSignal, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, WritableSignal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -17,7 +17,9 @@ interface Tab {
   standalone: true,
   imports: [CommonModule, MatStepperModule, MatTabsModule, MatIconModule, ContactFormComponent, OtpFormComponent],
   templateUrl: './login-otp-form.component.html',
-  styleUrls: ['./login-otp-form.component.scss']
+  styleUrls: ['./login-otp-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class LoginOtpFormComponent {
 
