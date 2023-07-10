@@ -1,0 +1,12 @@
+div.vacation-card-container {
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+
+  section.vacation-card-wrapper {
+    width: 24%;
+    height: 220px;
+  }
+}

@@ -1,15 +1,12 @@
-<div class="card-container">
-  <mat-card>
-    <mat-card-header>
-      <div mat-card-avatar>
-        <to-vacation-button
-          (changed)="onSelectChanged($event)"
-          [selected]="isSelected()"
-        ></to-vacation-button>
-      </div>
-      <mat-card-title>Card Title</mat-card-title>
-      <mat-card-subtitle>Card Subtitle</mat-card-subtitle>
-    </mat-card-header>
-    <!-- Rest of the card content -->
-  </mat-card>
-</div>
+<mat-card [style.background-image]="'url(' + vacation.imageUrl + ')'">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <to-vacation-button
+        (changed)="onSelectChanged($event)"
+        [selected]="isSelected()"
+      ></to-vacation-button>
+    </div>
+    <mat-card-title>{{ vacation.destination }}</mat-card-title>
+    <mat-card-subtitle>{{vacation.takeoff}}</mat-card-subtitle>
+  </mat-card-header>
+</mat-card>

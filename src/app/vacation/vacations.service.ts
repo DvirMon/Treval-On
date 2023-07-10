@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, CollectionReference, DocumentData, collection, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Vacation } from '../store/vacations/vacation.model';
+import { VACATIONS_DATA } from 'src/assets/MOCK_DATA';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,8 @@ import { Vacation } from '../store/vacations/vacation.model';
 export class VacationService {
 
   private readonly vacationsCollection: CollectionReference<DocumentData>;
+
+  // mock_vacations : Vacation[] = VACATIONS_DATA
 
   constructor(
     private readonly firestore: Firestore

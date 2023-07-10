@@ -85,8 +85,8 @@ export class LoginFormComponent {
     })
   }
 
-  protected onButtonClick(): void {
-    this.loginSource.next();
+  protected oGoogleSignIn(): void {
+    // this.loginSource.next();
   }
 
   protected onSubmit(event: SubmitEvent, value: Partial<{ email: string; password: string; }>): void {

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { Vacation } from 'src/app/vacation.model';
 import { VacationCardButtonComponent, SelectChangedEvent } from '../vacation-item-button/vacation-card-button.component';
+import { Vacation } from 'src/app/store/vacations/vacation.model';
 
 
 @Component({
@@ -15,7 +15,7 @@ import { VacationCardButtonComponent, SelectChangedEvent } from '../vacation-ite
 })
 export class VacationCardComponent {
 
-  @Input() vacation!: Vacation
+  @Input({ required: true }) vacation!: Vacation
 
   protected readonly isSelected: WritableSignal<boolean>;
 
