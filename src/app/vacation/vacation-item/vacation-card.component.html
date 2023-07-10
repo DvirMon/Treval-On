@@ -7,6 +7,9 @@
       ></to-vacation-button>
     </div>
     <mat-card-title>{{ vacation.destination }}</mat-card-title>
-    <mat-card-subtitle>{{vacation.takeoff}}</mat-card-subtitle>
+    <!-- <mat-card-subtitle>{{vacation.takeoff | dateTimestampPipe}}</mat-card-subtitle> -->
   </mat-card-header>
+  <div>
+    {{ vacation.takeoff | dateTimestampPipe}}
+  </div>
 </mat-card>
