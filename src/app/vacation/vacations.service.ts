@@ -11,7 +11,7 @@ export class VacationService {
 
   private readonly vacationsCollection: CollectionReference<DocumentData>;
 
-  // mock_vacations : Vacation[] = VACATIONS_DATA
+  mock_vacations : Vacation[] = VACATIONS_DATA
 
   constructor(
     private readonly firestore: Firestore
@@ -24,5 +24,7 @@ export class VacationService {
     return collectionData(this.vacationsCollection, { idField: 'id' }) as Observable<Vacation[]>;
   }
 
+  addVacation(): void {
 
+  }
 }

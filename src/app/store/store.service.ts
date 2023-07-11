@@ -17,7 +17,7 @@ export class StoreService {
 
 
   public getVacations(): Signal<Vacation[] | never[]> {
-    const loaded$ = this.store.select(VacationSelectors.selectVactionsLoaded)
+    const loaded$ = this.store.select(VacationSelectors.selectVacationsLoaded)
 
     const vacations$ = loaded$.pipe(
       switchMap((loaded) => {
@@ -28,6 +28,10 @@ export class StoreService {
       })
     )
     return toSignal(vacations$, { initialValue: [] });
+  }
+
+  public addVacation(): void {
+
   }
 
 }
