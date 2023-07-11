@@ -1,7 +1,3 @@
-<div class="vacation-card-container">
-  <ng-container *ngFor="let v of vacations()">
-    <section class="vacation-card-wrapper">
-      <to-vacation-card [vacation]="v"> </to-vacation-card>
-    </section>
-  </ng-container>
+<div class="home-page">
+  <to-vacation-list [userId]="userId"></to-vacation-list>
 </div>

@@ -1,15 +1,27 @@
-<mat-card [style.background-image]="'url(' + vacation.imageUrl + ')'">
+<!-- <mat-card [style.background-image]="'url(' + vacation.imageUrl + ')'"> -->
+<mat-card>
+  <!-- <div
+    class="card-background"
+    [style.background-image]="'url(' + vacation.imageUrl + ')'"
+  ></div> -->
+  <img mat-card-image [ngSrc]="vacation.imageUrl" height="300" width="1" />
+
   <mat-card-header>
-    <div mat-card-avatar>
-      <to-vacation-button
-        (changed)="onSelectChanged($event)"
-        [selected]="isSelected()"
-      ></to-vacation-button>
-    </div>
-    <mat-card-title>{{ vacation.destination }}</mat-card-title>
-    <!-- <mat-card-subtitle>{{vacation.takeoff | dateTimestampPipe}}</mat-card-subtitle> -->
+    <mat-card-title
+      >{{ vacation.destination.city }},
+      {{ vacation.destination.country }}</mat-card-title
+    >
+    <mat-card-subtitle>{{
+      vacation.price | currency : "USD" : "symbol" : "1.0-0"
+    }}</mat-card-subtitle>
+    <to-vacation-button
+      (changed)="onSelectChanged($event)"
+      [selected]="isSelected()"
+    ></to-vacation-button>
   </mat-card-header>
-  <div>
-    {{ vacation.takeoff | dateTimestampPipe}}
-  </div>
+  <mat-card-content>
+    <span> Takeoff: {{ vacation.takeoff | dateTimestampPipe }} </span>
+    <span> Landing: {{ vacation.landing | dateTimestampPipe }} </span>
+  </mat-card-content>
+  <mat-card-footer></mat-card-footer>
 </mat-card>

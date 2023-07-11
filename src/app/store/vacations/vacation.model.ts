@@ -5,8 +5,6 @@ export interface Destination {
   country : string,
 }
 
-// export interface Timestamp
-
 export interface Vacation {
   id: string,
   destination: Destination,

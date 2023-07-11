@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, WritableSignal, signal } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { VacationCardButtonComponent, SelectChangedEvent } from '../vacation-item-button/vacation-card-button.component';
 import { Vacation } from 'src/app/store/vacations/vacation.model';
@@ -9,7 +9,7 @@ import { DateTimestampPipe } from 'src/app/utilities/date.pipe';
 @Component({
   selector: 'to-vacation-card',
   standalone: true,
-  imports: [CommonModule, DateTimestampPipe, MatCardModule, VacationCardButtonComponent],
+  imports: [CommonModule, NgOptimizedImage,  DateTimestampPipe, MatCardModule, VacationCardButtonComponent],
   templateUrl: './vacation-card.component.html',
   styleUrls: ['./vacation-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,6 +1,37 @@
 mat-card {
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  // height: 100%;
+  // background-size: cover;
+  // background-position: right;
+  // background-repeat: no-repeat;
+
+  img {
+    height: 300px;
+    width: inherit;
+  }
+
+  .mat-mdc-card-header {
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .mat-mdc-card-content {
+    padding-top: 16px;
+  }
+
 }
+// mat-card {
+//   height: 100%;
+//   background-color: transparent;
+//   position: relative;
+
+//   .card-background {
+//     position: absolute;
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     width: 50%;
+//     background-size: cover;
+//     background-position: center;
+//     background-repeat: no-repeat;
+//     z-index: -1;
+//   }
+// }
