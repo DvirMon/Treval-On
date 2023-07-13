@@ -1,9 +1,6 @@
-mat-card {
-  // height: 100%;
-  // background-size: cover;
-  // background-position: right;
-  // background-repeat: no-repeat;
+@use "variables" as main;
 
+mat-card {
   img {
     height: 300px;
     width: inherit;
@@ -14,9 +11,14 @@ mat-card {
     align-items: flex-end;
   }
   .mat-mdc-card-content {
-    padding-top: 16px;
+    padding: main.spacing(2);
   }
 
+  section.schedule {
+    display: flex;
+    flex-direction: column;
+    gap: main.spacing(1);
+  }
 }
 // mat-card {
 //   height: 100%;

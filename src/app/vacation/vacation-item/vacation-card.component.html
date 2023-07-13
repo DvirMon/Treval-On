@@ -20,8 +20,16 @@
     ></to-vacation-button>
   </mat-card-header>
   <mat-card-content>
-    <span> Takeoff: {{ vacation.takeoff | dateTimestampPipe }} </span>
-    <span> Landing: {{ vacation.landing | dateTimestampPipe }} </span>
+    <section class="schedule">
+      <span>
+        <b>Takeoff:</b>
+        {{ vacation.takeoff | dateTimestampPipe : "EEEE, MMMM d, h:mm a" }}
+      </span>
+      <span>
+        <b>Landing:</b>
+        {{ vacation.landing | dateTimestampPipe : "EEEE, MMMM d, h:mm a" }}
+      </span>
+    </section>
   </mat-card-content>
   <mat-card-footer></mat-card-footer>
 </mat-card>
