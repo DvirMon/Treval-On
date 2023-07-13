@@ -15,7 +15,7 @@
       vacation.price | currency : "USD" : "symbol" : "1.0-0"
     }}</mat-card-subtitle>
     <to-vacation-button
-      (changed)="onSelectChanged($event)"
+      (changed)="onSelectedChanged($event)"
       [selected]="isSelected()"
     ></to-vacation-button>
   </mat-card-header>

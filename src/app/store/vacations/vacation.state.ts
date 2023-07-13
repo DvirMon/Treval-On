@@ -13,7 +13,9 @@ export interface State extends EntityState<Vacation> {
 export const adapter: EntityAdapter<Vacation> = createEntityAdapter<Vacation>();
 
 export const initialState: State = adapter.getInitialState({
-  loaded: false
+  loaded: false,
+  selected: new Map<string, boolean>(),
+
   // additional entity state properties
 });
 
