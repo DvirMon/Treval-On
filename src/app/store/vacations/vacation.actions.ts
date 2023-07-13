@@ -13,6 +13,7 @@ export const VacationActions = createActionGroup({
     'Update Vacation': props<{ vacation: Update<Vacation> }>(),
     'Delete Vacation': props<{ id: string }>(),
     'Clear Vacations': emptyProps(),
+    'Update Selected Vacations': props<{ selected: Map<string, boolean> }>(),
   }
 });
 

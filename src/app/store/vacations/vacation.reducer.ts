@@ -4,7 +4,7 @@ import { initialState, adapter } from './vacation.state';
 
 export const vacationReducer = createReducer(
   initialState,
-  on(VacationActions.loadVacations,(state) => state),
+  on(VacationActions.loadVacations, (state) => state),
 
   on(VacationActions.loadVacationsSuccess,
     (state, action) => adapter.setAll(action.vacations, state)
@@ -23,5 +23,13 @@ export const vacationReducer = createReducer(
   on(VacationActions.clearVacations,
     state => adapter.removeAll(state)
   ),
+
+  on(VacationActions.updateSelectedVacations,
+    (state, action) => (
+      {
+        ...state,
+        selected: new Map<string, boolean>([...state.selected, ...action.selected]),
+
+      }))
 );
 

@@ -1,4 +1,4 @@
-import { Component, DestroyRef, EventEmitter, Input, Output, Signal, inject } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, Input, Output, Signal, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreService } from 'src/app/store/store.service';
 import { Vacation } from 'src/app/store/vacations/vacation.model';
@@ -6,7 +6,7 @@ import { VacationCardComponent, VacationSelectedChangedEvent } from '../vacation
 
 export interface SelectionListChange {
   source: VacationListComponent
-  selections: Map<string, Vacation>
+  selection: Map<string, boolean>
 }
 
 @Component({
@@ -18,42 +18,28 @@ export interface SelectionListChange {
 })
 export class VacationListComponent {
 
-  @Input() userId!: string
+  @Input({ required: true }) vacations: Signal<Vacation[]> = signal([]);
 
-  private readonly storeService: StoreService = inject(StoreService)
-  protected readonly vacations: Signal<Vacation[]>;
+  @Input({ required: true }) selection: Signal<Map<string, boolean>> = signal(new Map());
 
-  private _selection: Map<string, Vacation>
+  @Output() readonly selectionChanged: EventEmitter<SelectionListChange> = new EventEmitter<SelectionListChange>();
 
-  @Output() readonly selectionChange: EventEmitter<SelectionListChange> = new EventEmitter<SelectionListChange>();
-
-
-  constructor() {
-    this.vacations = this.storeService.getVacations();
-    this._selection = new Map<string, Vacation>();
-
-  }
-
-  ngOnDestroy() {
-    console.log("onDestroy")
-
-  }
 
   protected onSelectedChanged(event: VacationSelectedChangedEvent): void {
     const { source, selected } = event
     const { vacation } = source
 
-    const newSelection = this._updateSelection(this._selection, selected, vacation)
+    const newSelection = this._updateSelection(this.selection(), selected, vacation)
     this._emitChangeEvent(newSelection);
 
   }
 
-  private _updateSelection(selection: Map<string, Vacation>, selected: boolean, vacation: Vacation): Map<string, Vacation> {
+  private _updateSelection(selection: Map<string, boolean>, selected: boolean, vacation: Vacation): Map<string, boolean> {
 
-    const newSelection = new Map<string, Vacation>(selection); // Create a copy of the original selection map
+    const newSelection = new Map<string, boolean>(selection); // Create a copy of the original selection map
 
     if (selected) {
-      newSelection.set(vacation.id, vacation);
+      newSelection.set(vacation.id, selected);
     } else {
       newSelection.delete(vacation.id);
     }
@@ -61,9 +47,9 @@ export class VacationListComponent {
     return newSelection
   }
 
-  _emitChangeEvent(selections: Map<string, Vacation>) {
-    const event = { source: this, selections } as SelectionListChange
-    this.selectionChange.emit(event);
+  _emitChangeEvent(selection: Map<string, boolean>) {
+    const event = { source: this, selection } as SelectionListChange
+    this.selectionChanged.emit(event);
   }
 
 }
