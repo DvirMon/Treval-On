@@ -30,12 +30,12 @@ export class StoreService {
     return toSignal(vacations$, { initialValue: [] });
   }
 
-  public getSelectedVacations(): Signal<Map<string, boolean>> {
+  public getSelectedVacations(): Signal<Record<string, boolean>> {
     const selected$ = this.store.select(VacationSelectors.selectSelectedVacations)
-    return toSignal(selected$, { initialValue: new Map<string, boolean>() })
+    return toSignal(selected$, { initialValue: {} })
   }
 
-  public updateSelection(selected: Map<string, boolean>) {
+  public updateSelection(selected: Record<string, boolean>) {
     const action = VacationActions.updateSelectedVacations({ selected })
     console.log(action)
     this.store.dispatch(action)

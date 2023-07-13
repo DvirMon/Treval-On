@@ -6,7 +6,7 @@ import { VacationCardComponent, VacationSelectedChangedEvent } from '../vacation
 
 export interface SelectionListChange {
   source: VacationListComponent
-  selection: Map<string, boolean>
+  selection: Record<string, boolean>
 }
 
 @Component({
@@ -20,7 +20,7 @@ export class VacationListComponent {
 
   @Input({ required: true }) vacations: Signal<Vacation[]> = signal([]);
 
-  @Input({ required: true }) selection: Signal<Map<string, boolean>> = signal(new Map());
+  @Input({ required: true }) selection: Signal<Record<string, boolean>> = signal({});
 
   @Output() readonly selectionChanged: EventEmitter<SelectionListChange> = new EventEmitter<SelectionListChange>();
 
@@ -34,20 +34,23 @@ export class VacationListComponent {
 
   }
 
-  private _updateSelection(selection: Map<string, boolean>, selected: boolean, vacation: Vacation): Map<string, boolean> {
+  private _updateSelection(selection: Record<string, boolean>, selected: boolean, vacation: Vacation): Record<string, boolean> {
 
-    const newSelection = new Map<string, boolean>(selection); // Create a copy of the original selection map
+    let newSelection = { ...selection }; // Create a copy of the original selection map
 
     if (selected) {
-      newSelection.set(vacation.id, selected);
+      newSelection = {
+        ...selection,
+        [vacation.id] : selected
+      }
     } else {
-      newSelection.delete(vacation.id);
+     delete newSelection[vacation.id];
     }
 
     return newSelection
   }
 
-  _emitChangeEvent(selection: Map<string, boolean>) {
+  _emitChangeEvent(selection: Record<string, boolean>) {
     const event = { source: this, selection } as SelectionListChange
     this.selectionChanged.emit(event);
   }

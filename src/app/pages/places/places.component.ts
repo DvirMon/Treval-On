@@ -18,7 +18,7 @@ export class PlacesComponent {
   private readonly storeService: StoreService = inject(StoreService);
 
   protected readonly vacations: Signal<Vacation[]>;
-  protected readonly selection: Signal<Map<string, boolean>>;
+  protected readonly selection: Signal<Record<string, boolean>>;
 
 
   constructor() {

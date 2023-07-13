@@ -28,7 +28,9 @@ export const vacationReducer = createReducer(
     (state, action) => (
       {
         ...state,
-        selected: new Map<string, boolean>([...state.selected, ...action.selected]),
+        selected: {
+          ...action.selected
+        }
 
       }))
 );
