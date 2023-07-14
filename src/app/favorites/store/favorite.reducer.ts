@@ -8,15 +8,22 @@ export const favoriteReducer = createReducer(
   on(FavoriteActions.addFavorite,
     (state, action) => adapter.addOne(action.favorite, state)
   ),
-  on(FavoriteActions.updateFavorite,
-    (state, action) => adapter.updateOne(action.favorite, state)
-  ),
+
   on(FavoriteActions.deleteFavorite,
     (state, action) => adapter.removeOne(action.id, state)
   ),
-  // on(FavoriteActions.loadFavoritesSuccess,
-  //   (state, action) => adapter.setAll(action.favorite.vacationIds, state)
-  // ),
+  on(FavoriteActions.loadFavoriteSuccess,
+    (state, action) => ({
+      ...adapter.setAll([action.favorite], state),
+      loaded: true,
+      selected: action.favorite.vacationIds.reduce((acc, value) => {
+        return {
+          ...acc,
+          [value]: true
+        }
+      }, {})
+    })
+  ),
   on(FavoriteActions.clearFavorites,
     state => adapter.removeAll(state)
   ),
@@ -31,3 +38,4 @@ export const favoriteReducer = createReducer(
 
       }))
 );
+

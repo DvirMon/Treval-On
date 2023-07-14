@@ -1,4 +1,4 @@
-import { Component, Input, Signal, inject } from '@angular/core';
+import { Component, Input, OnDestroy, Signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SelectionListChange, VacationListComponent } from 'src/app/vacation/vacation-list/vacation-list.component';
 import { StoreService } from 'src/app/store/store.service';
@@ -11,7 +11,7 @@ import { Vacation } from 'src/app/store/vacations/vacation.model';
   templateUrl: './places.component.html',
   styleUrls: ['./places.component.scss']
 })
-export class PlacesComponent {
+export class PlacesComponent implements OnDestroy {
 
   @Input() userId!: string
 
@@ -23,14 +23,29 @@ export class PlacesComponent {
 
   constructor() {
     this.vacations = this.storeService.getVacations();
-    this.selection = this.storeService.getSelectedFavorites()
+    this.selection = this.storeService.getSelectedFavorites('1')
 
   }
+
+  ngOnDestroy(): void {
+
+    console.log(this._mapSelectionToArray(this.selection))
+  }
+
+  private updateSelectedVacations() {
+
+  }
+
 
   onSelectionChanged(event: SelectionListChange) {
     const { selection } = event;
     this.storeService.updateSelection(selection)
   }
+
+  private _mapSelectionToArray(selection: Signal<Record<string, boolean>>): string[] {
+    return Object.keys(selection())
+  }
+
 
 
 

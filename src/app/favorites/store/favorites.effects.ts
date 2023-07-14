@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { FavoriteService } from '../favorites.service';
 import { FavoriteActions } from './favorite.actions';
-import { EMPTY, catchError, concatMap, map } from 'rxjs';
+import { EMPTY, catchError, concatMap, map, switchMap } from 'rxjs';
 
 
 
@@ -23,4 +23,14 @@ export class FavoritesEffects {
         ))
     )
   )
+
+  updateFavorite$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FavoriteActions.updateFavorite),
+      switchMap((action) => this.favoriteService.updateFavoriteVacations$(action.favorite.id, action.favorite.vacationIds)
+        .pipe(
+          map(() => ({ type: 'NO_ACTION' })),
+          catchError(() => EMPTY)
+        ))
+    ))
 }

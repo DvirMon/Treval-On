@@ -9,7 +9,7 @@ export const FavoriteActions = createActionGroup({
     'Load Favorites': props<{ userId: string }>(),
     'Load Favorite Success': props<{ favorite: Favorite }>(),
     'Add Favorite': props<{ favorite: Favorite }>(),
-    'Update Favorite': props<{ favorite: Update<Favorite> }>(),
+    'Update Favorite': props<{ favorite: Favorite }>(),
     'Delete Favorite': props<{ id: string }>(),
     'Clear Favorites': emptyProps(),
     'Update Selected Favorites Vacations': props<{ selected:Record<string, boolean> }>(),
