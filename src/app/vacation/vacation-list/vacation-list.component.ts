@@ -36,7 +36,7 @@ export class VacationListComponent {
 
   private _updateSelection(selection: Record<string, boolean>, selected: boolean, vacation: Vacation): Record<string, boolean> {
 
-    let newSelection = { ...selection }; // Create a copy of the original selection map
+    let newSelection = { ...selection }; // Create a copy of the original selection mapnpm 
 
     if (selected) {
       newSelection = {
