@@ -10,7 +10,7 @@ import { VACATIONS_DATA } from 'src/assets/MOCK_DATA';
   providedIn: 'root'
 })
 
-export class VacationService {
+export class VacationsService {
 
   private readonly vacationsRef: CollectionReference<Vacation>;
   private readonly VACATIONS_COLLECTION = 'vacations';

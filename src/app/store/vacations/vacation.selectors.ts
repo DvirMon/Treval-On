@@ -21,13 +21,8 @@ const {
   (state : fromVacation.State) => selectAll(state)
 );
 
-const selectSelectedVacations = createSelector(
-  selectState,
-  (state : fromVacation.State) => state.selected
-)
 
 export const VacationSelectors =  {
   selectVacationsLoaded,
   selectAllVacations,
-  selectSelectedVacations
 }

@@ -23,7 +23,7 @@ export class PlacesComponent {
 
   constructor() {
     this.vacations = this.storeService.getVacations();
-    this.selection = this.storeService.getSelectedVacations()
+    this.selection = this.storeService.getSelectedFavorites()
 
   }
 

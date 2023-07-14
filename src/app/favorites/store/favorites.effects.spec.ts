@@ -1,22 +1,22 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
+import { FavoritesEffects } from './favorites.effects';
 
-import { EffectsEffects } from './effects.effects';
 
-describe('EffectsEffects', () => {
+describe('FavoritesEffects', () => {
   let actions$: Observable<any>;
-  let effects: EffectsEffects;
+  let effects: FavoritesEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        EffectsEffects,
+        FavoritesEffects,
         provideMockActions(() => actions$)
       ]
     });
 
-    effects = TestBed.inject(EffectsEffects);
+    effects = TestBed.inject(FavoritesEffects);
   });
 
   it('should be created', () => {

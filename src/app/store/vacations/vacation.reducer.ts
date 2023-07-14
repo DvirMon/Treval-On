@@ -24,14 +24,5 @@ export const vacationReducer = createReducer(
     state => adapter.removeAll(state)
   ),
 
-  on(VacationActions.updateSelectedVacations,
-    (state, action) => (
-      {
-        ...state,
-        selected: {
-          ...action.selected
-        }
-
-      }))
 );
 

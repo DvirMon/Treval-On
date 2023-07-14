@@ -5,6 +5,8 @@ import { VacationActions } from './vacations/vacation.actions';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
 import { Vacation } from './vacations/vacation.model';
+import { FavoritesSelectors } from '../favorites/store/favorites.selectors';
+import { FavoriteActions } from '../favorites/store/favorite.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -30,13 +32,13 @@ export class StoreService {
     return toSignal(vacations$, { initialValue: [] });
   }
 
-  public getSelectedVacations(): Signal<Record<string, boolean>> {
-    const selected$ = this.store.select(VacationSelectors.selectSelectedVacations)
+  public getSelectedFavorites(): Signal<Record<string, boolean>> {
+    const selected$ = this.store.select(FavoritesSelectors.selectFavorites)
     return toSignal(selected$, { initialValue: {} })
   }
 
   public updateSelection(selected: Record<string, boolean>) {
-    const action = VacationActions.updateSelectedVacations({ selected })
+    const action = FavoriteActions.updateSelectedFavoritesVacations({ selected })
     console.log(action)
     this.store.dispatch(action)
   }
