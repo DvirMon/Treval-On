@@ -6,9 +6,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { BehaviorSubject, Observable, merge, skip, map, delay } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop'
 
-export interface SelectChangedEvent {
+export interface ButtonSelectedChangedEvent {
   /** The source button of the event. */
-  source: any;
+  source: VacationCardButtonComponent;
   /** The new `selected` value of the button. */
   selected: boolean;
 }
@@ -53,7 +53,7 @@ export class VacationCardButtonComponent {
   protected readonly iconState: Signal<SelectState | undefined>;
 
 
-  @Output() readonly changed: EventEmitter<SelectChangedEvent> = new EventEmitter();
+  @Output() readonly changed: EventEmitter<ButtonSelectedChangedEvent> = new EventEmitter();
 
   constructor() {
     this.isSelected = signal<SelectState>(SelectState.DEFAULT);
@@ -118,12 +118,12 @@ export class VacationCardButtonComponent {
   }
 
 
-  private _emitChangeEvent(event: SelectChangedEvent): void {
+  private _emitChangeEvent(event: ButtonSelectedChangedEvent): void {
     this.changed.emit(event)
   }
 
-  private _createChangeEvent(newState: SelectState): SelectChangedEvent {
-    const event: SelectChangedEvent = {
+  private _createChangeEvent(newState: SelectState): ButtonSelectedChangedEvent {
+    const event: ButtonSelectedChangedEvent = {
       source: this,
       selected: newState !== SelectState.DEFAULT,
     };

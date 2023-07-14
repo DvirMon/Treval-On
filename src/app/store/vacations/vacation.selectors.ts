@@ -11,7 +11,7 @@ const {
 
 } = fromVacation.adapter.getSelectors();
 
- const selectVactionsLoaded = createSelector(
+ const selectVacationsLoaded = createSelector(
   selectState,
   (state: fromVacation.State): boolean => state.loaded
 );
@@ -21,7 +21,13 @@ const {
   (state : fromVacation.State) => selectAll(state)
 );
 
+const selectSelectedVacations = createSelector(
+  selectState,
+  (state : fromVacation.State) => state.selected
+)
+
 export const VacationSelectors =  {
-  selectVactionsLoaded,
-  selectAllVacations
+  selectVacationsLoaded,
+  selectAllVacations,
+  selectSelectedVacations
 }

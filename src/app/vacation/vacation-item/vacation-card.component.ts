@@ -1,21 +1,27 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, WritableSignal, signal } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { Vacation } from 'src/app/vacation.model';
-import { VacationCardButtonComponent, SelectChangedEvent } from '../vacation-item-button/vacation-card-button.component';
+import { ButtonSelectedChangedEvent, VacationCardButtonComponent } from '../vacation-item-button/vacation-card-button.component';
+import { Vacation } from 'src/app/store/vacations/vacation.model';
+import { DateTimestampPipe } from 'src/app/utilities/date.pipe';
 
-
+export interface VacationSelectedChangedEvent {
+  /** The source button of the event. */
+  source: VacationCardComponent;
+  /** The new `selected` value of the button. */
+  selected: boolean;
+}
 @Component({
   selector: 'to-vacation-card',
   standalone: true,
-  imports: [CommonModule, MatCardModule, VacationCardButtonComponent],
+  imports: [CommonModule, NgOptimizedImage,  DateTimestampPipe, MatCardModule, VacationCardButtonComponent],
   templateUrl: './vacation-card.component.html',
   styleUrls: ['./vacation-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VacationCardComponent {
 
-  @Input() vacation!: Vacation
+  @Input({ required: true }) vacation!: Vacation
 
   protected readonly isSelected: WritableSignal<boolean>;
 
@@ -28,16 +34,16 @@ export class VacationCardComponent {
     this.isSelected.set(value)
   }
 
-  @Output() readonly selectChanged: EventEmitter<SelectChangedEvent> = new EventEmitter();
+  @Output() readonly selectedChanged: EventEmitter<VacationSelectedChangedEvent> = new EventEmitter();
 
-  protected onSelectChanged(value: SelectChangedEvent): void {
+  protected onSelectedChanged(value: ButtonSelectedChangedEvent): void {
     const event = this._createChangeEvent(value)
-    this.selectChanged.emit(event)
+    this.selectedChanged.emit(event)
   }
 
-  private _createChangeEvent(value: SelectChangedEvent): SelectChangedEvent {
-    const event: SelectChangedEvent = {
-      ...value,
+  private _createChangeEvent(value: ButtonSelectedChangedEvent): VacationSelectedChangedEvent {
+    const event: VacationSelectedChangedEvent = {
+      selected : value.selected,
       source: this,
     };
     return event;

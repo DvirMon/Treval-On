@@ -1,5 +1,4 @@
 import { Routes } from "@angular/router";
-import { HomeComponent } from "./pages/home/home.component";
 import { LoginPageComponent } from "./pages/login/login.component";
 
 export const appRoutes: Routes = [
@@ -13,7 +12,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'places/:userId',
-    loadComponent: () => import("./pages/home/home.component").then(m => m.HomeComponent)
+    loadComponent: () => import("./pages/places/places.component").then(m => m.PlacesComponent)
   },
   {
     path : "**",

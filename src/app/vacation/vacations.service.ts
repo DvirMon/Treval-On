@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Firestore, CollectionReference, DocumentData, collection, collectionData } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Firestore, CollectionReference, DocumentData, collection, collectionData, addDoc } from '@angular/fire/firestore';
+import { Observable, map } from 'rxjs';
 import { Vacation } from '../store/vacations/vacation.model';
+import { VACATIONS_DATA } from 'src/assets/MOCK_DATA';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,8 @@ import { Vacation } from '../store/vacations/vacation.model';
 export class VacationService {
 
   private readonly vacationsCollection: CollectionReference<DocumentData>;
+
+  mock_vacations: Vacation[] = VACATIONS_DATA
 
   constructor(
     private readonly firestore: Firestore
@@ -18,8 +21,16 @@ export class VacationService {
 
 
   getVacations$(): Observable<Vacation[]> {
-    return collectionData(this.vacationsCollection, { idField: 'id' }) as Observable<Vacation[]>;
+    return collectionData(this.vacationsCollection, { idField: 'id' }).pipe(map((arr) => arr.slice(0, 4))) as Observable<Vacation[]>;
   }
 
 
+
+  addVacation(): void {
+
+    this.mock_vacations.forEach((value: Vacation) => {
+      addDoc(this.vacationsCollection, value)
+    })
+
+  }
 }

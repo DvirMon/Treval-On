@@ -1,144 +1,234 @@
+import { Vacation } from "src/app/store/vacations/vacation.model";
+import { Timestamp } from '@angular/fire/firestore';
 
-
-export const VACATIONS_DATA = [
+export const VACATIONS_DATA: Vacation[] = [
   {
-    destination: "China",
-    price: 1655,
-    takeoff: new Date("4/28/2023"),
-    landing: new Date("11/16/2022"),
-    imageUrl: "http://dummyimage.com/111x100.png/5fa2dd/ffffff"
-  },
-  {
-    destination: "Finland",
-    price: 1717,
-    takeoff: new Date("11/20/2022"),
-    landing: new Date("8/5/2022"),
-    imageUrl: "http://dummyimage.com/235x100.png/5fa2dd/ffffff"
-  },
-  {
-    destination: "Cuba",
-    price: 2003,
-    takeoff: new Date("8/2/2022"),
-    landing: new Date("12/25/2022"),
-    imageUrl: "http://dummyimage.com/244x100.png/dddddd/000000"
-  },
-  {
-    destination: "Brazil",
-    price: 2759,
-    takeoff: new Date("5/28/2023"),
-    landing: new Date("7/11/2022"),
-    imageUrl: "http://dummyimage.com/188x100.png/ff4444/ffffff"
-  },
-  {
-    destination: "China",
-    price: 4312,
-    takeoff: new Date("1/26/2023"),
-    landing: new Date("8/20/2022"),
-    imageUrl: "http://dummyimage.com/153x100.png/ff4444/ffffff"
-  },
-  {
-    destination: "China",
-    price: 3191,
-    takeoff: new Date("9/2/2022"),
-    landing: new Date("11/14/2022"),
-    imageUrl: "http://dummyimage.com/157x100.png/cc0000/ffffff"
-  },
-  {
-    destination: "Portugal",
-    price: 1921,
-    takeoff: new Date("12/20/2022"),
-    landing: new Date("10/6/2022"),
-    imageUrl: "http://dummyimage.com/124x100.png/cc0000/ffffff"
-  },
-  {
-    destination: "China",
-    price: 4018,
-    takeoff: new Date("10/16/2022"),
-    landing: new Date("12/9/2022"),
-    imageUrl: "http://dummyimage.com/102x100.png/cc0000/ffffff"
-  },
-  {
-    destination: "China",
-    price: 1651,
-    takeoff: new Date("12/9/2022"),
-    landing: new Date("1/10/2023"),
-    imageUrl: "http://dummyimage.com/168x100.png/cc0000/ffffff"
-  },
-  {
-    destination: "Poland",
+    imageUrl: "https://media.worldnomads.com/travel-safety/poland/historic-houses-poland-gettyimages-137910613.jpg",
     price: 3546,
-    takeoff: new Date("11/5/2022"),
-    landing: new Date("5/30/2023"),
-    imageUrl: "http://dummyimage.com/233x100.png/ff4444/ffffff"
+    takeoff: new Timestamp(1667599200, 0),
+    destination: {
+      city: "Warsaw",
+      country: "Poland"
+    },
+    landing: new Timestamp(1667599200, 0),
+    id: "3hqilxhJNUzylQQa18Xd"
+  },
+
+  {
+    imageUrl: "https://images.pexels.com/photos/189833/pexels-photo-189833.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    landing: new Timestamp(1670536800, 0),
+    price: 4018,
+    destination: {
+      city: "Beijing",
+      country: "China"
+    },
+    takeoff: new Timestamp(1665867600, 0),
+    id: "6jsShidDt50ZFqXbJuGC"
+  },
+
+  {
+    imageUrl: "https://images.pexels.com/photos/13911606/pexels-photo-13911606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    price: 2759,
+    takeoff: new Timestamp(1685221200, 0),
+    destination: {
+      city: "Rio de Janeiro",
+      country: "Brazil"
+    },
+    landing: new Timestamp(1657486800, 0),
+    id: "9w97as0pyPdseWzjTfXC"
+  },
+
+  {
+    landing: new Timestamp(1668376800, 0),
+    destination: {
+      city: "Santiago",
+      country: "Chile"
+    },
+    imageUrl: "https://images.pexels.com/photos/1684166/pexels-photo-1684166.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    price: 3191,
+    takeoff: new Timestamp(1662066000, 0),
+    id: "KMMWCuHBMAkc6bwG9n07"
+  },
+
+  {
+    imageUrl: "https://images.pexels.com/photos/6476020/pexels-photo-6476020.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    takeoff: new Timestamp(1670536800, 0),
+    destination: {
+      city: "London",
+      country: "England"
+    },
+    price: 1651,
+    landing: new Timestamp(1673301600, 0),
+    id: "T0bP7ItCDwJPZB60pd2c"
+  },
+
+  {
+    imageUrl: "https://images.pexels.com/photos/2570063/pexels-photo-2570063.jpeg",
+    destination: {
+      city: "Berlin",
+      country: "Germany"
+    },
+    landing: new Timestamp(1660942800, 0),
+    takeoff: new Timestamp(1674684000, 0),
+    price: 4312,
+    id: "bPwXKAVt68nMJNC2m51B"
+  },
+
+  {
+    landing: new Timestamp(1668549600, 0),
+    imageUrl: "https://images.pexels.com/photos/5220030/pexels-photo-5220030.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    price: 1655,
+    takeoff: new Timestamp(1682629200, 0),
+    destination: {
+      city: "Tokyo",
+      country: "Japan"
+    },
+    id: "isfPtIf6PLNji3UPYTmO"
+  },
+
+  {
+    imageUrl: "https://images.pexels.com/photos/1531660/pexels-photo-1531660.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    destination: {
+      city: "Kathmandu",
+      country: "Nepal"
+    },
+    takeoff: new Timestamp(1668895200, 0),
+    price: 1717,
+    landing: new Timestamp(1659646800, 0),
+    id: "n9mpncvltrdPnWqLyLGu"
+  },
+
+  {
+    price: 1921,
+    imageUrl: "https://images.pexels.com/photos/922978/pexels-photo-922978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    destination: {
+      city: "Zurich",
+      country: "Switzerland"
+    },
+    takeoff: new Timestamp(1671487200, 0),
+    landing: new Timestamp(1665003600, 0),
+    id: "tLGTfXNtuvBIZHUsoUnW"
+  },
+
+  {
+    imageUrl: "https://images.pexels.com/photos/1637122/pexels-photo-1637122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    takeoff: new Timestamp(1659387600, 0),
+    destination: {
+      city: "Havana",
+      country: "Cuba"
+    },
+    landing: new Timestamp(1671919200, 0),
+    price: 2003,
+    id: "v3oP25WvJPtbdiC2qGgf"
   },
   {
-    destination: "Montserrat",
-    price: 4514,
-    takeoff: new Date("11/9/2022"),
-    landing: new Date("9/10/2022"),
-    imageUrl: "http://dummyimage.com/189x100.png/dddddd/000000"
+    imageUrl: "https://example.com/destination/image11.jpg",
+    price: 2800,
+    takeoff: new Timestamp(1705000000, 0),
+    destination: {
+      city: "Sydney",
+      country: "Australia"
+    },
+    landing: new Timestamp(1706000000, 0),
+    id: "abcdefg1"
   },
   {
-    destination: "Tajikistan",
-    price: 1265,
-    takeoff: new Date("1/22/2023"),
-    landing: new Date("3/30/2023"),
-    imageUrl: "http://dummyimage.com/229x100.png/cc0000/ffffff"
+    imageUrl: "https://example.com/destination/image12.jpg",
+    price: 3500,
+    takeoff: new Timestamp(1707000000, 0),
+    destination: {
+      city: "Cairo",
+      country: "Egypt"
+    },
+    landing: new Timestamp(1708000000, 0),
+    id: "abcdefg2"
   },
   {
-    destination: "United States",
-    price: 3026,
-    takeoff: new Date("10/21/2022"),
-    landing: new Date("10/10/2022"),
-    imageUrl: "http://dummyimage.com/236x100.png/dddddd/000000"
+    imageUrl: "https://example.com/destination/image13.jpg",
+    price: 2300,
+    takeoff: new Timestamp(1709000000, 0),
+    destination: {
+      city: "Moscow",
+      country: "Russia"
+    },
+    landing: new Timestamp(1710000000, 0),
+    id: "abcdefg3"
   },
   {
-    destination: "Indonesia",
-    price: 4282,
-    takeoff: new Date("7/18/2022"),
-    landing: new Date("7/26/2022"),
-    imageUrl: "http://dummyimage.com/174x100.png/ff4444/ffffff"
+    imageUrl: "https://example.com/destination/image14.jpg",
+    price: 2800,
+    takeoff: new Timestamp(1711000000, 0),
+    destination: {
+      city: "Bangkok",
+      country: "Thailand"
+    },
+    landing: new Timestamp(1712000000, 0),
+    id: "abcdefg4"
   },
   {
-    destination: "France",
-    price: 4544,
-    takeoff: new Date("12/19/2022"),
-    landing: new Date("12/30/2022"),
-    imageUrl: "http://dummyimage.com/231x100.png/5fa2dd/ffffff"
+    imageUrl: "https://example.com/destination/image15.jpg",
+    price: 3200,
+    takeoff: new Timestamp(1713000000, 0),
+    destination: {
+      city: "Toronto",
+      country: "Canada"
+    },
+    landing: new Timestamp(1714000000, 0),
+    id: "abcdefg5"
   },
   {
-    destination: "China",
-    price: 4417,
-    takeoff: new Date("1/2/2023"),
-    landing: new Date("11/8/2022"),
-    imageUrl: "http://dummyimage.com/236x100.png/dddddd/000000"
+    imageUrl: "https://example.com/destination/image16.jpg",
+    price: 3800,
+    takeoff: new Timestamp(1715000000, 0),
+    destination: {
+      city: "Cape Town",
+      country: "South Africa"
+    },
+    landing: new Timestamp(1716000000, 0),
+    id: "abcdefg6"
   },
   {
-    destination: "China",
-    price: 4935,
-    takeoff: new Date("4/28/2023"),
-    landing: new Date("7/9/2022"),
-    imageUrl: "http://dummyimage.com/214x100.png/5fa2dd/ffffff"
+    imageUrl: "https://example.com/destination/image17.jpg",
+    price: 2100,
+    takeoff: new Timestamp(1717000000, 0),
+    destination: {
+      city: "New York City",
+      country: "United States"
+    },
+    landing: new Timestamp(1718000000, 0),
+    id: "abcdefg7"
   },
   {
-    destination: "Indonesia",
-    price: 3798,
-    takeoff: new Date("6/6/2023"),
-    landing: new Date("1/30/2023"),
-    imageUrl: "http://dummyimage.com/216x100.png/cc0000/ffffff"
+    imageUrl: "https://example.com/destination/image18.jpg",
+    price: 2700,
+    takeoff: new Timestamp(1719000000, 0),
+    destination: {
+      city: "Dubai",
+      country: "United Arab Emirates"
+    },
+    landing: new Timestamp(1720000000, 0),
+    id: "abcdefg8"
   },
   {
-    destination: "Paraguay",
-    price: 2841,
-    takeoff: new Date("9/3/2022"),
-    landing: new Date("11/16/2022"),
-    imageUrl: "http://dummyimage.com/156x100.png/dddddd/000000"
+    imageUrl: "https://example.com/destination/image19.jpg",
+    price: 2950,
+    takeoff: new Timestamp(1721000000, 0),
+    destination: {
+      city: "Stockholm",
+      country: "Sweden"
+    },
+    landing: new Timestamp(1722000000, 0),
+    id: "abcdefg9"
   },
   {
-    destination: "Indonesia",
-    price: 3598,
-    takeoff: new Date("5/12/2023"),
-    landing: new Date("4/21/2023"),
-    imageUrl: "http://dummyimage.com/172x100.png/5fa2dd/ffffff"
+    imageUrl: "https://example.com/destination/image20.jpg",
+    price: 2450,
+    takeoff: new Timestamp(1723000000, 0),
+    destination: {
+      city: "Marrakech",
+      country: "Morocco"
+    },
+    landing: new Timestamp(1724000000, 0),
+    id: "abcdefg10"
   }
-]
+];
