@@ -1,4 +1,5 @@
 <div class="home-page">
+  {{ selection() | json }}
   <to-vacation-list
     [vacations]="vacations"
     [selection]="selection"

@@ -23,29 +23,18 @@ export class PlacesComponent implements OnDestroy {
 
   constructor() {
     this.vacations = this.storeService.getVacations();
-    this.selection = this.storeService.getSelectedFavorites('1')
-
+    this.selection = this.storeService.getSelectedFavorites('2')
   }
 
   ngOnDestroy(): void {
-
-    console.log(this._mapSelectionToArray(this.selection))
-  }
-
-  private updateSelectedVacations() {
+    this.storeService.updateFavorites()
 
   }
-
 
   onSelectionChanged(event: SelectionListChange) {
     const { selection } = event;
     this.storeService.updateSelection(selection)
   }
-
-  private _mapSelectionToArray(selection: Signal<Record<string, boolean>>): string[] {
-    return Object.keys(selection())
-  }
-
 
 
 

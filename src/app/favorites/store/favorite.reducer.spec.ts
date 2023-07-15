@@ -1,11 +1,12 @@
-import { reducer, initialState } from './favorite.reducer';
+import { favoriteReducer } from "./favorite.reducer";
+import { initialState } from "./favorite.state";
 
 describe('Favorite Reducer', () => {
   describe('unknown action', () => {
     it('should return the previous state', () => {
       const action = {} as any;
 
-      const result = reducer(initialState, action);
+      const result = favoriteReducer(initialState, action);
 
       expect(result).toBe(initialState);
     });

@@ -37,12 +37,12 @@ export class StoreService {
 
     const loaded$ = this.store.select(FavoritesSelectors.selectFavoritesVacationsLoaded);
 
-    const favorite$ = loaded$.pipe(
+    const favorite$: Observable<Record<string, boolean>> = loaded$.pipe(
       switchMap((loaded: boolean) => {
         if (!loaded) {
           this.store.dispatch(FavoriteActions.loadFavorites({ userId }));
         }
-        return this.store.select(FavoritesSelectors.selectFavoritesVacations);
+        return this.store.select(FavoritesSelectors.selectFavoritesVacations) as Observable<Record<string, boolean>>;
       }))
 
     return toSignal(favorite$, { initialValue: {} })
@@ -53,8 +53,8 @@ export class StoreService {
     this.store.dispatch(action)
   }
 
-  public updateFavorites(favorite:  Favorite) {
-    const action = FavoriteActions.updateFavorite({ favorite })
+  public updateFavorites() {
+    const action = FavoriteActions.updateFavorite()
     this.store.dispatch(action)
 
   }

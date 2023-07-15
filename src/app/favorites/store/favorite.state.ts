@@ -1,30 +1,22 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { Favorite } from './favorite.model';
-
-// export const favoritesFeatureKey = 'favorites';
-
-// export interface State extends Favorite {
-//   // additional entities state properties
-//   load: boolean;
-//   selected: Record<string, boolean>;
-
-// }
-
+import { Timestamp } from '@angular/fire/firestore';
 
 
 export const favoritesFeatureKey = 'favorites';
 
-export interface State extends EntityState<Favorite> {
+export interface State {
   // additional entities state properties
+  favorite: Favorite | null
   loaded: boolean;
-  selected: Record<string, boolean>;
+  // selected: Record<string, boolean>;
 
 }
 
-export const adapter: EntityAdapter<Favorite> = createEntityAdapter<Favorite>();
+// export const adapter: EntityAdapter<Favorite> = createEntityAdapter<Favorite>();
 
-export const initialState: State = adapter.getInitialState({
+export const initialState: State = {
   // additional entity state properties
+  favorite: null,
   loaded: false,
-  selected: {}
-});
+  // selected: {}
+}
