@@ -1,8 +1,9 @@
 <div class="home-page">
-  {{ selection() | json }}
-  <to-vacation-list
-    [vacations]="vacations"
-    [selection]="selection"
-    (selectionChanged)="onSelectionChanged($event)"
-  ></to-vacation-list>
+  <ng-container *ngIf="selection$ | async">
+    <to-vacation-list
+      [vacations]="vacations"
+      [selection]="selection"
+      (selectionChanged)="onSelectionChanged($event)"
+    ></to-vacation-list>
+  </ng-container>
 </div>

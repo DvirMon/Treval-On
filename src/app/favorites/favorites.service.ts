@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CollectionReference, QuerySnapshot, getDocs, where, doc, updateDoc, DocumentData, addDoc, Firestore, collection, query, Timestamp, DocumentReference } from '@angular/fire/firestore';
+import { CollectionReference, QuerySnapshot, getDocs, where, doc, updateDoc, DocumentData, addDoc,getDoc, Firestore, collection, query, Timestamp, DocumentReference } from '@angular/fire/firestore';
 import { Observable, from, switchMap, iif, map, of, tap, take, first, defaultIfEmpty, filter, merge } from 'rxjs';
 import { Favorite } from './store/favorite.model';
 
@@ -32,7 +32,7 @@ export class FavoriteService {
     )
 
     return querySnapshot$.pipe(
-      switchMap((querySnapshot) => iif(
+      switchMap((querySnapshot : QuerySnapshot<Favorite>) => iif(
         () => querySnapshot.empty,
         trueResult$,
         falseResult$

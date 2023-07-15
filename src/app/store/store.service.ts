@@ -33,7 +33,7 @@ export class StoreService {
     return toSignal(vacations$, { initialValue: [] });
   }
 
-  public getSelectedFavorites(userId: string): Signal<Record<string, boolean>> {
+  public getSelectedFavorites(userId: string) {
 
     const loaded$ = this.store.select(FavoritesSelectors.selectFavoritesVacationsLoaded);
 
@@ -45,7 +45,8 @@ export class StoreService {
         return this.store.select(FavoritesSelectors.selectFavoritesVacations) as Observable<Record<string, boolean>>;
       }))
 
-    return toSignal(favorite$, { initialValue: {} })
+    // return toSignal(favorite$, { initialValue: {} })
+    return favorite$
   }
 
   public updateSelection(selected: Record<string, boolean>) {
