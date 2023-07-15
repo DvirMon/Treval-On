@@ -1,9 +1,7 @@
 <div class="home-page">
-  <ng-container *ngIf="selection$ | async">
     <to-vacation-list
       [vacations]="vacations"
       [selection]="selection"
       (selectionChanged)="onSelectionChanged($event)"
     ></to-vacation-list>
-  </ng-container>
 </div>

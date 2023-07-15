@@ -42,7 +42,6 @@ export class FavoriteService {
 
   private _setFavorite(querySnapshot: QuerySnapshot<Favorite>) {
     const doc = querySnapshot.docs[0]
-    console.log('_setFavorite')
     return {
       ...doc.data(),
       id: doc.id
@@ -51,7 +50,6 @@ export class FavoriteService {
   }
 
   private _createNewFavoriteDocument$(favoritesRef: CollectionReference<DocumentData>, userId: string): Observable<Favorite> {
-    console.log('_createFavorite')
     const newFavorite: Partial<Favorite> = { userId, vacationIds: [], createdAt: Timestamp.fromDate(new Date()) };
     return from(addDoc(favoritesRef, newFavorite))
       .pipe(switchMap((doc: DocumentReference<DocumentData>) => {
