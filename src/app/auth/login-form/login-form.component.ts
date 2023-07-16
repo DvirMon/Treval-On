@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector, WritableSignal, inject, runInInjectionContext, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Injector, Output, WritableSignal, inject, runInInjectionContext, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { EMPTY, Observable, Subject, catchError, exhaustMap } from 'rxjs';
-import { User } from 'src/app/store/user/user.model';
+import { User } from '../store/auth.model';
 import { FlipCardService } from 'src/app/components/flip-card/flip-card.service';
 
 export interface LoginForm {
@@ -47,15 +47,17 @@ export class LoginFormComponent {
   protected readonly loginFormGroup: FormGroup<LoginForm>;
   private readonly injector = inject(Injector);
 
+  @Output() login: EventEmitter<void> = new EventEmitter();
+
   constructor(
     private authService: AuthService,
   ) {
 
     this._setGoogleIcon();
 
-    this._signInWithGoogle$()
-      .pipe(takeUntilDestroyed())
-      .subscribe(user => this.authService.setUser(user))
+    // this._signInWithGoogle$()
+    //   .pipe(takeUntilDestroyed())
+    //   .subscribe(user => this.authService.setUser(user))
 
     this.loginFormGroup = this._getLoginFormGroup(inject(NonNullableFormBuilder))
 
@@ -87,6 +89,7 @@ export class LoginFormComponent {
 
   protected oGoogleSignIn(): void {
     // this.loginSource.next();
+    this.login.emit()
   }
 
   protected onSubmit(event: SubmitEvent, value: Partial<{ email: string; password: string; }>): void {

@@ -1,81 +1,52 @@
 import { Injectable, Signal, WritableSignal, computed, signal } from '@angular/core';
 import {
   Auth,
-  signInWithPhoneNumber,
   signInWithPopup,
+  signInWithEmailAndPassword,
+  signInWithEmailLink,
+  signInWithPhoneNumber,
   GoogleAuthProvider,
-  ApplicationVerifier,
   RecaptchaVerifier,
   UserCredential,
   User as UserFirebase,
   ConfirmationResult
 } from '@angular/fire/auth';
 import { Observable, from, map } from 'rxjs';
-import { User } from '../store/user/user.model';
-
-
-class PhoneVerifier implements ApplicationVerifier {
-  public type: string;
-
-  constructor() {
-    this.type = 'phone'; // Assign a default value or initialize it in the constructor
-  }
-
-  verify(): Promise<string> {
-    // Implement your custom verification logic here
-    // This method should return a Promise that resolves with a verification ID
-
-    return Promise.resolve('658695');
-  }
-}
+import { User } from './store/auth.model';
+import { mapUserCredentials } from './auth.helpers';
 
 @Injectable({ providedIn: "root" })
 
 export class AuthService {
 
-  private readonly _user: WritableSignal<User> = signal({} as User)
-  private readonly _logged: Signal<boolean> = computed(() => !!this._user())
+  // private readonly _user: WritableSignal<User> = signal({} as User);
+  // private readonly _logged: Signal<boolean> = computed(() => !!this._user());
 
 
   constructor(
     private auth: Auth
   ) { }
 
-  public setUser(user: User): void {
-    this._user.set(user)
-  }
 
-  public getUser(): WritableSignal<User> {
-    return this._user
-  }
-
-  public isLogged(): Signal<boolean> {
-    return this._logged
-  }
 
   public signInWithGoogle$(): Observable<User> {
     return from(signInWithPopup(this.auth, new GoogleAuthProvider()))
-      .pipe(
-        map((credential: UserCredential) => credential.user),
-        map((userFirebase: UserFirebase) => {
-          const user = this._mapUser(userFirebase)
-          return user
-        }))
+      .pipe(mapUserCredentials())
   }
 
   public signInWithPhone$(phone: string): Observable<ConfirmationResult> {
     return from(signInWithPhoneNumber(this.auth, phone, new RecaptchaVerifier('recaptcha', { size: 'invisible' }, this.auth)))
   }
 
-  private _mapUser(user: UserFirebase): User {
-    return {
-      uid: user.uid,
-      displayName: user.displayName,
-      email: user.email,
-      emailVerified: user.emailVerified,
-      photoURL: user.photoURL,
-    } as User
-  }
+  // public signInWithEmailAndPassword(email: string, password: string): Observable<User> {
+  //   return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
+  //     map((credential: UserCredential) => credential.user),
+  //     map((userFirebase: UserFirebase) => {
+  //       const user = this._mapUser(userFirebase)
+  //       return user
+  //     }))
+
+  // }
 
 
 }
