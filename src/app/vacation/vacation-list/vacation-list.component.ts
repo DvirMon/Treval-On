@@ -29,14 +29,16 @@ export class VacationListComponent {
     const { source, selected } = event
     const { vacation } = source
 
-    const newSelection = this._updateSelection(this.selection(), selected, vacation)
+    const newSelection = this._updateStoreSelection(this.selection(), selected, vacation)
     this._emitChangeEvent(newSelection);
 
   }
 
-  private _updateSelection(selection: Record<string, boolean>, selected: boolean, vacation: Vacation): Record<string, boolean> {
+  private _updateStoreSelection(selection: Record<string, boolean>, selected: boolean, vacation: Vacation): Record<string, boolean> {
 
-    let newSelection = { ...selection }; // Create a copy of the original selection mapnpm 
+    let newSelection = { ...selection }; // Create a copy of the original selection
+
+    console.log('newSelection', newSelection)
 
     if (selected) {
       newSelection = {

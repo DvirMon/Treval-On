@@ -7,7 +7,10 @@ export const vacationReducer = createReducer(
   on(VacationActions.loadVacations, (state) => state),
 
   on(VacationActions.loadVacationsSuccess,
-    (state, action) => adapter.setAll(action.vacations, state)
+    (state, action) => ({
+      ...adapter.setAll(action.vacations, state),
+      loaded: true
+    })
   ),
 
   on(VacationActions.addVacation,
@@ -24,14 +27,5 @@ export const vacationReducer = createReducer(
     state => adapter.removeAll(state)
   ),
 
-  on(VacationActions.updateSelectedVacations,
-    (state, action) => (
-      {
-        ...state,
-        selected: {
-          ...action.selected
-        }
-
-      }))
 );
 

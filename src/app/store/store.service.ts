@@ -3,8 +3,11 @@ import { Store } from '@ngrx/store';
 import { VacationSelectors } from './vacations/vacation.selectors';
 import { VacationActions } from './vacations/vacation.actions';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
+import { Observable, iif, of, switchMap, tap } from 'rxjs';
 import { Vacation } from './vacations/vacation.model';
+import { FavoritesSelectors } from '../favorites/store/favorites.selectors';
+import { FavoriteActions } from '../favorites/store/favorite.actions';
+import { Favorite } from '../favorites/store/favorite.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,26 +22,42 @@ export class StoreService {
   public getVacations(): Signal<Vacation[] | never[]> {
     const loaded$ = this.store.select(VacationSelectors.selectVacationsLoaded)
 
-    const vacations$ = loaded$.pipe(
-      switchMap((loaded) => {
+    const vacations$: Observable<Vacation[]> = loaded$.pipe(
+      switchMap((loaded: boolean) => {
         if (!loaded) {
-          this.store.dispatch(VacationActions.loadVacations())
+          this.store.dispatch(VacationActions.loadVacations());
         }
-        return this.store.select(VacationSelectors.selectAllVacations)
+        return this.store.select(VacationSelectors.selectAllVacations);
       })
-    )
+    );
     return toSignal(vacations$, { initialValue: [] });
   }
 
-  public getSelectedVacations(): Signal<Record<string, boolean>> {
-    const selected$ = this.store.select(VacationSelectors.selectSelectedVacations)
-    return toSignal(selected$, { initialValue: {} })
+  public getSelectedFavorites(userId: string) {
+
+    const loaded$ = this.store.select(FavoritesSelectors.selectFavoritesVacationsLoaded);
+
+    const favorite$: Observable<Record<string, boolean>> = loaded$.pipe(
+      switchMap((loaded: boolean) => {
+        if (!loaded) {
+          this.store.dispatch(FavoriteActions.loadFavorites({ userId }));
+        }
+        return this.store.select(FavoritesSelectors.selectFavoritesVacations) as Observable<Record<string, boolean>>;
+      }))
+
+    // return toSignal(favorite$, { initialValue: {} })
+    return favorite$
   }
 
   public updateSelection(selected: Record<string, boolean>) {
-    const action = VacationActions.updateSelectedVacations({ selected })
-    console.log(action)
+    const action = FavoriteActions.updateSelectedFavoritesVacations({ selected })
     this.store.dispatch(action)
+  }
+
+  public updateFavorites() {
+    const action = FavoriteActions.updateFavorite()
+    this.store.dispatch(action)
+
   }
 
 }

@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
 import { LoginPageComponent } from "./pages/login/login.component";
+import { placesResolver } from "./pages/places/places.resolver";
 
 export const appRoutes: Routes = [
   {
@@ -12,15 +13,16 @@ export const appRoutes: Routes = [
   },
   {
     path: 'places/:userId',
-    loadComponent: () => import("./pages/places/places.component").then(m => m.PlacesComponent)
+    loadComponent: () => import("./pages/places/places.component").then(m => m.PlacesComponent),
+    resolve: { routeResolver: placesResolver }
   },
   {
-    path : "**",
+    path: "**",
     loadComponent: () => import("./pages/pnf/pnf.component").then(m => m.PnfComponent)
   },
   {
-    path : "",
-    pathMatch : 'full',
-    redirectTo : '/'
+    path: "",
+    pathMatch: 'full',
+    redirectTo: '/'
   }
 ];
