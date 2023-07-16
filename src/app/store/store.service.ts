@@ -3,11 +3,10 @@ import { Store } from '@ngrx/store';
 import { VacationSelectors } from './vacations/vacation.selectors';
 import { VacationActions } from './vacations/vacation.actions';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Observable, iif, of, switchMap, tap } from 'rxjs';
 import { Vacation } from './vacations/vacation.model';
 import { FavoritesSelectors } from '../favorites/store/favorites.selectors';
 import { FavoriteActions } from '../favorites/store/favorite.actions';
-import { Favorite } from '../favorites/store/favorite.model';
+import { Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

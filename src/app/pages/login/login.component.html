@@ -1,7 +1,10 @@
 <div class="login-container">
   <div class="login-wrapper">
     <div class="login-card">
-      
+      <pre>
+      some text
+        {{ user() | json }}
+      </pre>
     </div>
     <div class="login-form">
       <to-floating-button
@@ -9,7 +12,7 @@
         [navigation]="'/register'"
       ></to-floating-button>
       <to-flip-card>
-        <to-login-form class="front"> </to-login-form>
+        <to-login-form (login)="oLogin()" class="front"> </to-login-form>
         <to-login-otp-form class="back"> </to-login-otp-form>
       </to-flip-card>
     </div>

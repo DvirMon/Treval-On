@@ -3,6 +3,13 @@
     height: 100%;
   }
 
+  div.login-card {
+    pre {
+      font-size: 50px;
+      color: white;
+    }
+  }
+
   div.login-wrapper {
     background-image: url("../../../assets/images/backgrounds/login.jpeg");
     background-repeat: no-repeat;

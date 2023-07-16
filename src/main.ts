@@ -25,6 +25,9 @@ import { favoritesFeatureKey } from './app/favorites/store/favorite.state';
 
 import { environment } from './environments/environment';
 import { FavoritesEffects } from './app/favorites/store/favorites.effects';
+import { authFeatureKey } from './app/auth/store/auth.state';
+import { authReducer } from './app/auth/store/auth.reducer';
+import { AuthEffects } from './app/auth/store/auth.effects';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -40,9 +43,13 @@ bootstrapApplication(AppComponent, {
     provideRouter(appRoutes, withComponentInputBinding()),
     provideHttpClient(),
     provideAnimations(),
-    provideStore({ [vacationsFeatureKey]: vacationReducer, [favoritesFeatureKey] : favoriteReducer }),
+    provideStore({
+      [authFeatureKey] : authReducer,
+      [vacationsFeatureKey]: vacationReducer,
+      [favoritesFeatureKey]: favoriteReducer
+    }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects(VacationEffects, FavoritesEffects),
+    provideEffects(AuthEffects, VacationEffects, FavoritesEffects),
     {
       provide: ScreenTrackingService, useClass: ScreenTrackingService
     },
