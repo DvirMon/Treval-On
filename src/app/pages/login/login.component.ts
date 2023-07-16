@@ -7,6 +7,8 @@ import { LoginOtpFormComponent } from 'src/app/auth/login-otp-form/login-otp-for
 import { SignInEvent, User, SignInMethod } from '../../auth/store/auth.model';
 import { AuthStoreService } from 'src/app/auth/store/auth.store.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { switchMap } from 'rxjs';
+import { ConfirmationResult } from '@angular/fire/auth';
 
 @Component({
   selector: 'to-login-page',
@@ -31,10 +33,12 @@ export class LoginPageComponent {
   protected onSignIn(event: SignInEvent): void {
     // this.authStore.signIn({method : SignInMethod.EMAIL_LINK, data : 'dmenajem@gmail.com'});
 
-    this.authService.sendSignInLinkToEmail$("dmenajem@gmail.com").subscribe(
-      (value) => {
-        console.log('success', value);
-      }, (err) => console.log('error', err))
+    this.authService.signInWithPhone$("+972547974643")
+      .pipe(switchMap((confirmation: ConfirmationResult) => confirmation.confirm(""))
+      ).subscribe(
+        (value) => console.log('success', value),
+        (error) => console.log('error', error)
+      )
   }
 
   protected onEmailAndPasswordSignIn(event: SignInEvent): void {
