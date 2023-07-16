@@ -31,7 +31,7 @@ export class AuthStoreService {
 
   private _login$(): Observable<User> {
     return this.loginSource.asObservable().pipe(
-      exhaustMap((event: SignInEvent) => this._handleSignIn$(event)),
+      exhaustMap((event: SignInEvent) => this._singIn$(event)),
       catchError((error: Error) => {
         console.log('error', error);
         return EMPTY
@@ -39,32 +39,32 @@ export class AuthStoreService {
     )
   }
 
-  private _handleSignIn$(event: SignInEvent): Observable<User> {
+  private _singIn$(event: SignInEvent): Observable<User> {
+    const loaded$ = this.store.select(AuthSelectors.selectLoaded)
+
+    const user$: Observable<User> = loaded$.pipe(
+      switchMap((loaded: boolean) => {
+        if (!loaded) {
+          this._handleSignIn(event)
+        }
+        return this.store.select(AuthSelectors.selectUser);
+      })
+    );
+    return user$;
+  }
+
+  private _handleSignIn(event: SignInEvent): void {
 
     const { method, data } = event
 
     switch (method) {
 
       case SignInMethod.Google:
-        return this._signInWithGmail$()
-      default:
-        return of({} as User)
+        return this.store.dispatch(AuthActions.signInWithGmail())
+      case SignInMethod.EmailAndPassword:
+        return this.store.dispatch(AuthActions.signInWithEmailAndPassword({ login: data }))
     }
 
-  }
-
-  private _signInWithGmail$(): Observable<User> {
-    const loaded$ = this.store.select(AuthSelectors.selectLoaded)
-
-    const user$: Observable<User> = loaded$.pipe(
-      switchMap((loaded: boolean) => {
-        if (!loaded) {
-          this.store.dispatch(AuthActions.signInWithGmail());
-        }
-        return this.store.select(AuthSelectors.selectUser);
-      })
-    );
-    return user$;
   }
 
 

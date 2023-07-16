@@ -6,6 +6,7 @@ import { FlipCardComponent } from 'src/app/components/flip-card/flip-card.compon
 import { LoginOtpFormComponent } from 'src/app/auth/login-otp-form/login-otp-form.component';
 import { SignInEvent, User } from '../../auth/store/auth.model';
 import { AuthStoreService } from 'src/app/auth/store/auth.store.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'to-login-page',
@@ -19,7 +20,7 @@ import { AuthStoreService } from 'src/app/auth/store/auth.store.service';
 export class LoginPageComponent {
 
   private readonly authStore = inject(AuthStoreService);
-
+  private readonly authService = inject(AuthService);
   protected readonly user: Signal<User>;
 
   constructor() {
@@ -32,7 +33,16 @@ export class LoginPageComponent {
   }
 
   protected onEmailAndPasswordSignIn(event: SignInEvent): void {
-    this.authStore.signIn(event);
+    // this.authStore.signIn(event);
+    const { method, data } = event
+
+    this.authService.signInWithEmailAndPassword$(data.email, data.password)
+      .subscribe(
+        (value) => {
+          console.log('success', value)
+        },
+        (err) => { console.log(err) })
+
   }
 
 }
