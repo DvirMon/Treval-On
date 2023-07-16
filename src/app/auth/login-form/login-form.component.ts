@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Injector, Output, WritableSignal, inject, runInInjectionContext, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -12,13 +11,15 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { EMPTY, Observable, Subject, catchError, exhaustMap } from 'rxjs';
-import { User } from '../store/auth.model';
+import { SignInEvent, EmailAndPasswordSignIn, SignInMethod } from '../store/auth.model';
 import { FlipCardService } from 'src/app/components/flip-card/flip-card.service';
 
-export interface LoginForm {
+interface LoginForm {
   email: FormControl<string>
   password: FormControl<string>
 }
+
+
 
 @Component({
   selector: 'to-login-form',
@@ -47,18 +48,14 @@ export class LoginFormComponent {
   protected readonly loginFormGroup: FormGroup<LoginForm>;
   private readonly injector = inject(Injector);
 
-  @Output() login: EventEmitter<void> = new EventEmitter();
+  @Output() googleSignIn: EventEmitter<SignInEvent> = new EventEmitter();
+  @Output() emailAndPasswordSignIn: EventEmitter<SignInEvent> = new EventEmitter();
 
   constructor(
     private authService: AuthService,
   ) {
 
     this._setGoogleIcon();
-
-    // this._signInWithGoogle$()
-    //   .pipe(takeUntilDestroyed())
-    //   .subscribe(user => this.authService.setUser(user))
-
     this.loginFormGroup = this._getLoginFormGroup(inject(NonNullableFormBuilder))
 
   }
@@ -70,16 +67,6 @@ export class LoginFormComponent {
     );
   }
 
-  private _signInWithGoogle$(): Observable<User> {
-    return this.loginSource.asObservable().pipe(
-      exhaustMap(() => this.authService.signInWithGoogle$()),
-      catchError((error: Error) => {
-        console.log('error', error);
-        return EMPTY
-      })
-    )
-  }
-
   private _getLoginFormGroup(nfb: NonNullableFormBuilder): FormGroup<LoginForm> {
     return nfb.group({
       email: nfb.control('', [Validators.required, Validators.email]),
@@ -88,12 +75,13 @@ export class LoginFormComponent {
   }
 
   protected oGoogleSignIn(): void {
-    // this.loginSource.next();
-    this.login.emit()
+    const event = this._createSignInEvent(SignInMethod.Google)
+    this.googleSignIn.emit(event)
   }
 
-  protected onSubmit(event: SubmitEvent, value: Partial<{ email: string; password: string; }>): void {
-    console.log(value);
+  protected onSubmit(submitEvent: SubmitEvent, value: Partial<EmailAndPasswordSignIn>): void {
+    const event = this._createSignInEvent(SignInMethod.EmailAndPassword, value)
+    this.emailAndPasswordSignIn.emit(event)
   }
 
 
@@ -101,6 +89,13 @@ export class LoginFormComponent {
     runInInjectionContext(this.injector, () => {
       inject(FlipCardService).flip()
     })
+  }
+
+  private _createSignInEvent(method: SignInMethod, data?: any): SignInEvent {
+    return {
+      method,
+      data
+    } as SignInEvent
   }
 }
 

@@ -1,7 +1,7 @@
 import { Injectable, Signal, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { EMPTY, Observable, Subject, catchError, exhaustMap, switchMap } from 'rxjs';
-import { User } from './auth.model';
+import { EMPTY, Observable, Subject, catchError, exhaustMap, of, switchMap } from 'rxjs';
+import { SignInEvent, SignInMethod, User } from './auth.model';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthActions } from './auth.actions';
 import { AuthSelectors } from './auth.selectors';
@@ -12,8 +12,7 @@ import { AuthSelectors } from './auth.selectors';
 export class AuthStoreService {
 
   private readonly user: Signal<User>
-  private readonly loginSource = new Subject<void>;
-
+  private readonly loginSource: Subject<SignInEvent> = new Subject<SignInEvent>;
 
   constructor(
     private store: Store
@@ -32,12 +31,26 @@ export class AuthStoreService {
 
   private _login$(): Observable<User> {
     return this.loginSource.asObservable().pipe(
-      exhaustMap(() => this._signInWithGmail$()),
+      exhaustMap((event: SignInEvent) => this._handleSignIn$(event)),
       catchError((error: Error) => {
         console.log('error', error);
         return EMPTY
       })
     )
+  }
+
+  private _handleSignIn$(event: SignInEvent): Observable<User> {
+
+    const { method, data } = event
+
+    switch (method) {
+
+      case SignInMethod.Google:
+        return this._signInWithGmail$()
+      default:
+        return of({} as User)
+    }
+
   }
 
   private _signInWithGmail$(): Observable<User> {
@@ -55,8 +68,8 @@ export class AuthStoreService {
   }
 
 
-  public login(): void {
-    this.loginSource.next();
+  public signIn(signIn: SignInEvent): void {
+    this.loginSource.next(signIn);
   }
 
 
