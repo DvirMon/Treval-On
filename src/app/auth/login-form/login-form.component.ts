@@ -10,9 +10,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { EMPTY, Observable, Subject, catchError, exhaustMap } from 'rxjs';
 import { SignInEvent, EmailAndPasswordSignIn, SignInMethod } from '../store/auth.model';
 import { FlipCardService } from 'src/app/components/flip-card/flip-card.service';
+import { Subject } from 'rxjs';
 
 interface LoginForm {
   email: FormControl<string>
@@ -44,15 +44,12 @@ interface LoginForm {
 })
 export class LoginFormComponent {
 
-  private readonly loginSource = new Subject<void>;
   protected readonly loginFormGroup: FormGroup<LoginForm>;
   private readonly injector = inject(Injector);
 
-  @Output() googleSignIn: EventEmitter<SignInEvent> = new EventEmitter();
-  @Output() emailAndPasswordSignIn: EventEmitter<SignInEvent> = new EventEmitter();
+  @Output() signIn: EventEmitter<SignInEvent> = new EventEmitter();
 
   constructor(
-    private authService: AuthService,
   ) {
 
     this._setGoogleIcon();
@@ -75,15 +72,14 @@ export class LoginFormComponent {
   }
 
   protected oGoogleSignIn(): void {
-    const event = this._createSignInEvent(SignInMethod.Google)
-    this.googleSignIn.emit(event)
+    const event = this._createSignInEvent(SignInMethod.GOOGLE)
+    this.signIn.emit(event)
   }
 
   protected onSubmit(submitEvent: SubmitEvent, value: Partial<EmailAndPasswordSignIn>): void {
-    const event = this._createSignInEvent(SignInMethod.EmailAndPassword, value)
-    this.emailAndPasswordSignIn.emit(event)
+    const event = this._createSignInEvent(SignInMethod.EMAIL_PASSWORD, value)
+    this.signIn.emit(event)
   }
-
 
   protected onOTP(): void {
     runInInjectionContext(this.injector, () => {

@@ -17,10 +17,13 @@ export interface Register {
 }
 
 export enum SignInMethod {
-  Google,
-  EmailAndPassword,
-  EmailLink,
-  OPT,
+  EMAIL_LINK = 'emailLink',
+  EMAIL_PASSWORD = 'password',
+  FACEBOOK = 'facebook.com',
+  GITHUB = 'github.com',
+  GOOGLE = 'google.com',
+  PHONE = 'phone',
+  TWITTER = 'twitter.com',
 }
 
 export interface SignInEvent {

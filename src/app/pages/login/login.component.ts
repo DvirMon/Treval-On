@@ -4,7 +4,7 @@ import { LoginFormComponent } from 'src/app/auth/login-form/login-form.component
 import { FloatingButtonComponent } from 'src/app/components/floating-button/floating-button.component';
 import { FlipCardComponent } from 'src/app/components/flip-card/flip-card.component';
 import { LoginOtpFormComponent } from 'src/app/auth/login-otp-form/login-otp-form.component';
-import { SignInEvent, User } from '../../auth/store/auth.model';
+import { SignInEvent, User, SignInMethod } from '../../auth/store/auth.model';
 import { AuthStoreService } from 'src/app/auth/store/auth.store.service';
 import { AuthService } from 'src/app/auth/auth.service';
 
@@ -28,20 +28,25 @@ export class LoginPageComponent {
   }
 
 
-  protected onGoogleSignIn(event: SignInEvent): void {
-    this.authStore.signIn(event);
+  protected onSignIn(event: SignInEvent): void {
+    // this.authStore.signIn({method : SignInMethod.EMAIL_LINK, data : 'dmenajem@gmail.com'});
+
+    this.authService.sendSignInLinkToEmail$("dmenajem@gmail.com").subscribe(
+      (value) => {
+        console.log('success', value);
+      }, (err) => console.log('error', err))
   }
 
   protected onEmailAndPasswordSignIn(event: SignInEvent): void {
     // this.authStore.signIn(event);
     const { method, data } = event
 
-    this.authService.signInWithEmailAndPassword$(data.email, data.password)
-      .subscribe(
-        (value) => {
-          console.log('success', value)
-        },
-        (err) => { console.log(err) })
+    // this.authService.signInWithEmailAndPassword$(data.email, data.password)
+    //   .subscribe(
+    //     (value) => {
+    //       console.log('success', value)
+    //     },
+    //     (err) => { console.log(err) })
 
   }
 
