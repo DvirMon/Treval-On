@@ -1,5 +1,7 @@
+@use "variables" as main;
+
 mat-card {
-  border-radius: 15px;
+  border-radius: main.spacing(2);
   transform-style: preserve-3d;
   perspective: 800px;
 }

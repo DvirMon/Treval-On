@@ -14,8 +14,7 @@ import { FloatingButtonComponent } from 'src/app/components/floating-button/floa
 })
 export class RegisterPageComponent {
 
-  @Input() token! : string
-  @Input() oobCode! : string
+
 
 
   protected onButtonClick() {

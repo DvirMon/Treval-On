@@ -7,7 +7,7 @@ import { LoginOtpFormComponent } from 'src/app/auth/login-otp-form/login-otp-for
 import { SignInEvent, User, SignInMethod } from '../../auth/store/auth.model';
 import { AuthStoreService } from 'src/app/auth/store/auth.store.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { switchMap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { ConfirmationResult } from '@angular/fire/auth';
 import { FlipCardService } from 'src/app/components/flip-card/flip-card.service';
 import { EmailLinkFormComponent } from 'src/app/auth/email-link-form/email-link-form.component';
@@ -41,8 +41,20 @@ export class LoginPageComponent {
 
   constructor() {
     this.user = this.authStore.getUser();
-    this.showOpt = signal(false)
+    this.showOpt = signal(false);
+
   }
+
+  ngOnInit(): void {
+    this.authStore.listenToSendEmailSuccess().pipe(
+      tap((value) => console.log("success", value)),
+      map((email) => this.authStore.signIn({ method: SignInMethod.EMAIL_LINK, data: { email, emailLink: "http://localhost:4200/verify-email?token=verification_token&apiKey=AIzaSyAWE61Vm0CpfUtHq4G48aJVMbdY6REEtrA&oobCode=kGbJWkmEKBSeQ1kvVSWog4UDlk6yGh_sKemik0xna4AAAAGJaAxV7Q&mode=signIn&lang=en" } }))
+    )
+      .subscribe((value) => console.log('router', value));
+
+  }
+
+
 
 
   protected onLogin(event: SignInEvent) {
@@ -79,8 +91,18 @@ export class LoginPageComponent {
   }
 
   protected onEmailLinkSignIn(event: SignInEvent) {
-    this._updateShowOtp(event.method)
-    this._flipCard()
+
+    const { method, data } = event
+
+    this.authStore.sendEmailLink(data);
+    // if (data) {
+    //   console.log(data)
+
+    // } else {
+
+    //   this._updateShowOtp(method)
+    //   this._flipCard()
+    // }
   }
 
   private _flipCard() {

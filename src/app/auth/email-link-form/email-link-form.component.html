@@ -1,1 +1,33 @@
-<to-contact-form [type]="type"></to-contact-form>
+<div class="email-link-form-wrapper">
+  <header class="header">
+    <mat-icon color="primary" fontIcon="attach_email"></mat-icon>
+    <span> Enter Your Email Address</span>
+  </header>
+  <main class="content" role="main">
+    <mat-form-field appearance="fill">
+      <mat-label>Emil Address</mat-label>
+      <input matInput [formControl]="formControl" />
+      <mat-error>Text</mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disableRipple]="true"
+      (click)="onSubmit(formControl.value)"
+    >
+      Sign-In with Email Link
+    </button>
+  </main>
+  <footer class="footer">
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit"
+      [disableRipple]="true"
+      (click)="onEmailAndPasswordSighIn()"
+    >
+      Sign-In with Email and Password
+    </button>
+  </footer>
+</div>

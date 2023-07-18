@@ -1,10 +1,11 @@
 import { Injectable, Signal, signal } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { EMPTY, Observable, Subject, catchError, exhaustMap, of, switchMap } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { EMPTY, Observable, Subject, catchError, exhaustMap, filter, map, of, skip, switchMap, tap } from 'rxjs';
 import { SignInEvent, User } from './auth.model';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthActions } from './auth.actions';
 import { AuthSelectors } from './auth.selectors';
+import { TypedAction } from '@ngrx/store/src/models';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,15 @@ export class AuthStoreService {
 
   public signIn(signIn: SignInEvent): void {
     this.loginSource.next(signIn);
+  }
+
+  public sendEmailLink(email: string) {
+    const action = AuthActions.sendEmailLink({ email })
+    this.store.dispatch(action)
+  }
+
+  public listenToSendEmailSuccess(): Observable<string> {
+    return this.store.select(AuthSelectors.selectEmailLink).pipe(filter((email) => !!email))
   }
 
 
