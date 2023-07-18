@@ -9,7 +9,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'verify-email',
-    loadComponent: () => import("./pages/register/register.component").then(m => m.RegisterPageComponent)
+    loadComponent: () => import("./pages/verify/verify.component").then(m => m.VerifyPageComponent)
   },
   {
     path: 'register',

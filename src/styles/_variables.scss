@@ -12,11 +12,11 @@ $grid-breakpoints: (
   xl: 1200px,
 );
 
-@function primary-palate($code) {
+@function primary($code) {
   @return map-get(palettes.primary-palette(), $code);
 }
 
-@function accent-palate($code) {
+@function accent($code) {
   @return map-get(palettes.accent-palette(), $code);
 }
 

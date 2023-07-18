@@ -67,11 +67,13 @@ export class AuthService {
     return from(signInWithPhoneNumber(this.auth, phone, new RecaptchaVerifier('recaptcha', { size: 'invisible' }, this.auth)))
   }
 
-  public sendSignInLinkToEmail$(email: string): Observable<void> {
+  public sendSignInLinkToEmail$(email: string): Observable<string> {
     const actionCodeSettings: ActionCodeSettings = {
       url: generateVerificationLink(this.injector), handleCodeInApp: true,
     }
-    return from(sendSignInLinkToEmail(this.auth, email, actionCodeSettings))
+
+    console.log(actionCodeSettings.url)
+    return from(sendSignInLinkToEmail(this.auth, email, actionCodeSettings)).pipe(map(() => email))
   }
 
 }

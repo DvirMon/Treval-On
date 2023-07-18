@@ -1,0 +1,18 @@
+<header mat-dialog-title>
+  <mat-icon fontIcon="drafts" color="primary"> </mat-icon>
+  <!-- <mat-icon fontIcon="task_alt" color="primary"> </mat-icon> -->
+  <span> Email Confirmation </span>
+</header>
+
+<mat-divider></mat-divider>
+
+<main mat-dialog-content>
+  <p>
+    We have sent email to <span class="email">{{ data.email }}</span>
+  </p>
+  <p>Follow the link provided to complete your registration</p>
+</main>
+
+<footer mat-dialog-actions>
+  <button mat-flat-button mat-dialog-close>Close</button>
+</footer>

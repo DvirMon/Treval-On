@@ -28,6 +28,8 @@ import { FavoritesEffects } from './app/favorites/store/favorites.effects';
 import { authFeatureKey } from './app/auth/store/auth.state';
 import { authReducer } from './app/auth/store/auth.reducer';
 import { AuthEffects } from './app/auth/store/auth.effects';
+import { DIALOG_DATA } from '@angular/cdk/dialog';
+import { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig } from '@angular/material/dialog';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -50,12 +52,9 @@ bootstrapApplication(AppComponent, {
     }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideEffects(AuthEffects, VacationEffects, FavoritesEffects),
-    {
-      provide: ScreenTrackingService, useClass: ScreenTrackingService
-    },
-    {
-      provide: UserTrackingService, useClass: UserTrackingService
-    }
+
+    { provide: MAT_DIALOG_DATA, useValue: DIALOG_DATA },
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: MatDialogConfig },
   ]
 })
   .catch(err => console.error(err));
