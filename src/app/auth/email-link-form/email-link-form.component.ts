@@ -8,6 +8,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { SignInEvent, SignInMethod } from '../store/auth.model';
 import { MatIconModule } from '@angular/material/icon';
 import { FlipCardService } from 'src/app/components/flip-card/flip-card.service';
+import { InfoCardComponent } from 'src/app/components/info-card/info-card.component';
 
 
 
@@ -22,7 +23,8 @@ import { FlipCardService } from 'src/app/components/flip-card/flip-card.service'
     MatInputModule,
     MatTabsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    InfoCardComponent
   ],
   templateUrl: './email-link-form.component.html',
   styleUrls: ['./email-link-form.component.scss']
