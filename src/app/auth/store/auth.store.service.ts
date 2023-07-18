@@ -57,6 +57,11 @@ export class AuthStoreService {
     this.loginSource.next(signIn);
   }
 
+  public sendEmailLink(email: string) {
+    const action = AuthActions.sendEmailLink({ email })
+    this.store.dispatch(action)
+  }
+
 
 
 }

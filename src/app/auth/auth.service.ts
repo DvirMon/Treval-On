@@ -58,7 +58,7 @@ export class AuthService {
   private _signInWithEmailAndPassword$(email: string, password: string): Observable<UserCredential> {
     return from(signInWithEmailAndPassword(this.auth, email, password))
   }
-  
+
   public createInWithEmailAndPassword$(email: string, password: string): Observable<UserCredential> {
     return from(createUserWithEmailAndPassword(this.auth, email, password))
   }
