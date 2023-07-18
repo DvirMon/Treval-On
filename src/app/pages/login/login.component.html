@@ -3,8 +3,9 @@
     <div class="login-card">
       <pre>
       some text
-        {{ user() | json }}
-      </pre>
+      {{ showOpt() }}
+    </pre
+      >
     </div>
     <div class="login-form">
       <to-floating-button
@@ -12,8 +13,20 @@
         [navigation]="'/register'"
       ></to-floating-button>
       <to-flip-card>
-        <to-login-form (signIn)="onSignIn($event)"  class="front"> </to-login-form>
-        <to-login-otp-form class="back"> </to-login-otp-form>
+        <to-login-form
+          (login)="onLogin($event)"
+          (googleSignIn)="onSGoogleSignIn($event)"
+          (otpSignIn)="onOtpSignIn($event)"
+          (emailLinkSignIn)="onEmailLinkSignIn($event)"
+          class="front"
+        >
+        </to-login-form>
+        <ng-container class="back" *ngIf="showOpt()">
+          <to-login-otp-form> </to-login-otp-form>
+        </ng-container>
+        <ng-container class="back" *ngIf="!showOpt()">
+          <to-email-link-form></to-email-link-form>
+        </ng-container>
       </to-flip-card>
     </div>
   </div>
