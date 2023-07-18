@@ -79,8 +79,18 @@ export class LoginPageComponent {
   }
 
   protected onEmailLinkSignIn(event: SignInEvent) {
-    this._updateShowOtp(event.method)
-    this._flipCard()
+
+    const { method, data } = event
+
+    if (data) {
+      console.log(data)
+      this.authStore.signIn(event);
+
+    } else {
+
+      this._updateShowOtp(method)
+      this._flipCard()
+    }
   }
 
   private _flipCard() {
