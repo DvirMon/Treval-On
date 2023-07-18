@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, Signal, WritableSignal, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, Signal, WritableSignal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ContactFormComponent, ContactSubmitEvent, MessageType } from '../contact-form/contact-form.component';
 import { OtpFormComponent } from '../otp-form/otp-form.component';
 import { MatIconModule } from '@angular/material/icon';
+import { SignInEvent } from '../store/auth.model';
 
 interface Tab {
   icon: string;
@@ -32,11 +33,14 @@ export class LoginOtpFormComponent {
 
   protected contactEvent! : ContactSubmitEvent
 
+  @Output() otpSignIn: EventEmitter<SignInEvent> = new EventEmitter();
+
+
   onContactSubmit(event: ContactSubmitEvent) {
     this.contactEvent = event;
     this._changeStep();
   }
-  
+
   private _changeStep() {
     this.selectedIndex.update(() => 1)
   }
