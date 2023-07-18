@@ -56,15 +56,15 @@ export class ContactFormComponent implements OnInit {
   }
 
   private _getContactControl(): FormControl<string> {
-    return this.type === MessageType.EMAIL ? this._getEmailForm() : this._getPhoneNumberForm()
+    return this.type === MessageType.EMAIL ? this._getEmailControl() : this._getPhoneNumberControl()
   }
 
-  private _getPhoneNumberForm(): FormControl<string> {
+  private _getPhoneNumberControl(): FormControl<string> {
     // return this.nfb.control('', [Validators.required])
     return this.nfb.control('')
   }
 
-  private _getEmailForm(): FormControl<string> {
+  private _getEmailControl(): FormControl<string> {
     return this.nfb.control('', [Validators.required, Validators.email])
   }
 
