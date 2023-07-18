@@ -8,6 +8,10 @@ export const appRoutes: Routes = [
     component: LoginPageComponent
   },
   {
+    path: 'verify-email',
+    loadComponent: () => import("./pages/register/register.component").then(m => m.RegisterPageComponent)
+  },
+  {
     path: 'register',
     loadComponent: () => import("./pages/register/register.component").then(m => m.RegisterPageComponent)
   },

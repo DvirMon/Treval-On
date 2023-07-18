@@ -1,13 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
 import { ContactSubmitEvent, MessageType } from '../contact-form/contact-form.component';
 import { CodeInputModule } from 'angular-code-input';
 import { OtpFormTemplateComponent } from '../otp-form-template/otp-form-template.component';
@@ -47,7 +45,15 @@ export class OtpFormComponent {
   protected icon!: string
 
   ngOnInit(): void {
-    this.icon = this.contactEvent?.type || 'security_update_good'
+    this.icon = this._getIcon(this.contactEvent.type)
+  }
+
+  _getIcon(type: MessageType): string {
+
+    if (type === undefined) return 'security_update_good'
+
+
+    return type === MessageType.EMAIL ? 'mail' : 'sms'
   }
 
 

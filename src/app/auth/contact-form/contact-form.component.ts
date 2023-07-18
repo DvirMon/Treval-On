@@ -10,8 +10,8 @@ import { AuthService } from '../auth.service';
 import { OtpFormTemplateComponent } from '../otp-form-template/otp-form-template.component';
 
 export enum MessageType {
-  Mail = 'Mail',
-  SMS = 'SMS',
+  EMAIL ,
+  SMS
 }
 
 export interface ContactSubmitEvent {
@@ -50,7 +50,6 @@ export class ContactFormComponent implements OnInit {
 
   constructor(
     private nfb: NonNullableFormBuilder,
-    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -59,7 +58,7 @@ export class ContactFormComponent implements OnInit {
   }
 
   private _getContactControl(): FormControl<string> {
-    return this.type === MessageType.Mail ? this._getEmailForm() : this._getPhoneNumberForm()
+    return this.type === MessageType.EMAIL ? this._getEmailForm() : this._getPhoneNumberForm()
   }
 
   private _getPhoneNumberForm(): FormControl<string> {
@@ -72,7 +71,7 @@ export class ContactFormComponent implements OnInit {
   }
 
   private _getLabel(): string {
-    return this.type === MessageType.Mail ? 'Email Address' : 'Phone Number'
+    return this.type === MessageType.EMAIL ? 'Email Address' : 'Phone Number'
   }
 
 

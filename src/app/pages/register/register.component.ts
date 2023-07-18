@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegisterFormComponent } from 'src/app/auth/register-form/register-form.component';
 import { FloatingButtonComponent } from 'src/app/components/floating-button/floating-button.component';
@@ -13,6 +13,9 @@ import { FloatingButtonComponent } from 'src/app/components/floating-button/floa
 
 })
 export class RegisterPageComponent {
+
+  @Input() token! : string
+  @Input() oobCode! : string
 
 
   protected onButtonClick() {

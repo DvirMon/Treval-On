@@ -13,6 +13,39 @@
     ></ng-container>
 
     <div class="login-form-wrapper">
+
+      <section class="social-login-wrapper">
+        <button
+          mat-stroked-button
+          class="google-btn"
+          [disableRipple]="true"
+          (click)="oGoogleSignIn()"
+        >
+          <mat-icon svgIcon="google" class="google-icon"></mat-icon>
+          Continue with Google
+        </button>
+        <button
+          mat-raised-button
+          [disableRipple]="true"
+          color="accent"
+          (click)="onOtpSignIn()"
+        >
+          Sign in with OTP
+        </button>
+        <button
+          mat-raised-button
+          [disableRipple]="true"
+          color="accent"
+          (click)="onEmailLinkSignIn()"
+        >
+          Sign in with Link
+        </button>
+      </section>
+
+      <ng-container
+        *ngTemplateOutlet="dividerTemplate; context: { $implicit: 'or' }"
+      ></ng-container>
+
       <form
         [formGroup]="loginFormGroup"
         (ngSubmit)="onSubmit($event, loginFormGroup.value)"
@@ -44,30 +77,6 @@
         </button>
       </section>
     </div>
-    <ng-container
-      *ngTemplateOutlet="dividerTemplate; context: { $implicit: 'or' }"
-    ></ng-container>
-
-    <footer>
-      <button
-        mat-raised-button
-        [disableRipple]="true"
-        color="accent"
-        (click)="onOTP()"
-      >
-        Sign in with OTP
-      </button>
-      <button
-        mat-stroked-button
-        class="google-btn"
-        [disableRipple]="true"
-        [routerLink]="'places/1'"
-        (click)="oGoogleSignIn()"
-      >
-        <mat-icon svgIcon="google" class="google-icon"></mat-icon>
-        Continue with Google
-      </button>
-    </footer>
   </mat-card-content>
 </div>
 
