@@ -29,13 +29,14 @@ import { authFeatureKey } from './app/auth/store/auth.state';
 import { authReducer } from './app/auth/store/auth.reducer';
 import { AuthEffects } from './app/auth/store/auth.effects';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
-import { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom
       (
         BrowserModule,
+        MatDialogModule,
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideAuth(() => getAuth()),
         provideFirestore(() => getFirestore()),
