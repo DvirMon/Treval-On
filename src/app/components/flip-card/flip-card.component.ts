@@ -24,7 +24,6 @@ import { FlipCardService } from './flip-card.service';
     ])
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [FlipCardService]
 
 })
 export class FlipCardComponent {
