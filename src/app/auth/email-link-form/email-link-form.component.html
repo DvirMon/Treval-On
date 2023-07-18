@@ -1,1 +1,22 @@
-<to-contact-form [type]="type"></to-contact-form>
+<div>
+  <header class="header">
+    <span>  </span>
+  </header>
+  <main class="content" role="main">
+    <mat-form-field appearance="fill">
+      <mat-label></mat-label>
+      <input matInput [formControl]="formControl" />
+    </mat-form-field>
+  </main>
+  <footer class="footer">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disableRipple]="true"
+      (click)="onSubmit(formControl.value)"
+    >
+      Send OTP
+    </button>
+  </footer>
+</div>
