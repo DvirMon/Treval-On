@@ -9,17 +9,13 @@ import { FormControl, FormGroup, FormsModule, NonNullableFormBuilder, ReactiveFo
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../auth.service';
 import { SignInEvent, EmailAndPasswordSignIn, SignInMethod } from '../store/auth.model';
 import { FlipCardService } from 'src/app/components/flip-card/flip-card.service';
-import { Subject } from 'rxjs';
 
 interface LoginForm {
   email: FormControl<string>
   password: FormControl<string>
 }
-
-
 
 @Component({
   selector: 'to-login-form',
@@ -45,9 +41,11 @@ interface LoginForm {
 export class LoginFormComponent {
 
   protected readonly loginFormGroup: FormGroup<LoginForm>;
-  private readonly injector = inject(Injector);
 
-  @Output() signIn: EventEmitter<SignInEvent> = new EventEmitter();
+  @Output() login: EventEmitter<SignInEvent> = new EventEmitter();
+  @Output() googleSignIn: EventEmitter<SignInEvent> = new EventEmitter();
+  @Output() otpSignIn: EventEmitter<SignInEvent> = new EventEmitter();
+  @Output() emailLinkSignIn: EventEmitter<SignInEvent> = new EventEmitter();
 
   constructor(
   ) {
@@ -73,18 +71,23 @@ export class LoginFormComponent {
 
   protected oGoogleSignIn(): void {
     const event = this._createSignInEvent(SignInMethod.GOOGLE)
-    this.signIn.emit(event)
+    this.googleSignIn.emit(event)
   }
 
   protected onSubmit(submitEvent: SubmitEvent, value: Partial<EmailAndPasswordSignIn>): void {
     const event = this._createSignInEvent(SignInMethod.EMAIL_PASSWORD, value)
-    this.signIn.emit(event)
+    this.login.emit(event)
   }
 
-  protected onOTP(): void {
-    runInInjectionContext(this.injector, () => {
-      inject(FlipCardService).flip()
-    })
+  protected onOtpSignIn(): void {
+    const event = this._createSignInEvent(SignInMethod.OPT);
+    this.otpSignIn.emit(event)
+
+  }
+
+  protected onEmailLinkSignIn() {
+    const event = this._createSignInEvent(SignInMethod.EMAIL_LINK) ;
+    this.emailLinkSignIn.emit(event)
   }
 
   private _createSignInEvent(method: SignInMethod, data?: any): SignInEvent {
