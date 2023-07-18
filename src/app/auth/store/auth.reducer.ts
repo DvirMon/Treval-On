@@ -12,6 +12,11 @@ export const authReducer = createReducer(
       ...action.user
     },
     loaded: true
+  })),
+
+  on(AuthActions.sendEmailLinkSuccess, (state, action) => ({
+    ...state,
+    email: action.email
   }))
 );
 

@@ -6,7 +6,9 @@ export const AuthActions = createActionGroup({
   source: 'Auth/API',
   events: {
     'Sign In': props<{ signInEvent: SignInEvent }>(),
-    'Send Email Link': props<{ email : string }>(),
+    'Sign In Success': props<{ user: User }>(),
+    'Send Email Link': props<{ email: string }>(),
+    'Send Email Link Success': props<{ email: string}>(),
     'Load User Success': props<{ user: User }>(),
     'Add User': props<{ register: Register }>(),
     'Update User': props<{ register: Register }>(),

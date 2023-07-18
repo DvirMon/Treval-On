@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../auth.service';
 import { AuthActions } from './auth.actions';
-import { EMPTY, catchError, concatMap, map, switchMap } from 'rxjs';
+import { EMPTY, catchError, concatMap, map, of, switchMap } from 'rxjs';
 import { mapUserCredentials } from '../auth.helpers';
 import { FirebaseError } from '@angular/fire/app';
 
@@ -39,10 +39,8 @@ export class AuthEffects {
     ofType(AuthActions.sendEmailLink),
     switchMap(({ email }) => this.authService.sendSignInLinkToEmail$(email)
       .pipe(
-        map(() => ({ type: 'NO_ACTION' })),
+        map((email) => AuthActions.sendEmailLinkSuccess({ email })),
         catchError(() => {
-
-
           return EMPTY
         })
       )
