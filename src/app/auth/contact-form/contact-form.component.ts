@@ -2,16 +2,14 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
-import { AuthService } from '../auth.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { OtpFormTemplateComponent } from '../otp-form-template/otp-form-template.component';
 
 export enum MessageType {
-  EMAIL ,
-  SMS
+  EMAIL = "Email",
+  SMS = "SMS"
 }
 
 export interface ContactSubmitEvent {
@@ -26,11 +24,10 @@ export interface ContactSubmitEvent {
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatTabsModule,
+    MatFormFieldModule,
     MatInputModule,
-    MatCardModule,
+    MatTabsModule,
     MatButtonModule,
-    MatIconModule,
     OtpFormTemplateComponent
   ],
   templateUrl: './contact-form.component.html',
@@ -55,6 +52,7 @@ export class ContactFormComponent implements OnInit {
   ngOnInit(): void {
     this.formControl = this._getContactControl();
     this.label = this.label || this._getLabel();
+    console.log(this.type)
   }
 
   private _getContactControl(): FormControl<string> {
