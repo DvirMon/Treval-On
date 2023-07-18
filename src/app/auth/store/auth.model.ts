@@ -17,6 +17,7 @@ export interface Register {
 }
 
 export enum SignInMethod {
+  OPT = 'oneTimePassword',
   EMAIL_LINK = 'emailLink',
   EMAIL_PASSWORD = 'password',
   FACEBOOK = 'facebook.com',
