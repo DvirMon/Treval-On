@@ -1,1 +1,20 @@
-<p>verify works!</p>
+<div class="verify-wrapper">
+  <div class="verify-card-wrapper">
+    <mat-card>
+      <mat-card-header>
+        <to-info-card icon="task_alt" text="Email is Confirm!"></to-info-card>
+      </mat-card-header>
+
+      <mat-card-content>
+        <button
+          color="primary"
+          mat-button
+          mat-raised-button
+          (click)="onEmailLinkSignIn(emailLink)"
+        >
+          Complete Sign In With Link
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

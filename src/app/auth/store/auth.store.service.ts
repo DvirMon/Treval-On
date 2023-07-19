@@ -10,7 +10,7 @@ import { TypedAction } from '@ngrx/store/src/models';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthStoreService {
+export class AuthStore {
 
   private readonly user: Signal<User>
   private readonly loginSource: Subject<SignInEvent> = new Subject<SignInEvent>;

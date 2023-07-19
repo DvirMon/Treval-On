@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
   template: `
     <section class="info-card-wrapper">
       <mat-icon color="primary">{{ icon }}</mat-icon>
-      <span>{{ text }}</span>
+      <span class="info-card-text">{{ text }}</span>
     </section>
   `,
   // styles: [

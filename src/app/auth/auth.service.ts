@@ -37,6 +37,7 @@ export class AuthService {
           case SignInMethod.GOOGLE:
             return this._signInWithGoogle$()
           case SignInMethod.EMAIL_LINK:
+            console.log('works')
             return this._signInWithEmailLink$(data.email, data.emailLink)
           case SignInMethod.EMAIL_PASSWORD:
             return this._signInWithEmailAndPassword$(data.email, data.password)
