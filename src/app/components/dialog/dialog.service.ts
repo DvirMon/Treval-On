@@ -18,13 +18,14 @@ export class DialogService {
     return this.dialog.open(component, this._getConfig(data));
   }
 
-  private _getConfig(data? : unknown): MatDialogConfig {
+  private _getConfig(data?: unknown): MatDialogConfig {
 
-    const dialogConfig = { ...this.dialogConfig }
+    const dialogConfig: MatDialogConfig = { ...this.dialogConfig }
 
     dialogConfig.data = data;
     dialogConfig.autoFocus = true;
     dialogConfig.hasBackdrop = true;
+    dialogConfig.disableClose = true;
     dialogConfig.panelClass = "dialog"
 
     return dialogConfig

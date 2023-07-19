@@ -41,7 +41,7 @@ export class EmailLinkFormComponent {
   }
 
   private _getEmailControl(): FormControl<string> {
-    return inject(NonNullableFormBuilder).control('', [Validators.required, Validators.email])
+    return inject(NonNullableFormBuilder).control('dmenajem@gmail.com', [Validators.required, Validators.email])
   }
 
   protected onSubmit(value: string): void {

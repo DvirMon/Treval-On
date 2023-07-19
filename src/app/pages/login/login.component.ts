@@ -106,7 +106,9 @@ export class LoginPageComponent {
 
     const { method, data } = event
 
-    this.authStore.sendEmailLink(data);
+    this.dialogService.openDialog(DialogComponent, { email: data })
+
+    // this.authStore.sendEmailLink(data);
     // if (data) {
     //   console.log(data)
 
