@@ -1,0 +1,35 @@
+@use "variables" as main;
+
+:host {
+  div.verify-wrapper {
+    height: 100%;
+    background-image: url("../../../assets/images/backgrounds/register.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    @include main.flex-center(column, 0);
+  }
+}
+::ng-deep div.verify-card-wrapper {
+  @include main.flex-center(column, 0);
+  width: 50%;
+
+  mat-card {
+    width: 100%;
+    height: 100%;
+
+    .mat-mdc-card-header {
+      justify-content: center;
+      padding: main.spacing(4);
+
+      span.info-card-text {
+        font-size: main.spacing(6) !important;
+      }
+    }
+
+    .mat-mdc-card-content {
+      text-align: center;
+    }
+  }
+}

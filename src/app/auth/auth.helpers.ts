@@ -1,6 +1,6 @@
 import { Injector, inject, runInInjectionContext } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
   UserCredential,
   User as UserFirebase,
@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 
 
 // Function to generate a valid URL for the email verification link
-export function generateVerificationLink(injector: Injector): string {
+export function generateVerificationLink(injector: Injector, param?: Params): string {
 
   return runInInjectionContext(injector, () => {
 
@@ -20,7 +20,7 @@ export function generateVerificationLink(injector: Injector): string {
 
     // Create the URL tree with the desired route and any necessary query parameters
     const urlTree = inject(Router).createUrlTree(['/verify-email'], {
-      queryParams: { token: 'verification_token' },
+      queryParams: { token: 'verification_token', ...param },
     });
 
     // Convert the URL tree to a string
@@ -31,6 +31,11 @@ export function generateVerificationLink(injector: Injector): string {
 
     return verificationLink;
   })
+}
+
+export function getUserEmailFromUrl(injector: Injector, param: string): string | null {
+  const activatedRoute = inject(ActivatedRoute);
+  return runInInjectionContext(injector, () => activatedRoute.snapshot.queryParamMap.get(param));
 }
 
 export function mapUserCredentials(): OperatorFunction<UserCredential, User> {

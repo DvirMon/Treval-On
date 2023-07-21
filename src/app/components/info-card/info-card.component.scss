@@ -1,0 +1,10 @@
+@use "variables" as main;
+
+section.info-card-wrapper {
+
+  @include main.flex-center(column, main.spacing(3));
+
+  mat-icon {
+    scale: 2;
+  }
+}

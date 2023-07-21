@@ -27,3 +27,11 @@ $grid-breakpoints: (
 @function size($breakpoints) {
   @return map-get($grid-breakpoints, $breakpoints);
 }
+
+@mixin flex-center($direction: row, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+  gap: $gap;
+}

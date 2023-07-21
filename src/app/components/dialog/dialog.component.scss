@@ -1,6 +1,9 @@
 @use "variables" as main;
 
-span.email
-{
+span.email {
   color: main.primary(500);
+}
+
+.mat-mdc-dialog-actions {
+  justify-content: end;
 }

@@ -1,7 +1,5 @@
 <header mat-dialog-title>
-  <mat-icon fontIcon="drafts" color="primary"> </mat-icon>
-  <!-- <mat-icon fontIcon="task_alt" color="primary"> </mat-icon> -->
-  <span> Email Confirmation </span>
+  <to-info-card icon="task_alt" text="Email Confirmation"></to-info-card>
 </header>
 
 <mat-divider></mat-divider>
@@ -14,5 +12,5 @@
 </main>
 
 <footer mat-dialog-actions>
-  <button mat-flat-button mat-dialog-close>Close</button>
+  <button mat-flat-button mat-dialog-close cdkFocusInitial>ok</button>
 </footer>
