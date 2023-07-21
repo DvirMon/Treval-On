@@ -51,7 +51,7 @@ export class LoginPageComponent {
 
   constructor() {
     this.user = this.authStore.getUser();
-    this.showOpt = signal(false);
+    this.showOpt = signal(true);
   }
 
   ngOnInit(): void {

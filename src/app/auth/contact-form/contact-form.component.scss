@@ -6,3 +6,6 @@ form {
   align-items: center;
 }
 
+footer {
+  @include main.flex-center(column, 3);
+}
