@@ -1,6 +1,7 @@
 import { Routes } from "@angular/router";
 import { LoginPageComponent } from "./pages/login/login.component";
 import { placesResolver } from "./pages/places/places.resolver";
+import { verifyGuard } from "./pages/verify/verify.guard";
 
 export const appRoutes: Routes = [
   {
@@ -9,7 +10,8 @@ export const appRoutes: Routes = [
   },
   {
     path: 'verify-email',
-    loadComponent: () => import("./pages/verify/verify.component").then(m => m.VerifyPageComponent)
+    loadComponent: () => import("./pages/verify/verify.component").then(m => m.VerifyPageComponent),
+    canActivate : [verifyGuard]
   },
   {
     path: 'register',

@@ -19,6 +19,7 @@ import { FlipCardService } from 'src/app/components/flip-card/flip-card.service'
 import { DialogService } from 'src/app/components/dialog/dialog.service';
 
 import { map, switchMap, tap } from 'rxjs';
+import { saveToSessionStorage } from 'src/app/utilities/helpers';
 
 @Component({
   selector: 'to-login-page',
@@ -43,7 +44,6 @@ export class LoginPageComponent {
   private readonly injector = inject(Injector);
 
   private readonly authStore = inject(AuthStore);
-  private readonly authService = inject(AuthService);
   private readonly dialogService = inject(DialogService);
 
   protected readonly user: Signal<User>;
@@ -54,16 +54,15 @@ export class LoginPageComponent {
   constructor() {
     this.user = this.authStore.getUser();
     this.showOpt = signal(false);
-
   }
 
   ngOnInit(): void {
     this.authStore.listenToSendEmailSuccess()
-      .subscribe((value) => this.dialogService.openDialog(DialogComponent, { email: value }));
-
+      .pipe(
+        tap((email: string) => saveToSessionStorage('email', email))
+      )
+      .subscribe((value : string) => this.dialogService.openDialog(DialogComponent, { email: value }));
   }
-
-
 
 
   protected onLogin(event: SignInEvent) {
@@ -71,27 +70,11 @@ export class LoginPageComponent {
   }
 
   protected onSGoogleSignIn(event: SignInEvent): void {
-    // this.authStore.signIn({method : SignInMethod.EMAIL_LINK, data : 'dmenajem@gmail.com'});
-
-    this.authService.signInWithPhone$("+972547974643")
-      .pipe(switchMap((confirmation: ConfirmationResult) => confirmation.confirm(""))
-      ).subscribe(
-        (value) => console.log('success', value),
-        (error) => console.log('error', error)
-      )
+    this.authStore.signIn(event);
   }
 
   protected onEmailAndPasswordSignIn(event: SignInEvent): void {
-    // this.authStore.signIn(event);
-    const { method, data } = event
-
-    // this.authService.signInWithEmailAndPassword$(data.email, data.password)
-    //   .subscribe(
-    //     (value) => {
-    //       console.log('success', value)
-    //     },
-    //     (err) => { console.log(err) })
-
+    this.authStore.signIn(event);
   }
 
   protected onOtpSignIn(event: SignInEvent) {

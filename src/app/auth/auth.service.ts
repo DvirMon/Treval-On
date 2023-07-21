@@ -1,4 +1,4 @@
-import { Injectable, Injector, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
+import { Injectable, Injector, inject } from '@angular/core';
 import {
   Auth,
   signInWithPopup,
@@ -12,6 +12,7 @@ import {
   ConfirmationResult,
   UserCredential,
   ActionCodeSettings,
+  isSignInWithEmailLink,
 } from '@angular/fire/auth';
 import { Observable, from, map, of, switchMap } from 'rxjs';
 import { SignInEvent, SignInMethod } from './store/auth.model';
@@ -69,12 +70,17 @@ export class AuthService {
   }
 
   public sendSignInLinkToEmail$(email: string): Observable<string> {
+
     const actionCodeSettings: ActionCodeSettings = {
       url: generateVerificationLink(this.injector), handleCodeInApp: true,
     }
 
-    console.log(actionCodeSettings.url)
     return from(sendSignInLinkToEmail(this.auth, email, actionCodeSettings)).pipe(map(() => email))
+  }
+
+  public isSignInWithEmailLink(emailLink: string): Observable<boolean> {
+    return of(isSignInWithEmailLink(this.auth, emailLink))
+
   }
 
 }
