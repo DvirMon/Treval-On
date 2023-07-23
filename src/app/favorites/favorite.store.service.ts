@@ -7,7 +7,7 @@ import { Observable, switchMap } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class FavoriteStoreService {
+export class FavoriteStore {
 
   constructor(
     private store: Store
@@ -25,7 +25,6 @@ export class FavoriteStoreService {
         return this.store.select(FavoritesSelectors.selectFavoritesVacations) as Observable<Record<string, boolean>>;
       }))
 
-    // return toSignal(favorite$, { initialValue: {} })
     return favorite$
   }
 

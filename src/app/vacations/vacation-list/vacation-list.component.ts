@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, Signal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Vacation } from 'src/app/store/vacations/vacation.model';
 import { VacationCardComponent, VacationSelectedChangedEvent } from '../vacation-item/vacation-card.component';
+import { Vacation } from '../store/vacation.model';
 
 export interface SelectionListChange {
   source: VacationListComponent

@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnDestroy, Signal, inject } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { SelectionListChange, VacationListComponent } from 'src/app/vacation/vacation-list/vacation-list.component';
-import { Vacation } from 'src/app/store/vacations/vacation.model';
+import { FavoriteStore } from 'src/app/favorites/favorite.store.service';
+import { Vacation } from 'src/app/vacations/store/vacation.model';
+import { VacationsStoreService } from 'src/app/vacations/store/vacations.store.service';
+import { VacationListComponent, SelectionListChange } from 'src/app/vacations/vacation-list/vacation-list.component';
 import { map } from 'rxjs';
-import { VacationsStoreService } from 'src/app/store/vacations.store.service';
-import { FavoriteStoreService } from 'src/app/favorites/favorite.store.service';
 
 @Component({
   selector: 'to-places',
@@ -20,7 +20,7 @@ export class PlacesComponent implements OnDestroy {
   @Input() userId!: string
 
   private readonly vacationsStore: VacationsStoreService = inject(VacationsStoreService);
-  private readonly favoriteStore: FavoriteStoreService = inject(FavoriteStoreService);
+  private readonly favoriteStore: FavoriteStore = inject(FavoriteStore);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
 
   protected readonly vacations: Signal<Vacation[]>;

@@ -17,11 +17,11 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 
-import { vacationReducer } from './app/store/vacations/vacation.reducer';
-import { vacationsFeatureKey } from './app/store/vacations/vacation.state';
-import { VacationEffects } from './app/store/vacations/vacation.effects';
 import { favoriteReducer } from './app/favorites/store/favorite.reducer';
 import { favoritesFeatureKey } from './app/favorites/store/favorite.state';
+import { VacationEffects } from './app/vacations/store/vacation.effects';
+import { vacationReducer } from './app/vacations/store/vacation.reducer';
+import { vacationsFeatureKey } from './app/vacations/store/vacation.state';
 
 import { environment } from './environments/environment';
 import { FavoritesEffects } from './app/favorites/store/favorite.effects';

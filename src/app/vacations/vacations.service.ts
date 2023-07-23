@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Firestore, CollectionReference, collection, addDoc, getDocs, query, limit } from '@angular/fire/firestore';
-import { Observable, from, map, tap } from 'rxjs';
-import { Vacation } from '../store/vacations/vacation.model';
-import { VACATIONS_DATA } from 'src/assets/MOCK_DATA';
+import { Firestore, CollectionReference, collection, getDocs, query, limit } from '@angular/fire/firestore';
+import { Observable, from, map } from 'rxjs';
+import { Vacation } from './store/vacation.model';
 
 
 

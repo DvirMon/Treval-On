@@ -1,10 +1,10 @@
 import { Injectable, Signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { VacationSelectors } from './vacations/vacation.selectors';
-import { VacationActions } from './vacations/vacation.actions';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Vacation } from './vacations/vacation.model';
 import { Observable, switchMap } from 'rxjs';
+import { VacationActions } from './vacation.actions';
+import { Vacation } from './vacation.model';
+import { VacationSelectors } from './vacation.selectors';
 
 @Injectable({
   providedIn: 'root'
