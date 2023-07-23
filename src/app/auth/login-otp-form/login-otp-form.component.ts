@@ -6,6 +6,7 @@ import { ContactFormComponent, ContactSubmitEvent, MessageType } from '../contac
 import { OtpFormComponent } from '../otp-form/otp-form.component';
 import { MatIconModule } from '@angular/material/icon';
 import { SignInEvent } from '../store/auth.model';
+import { MatButtonModule } from '@angular/material/button';
 
 interface Tab {
   icon: string;
@@ -16,7 +17,7 @@ interface Tab {
 @Component({
   selector: 'to-login-otp-form',
   standalone: true,
-  imports: [CommonModule, MatStepperModule, MatTabsModule, MatIconModule, ContactFormComponent, OtpFormComponent],
+  imports: [CommonModule, MatStepperModule, MatTabsModule, MatIconModule, MatButtonModule, ContactFormComponent, OtpFormComponent],
   templateUrl: './login-otp-form.component.html',
   styleUrls: ['./login-otp-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,7 +37,7 @@ export class LoginOtpFormComponent {
   @Output() otpSignIn: EventEmitter<SignInEvent> = new EventEmitter();
 
 
-  onContactSubmit(event: ContactSubmitEvent) {
+  onSendOPT(event: ContactSubmitEvent) {
     this.contactEvent = event;
     this._changeStep();
   }

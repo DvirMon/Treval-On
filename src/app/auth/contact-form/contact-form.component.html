@@ -18,13 +18,12 @@
     >
       Send OTP
     </button>
-  </footer>
-  <footer class="footer">
     <button
       mat-raised-button
       color="accent"
       type="submit"
       [disableRipple]="true"
+      (click)="onEmailAndPasswordSubmit()"
     >
       Sign-In With Email and Password
     </button>

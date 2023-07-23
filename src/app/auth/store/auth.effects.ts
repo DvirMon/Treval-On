@@ -26,9 +26,6 @@ export class AuthEffects {
         mapUserCredentials(),
         map((user) => AuthActions.loadUserSuccess({ user })),
         catchError(((error: FirebaseError) => {
-
-          console.log(error)
-
           return EMPTY
         })
         ))

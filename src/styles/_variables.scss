@@ -1,7 +1,8 @@
 @use "color-palettes" as palettes;
 
 $colors: (
-  primary: #ffc107,
+  primary: primary(50),
+  accent: accent(50)
 );
 
 $grid-breakpoints: (
@@ -28,10 +29,10 @@ $grid-breakpoints: (
   @return map-get($grid-breakpoints, $breakpoints);
 }
 
-@mixin flex-center($direction: row, $gap: 0) {
+@mixin flex-center($direction: row, $gap: 1) {
   display: flex;
   flex-direction: $direction;
   justify-content: center;
   align-items: center;
-  gap: $gap;
+  gap: #{$gap * 8 + 'px'}; // Include "px" here, as it will be used in the "gap" CSS property
 }
