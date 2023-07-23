@@ -18,6 +18,7 @@ import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { saveToLocalStorage } from 'src/app/utilities/helpers';
 
 import { tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'to-login-page',
@@ -43,56 +44,48 @@ export class LoginPageComponent {
 
   private readonly authStore = inject(AuthStore);
   private readonly dialogService = inject(DialogService);
+  // private readonly router: Router;
 
-  protected readonly user: Signal<User>;
+  // protected readonly user: Signal<User>;
   protected readonly showOpt: WritableSignal<boolean>;
 
 
 
   constructor() {
-    this.user = this.authStore.getUser();
+    // this.user = this.authStore.getUser();
     this.showOpt = signal(true);
   }
 
   ngOnInit(): void {
     this.authStore.listenToSendEmailSuccess()
-      .pipe(
-        tap((email: string) => saveToLocalStorage('email', email))
-      )
-      .subscribe((value : string) => this.dialogService.openDialog(DialogComponent, { email: value }));
+      .pipe(tap((email: string) => saveToLocalStorage('email', email)))
+      .subscribe((value: string) => this.dialogService.openDialog(DialogComponent, { email: value }));
+
+    this.authStore.listenTLoadUserSuccess().pipe(
+    )
+      .subscribe((userId: string) => this._routerAfterLogin(userId));
   }
 
+  private _routerAfterLogin(userId: string): void {
+    runInInjectionContext(this.injector, () => {
+      return inject(Router).navigateByUrl('/places/' + userId)
+    })
+  }
 
-  protected onLogin(event: SignInEvent) {
+  protected onSignIn(event: SignInEvent) {
     this.authStore.signIn(event)
   }
 
-  protected onSGoogleSignIn(event: SignInEvent): void {
-    this.authStore.signIn(event);
-  }
-
-  protected onEmailAndPasswordSignIn(event: SignInEvent): void {
-    this.authStore.signIn(event);
-  }
-
   protected onOtpSignIn(event: SignInEvent) {
-    this._updateShowOtp(event.method)
-    this._flipCard()
+    const { method } = event
+    this._updateShowOtp(method);
+    this._flipCard();
   }
 
   protected onEmailLinkSignIn(event: SignInEvent) {
-
-    const { method, data } = event
-
-
-    if (data) {
-      this.authStore.sendEmailLink(data);
-
-    } else {
-
-      this._updateShowOtp(method)
-      this._flipCard()
-    }
+    const { method } = event
+    this._updateShowOtp(method);
+    this._flipCard();
   }
 
   private _flipCard() {
@@ -105,5 +98,7 @@ export class LoginPageComponent {
     const show: boolean = method === SignInMethod.OPT
     this.showOpt.set(show)
   }
+
+
 
 }

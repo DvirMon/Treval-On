@@ -9,20 +9,20 @@
       ></to-floating-button>
       <to-flip-card>
         <to-login-form
-          (login)="onLogin($event)"
-          (googleSignIn)="onSGoogleSignIn($event)"
+          (login)="onSignIn($event)"
+          (googleSignIn)="onSignIn($event)"
           (otpSignIn)="onOtpSignIn($event)"
           (emailLinkSignIn)="onEmailLinkSignIn($event)"
           class="front"
         >
         </to-login-form>
         <ng-container class="back" *ngIf="showOpt()">
-          <to-login-otp-form (otpSignIn)="onOtpSignIn($event)">
+          <to-login-otp-form (otpSignIn)="onSignIn($event)">
           </to-login-otp-form>
         </ng-container>
         <ng-container class="back" *ngIf="!showOpt()">
           <to-email-link-form
-            (emailLinkSignIn)="onEmailLinkSignIn($event)"
+            (emailLinkSignIn)="onSignIn($event)"
           ></to-email-link-form>
         </ng-container>
       </to-flip-card>
