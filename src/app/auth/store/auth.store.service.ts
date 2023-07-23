@@ -67,6 +67,17 @@ export class AuthStore {
     return this.store.select(AuthSelectors.selectEmailLink).pipe(filter((email) => !!email))
   }
 
+  public listenTLoadUserSuccess(): Observable<string> {
+    return this.store.select(AuthSelectors.selectLoaded)
+      .pipe(
+        filter((loaded) => loaded),
+        switchMap(() => this.store.select(AuthSelectors.selectUser)
+          .pipe(
+            map((user: User) => user.id))
+        )
+      )
+  }
+
 
 
 }
