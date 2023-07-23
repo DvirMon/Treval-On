@@ -65,13 +65,6 @@ export class FavoriteService {
 
     const querySnapshot$: Observable<QuerySnapshot<Favorite>> = this.getFavoriteQuerySnapshot$(userId)
 
-    // return querySnapshot$.pipe(
-    //   switchMap((querySnapshot: QuerySnapshot<Favorite>) => iif(
-    //     () => !querySnapshot.empty,
-    //     this._updateFavoriteDocument$(this.favoritesRef, querySnapshot, vacationIds),
-    //     this._createNewFavoriteDocument$(this.favoritesRef, userId, vacationIds)
-    //   ))
-    // );
 
     return querySnapshot$.pipe(
       switchMap((querySnapshot: QuerySnapshot<Favorite>) =>

@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { FavoriteService } from '../favorites.service';
-import { FavoriteActions } from './favorite.actions';
-import { EMPTY, catchError, concatMap, map, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { FavoritesSelectors } from './favorites.selectors';
+
+import { FavoriteService } from '../favorite.service';
+import { FavoriteActions } from './favorite.actions';
+import { FavoritesSelectors } from './favorite.selectors';
+
+import { EMPTY, catchError, concatMap, map, switchMap } from 'rxjs';
 
 
 
