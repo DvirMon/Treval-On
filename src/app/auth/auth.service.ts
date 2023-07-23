@@ -19,7 +19,6 @@ import { SignInEvent, SignInMethod } from './store/auth.model';
 import { generateVerificationLink } from './auth.helpers';
 
 @Injectable({ providedIn: "root" })
-
 export class AuthService {
 
   private readonly injector = inject(Injector);
@@ -27,8 +26,9 @@ export class AuthService {
 
   constructor() { }
 
+  // Sign in with different authentication methods based on the provided event.
   public signIn$(event: SignInEvent): Observable<UserCredential> {
-    const { method, data } = event
+    const { method, data } = event;
 
     return of(method).pipe(
       switchMap((method: SignInMethod) => {
@@ -36,51 +36,59 @@ export class AuthService {
         switch (method) {
 
           case SignInMethod.GOOGLE:
-            return this._signInWithGoogle$()
-          case SignInMethod.EMAIL_LINK:
-            console.log('works')
-            return this._signInWithEmailLink$(data.email, data.emailLink)
+            return this._signInWithGoogle$();
+
+            case SignInMethod.EMAIL_LINK:
+            console.log('works');
+            return this._signInWithEmailLink$(data.email, data.emailLink);
+
           case SignInMethod.EMAIL_PASSWORD:
-            return this._signInWithEmailAndPassword$(data.email, data.password)
-          default: return of({} as UserCredential)
+            return this._signInWithEmailAndPassword$(data.email, data.password);
+
+          default: return of({} as UserCredential);
         }
       })
-    )
+    );
   }
 
-  private _signInWithGoogle$(): Observable<UserCredential> {
-    return from(signInWithPopup(this.auth, new GoogleAuthProvider()))
-  }
-
-  private _signInWithEmailLink$(email: string, emailLink: string): Observable<UserCredential> {
-    // const emailLink = 'http://localhost:4200/verify-email?token=verification_token&apiKey=AIzaSyAWE61Vm0CpfUtHq4G48aJVMbdY6REEtrA&oobCode=L-1Zf_E2LN8r0tqdNKmw6lYLuyiGRx62K2_ZLve9KAMAAAGJXqlMnw&mode=signIn&lang=en'
-    return from(signInWithEmailLink(this.auth, email, emailLink))
-  }
-
-  private _signInWithEmailAndPassword$(email: string, password: string): Observable<UserCredential> {
-    return from(signInWithEmailAndPassword(this.auth, email, password))
-  }
-
+  // Create a new user account with the provided email and password.
   public createInWithEmailAndPassword$(email: string, password: string): Observable<UserCredential> {
-    return from(createUserWithEmailAndPassword(this.auth, email, password))
+    return from(createUserWithEmailAndPassword(this.auth, email, password));
   }
 
+  // Sign in with phone number and recaptcha verification.
   public signInWithPhone$(phone: string): Observable<ConfirmationResult> {
-    return from(signInWithPhoneNumber(this.auth, phone, new RecaptchaVerifier('recaptcha', { size: 'invisible' }, this.auth)))
+    return from(signInWithPhoneNumber(this.auth, phone, new RecaptchaVerifier('recaptcha', { size: 'invisible' }, this.auth)));
   }
 
+  // Send a sign-in link (magic link) to the provided email.
   public sendSignInLinkToEmail$(email: string): Observable<string> {
 
     const actionCodeSettings: ActionCodeSettings = {
       url: generateVerificationLink(this.injector), handleCodeInApp: true,
-    }
+    };
 
-    return from(sendSignInLinkToEmail(this.auth, email, actionCodeSettings)).pipe(map(() => email))
+    return from(sendSignInLinkToEmail(this.auth, email, actionCodeSettings)).pipe(map(() => email));
   }
 
+  // Check if the provided email link is a valid sign-in link.
   public isSignInWithEmailLink(emailLink: string): Observable<boolean> {
-    return of(isSignInWithEmailLink(this.auth, emailLink))
-
+    return of(isSignInWithEmailLink(this.auth, emailLink));
   }
 
+  // Private method: Sign in with Google OAuth provider.
+  private _signInWithGoogle$(): Observable<UserCredential> {
+    return from(signInWithPopup(this.auth, new GoogleAuthProvider()));
+  }
+
+  // Private method: Sign in with email link (magic link).
+  private _signInWithEmailLink$(email: string, emailLink: string): Observable<UserCredential> {
+    return from(signInWithEmailLink(this.auth, email, emailLink));
+  }
+
+  // Private method: Sign in with email and password.
+  private _signInWithEmailAndPassword$(email: string, password: string): Observable<UserCredential> {
+    return from(signInWithEmailAndPassword(this.auth, email, password));
+  }
 }
+

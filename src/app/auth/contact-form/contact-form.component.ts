@@ -41,7 +41,8 @@ export class ContactFormComponent implements OnInit {
 
   @Input() label!: string
 
-  @Output() contactSubmit: EventEmitter<ContactSubmitEvent> = new EventEmitter();
+  @Output() sendOPT: EventEmitter<ContactSubmitEvent> = new EventEmitter();
+  @Output() signInWithEmailAndPassword: EventEmitter<void> = new EventEmitter();
 
   protected formControl!: FormControl<string>
 
@@ -52,7 +53,6 @@ export class ContactFormComponent implements OnInit {
   ngOnInit(): void {
     this.formControl = this._getContactControl();
     this.label = this.label || this._getLabel();
-    console.log(this.type)
   }
 
   private _getContactControl(): FormControl<string> {
@@ -60,8 +60,7 @@ export class ContactFormComponent implements OnInit {
   }
 
   private _getPhoneNumberControl(): FormControl<string> {
-    // return this.nfb.control('', [Validators.required])
-    return this.nfb.control('')
+    return this.nfb.control('', [Validators.required])
   }
 
   private _getEmailControl(): FormControl<string> {
@@ -75,7 +74,11 @@ export class ContactFormComponent implements OnInit {
 
   protected onSubmit(type: MessageType, value: string): void {
     const event: ContactSubmitEvent = { type, value }
-    this.contactSubmit.emit(event)
+    this.sendOPT.emit(event)
+  }
+
+  protected onEmailAndPasswordSubmit() {
+
   }
 
 

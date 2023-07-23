@@ -1,7 +1,8 @@
 @use "color-palettes" as palettes;
 
 $colors: (
-  primary: #ffc107,
+  primary: primary(50),
+  accent: accent(50)
 );
 
 $grid-breakpoints: (

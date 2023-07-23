@@ -5,7 +5,7 @@ import { Injectable, Signal, WritableSignal, signal } from '@angular/core';
 })
 export class FlipCardService {
 
-  private _isFlipped: WritableSignal<boolean> = signal(true);
+  private _isFlipped: WritableSignal<boolean> = signal(false);
 
   public flip(): void {
     this._isFlipped.update((value: boolean) => !value);

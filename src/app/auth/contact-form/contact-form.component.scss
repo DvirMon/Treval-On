@@ -8,4 +8,5 @@ form {
 
 footer {
   @include main.flex-center(column, 3);
+  justify-content: end;
 }
