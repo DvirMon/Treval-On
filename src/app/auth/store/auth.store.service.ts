@@ -63,6 +63,10 @@ export class AuthStore {
     this.store.dispatch(action)
   }
 
+  public isUserLogged(): Observable<boolean> {
+    return this.store.select(AuthSelectors.selectLoaded)
+  }
+
   public listenToSendEmailSuccess(): Observable<string> {
     return this.store.select(AuthSelectors.selectEmailLink).pipe(filter((email) => !!email))
   }

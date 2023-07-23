@@ -4,7 +4,7 @@ import { ActivatedRoute, Data } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FavoriteStore } from 'src/app/favorites/favorite.store.service';
 import { Vacation } from 'src/app/vacations/store/vacation.model';
-import { VacationsStoreService } from 'src/app/vacations/store/vacations.store.service';
+import { VacationsStore } from 'src/app/vacations/store/vacations.store.service';
 import { VacationListComponent, SelectionListChange } from 'src/app/vacations/vacation-list/vacation-list.component';
 import { map } from 'rxjs';
 
@@ -19,7 +19,7 @@ export class PlacesComponent implements OnDestroy {
 
   @Input() userId!: string
 
-  private readonly vacationsStore: VacationsStoreService = inject(VacationsStoreService);
+  private readonly vacationsStore: VacationsStore = inject(VacationsStore);
   private readonly favoriteStore: FavoriteStore = inject(FavoriteStore);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
 

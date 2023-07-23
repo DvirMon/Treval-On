@@ -9,11 +9,9 @@ import { VacationSelectors } from './vacation.selectors';
 @Injectable({
   providedIn: 'root'
 })
-export class VacationsStoreService {
+export class VacationsStore {
 
-  constructor(
-    private store: Store
-  ) { }
+  constructor(private store: Store) { }
 
 
   public getVacations(): Signal<Vacation[] | never[]> {
