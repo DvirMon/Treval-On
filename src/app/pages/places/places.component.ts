@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, Signal, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, Signal, inject } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FavoriteStore } from 'src/app/favorites/favorite.store.service';
@@ -13,7 +13,8 @@ import { map } from 'rxjs';
   standalone: true,
   imports: [CommonModule, VacationListComponent],
   templateUrl: './places.component.html',
-  styleUrls: ['./places.component.scss']
+  styleUrls: ['./places.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlacesComponent implements OnDestroy {
 

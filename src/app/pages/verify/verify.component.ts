@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -12,7 +12,9 @@ import { getFromLocalStorage } from 'src/app/utilities/helpers';
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule, InfoCardComponent],
   templateUrl: './verify.component.html',
-  styleUrls: ['./verify.component.scss']
+  styleUrls: ['./verify.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class VerifyPageComponent {
 
