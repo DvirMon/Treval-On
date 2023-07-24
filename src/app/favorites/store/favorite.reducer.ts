@@ -12,12 +12,6 @@ export const favoriteReducer = createReducer(
         ...action.favorite,
       },
       loaded: true,
-      // selected: action.favorite.vacationIds.reduce((acc, value) => {
-      //   return {
-      //     ...acc,
-      //     [value]: true
-      //   }
-      // }, {})
     })
   ),
 

@@ -33,7 +33,6 @@ export class PlacesComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.favoriteStore.updateFavorites()
   }
 
   private _getSelectionFroRoute(): Signal<Record<string, boolean>> {
@@ -43,6 +42,7 @@ export class PlacesComponent implements OnDestroy {
   onSelectionChanged(event: SelectionListChange) {
     const { selection } = event;
     this.favoriteStore.updateSelection(selection)
+    this.favoriteStore.updateFavorites()
   }
 
 
