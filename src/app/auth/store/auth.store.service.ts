@@ -6,6 +6,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthActions } from './auth.actions';
 import { AuthSelectors } from './auth.selectors';
 import { TypedAction } from '@ngrx/store/src/models';
+import { getFromLocalStorage } from 'src/app/utilities/helpers';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +65,7 @@ export class AuthStore {
   }
 
   public isUserLogged(): Observable<boolean> {
-    return this.store.select(AuthSelectors.selectLoaded)
+    return of(!!getFromLocalStorage('loaded'))
   }
 
   public listenToSendEmailSuccess(): Observable<string> {

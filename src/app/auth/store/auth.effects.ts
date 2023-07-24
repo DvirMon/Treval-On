@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../auth.service';
 import { AuthActions } from './auth.actions';
-import { EMPTY, catchError, concatMap, map, of, switchMap } from 'rxjs';
+import { EMPTY, catchError, concatMap, map, of, switchMap, tap } from 'rxjs';
 import { mapUserCredentials } from '../auth.helpers';
 import { FirebaseError } from '@angular/fire/app';
+import { saveToLocalStorage } from 'src/app/utilities/helpers';
 
 
 
@@ -24,6 +25,7 @@ export class AuthEffects {
     concatMap(({ signInEvent }) => this.authService.signIn$(signInEvent)
       .pipe(
         mapUserCredentials(),
+        tap(() => saveToLocalStorage('loaded', true)),
         map((user) => AuthActions.loadUserSuccess({ user })),
         catchError(((error: FirebaseError) => {
           return EMPTY
