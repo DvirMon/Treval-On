@@ -6,6 +6,7 @@ import { EMPTY, catchError, concatMap, map, of, pipe, switchMap, tap } from 'rxj
 import { mapUserCredentials } from '../auth.helpers';
 import { FirebaseError } from '@angular/fire/app';
 import { saveToStorage } from 'src/app/utilities/helpers';
+import { USER_LOGGED } from 'src/app/utilities/constants';
 
 
 
@@ -25,7 +26,7 @@ export class AuthEffects {
     concatMap(({ signInEvent }) => this.authService.signIn$(signInEvent)
       .pipe(
         mapUserCredentials(),
-        tap(() => saveToStorage('loaded', true, { useSessionStorage: true })),
+        tap(() => saveToStorage(USER_LOGGED, true, { useSessionStorage: true })),
         tap((user) => this.authService.saveUser(user)),
         map((user) => AuthActions.loadUserSuccess({ user })),
         catchError(((error: FirebaseError) => {

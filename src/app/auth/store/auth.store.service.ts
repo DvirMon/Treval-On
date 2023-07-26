@@ -85,7 +85,7 @@ export class AuthStore {
   }
 
   public isUserLogged(): Observable<boolean> {
-    return of(!!getFromStorage('loaded', { useSessionStorage: true }))
+    return of(!!getFromStorage(, { useSessionStorage: true }))
   }
 
   public listenToSendEmailSuccess(): Observable<string> {
