@@ -26,11 +26,14 @@ export class AuthStore {
 
   public loadUser(userId: string): Observable<boolean> {
 
-    const loaded$ = this.store.select(AuthSelectors.selectLoaded)
+    const loaded$ = this.store.select(AuthSelectors.selectLoaded);
 
-    const trueResult$ = loaded$
+    const trueResult$ = loaded$;
 
-    const falseResult$ = loaded$.pipe(tap(() => this.store.dispatch(AuthActions.loadUser({ userId }))))
+    const falseResult$ = loaded$.pipe(
+      tap(() => this.store.dispatch(AuthActions.loadUser({ userId }))),
+      map(() => true)
+    );
 
     return loaded$.pipe(
       switchMap((loaded: boolean) => iif(

@@ -15,8 +15,8 @@ export class DialogService {
   ) { }
 
   // open spinner dialog
-  public openDialog(component: ComponentType<unknown>, data: unknown): MatDialogRef<unknown, any> {
-    return this.dialog.open(component, this._getConfig(data));
+  public openDialog<T>(component: ComponentType<T>, data: unknown): MatDialogRef<T, any> {
+    return this.dialog.open<T>(component, this._getConfig(data));
   }
 
   public openDynamicDialog(component: ComponentType<unknown>): MatDialogRef<DynamicDialogComponent, any> {
