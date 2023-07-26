@@ -5,9 +5,8 @@ import { SignInEvent, User } from './auth.model';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthActions } from './auth.actions';
 import { AuthSelectors } from './auth.selectors';
-import { TypedAction } from '@ngrx/store/src/models';
 import { getFromStorage } from 'src/app/utilities/helpers';
-import { Favorite } from 'src/app/favorites/store/favorite.model';
+import { StorageKey } from 'src/app/utilities/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -85,7 +84,7 @@ export class AuthStore {
   }
 
   public isUserLogged(): Observable<boolean> {
-    return of(!!getFromStorage(, { useSessionStorage: true }))
+    return of(!!getFromStorage(StorageKey.LOGGED, { useSessionStorage: true }))
   }
 
   public listenToSendEmailSuccess(): Observable<string> {
