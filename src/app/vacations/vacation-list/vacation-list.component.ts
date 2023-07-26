@@ -1,8 +1,7 @@
-import { Component, DestroyRef, EventEmitter, Input, Output, Signal, inject, signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Signal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StoreService } from 'src/app/store/store.service';
-import { Vacation } from 'src/app/store/vacations/vacation.model';
 import { VacationCardComponent, VacationSelectedChangedEvent } from '../vacation-item/vacation-card.component';
+import { Vacation } from '../store/vacation.model';
 
 export interface SelectionListChange {
   source: VacationListComponent
@@ -38,15 +37,13 @@ export class VacationListComponent {
 
     let newSelection = { ...selection }; // Create a copy of the original selection
 
-    console.log('newSelection', newSelection)
-
     if (selected) {
       newSelection = {
         ...selection,
-        [vacation.id] : selected
+        [vacation.id]: selected
       }
     } else {
-     delete newSelection[vacation.id];
+      delete newSelection[vacation.id];
     }
 
     return newSelection

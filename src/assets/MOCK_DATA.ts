@@ -1,5 +1,5 @@
-import { Vacation } from "src/app/store/vacations/vacation.model";
 import { Timestamp } from '@angular/fire/firestore';
+import { Vacation } from 'src/app/vacations/store/vacation.model';
 
 export const VACATIONS_DATA: Vacation[] = [
   {

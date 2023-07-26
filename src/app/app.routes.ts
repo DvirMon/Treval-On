@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { LoginPageComponent } from "./pages/login/login.component";
 import { placesResolver } from "./pages/places/places.resolver";
 import { verifyGuard } from "./pages/verify/verify.guard";
+import { placesGuard } from "./pages/places/places.guard";
 
 export const appRoutes: Routes = [
   {
@@ -11,7 +12,7 @@ export const appRoutes: Routes = [
   {
     path: 'verify-email',
     loadComponent: () => import("./pages/verify/verify.component").then(m => m.VerifyPageComponent),
-    canActivate : [verifyGuard]
+    canActivate: [verifyGuard]
   },
   {
     path: 'register',
@@ -20,6 +21,7 @@ export const appRoutes: Routes = [
   {
     path: 'places/:userId',
     loadComponent: () => import("./pages/places/places.component").then(m => m.PlacesComponent),
+    canActivate: [placesGuard],
     resolve: { routeResolver: placesResolver }
   },
   {

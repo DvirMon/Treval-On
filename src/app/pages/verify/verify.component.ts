@@ -1,18 +1,20 @@
-import { Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { InfoCardComponent } from 'src/app/components/info-card/info-card.component';
 import { SignInEvent, SignInMethod } from 'src/app/auth/store/auth.model';
 import { AuthStore } from 'src/app/auth/store/auth.store.service';
-import { getFromLocalStorage } from 'src/app/utilities/helpers';
+import { getFromStorage } from 'src/app/utilities/helpers';
 
 @Component({
   selector: 'to-verify',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule, InfoCardComponent],
   templateUrl: './verify.component.html',
-  styleUrls: ['./verify.component.scss']
+  styleUrls: ['./verify.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class VerifyPageComponent {
 
@@ -23,7 +25,7 @@ export class VerifyPageComponent {
   authStore: AuthStore = inject(AuthStore)
 
   onEmailLinkSignIn(emailLink: string) {
-    const email: string | null = getFromLocalStorage('email');
+    const email: string | null = getFromStorage('email');
     const event: SignInEvent = { method: SignInMethod.EMAIL_LINK, data: { email, emailLink } }
     this.authStore.signIn(event)
   }

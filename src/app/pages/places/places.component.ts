@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, Signal, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, Signal, inject } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { SelectionListChange, VacationListComponent } from 'src/app/vacation/vacation-list/vacation-list.component';
-import { StoreService } from 'src/app/store/store.service';
-import { Vacation } from 'src/app/store/vacations/vacation.model';
+import { FavoriteStore } from 'src/app/favorites/favorite.store.service';
+import { Vacation } from 'src/app/vacations/store/vacation.model';
+import { VacationsStore } from 'src/app/vacations/store/vacations.store.service';
+import { VacationListComponent, SelectionListChange } from 'src/app/vacations/vacation-list/vacation-list.component';
 import { map } from 'rxjs';
 
 @Component({
@@ -12,25 +13,26 @@ import { map } from 'rxjs';
   standalone: true,
   imports: [CommonModule, VacationListComponent],
   templateUrl: './places.component.html',
-  styleUrls: ['./places.component.scss']
+  styleUrls: ['./places.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlacesComponent implements OnDestroy {
 
   @Input() userId!: string
 
-  private readonly storeService: StoreService = inject(StoreService);
+  private readonly vacationsStore: VacationsStore = inject(VacationsStore);
+  private readonly favoriteStore: FavoriteStore = inject(FavoriteStore);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
 
   protected readonly vacations: Signal<Vacation[]>;
   protected readonly selection: Signal<Record<string, boolean>>
 
   constructor() {
-    this.vacations = this.storeService.getVacations();
+    this.vacations = this.vacationsStore.getVacations();
     this.selection = this._getSelectionFroRoute()
   }
 
   ngOnDestroy(): void {
-    this.storeService.updateFavorites()
   }
 
   private _getSelectionFroRoute(): Signal<Record<string, boolean>> {
@@ -39,7 +41,8 @@ export class PlacesComponent implements OnDestroy {
 
   onSelectionChanged(event: SelectionListChange) {
     const { selection } = event;
-    this.storeService.updateSelection(selection)
+    this.favoriteStore.updateSelection(selection)
+    this.favoriteStore.updateFavorites()
   }
 
 

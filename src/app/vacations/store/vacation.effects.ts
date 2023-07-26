@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { VacationsService } from 'src/app/vacation/vacations.service';
+import { VacationsService } from 'src/app/vacations/vacations.service';
 import { VacationActions } from './vacation.actions';
 import { concatMap, map, catchError, EMPTY, tap } from 'rxjs';
 import { Vacation } from './vacation.model';

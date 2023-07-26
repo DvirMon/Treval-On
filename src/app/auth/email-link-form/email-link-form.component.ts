@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Injector, Output, inject, runInInjectionContext } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Injector, Output, inject, runInInjectionContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,7 +27,9 @@ import { InfoCardComponent } from 'src/app/components/info-card/info-card.compon
     InfoCardComponent
   ],
   templateUrl: './email-link-form.component.html',
-  styleUrls: ['./email-link-form.component.scss']
+  styleUrls: ['./email-link-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class EmailLinkFormComponent {
 

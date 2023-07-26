@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CollectionReference, QuerySnapshot, getDocs, where, doc, updateDoc, DocumentData, addDoc,getDoc, Firestore, collection, query, Timestamp, DocumentReference } from '@angular/fire/firestore';
+import { CollectionReference, QuerySnapshot, getDocs, where, doc, updateDoc, DocumentData, addDoc, getDoc, Firestore, collection, query, Timestamp, DocumentReference } from '@angular/fire/firestore';
 import { Observable, from, switchMap, iif, map, of, tap, take, first, defaultIfEmpty, filter, merge } from 'rxjs';
 import { Favorite } from './store/favorite.model';
+import { mapQuerySnapshotDoc } from '../utilities/helpers';
 
 
 
@@ -27,26 +28,15 @@ export class FavoriteService {
       switchMap(() => this._createNewFavoriteDocument$(this.favoritesRef, userId))
     )
 
-    const falseResult$ = querySnapshot$.pipe(
-      map((querySnapshot) => this._setFavorite(querySnapshot))
-    )
+    const falseResult$ = querySnapshot$.pipe(mapQuerySnapshotDoc<Favorite>())
 
     return querySnapshot$.pipe(
-      switchMap((querySnapshot : QuerySnapshot<Favorite>) => iif(
+      switchMap((querySnapshot: QuerySnapshot<Favorite>) => iif(
         () => querySnapshot.empty,
         trueResult$,
         falseResult$
       ))
     )
-  }
-
-  private _setFavorite(querySnapshot: QuerySnapshot<Favorite>) {
-    const doc = querySnapshot.docs[0]
-    return {
-      ...doc.data(),
-      id: doc.id
-    } as Favorite
-
   }
 
   private _createNewFavoriteDocument$(favoritesRef: CollectionReference<DocumentData>, userId: string): Observable<Favorite> {
@@ -61,17 +51,11 @@ export class FavoriteService {
     return from(getDocs(query(this.favoritesRef, where('userId', '==', userId))))
   }
 
-  updateFavorite$ = (userId: string, vacationIds: string[]): Observable<void> => {
+
+  public updateFavorite$ = (userId: string, vacationIds: string[]): Observable<void> => {
 
     const querySnapshot$: Observable<QuerySnapshot<Favorite>> = this.getFavoriteQuerySnapshot$(userId)
 
-    // return querySnapshot$.pipe(
-    //   switchMap((querySnapshot: QuerySnapshot<Favorite>) => iif(
-    //     () => !querySnapshot.empty,
-    //     this._updateFavoriteDocument$(this.favoritesRef, querySnapshot, vacationIds),
-    //     this._createNewFavoriteDocument$(this.favoritesRef, userId, vacationIds)
-    //   ))
-    // );
 
     return querySnapshot$.pipe(
       switchMap((querySnapshot: QuerySnapshot<Favorite>) =>
@@ -86,7 +70,7 @@ export class FavoriteService {
     const favoriteDocId: string = querySnapshot.docs[0].id;
     const favoriteDocRef = doc(favoritesRef, favoriteDocId);
 
-    const updatedFavorite: Favorite = { ...favoriteDoc, ...vacationIds, id: favoriteDocId };
+    const updatedFavorite: Favorite = { ...favoriteDoc, vacationIds: [...favoriteDoc.vacationIds, ...vacationIds], id: favoriteDocId };
     return from(updateDoc(favoriteDocRef, updatedFavorite));
   };
 

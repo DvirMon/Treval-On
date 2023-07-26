@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Writab
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ButtonSelectedChangedEvent, VacationCardButtonComponent } from '../vacation-item-button/vacation-card-button.component';
-import { Vacation } from 'src/app/store/vacations/vacation.model';
 import { DateTimestampPipe } from 'src/app/utilities/date.pipe';
+import { Vacation } from '../store/vacation.model';
 
 export interface VacationSelectedChangedEvent {
   /** The source button of the event. */
