@@ -1,6 +1,7 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Inject, Injectable } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { DynamicDialogComponent } from '../dynamic-dialog/dynamic-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,19 @@ export class DialogService {
   ) { }
 
   // open spinner dialog
-  public openDialog(component: ComponentType<unknown>, data: unknown) {
+  public openDialog(component: ComponentType<unknown>, data: unknown): MatDialogRef<unknown, any> {
     return this.dialog.open(component, this._getConfig(data));
+  }
+
+  public openDynamicDialog(component: ComponentType<unknown>): MatDialogRef<DynamicDialogComponent, any> {
+
+    const data = { componentType: component }
+    const dialogConfig = this._getConfig(data)
+
+    const dialogRef = this.dialog.open(DynamicDialogComponent, dialogConfig);
+
+    return dialogRef
+
   }
 
   private _getConfig(data?: unknown): MatDialogConfig {

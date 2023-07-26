@@ -17,6 +17,7 @@ import { saveToStorage } from 'src/app/utilities/helpers';
 
 import { tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EmailLinkDialogComponent } from 'src/app/auth/email-link-dialog/email-link-dialog.component';
 
 @Component({
   selector: 'to-login-page',
@@ -53,17 +54,16 @@ export class LoginPageComponent {
         takeUntilDestroyed(),
         tap((email: string) => saveToStorage('email', email))
       )
-      .subscribe((value: string) => this.dialogService.openDialog(DialogComponent, { email: value }));
+      .subscribe((value: string) => this.dialogService.openDialog(EmailLinkDialogComponent, { email: value }));
 
     this.authStore.listenTLoadUserSuccess()
       .pipe(
         takeUntilDestroyed()
-        )
+      )
       .subscribe((userId: string) => this._routerAfterLogin(userId));
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   private _routerAfterLogin(userId: string): void {
     runInInjectionContext(this.injector, () => {

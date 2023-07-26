@@ -2,7 +2,7 @@
 
 section.info-card-wrapper {
 
-  @include main.flex-center(column, main.spacing(3));
+  @include main.flex-center(column, 2);
 
   mat-icon {
     scale: 2;
