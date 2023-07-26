@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../auth.service';
 import { AuthActions } from './auth.actions';
-import { EMPTY, catchError, concatMap, map, of, switchMap, tap } from 'rxjs';
+import { EMPTY, catchError, concatMap, map, of, pipe, switchMap, tap } from 'rxjs';
 import { mapUserCredentials } from '../auth.helpers';
 import { FirebaseError } from '@angular/fire/app';
-import { saveToLocalStorage } from 'src/app/utilities/helpers';
+import { saveToStorage } from 'src/app/utilities/helpers';
 
 
 
@@ -25,7 +25,8 @@ export class AuthEffects {
     concatMap(({ signInEvent }) => this.authService.signIn$(signInEvent)
       .pipe(
         mapUserCredentials(),
-        tap(() => saveToLocalStorage('loaded', true)),
+        tap(() => saveToStorage('loaded', true, { useSessionStorage: true })),
+        tap((user) => this.authService.saveUser(user)),
         map((user) => AuthActions.loadUserSuccess({ user })),
         catchError(((error: FirebaseError) => {
           return EMPTY
@@ -39,6 +40,19 @@ export class AuthEffects {
     switchMap(({ email }) => this.authService.sendSignInLinkToEmail$(email)
       .pipe(
         map((email) => AuthActions.sendEmailLinkSuccess({ email })),
+        catchError(() => {
+          return EMPTY
+        })
+      )
+    )
+  ))
+
+  loadUser$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.loadUser),
+    switchMap(({ userId }) => this.authService.getUserById(userId)
+      .pipe(
+        tap((value) => console.log(value)),
+        map((user) => AuthActions.loadUserSuccess({ user })),
         catchError(() => {
           return EMPTY
         })

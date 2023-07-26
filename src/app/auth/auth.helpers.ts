@@ -51,7 +51,7 @@ export function mapUserCredentials(): OperatorFunction<UserCredential, User> {
 
 function mapUser(user: UserFirebase): User {
   return {
-    id: user.uid,
+    userId: user.uid,
     displayName: user.displayName,
     email: user.email,
     emailVerified: user.emailVerified,

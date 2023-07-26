@@ -1,17 +1,19 @@
 import { Injectable, Signal, signal } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { EMPTY, Observable, Subject, catchError, exhaustMap, filter, map, of, skip, switchMap, tap } from 'rxjs';
+import { EMPTY, Observable, Subject, catchError, exhaustMap, filter, iif, map, of, skip, switchMap, tap } from 'rxjs';
 import { SignInEvent, User } from './auth.model';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthActions } from './auth.actions';
 import { AuthSelectors } from './auth.selectors';
 import { TypedAction } from '@ngrx/store/src/models';
-import { getFromLocalStorage } from 'src/app/utilities/helpers';
+import { getFromStorage } from 'src/app/utilities/helpers';
+import { Favorite } from 'src/app/favorites/store/favorite.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthStore {
+
 
   private readonly user: Signal<User>
   private readonly loginSource: Subject<SignInEvent> = new Subject<SignInEvent>;
@@ -21,6 +23,24 @@ export class AuthStore {
   ) {
 
     this.user = this._setUser()
+  }
+
+  public loadUser(userId: string): Observable<boolean> {
+
+    const loaded$ = this.store.select(AuthSelectors.selectLoaded)
+
+    const trueResult$ = loaded$
+
+    const falseResult$ = loaded$.pipe(tap(() => this.store.dispatch(AuthActions.loadUser({ userId }))))
+
+    return loaded$.pipe(
+      switchMap((loaded: boolean) => iif(
+        () => loaded,
+        trueResult$,
+        falseResult$
+      ))
+    )
+
   }
 
   public getUser(): Signal<User> {
@@ -65,7 +85,7 @@ export class AuthStore {
   }
 
   public isUserLogged(): Observable<boolean> {
-    return of(!!getFromLocalStorage('loaded'))
+    return of(!!getFromStorage('loaded', { useSessionStorage: true }))
   }
 
   public listenToSendEmailSuccess(): Observable<string> {
@@ -78,7 +98,7 @@ export class AuthStore {
         filter((loaded) => loaded),
         switchMap(() => this.store.select(AuthSelectors.selectUser)
           .pipe(
-            map((user: User) => user.id))
+            map((user: User) => user.userId))
         )
       )
   }

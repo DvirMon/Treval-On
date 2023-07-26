@@ -14,9 +14,11 @@ import {
   ActionCodeSettings,
   isSignInWithEmailLink,
 } from '@angular/fire/auth';
-import { Observable, from, map, of, switchMap } from 'rxjs';
-import { SignInEvent, SignInMethod } from './store/auth.model';
+import { CollectionReference, Firestore, collection, getDocs, where, query, QuerySnapshot, getDoc, addDoc } from '@angular/fire/firestore';
+import { SignInEvent, SignInMethod, User } from './store/auth.model';
 import { generateVerificationLink } from './auth.helpers';
+import { Observable, from, map, of, switchMap, tap } from 'rxjs';
+import { mapQuerySnapshotDoc } from '../utilities/helpers';
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -24,7 +26,23 @@ export class AuthService {
   private readonly injector = inject(Injector);
   private readonly auth = inject(Auth);
 
-  constructor() { }
+  private readonly USERS_COLLECTION = 'users';
+  private readonly usersRef: CollectionReference<User>
+
+  constructor(
+    private readonly firestore: Firestore
+
+  ) {
+    this.usersRef = collection(this.firestore, this.USERS_COLLECTION) as CollectionReference<User>
+  }
+
+  public getUserById(userId: string): Observable<User> {
+    return from(getDocs(query(this.usersRef, where('userId', '==', userId))))
+      .pipe(mapQuerySnapshotDoc<User>(), tap((value) => console.log('user', value)))
+
+  }
+
+  public saveUser(user: User): void { from(addDoc(this.usersRef, user)) }
 
   // Sign in with different authentication methods based on the provided event.
   public signIn$(event: SignInEvent): Observable<UserCredential> {
@@ -38,7 +56,7 @@ export class AuthService {
           case SignInMethod.GOOGLE:
             return this._signInWithGoogle$();
 
-            case SignInMethod.EMAIL_LINK:
+          case SignInMethod.EMAIL_LINK:
             console.log('works');
             return this._signInWithEmailLink$(data.email, data.emailLink);
 

@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { InfoCardComponent } from 'src/app/components/info-card/info-card.component';
 import { SignInEvent, SignInMethod } from 'src/app/auth/store/auth.model';
 import { AuthStore } from 'src/app/auth/store/auth.store.service';
-import { getFromLocalStorage } from 'src/app/utilities/helpers';
+import { getFromStorage } from 'src/app/utilities/helpers';
 
 @Component({
   selector: 'to-verify',
@@ -25,7 +25,7 @@ export class VerifyPageComponent {
   authStore: AuthStore = inject(AuthStore)
 
   onEmailLinkSignIn(emailLink: string) {
-    const email: string | null = getFromLocalStorage('email');
+    const email: string | null = getFromStorage('email');
     const event: SignInEvent = { method: SignInMethod.EMAIL_LINK, data: { email, emailLink } }
     this.authStore.signIn(event)
   }

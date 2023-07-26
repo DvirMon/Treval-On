@@ -13,7 +13,7 @@ import { AuthStore } from 'src/app/auth/store/auth.store.service';
 import { SignInEvent, SignInMethod } from 'src/app/auth/store/auth.model';
 import { FlipCardService } from 'src/app/components/flip-card/flip-card.service';
 import { DialogService } from 'src/app/components/dialog/dialog.service';
-import { saveToLocalStorage } from 'src/app/utilities/helpers';
+import { saveToStorage } from 'src/app/utilities/helpers';
 
 import { tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -47,11 +47,11 @@ export class LoginPageComponent {
 
   constructor() {
     this.showOpt = signal(true);
-    
+
     this.authStore.listenToSendEmailSuccess()
       .pipe(
         takeUntilDestroyed(),
-        tap((email: string) => saveToLocalStorage('email', email))
+        tap((email: string) => saveToStorage('email', email))
       )
       .subscribe((value: string) => this.dialogService.openDialog(DialogComponent, { email: value }));
 
