@@ -1,0 +1,15 @@
+@use "variables" as main;
+
+header.mat-mdc-dialog-title {
+  display: flex;
+  justify-content: center;
+  padding: main.spacing(3);
+}
+
+span.email {
+  color: main.primary(500);
+}
+
+.mat-mdc-dialog-actions {
+  justify-content: end;
+}
