@@ -18,6 +18,7 @@ import { saveToStorage } from 'src/app/utilities/helpers';
 import { tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EmailLinkDialogComponent } from 'src/app/auth/email-link-dialog/email-link-dialog.component';
+import { StorageKey } from 'src/app/utilities/constants';
 
 @Component({
   selector: 'to-login-page',
@@ -52,7 +53,7 @@ export class LoginPageComponent {
     this.authStore.listenToSendEmailSuccess()
       .pipe(
         takeUntilDestroyed(),
-        tap((email: string) => saveToStorage('email', email))
+        tap((email: string) => saveToStorage(StorageKey.LOGGED, email))
       )
       .subscribe((value: string) => this.dialogService.openDialog(EmailLinkDialogComponent, { email: value }));
 

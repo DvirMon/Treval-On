@@ -22,7 +22,7 @@ export const appRoutes: Routes = [
     path: 'places/:userId',
     loadComponent: () => import("./pages/places/places.component").then(m => m.PlacesComponent),
     canActivate: [placesGuard],
-    resolve: { routeResolver: placesResolver }
+    // resolve: { routeResolver: placesResolver }
   },
   {
     path: "**",

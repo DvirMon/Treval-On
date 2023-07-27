@@ -1,5 +1,6 @@
 import { QuerySnapshot } from "@angular/fire/firestore";
 import { OperatorFunction, catchError, map, throwError } from "rxjs";
+import { StorageKey } from "./constants";
 
 function setRecordItem(record: Record<string, boolean>, item: string): Record<string, boolean> {
   return { ...record, [item]: true };
@@ -13,12 +14,12 @@ interface StorageOptions {
   useSessionStorage: boolean;
 }
 
-export function saveToStorage(key: string, value: any, options: StorageOptions = { useSessionStorage: false }): void {
+export function saveToStorage(key: StorageKey, value: any, options: StorageOptions = { useSessionStorage: false }): void {
   const storage = options.useSessionStorage ? sessionStorage : localStorage;
   storage.setItem(key, JSON.stringify(value));
 }
 
-export function getFromStorage<T>(key: string, options: StorageOptions = { useSessionStorage: false }, remove: boolean = false): T | null {
+export function getFromStorage<T>(key: StorageKey, options: StorageOptions = { useSessionStorage: false }, remove: boolean = false): T | null {
   const storage = options.useSessionStorage ? sessionStorage : localStorage;
   const item = storage.getItem(key);
 

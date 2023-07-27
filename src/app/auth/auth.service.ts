@@ -1,4 +1,4 @@
-import { Injectable, Injector, inject } from '@angular/core';
+import { Injectable, Injector, inject, runInInjectionContext } from '@angular/core';
 import {
   Auth,
   signInWithPopup,
@@ -19,6 +19,9 @@ import { SignInEvent, SignInMethod, User } from './store/auth.model';
 import { generateVerificationLink } from './auth.helpers';
 import { Observable, from, map, of, switchMap, tap } from 'rxjs';
 import { mapQuerySnapshotDoc } from '../utilities/helpers';
+import { DialogService } from '../components/dialog/dialog.service';
+import { openLoginDialogComponent } from './login-dialog/login-dialog.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -30,7 +33,8 @@ export class AuthService {
   private readonly usersRef: CollectionReference<User>
 
   constructor(
-    private readonly firestore: Firestore
+    private readonly firestore: Firestore,
+
 
   ) {
     this.usersRef = collection(this.firestore, this.USERS_COLLECTION) as CollectionReference<User>
@@ -43,6 +47,12 @@ export class AuthService {
   }
 
   public saveUser(user: User): void { from(addDoc(this.usersRef, user)) }
+
+  public openLoginDialog(): MatDialogRef<openLoginDialogComponent, any> {
+    return runInInjectionContext(this.injector, () =>
+      inject(DialogService).openDialog(openLoginDialogComponent, {})
+    )
+  }
 
   // Sign in with different authentication methods based on the provided event.
   public signIn$(event: SignInEvent): Observable<UserCredential> {
