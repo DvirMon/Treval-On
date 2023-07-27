@@ -1,31 +1,27 @@
-<div class="login-container">
-  <div class="login-wrapper">
-    <div class="login-card">
-    </div>
-    <div class="login-form">
-      <to-floating-button
-        [label]="'Sign-Up'"
-        [navigation]="'/register'"
-      ></to-floating-button>
-      <to-flip-card>
-        <to-login-form
-          (login)="onSignIn($event)"
-          (googleSignIn)="onSignIn($event)"
-          (otpSignIn)="onOtpSignIn($event)"
-          (emailLinkSignIn)="onEmailLinkSignIn($event)"
-          class="front"
-        >
-        </to-login-form>
-        <ng-container class="back" *ngIf="showOpt()">
-          <to-login-otp-form (otpSignIn)="onSignIn($event)">
-          </to-login-otp-form>
-        </ng-container>
-        <ng-container class="back" *ngIf="!showOpt()">
-          <to-email-link-form
-            (emailLinkSignIn)="onSignIn($event)"
-          ></to-email-link-form>
-        </ng-container>
-      </to-flip-card>
-    </div>
+<div class="login-wrapper">
+  <div class="login-card"></div>
+  <div class="login-form">
+    <to-floating-button
+      [label]="'Sign-Up'"
+      [navigation]="'/register'"
+    ></to-floating-button>
+    <to-flip-card>
+      <to-login-form
+        (login)="onSignIn($event)"
+        (googleSignIn)="onSignIn($event)"
+        (otpSignIn)="onOtpSignIn($event)"
+        (emailLinkSignIn)="onEmailLinkSignIn($event)"
+        class="front"
+      >
+      </to-login-form>
+      <ng-container class="back" *ngIf="showOpt()">
+        <to-login-otp-form (otpSignIn)="onSignIn($event)"> </to-login-otp-form>
+      </ng-container>
+      <ng-container class="back" *ngIf="!showOpt()">
+        <to-email-link-form
+          (emailLinkSignIn)="onSignIn($event)"
+        ></to-email-link-form>
+      </ng-container>
+    </to-flip-card>
   </div>
 </div>

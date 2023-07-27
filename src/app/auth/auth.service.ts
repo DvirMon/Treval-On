@@ -20,7 +20,7 @@ import { generateVerificationLink } from './auth.helpers';
 import { Observable, from, map, of, switchMap, tap } from 'rxjs';
 import { mapQuerySnapshotDoc } from '../utilities/helpers';
 import { DialogService } from '../components/dialog/dialog.service';
-import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import { openLoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Injectable({ providedIn: "root" })
@@ -48,9 +48,9 @@ export class AuthService {
 
   public saveUser(user: User): void { from(addDoc(this.usersRef, user)) }
 
-  public loginDialog(): MatDialogRef<LoginDialogComponent, any> {
+  public openLoginDialog(): MatDialogRef<openLoginDialogComponent, any> {
     return runInInjectionContext(this.injector, () =>
-      inject(DialogService).openDialog(LoginDialogComponent, {})
+      inject(DialogService).openDialog(openLoginDialogComponent, {})
     )
   }
 

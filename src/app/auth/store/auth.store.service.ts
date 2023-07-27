@@ -86,7 +86,7 @@ export class AuthStore {
     this.store.dispatch(action)
   }
 
-  public isUserLogged(): Observable<boolean> {
+  public isStorageLogged(): Observable<boolean> {
     return of(!!getFromStorage(StorageKey.LOGGED, { useSessionStorage: true }))
   }
 
