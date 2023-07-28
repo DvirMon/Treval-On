@@ -1,12 +1,12 @@
-import { Injectable, Signal, signal } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { EMPTY, Observable, Subject, catchError, exhaustMap, filter, iif, map, of, skip, switchMap, tap } from 'rxjs';
+import { Injectable, Signal, WritableSignal, signal } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { SignInEvent, User } from './auth.model';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthActions } from './auth.actions';
 import { AuthSelectors } from './auth.selectors';
 import { getFromStorage } from 'src/app/utilities/helpers';
 import { StorageKey } from 'src/app/utilities/constants';
+import { EMPTY, Observable, Subject, catchError, exhaustMap, filter, iif, map, of, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class AuthStore {
 
   private readonly user: Signal<User>
   private readonly loginSource: Subject<SignInEvent> = new Subject<SignInEvent>;
+  public readonly signInEvent: WritableSignal<SignInEvent | null> = signal(null)
 
   constructor(
     private store: Store
@@ -42,11 +43,27 @@ export class AuthStore {
         falseResult$
       ))
     )
+  }
+
+  public getUser(signInEvent: SignInEvent | null): User | null {
+    // return this.user
+
+    const loaded: Signal<boolean> = this.store.selectSignal(AuthSelectors.selectLoaded);
+
+
+    if (!loaded() && signInEvent !== null) {
+      this.store.dispatch(AuthActions.signIn({ signInEvent }))
+    }
+
+    const user: Signal<User> = this.store.selectSignal(AuthSelectors.selectUser);
+
+
+    return user()
 
   }
 
-  public getUser(): Signal<User> {
-    return this.user
+  public getSignInEvent(): WritableSignal<SignInEvent | null> {
+    return this.signInEvent
   }
 
   private _setUser(): Signal<User> {
@@ -74,6 +91,8 @@ export class AuthStore {
         return this.store.select(AuthSelectors.selectUser);
       })
     );
+
+
     return user$;
   }
 
