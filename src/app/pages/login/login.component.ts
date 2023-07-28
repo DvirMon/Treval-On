@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, Injector, WritableSignal, inject, runInInjectionContext, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, WritableSignal, computed, inject, runInInjectionContext, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LoginFormComponent } from 'src/app/auth/login-form/login-form.component';
@@ -47,6 +47,11 @@ export class LoginPageComponent {
 
   protected readonly showOpt: WritableSignal<boolean>;
 
+
+
+  protected signInEvent = this.authStore.getSignInEvent();
+  protected user =  computed(() => this.authStore.getUser(this.signInEvent()))
+
   constructor() {
     this.showOpt = signal(true);
 
@@ -57,14 +62,14 @@ export class LoginPageComponent {
       )
       .subscribe((value: string) => this.dialogService.openDialog(EmailLinkDialogComponent, { email: value }));
 
-    this.authStore.listenTLoadUserSuccess()
-      .pipe(
-        takeUntilDestroyed()
-      )
-      .subscribe((userId: string) => this._routerAfterLogin(userId));
+    // this.authStore.listenTLoadUserSuccess()
+    //   .pipe(
+    //     takeUntilDestroyed()
+    //   )
+    //   .subscribe((userId: string) => this._routerAfterLogin(userId));
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   private _routerAfterLogin(userId: string): void {
     runInInjectionContext(this.injector, () => {
@@ -73,7 +78,9 @@ export class LoginPageComponent {
   }
 
   protected onSignIn(event: SignInEvent) {
-    this.authStore.signIn(event)
+    // this.authStore.signIn(event)
+    console.log('event')
+    this.authStore.signInEvent.set(event)
   }
 
   protected onOtpSignIn(event: SignInEvent) {
