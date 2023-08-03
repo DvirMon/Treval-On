@@ -1,6 +1,7 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
+  mode: 'development', // or 'production' or 'none'
   entry: './src/main.ts', // Entry point of your application
   output: {
     path: __dirname + '/dist', // Output directory for the build artifacts

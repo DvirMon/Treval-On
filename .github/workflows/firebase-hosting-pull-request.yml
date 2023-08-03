@@ -1,12 +1,14 @@
+name: Angular CI/CD
 
-name: Deploy to Firebase Hosting on Main Push
 on:
   push:
     branches:
       - main
+
 jobs:
-  build_and_deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -14,17 +16,25 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16.19'
+          node-version: '16.19' # Change this to your preferred Node.js version
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
 
-      - name: Build Angular App
-        run: npm run build
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Deploy to Firebase Hosting
-        uses: w9jds/firebase-action@master
+      - name: Linting
+        run: ng lint
+
+      - name: Unit tests
+        run: ng test
+
+      - name: Build
+        run: ng build --prod # For production build. Use 'ng build' for development build.
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
         with:
-          args: deploy --only hosting --project dvir-monajem-portfolio
-        env:
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          name: build-output
+          path: dist/your-app-name # Replace 'your-app-name' with the actual name of your Angular app
