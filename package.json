@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "build": "webpack",
+    "build:stats": "webpack --stats",
+    "analyze": "node ./node_modules/webpack-bundle-analyzer/bin/webpack-bundle-analyzer.js stats.json --mode=production",
+    "start": "npm run build --watch",
     "test": "ng test"
   },
   "private": true,
@@ -42,6 +43,10 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
-    "typescript": "^5.1.5"
+    "typescript": "^5.1.5",
+    "webpack": "^5.88.2",
+    "webpack-bundle-analyzer": "^4.9.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   }
 }
