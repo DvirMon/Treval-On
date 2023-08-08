@@ -50,7 +50,7 @@ export class LoginPageComponent {
 
 
   protected signInEvent = this.authStore.getSignInEvent();
-  protected user =  computed(() => this.authStore.getUser(this.signInEvent()))
+  protected user = computed(() => this.authStore.getUser(this.signInEvent()))
 
   constructor() {
     this.showOpt = signal(true);
@@ -94,6 +94,11 @@ export class LoginPageComponent {
     this._updateShowOtp(method);
     this._flipCard();
   }
+
+  protected onEmailAndPassword() {
+    this._flipCard()
+  }
+
 
   private _flipCard() {
     runInInjectionContext(this.injector, () => {

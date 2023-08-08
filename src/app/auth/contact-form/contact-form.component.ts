@@ -77,8 +77,8 @@ export class ContactFormComponent implements OnInit {
     this.sendOPT.emit(event)
   }
 
-  protected onEmailAndPasswordSubmit() {
-
+  protected onEmailAndPassword() {
+    this.signInWithEmailAndPassword.emit()
   }
 
 

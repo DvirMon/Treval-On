@@ -15,7 +15,11 @@
       >
       </to-login-form>
       <ng-container class="back" *ngIf="showOpt()">
-        <to-login-otp-form (otpSignIn)="onSignIn($event)"> </to-login-otp-form>
+        <to-login-otp-form
+          (otpSignIn)="onSignIn($event)"
+          (signInWithEmailAndPassword)="onEmailAndPassword()"
+        >
+        </to-login-otp-form>
       </ng-container>
       <ng-container class="back" *ngIf="!showOpt()">
         <to-email-link-form
