@@ -9,6 +9,15 @@ import { Observable, from, of, switchMap, tap } from 'rxjs';
 import { FireAuthService } from './fireauth.service';
 import { ConfirmationResult, UserCredential } from '@angular/fire/auth';
 
+interface EmailLinkData {
+  email: string;
+  emailLink: string;
+}
+interface EmailPasswordData {
+  email: string;
+  password: string;
+}
+
 @Injectable({ providedIn: "root" })
 export class AuthService {
 
@@ -52,10 +61,12 @@ export class AuthService {
             return this.fireAuth.signInWithGoogle$();
 
           case SignInMethod.EMAIL_LINK:
-            return this.fireAuth.signInWithEmailLink$(data.email, data.emailLink);
+            const emailLinkData = data as EmailLinkData
+            return this.fireAuth.signInWithEmailLink$(emailLinkData.email, emailLinkData.emailLink);
 
-          case SignInMethod.EMAIL_PASSWORD:
-            return this.fireAuth.signInWithEmailAndPassword$(data.email, data.password);
+            case SignInMethod.EMAIL_PASSWORD:
+            const emailPasswordData = data as EmailPasswordData
+            return this.fireAuth.signInWithEmailAndPassword$(emailPasswordData.email, emailPasswordData.password);
 
           default: return of({} as UserCredential);
         }
