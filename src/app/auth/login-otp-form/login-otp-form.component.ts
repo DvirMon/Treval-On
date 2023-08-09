@@ -35,6 +35,7 @@ export class LoginOtpFormComponent {
   protected contactEvent! : ContactSubmitEvent
 
   @Output() otpSignIn: EventEmitter<SignInEvent> = new EventEmitter();
+  @Output() signInWithEmailAndPassword: EventEmitter<void> = new EventEmitter();
 
 
   onSendOPT(event: ContactSubmitEvent) {
@@ -45,5 +46,10 @@ export class LoginOtpFormComponent {
   private _changeStep() {
     this.selectedIndex.update(() => 1)
   }
+
+  protected onEmailAndPassword() {
+    this.signInWithEmailAndPassword.emit()
+  }
+
 
 }

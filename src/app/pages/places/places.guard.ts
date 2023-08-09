@@ -26,12 +26,10 @@ export const placesGuard: CanActivateFn = (
 };
 
 function onLoggedTrue(authStore: AuthStore, route: ActivatedRouteSnapshot) {
-  console.log("called true")
   const userId: string = route.paramMap.get('userId') as string
   return authStore.loadUser(userId)
 }
 
 function onLoggedFalse(router: Router): Observable<boolean> {
-  console.log("called false")
   return from(router.navigateByUrl("/"))
 }
