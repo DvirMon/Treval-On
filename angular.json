@@ -15,12 +15,15 @@
       "prefix": "to",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "stylePreprocessorOptions": {
               "includePaths": ["src", "src/styles"]
             },
-            "outputPath": "dist/travel-on",
+            "customWebpackConfig": {
+              "path": "./webpack.config.js"
+            },
+            "outputPath": "dist/bundle.js",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [

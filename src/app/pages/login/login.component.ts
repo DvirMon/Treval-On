@@ -47,11 +47,6 @@ export class LoginPageComponent {
 
   protected readonly showOpt: WritableSignal<boolean>;
 
-
-
-  protected signInEvent = this.authStore.getSignInEvent();
-  protected user =  computed(() => this.authStore.getUser(this.signInEvent()))
-
   constructor() {
     this.showOpt = signal(true);
 
@@ -62,11 +57,11 @@ export class LoginPageComponent {
       )
       .subscribe((value: string) => this.dialogService.openDialog(EmailLinkDialogComponent, { email: value }));
 
-    // this.authStore.listenTLoadUserSuccess()
-    //   .pipe(
-    //     takeUntilDestroyed()
-    //   )
-    //   .subscribe((userId: string) => this._routerAfterLogin(userId));
+    this.authStore.listenTLoadUserSuccess()
+      .pipe(
+        takeUntilDestroyed(),
+      )
+      .subscribe((userId: string) => this._routerAfterLogin(userId));
   }
 
   ngOnInit(): void { }
@@ -78,9 +73,7 @@ export class LoginPageComponent {
   }
 
   protected onSignIn(event: SignInEvent) {
-    // this.authStore.signIn(event)
-    console.log('event')
-    this.authStore.signInEvent.set(event)
+    this.authStore.signIn(event)
   }
 
   protected onOtpSignIn(event: SignInEvent) {
@@ -94,6 +87,11 @@ export class LoginPageComponent {
     this._updateShowOtp(method);
     this._flipCard();
   }
+
+  protected onEmailAndPassword() {
+    this._flipCard()
+  }
+
 
   private _flipCard() {
     runInInjectionContext(this.injector, () => {
