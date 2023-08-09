@@ -33,7 +33,7 @@ export class AuthService {
 
   public saveUser(user: User): void { from(addDoc(this.usersRef, user)) }
 
-  public openLoginDialog(): MatDialogRef<openLoginDialogComponent, any> {
+  public openLoginDialog(): MatDialogRef<openLoginDialogComponent, unknown> {
     return runInInjectionContext(this.injector, () =>
       inject(DialogService).openDialog(openLoginDialogComponent, {})
     )
