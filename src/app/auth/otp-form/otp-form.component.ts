@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -33,7 +33,7 @@ import { OtpFormTemplateComponent } from '../otp-form-template/otp-form-template
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class OtpFormComponent {
+export class OtpFormComponent implements OnInit {
 
   @Input() contactEvent!: ContactSubmitEvent
 

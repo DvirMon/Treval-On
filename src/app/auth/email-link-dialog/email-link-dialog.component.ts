@@ -18,6 +18,6 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 export class EmailLinkDialogComponent {
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: {email : string},
   ) { }
 }
