@@ -29,5 +29,5 @@ export enum SignInMethod {
 
 export interface SignInEvent {
   method: SignInMethod,
-  data: any
+  data: unknown
 }

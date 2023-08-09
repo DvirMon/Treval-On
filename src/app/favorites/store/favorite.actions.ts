@@ -1,5 +1,4 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
 
 import { Favorite } from './favorite.model';
 

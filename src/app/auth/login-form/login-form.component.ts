@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Injector, Output, WritableSignal, inject, runInInjectionContext, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDividerModule } from '@angular/material/divider';
@@ -10,7 +10,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { SignInEvent, EmailAndPasswordSignIn, SignInMethod } from '../store/auth.model';
-import { FlipCardService } from 'src/app/components/flip-card/flip-card.service';
 
 interface LoginForm {
   email: FormControl<string>
@@ -74,7 +73,7 @@ export class LoginFormComponent {
     this.googleSignIn.emit(event)
   }
 
-  protected onSubmit(submitEvent: SubmitEvent, value: Partial<EmailAndPasswordSignIn>): void {
+  protected onSubmit(value: Partial<EmailAndPasswordSignIn>): void {
     const event = this._createSignInEvent(SignInMethod.EMAIL_PASSWORD, value)
     this.login.emit(event)
   }
@@ -90,7 +89,7 @@ export class LoginFormComponent {
     this.emailLinkSignIn.emit(event)
   }
 
-  private _createSignInEvent(method: SignInMethod, data?: any): SignInEvent {
+  private _createSignInEvent(method: SignInMethod, data?: unknown): SignInEvent {
     return {
       method,
       data

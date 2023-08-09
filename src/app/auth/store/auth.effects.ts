@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../auth.service';
 import { AuthActions } from './auth.actions';
-import { EMPTY, catchError, concatMap, map, of, pipe, switchMap, tap } from 'rxjs';
 import { mapUserCredentials } from '../auth.helpers';
-import { FirebaseError } from '@angular/fire/app';
 import { saveToStorage } from 'src/app/utilities/helpers';
 import { StorageKey } from 'src/app/utilities/constants';
+import { concatMap, tap, map, catchError, EMPTY, switchMap } from 'rxjs';
 
 
 
@@ -29,7 +28,7 @@ export class AuthEffects {
         tap(() => saveToStorage(StorageKey.LOGGED, true, { useSessionStorage: true })),
         tap((user) => this.authService.saveUser(user)),
         map((user) => AuthActions.loadUserSuccess({ user })),
-        catchError(((error: FirebaseError) => {
+        catchError((() => {
           return EMPTY
         })
         ))

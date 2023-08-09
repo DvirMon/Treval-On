@@ -14,7 +14,7 @@ interface StorageOptions {
   useSessionStorage: boolean;
 }
 
-export function saveToStorage(key: StorageKey, value: any, options: StorageOptions = { useSessionStorage: false }): void {
+export function saveToStorage(key: StorageKey, value: unknown, options: StorageOptions = { useSessionStorage: false }): void {
   const storage = options.useSessionStorage ? sessionStorage : localStorage;
   storage.setItem(key, JSON.stringify(value));
 }

@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
 import { AuthStore } from 'src/app/auth/store/auth.store.service';
 import { switchMap, Observable, from, iif } from 'rxjs';
 
@@ -8,7 +7,6 @@ export const placesGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state,
   authStore: AuthStore = inject(AuthStore),
-  authService: AuthService = inject(AuthService),
   router: Router = inject(Router)
 ) => {
 
