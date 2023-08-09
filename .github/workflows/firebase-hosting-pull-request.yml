@@ -37,4 +37,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build-output
-          path: dist/your-app-name # Replace 'your-app-name' with the actual name of your Angular app
+          path: dist/client # Replace 'your-app-name' with the actual name of your Angular app
