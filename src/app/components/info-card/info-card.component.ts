@@ -20,5 +20,5 @@ import { MatIconModule } from '@angular/material/icon';
 
 export class InfoCardComponent {
   @Input() text!: string;
-  @Input() icon: string = 'attach_email'; // Default icon value if not provided
+  @Input() icon = 'attach_email'; // Default icon value if not provided
 }

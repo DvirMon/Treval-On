@@ -10,7 +10,7 @@ import { formatDate } from '@angular/common';
 export class DateTimestampPipe implements PipeTransform {
 
 
-  transform(value: Timestamp | Date, format: string = 'medium'): string {
+  transform(value: Timestamp | Date, format = 'medium'): string {
 
     const convertedDate = this.convertToDate(value);
     return formatDate(convertedDate, format, 'en-US') as string;

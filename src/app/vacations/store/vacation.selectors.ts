@@ -4,11 +4,7 @@ import * as fromVacation from './vacation.state';
  const selectState = createFeatureSelector<fromVacation.State>(fromVacation.vacationsFeatureKey);
 
 const {
-  selectIds,
-  selectEntities,
   selectAll,
-  selectTotal,
-
 } = fromVacation.adapter.getSelectors();
 
  const selectVacationsLoaded = createSelector(

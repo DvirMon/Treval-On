@@ -10,11 +10,7 @@ import { ContactSubmitEvent, MessageType } from '../contact-form/contact-form.co
 import { CodeInputModule } from 'angular-code-input';
 import { OtpFormTemplateComponent } from '../otp-form-template/otp-form-template.component';
 
-interface Tab {
-  icon: string;
-  label: string;
-  type: MessageType;
-}
+
 
 @Component({
   selector: 'to-otp-form',
@@ -59,5 +55,7 @@ export class OtpFormComponent {
 
   // this called only if user entered full code
   onCodeCompleted(code: string) {
+
+    console.log(code)
   }
 }

@@ -27,7 +27,7 @@ export class VacationsService {
         return { ...doc.data(), id: doc.id, } as Vacation
       }))
     );
-  };
+  }
 
 
 }

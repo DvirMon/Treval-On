@@ -33,10 +33,7 @@ import { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig, MatDialog
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom
-      (
-        BrowserModule,
-        MatDialogModule,
+    importProvidersFrom(BrowserModule,MatDialogModule,
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideAuth(() => getAuth()),
         provideFirestore(() => getFirestore()),
@@ -47,7 +44,7 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(),
     provideAnimations(),
     provideStore({
-      [authFeatureKey] : authReducer,
+      [authFeatureKey]: authReducer,
       [vacationsFeatureKey]: vacationReducer,
       [favoritesFeatureKey]: favoriteReducer
     }),

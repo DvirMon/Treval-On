@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { AuthStore } from 'src/app/auth/store/auth.store.service';
-import { switchMap, of, Observable, from, iif, filter } from 'rxjs';
+import { switchMap, Observable, from, iif } from 'rxjs';
 
 export const placesGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

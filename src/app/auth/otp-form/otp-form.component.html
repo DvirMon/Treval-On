@@ -5,7 +5,7 @@
   </header>
 
   <main class="content">
-    <code-input [codeLength]="6"> </code-input>
+    <code-input [codeLength]="6" (codeCompleted)="onCodeCompleted($event)"> </code-input>
     <section>
       <span>Didn't receive code?</span>
       <button mat-button type="button" color="primary">Resend</button>
