@@ -60,13 +60,17 @@ export class AuthService {
           case SignInMethod.GOOGLE:
             return this.fireAuth.signInWithGoogle$();
 
-          case SignInMethod.EMAIL_LINK:
-            const emailLinkData = data as EmailLinkData
-            return this.fireAuth.signInWithEmailLink$(emailLinkData.email, emailLinkData.emailLink);
+          case SignInMethod.EMAIL_LINK: {
 
-            case SignInMethod.EMAIL_PASSWORD:
-            const emailPasswordData = data as EmailPasswordData
+            const emailLinkData = data as EmailLinkData;
+            return this.fireAuth.signInWithEmailLink$(emailLinkData.email, emailLinkData.emailLink);
+          }
+
+          case SignInMethod.EMAIL_PASSWORD: {
+
+            const emailPasswordData = data as EmailPasswordData;
             return this.fireAuth.signInWithEmailAndPassword$(emailPasswordData.email, emailPasswordData.password);
+          }
 
           default: return of({} as UserCredential);
         }
