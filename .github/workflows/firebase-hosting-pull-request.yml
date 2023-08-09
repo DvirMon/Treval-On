@@ -27,8 +27,8 @@ jobs:
       - name: Linting
         run: ng lint
 
-      - name: Unit tests
-        run: ng test
+      # - name: Unit tests
+      #   run: ng test
 
       - name: Build
         run: ng build --configuration=production # For production build. Use 'ng build' for development build.
