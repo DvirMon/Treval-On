@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/travel-on",
+    "public": "dist/client",
     "ignore": [
       "firebase.json",
       "**/.*",
