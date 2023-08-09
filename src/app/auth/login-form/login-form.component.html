@@ -49,7 +49,7 @@
 
       <form
         [formGroup]="loginFormGroup"
-        (ngSubmit)="onSubmit($event, loginFormGroup.value)"
+        (ngSubmit)="onSubmit(loginFormGroup.value)"
       >
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>

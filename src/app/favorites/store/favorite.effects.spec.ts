@@ -2,10 +2,11 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 import { FavoritesEffects } from './favorite.effects';
+import { Actions } from '@ngrx/effects';
 
 
 describe('FavoritesEffects', () => {
-  let actions$: Observable<any>;
+  let actions$: Observable<Actions>;
   let effects: FavoritesEffects;
 
   beforeEach(() => {

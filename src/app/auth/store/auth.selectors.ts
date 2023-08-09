@@ -1,4 +1,4 @@
-import { ActionsSubject, createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromAuth from './auth.state';
 
 const selectState = createFeatureSelector<fromAuth.State>(fromAuth.authFeatureKey);

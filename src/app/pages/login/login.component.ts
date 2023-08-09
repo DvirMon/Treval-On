@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { LoginFormComponent } from 'src/app/auth/login-form/login-form.component';
 import { FloatingButtonComponent } from 'src/app/components/floating-button/floating-button.component';
 import { FlipCardComponent } from 'src/app/components/flip-card/flip-card.component';
-import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { LoginOtpFormComponent } from 'src/app/auth/login-otp-form/login-otp-form.component';
 import { EmailLinkFormComponent } from 'src/app/auth/email-link-form/email-link-form.component';
 
@@ -29,7 +28,6 @@ import { StorageKey } from 'src/app/utilities/constants';
     LoginFormComponent,
     LoginOtpFormComponent,
     EmailLinkFormComponent,
-    DialogComponent,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CollectionReference, QuerySnapshot, getDocs, where, doc, updateDoc, DocumentData, addDoc, getDoc, Firestore, collection, query, Timestamp, DocumentReference } from '@angular/fire/firestore';
-import { Observable, from, switchMap, iif, map, of, tap, take, first, defaultIfEmpty, filter, merge } from 'rxjs';
+import { CollectionReference, QuerySnapshot, getDocs, where, doc, updateDoc, DocumentData, addDoc, Firestore, collection, query, Timestamp, DocumentReference } from '@angular/fire/firestore';
 import { Favorite } from './store/favorite.model';
 import { mapQuerySnapshotDoc } from '../utilities/helpers';
+import { Observable, from, switchMap, iif, of } from 'rxjs';
 
 
 
