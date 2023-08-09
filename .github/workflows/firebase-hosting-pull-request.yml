@@ -1,4 +1,4 @@
-name: Angular CI/CD
+name: Angular Deploy to Firebase Hosting
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,11 +30,15 @@ jobs:
       # - name: Unit tests
       #   run: ng test
 
-      - name: Build
-        run: ng build --configuration=production # For production build. Use 'ng build' for development build.
+      - name: Build Angular App for Production
+        run: ng build --configuration=production
 
-      - name: Archive artifacts
-        uses: actions/upload-artifact@v2
+
+      - name: Deploy to Firebase Hosting
+        uses: w9jds/firebase-action@master
         with:
-          name: build-output
-          path: dist/client # Replace 'your-app-name' with the actual name of your Angular app
+          args: deploy --only hosting --project travel-on-811d5
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+
+
