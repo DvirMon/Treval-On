@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently \"ng serve\" \"ng lint --watch\"",
+    "start": "ng serve",
     "build": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
     "lint": "ng lint"

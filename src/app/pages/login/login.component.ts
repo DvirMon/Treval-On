@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Injector, WritableSignal, computed, inject, runInInjectionContext, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, WritableSignal, inject, runInInjectionContext, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LoginFormComponent } from 'src/app/auth/login-form/login-form.component';
@@ -63,8 +63,6 @@ export class LoginPageComponent {
       )
       .subscribe((userId: string) => this._routerAfterLogin(userId));
   }
-
-  ngOnInit(): void { }
 
   private _routerAfterLogin(userId: string): void {
     runInInjectionContext(this.injector, () => {

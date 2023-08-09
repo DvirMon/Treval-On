@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, Signal, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Signal, inject } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FavoriteStore } from 'src/app/favorites/favorite.store.service';
@@ -16,7 +16,7 @@ import { map } from 'rxjs';
   styleUrls: ['./places.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlacesComponent implements OnDestroy {
+export class PlacesComponent {
 
   @Input() userId!: string
 
@@ -32,8 +32,6 @@ export class PlacesComponent implements OnDestroy {
     this.selection = this._getSelectionFroRoute()
   }
 
-  ngOnDestroy(): void {
-  }
 
   private _getSelectionFroRoute(): Signal<Record<string, boolean>> {
     return toSignal(this.route.data.pipe(map((data: Data) => data['routeResolver']),), { initialValue: {} });

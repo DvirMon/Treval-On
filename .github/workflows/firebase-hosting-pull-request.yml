@@ -31,7 +31,7 @@ jobs:
         run: ng test
 
       - name: Build
-        run: ng build --prod # For production build. Use 'ng build' for development build.
+        run: ng build --configuration=production # For production build. Use 'ng build' for development build.
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
