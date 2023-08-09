@@ -45,7 +45,7 @@ export class FavoriteService {
       .pipe(switchMap((doc: DocumentReference<DocumentData>) => {
         return of({ ...newFavorite, id: doc.id, } as Favorite)
       }));
-  };
+  }
 
   private getFavoriteQuerySnapshot$(userId: string): Observable<QuerySnapshot<Favorite>> {
     return from(getDocs(query(this.favoritesRef, where('userId', '==', userId))))
@@ -72,7 +72,7 @@ export class FavoriteService {
 
     const updatedFavorite: Favorite = { ...favoriteDoc, vacationIds: [...favoriteDoc.vacationIds, ...vacationIds], id: favoriteDocId };
     return from(updateDoc(favoriteDocRef, updatedFavorite));
-  };
+  }
 
 
 }

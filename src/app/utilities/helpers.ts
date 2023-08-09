@@ -19,7 +19,7 @@ export function saveToStorage(key: StorageKey, value: any, options: StorageOptio
   storage.setItem(key, JSON.stringify(value));
 }
 
-export function getFromStorage<T>(key: StorageKey, options: StorageOptions = { useSessionStorage: false }, remove: boolean = false): T | null {
+export function getFromStorage<T>(key: StorageKey, options: StorageOptions = { useSessionStorage: false }, remove = false): T | null {
   const storage = options.useSessionStorage ? sessionStorage : localStorage;
   const item = storage.getItem(key);
 
