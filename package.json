@@ -3,11 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "build": "webpack",
-    "build:stats": "webpack --stats",
-    "analyze": "node ./node_modules/webpack-bundle-analyzer/bin/webpack-bundle-analyzer.js stats.json --mode=production",
-    "start": "npm run build --watch",
-    "test": "ng test"
+    "start": "ng serve",
+    "build": "ng build --configuration=production",
+    "watch": "ng build --watch --configuration development",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -34,10 +33,18 @@
   "devDependencies": {
     "@angular-builders/custom-webpack": "^16.0.0",
     "@angular-devkit/build-angular": "^16.1.1",
+    "@angular-eslint/builder": "16.1.0",
+    "@angular-eslint/eslint-plugin": "16.1.0",
+    "@angular-eslint/eslint-plugin-template": "16.1.0",
+    "@angular-eslint/schematics": "16.1.0",
+    "@angular-eslint/template-parser": "16.1.0",
     "@angular/cli": "~16.1.1",
     "@angular/compiler-cli": "^16.1.7",
     "@ngrx/schematics": "^16.1.0",
     "@types/jasmine": "~4.3.0",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
+    "eslint": "^8.44.0",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
