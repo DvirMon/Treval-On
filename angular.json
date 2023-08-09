@@ -18,7 +18,10 @@
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "stylePreprocessorOptions": {
-              "includePaths": ["src", "src/styles"]
+              "includePaths": [
+                "src",
+                "src/styles"
+              ]
             },
             "customWebpackConfig": {
               "path": "./webpack.config.js"
@@ -103,6 +106,15 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
@@ -110,6 +122,7 @@
   "cli": {
     "analytics": "80424fa2-7d55-4f9a-88bf-c6fe370caf89",
     "schematicCollections": [
+      "@angular-eslint/schematics",
       "@ngrx/schematics",
       "@ngrx/schematics"
     ]
