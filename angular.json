@@ -15,7 +15,7 @@
       "prefix": "to",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -23,10 +23,7 @@
                 "src/styles"
               ]
             },
-            "customWebpackConfig": {
-              "path": "./webpack.config.js"
-            },
-            "outputPath": "dist/bundle.js",
+            "outputPath": "dist/client",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
