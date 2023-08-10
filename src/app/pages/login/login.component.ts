@@ -14,10 +14,13 @@ import { FlipCardService } from 'src/app/components/flip-card/flip-card.service'
 import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { saveToStorage } from 'src/app/utilities/helpers';
 
-import { tap } from 'rxjs';
+import { from, pipe, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EmailLinkDialogComponent } from 'src/app/auth/email-link-dialog/email-link-dialog.component';
 import { StorageKey } from 'src/app/utilities/constants';
+
+import { Messaging, getMessaging, getToken } from '@angular/fire/messaging';
+
 
 @Component({
   selector: 'to-login-page',
@@ -45,7 +48,12 @@ export class LoginPageComponent {
 
   protected readonly showOpt: WritableSignal<boolean>;
 
-  constructor() {
+  private messaging: Messaging = getMessaging();
+
+  constructor(
+  ) {
+
+
     this.showOpt = signal(true);
 
     this.authStore.listenToSendEmailSuccess()
@@ -60,6 +68,14 @@ export class LoginPageComponent {
         takeUntilDestroyed(),
       )
       .subscribe((userId: string) => this._routerAfterLogin(userId));
+  }
+
+  async ngOnInit() {
+
+    const data = await getToken(this.messaging, { vapidKey: "BKagOny0KF_2pCJQ3m....moL0ewzQ8rZu" })
+
+    console.log(data)
+
   }
 
   private _routerAfterLogin(userId: string): void {
