@@ -6,6 +6,8 @@ import { mapUserCredentials } from '../auth.helpers';
 import { saveToStorage } from 'src/app/utilities/helpers';
 import { StorageKey } from 'src/app/utilities/constants';
 import { concatMap, tap, map, catchError, EMPTY, switchMap } from 'rxjs';
+import { Router } from '@angular/router';
+import { DialogService } from 'src/app/components/dialog/dialog.service';
 
 
 
@@ -15,7 +17,9 @@ export class AuthEffects {
 
   constructor(
     private actions$: Actions,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private dialogService: DialogService
   ) { }
 
 
@@ -25,8 +29,7 @@ export class AuthEffects {
     concatMap(({ signInEvent }) => this.authService.signIn$(signInEvent)
       .pipe(
         mapUserCredentials(),
-        tap(() => saveToStorage(StorageKey.LOGGED, true, { useSessionStorage: true })),
-        tap((user) => this.authService.saveUser(user)),
+
         map((user) => AuthActions.loadUserSuccess({ user })),
         catchError((() => {
           return EMPTY
@@ -34,6 +37,16 @@ export class AuthEffects {
         ))
     )
   ))
+
+  login$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.loadUserSuccess),
+      // tap(() => saveToStorage(StorageKey.LOGGED, true, { useSessionStorage: true })),
+      tap(({ user }) => this.authService.saveUser(user)),
+      tap(({ user }) => this.router.navigate(['/places/', user.userId]))
+    ),
+    { dispatch: false }
+  );
 
   emailLink$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.sendEmailLink),
@@ -47,11 +60,18 @@ export class AuthEffects {
     )
   ))
 
+  emailLonkDialog$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.loadUserSuccess),
+      tap(({ user }) => this.router.navigate(['/places/', user.userId]))
+    ),
+    { dispatch: false }
+  );
+
   loadUser$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.loadUser),
     switchMap(({ userId }) => this.authService.getUserById(userId)
       .pipe(
-        tap((value) => console.log(value)),
         map((user) => AuthActions.loadUserSuccess({ user })),
         catchError(() => {
           return EMPTY

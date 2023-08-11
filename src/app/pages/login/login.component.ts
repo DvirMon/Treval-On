@@ -13,11 +13,11 @@ import { SignInEvent, SignInMethod } from 'src/app/auth/store/auth.model';
 import { FlipCardService } from 'src/app/components/flip-card/flip-card.service';
 import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { saveToStorage } from 'src/app/utilities/helpers';
+import { StorageKey } from 'src/app/utilities/constants';
 
-import { tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EmailLinkDialogComponent } from 'src/app/auth/email-link-dialog/email-link-dialog.component';
-import { StorageKey } from 'src/app/utilities/constants';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'to-login-page',
@@ -54,18 +54,6 @@ export class LoginPageComponent {
         tap((email: string) => saveToStorage(StorageKey.LOGGED, email))
       )
       .subscribe((value: string) => this.dialogService.openDialog(EmailLinkDialogComponent, { email: value }));
-
-    this.authStore.listenTLoadUserSuccess()
-      .pipe(
-        takeUntilDestroyed(),
-      )
-      .subscribe((userId: string) => this._routerAfterLogin(userId));
-  }
-
-  private _routerAfterLogin(userId: string): void {
-    runInInjectionContext(this.injector, () => {
-      return inject(Router).navigateByUrl('/places/' + userId)
-    })
   }
 
   protected onSignIn(event: SignInEvent) {
