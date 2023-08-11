@@ -42,15 +42,12 @@ export class AuthService {
 
   public saveUser(user: User): void { from(addDoc(this.usersRef, user)) }
 
-  public openLoginDialog(): MatDialogRef<openLoginDialogComponent, unknown> {
-    return runInInjectionContext(this.injector, () =>
-      inject(DialogService).openDialog(openLoginDialogComponent, {})
-    )
-  }
-
   // Sign in with different authentication methods based on the provided event.
   public signIn$(event: SignInEvent): Observable<UserCredential> {
     const { method, data } = event;
+
+    console.log(method)
+    console.log(data)
 
     return of(method).pipe(
       switchMap((method: SignInMethod) => {
@@ -78,6 +75,19 @@ export class AuthService {
     );
   }
 
+
+  public signInWithGoogle$(): Observable<UserCredential> {
+    return this.fireAuth.signInWithGoogle$();
+  }
+
+  public signInWithEmailLink$(data: EmailLinkData): Observable<UserCredential> {
+    return this.fireAuth.signInWithEmailLink$(data.email, data.emailLink);
+  }
+
+  public signInWithEmailAndPassword$(data: EmailPasswordData): Observable<UserCredential> {
+    return this.fireAuth.signInWithEmailAndPassword$(data.email, data.password);
+  }
+
   // Create a new user account with the provided email and password.
   public createInWithEmailAndPassword$(email: string, password: string): Observable<UserCredential> {
     return this.fireAuth.signInWithEmailAndPassword$(email, password);
@@ -90,6 +100,7 @@ export class AuthService {
 
   // Send a sign-in link (magic link) to the provided email.
   public sendSignInLinkToEmail$(email: string): Observable<string> {
+    console.log('sendSignInLinkToEmail called')
     return this.fireAuth.sendSignInLinkToEmail$(email)
   }
 
