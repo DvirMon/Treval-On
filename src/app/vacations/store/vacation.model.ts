@@ -5,7 +5,7 @@ export interface Destination {
   country : string,
 }
 
-export interface Vacation {
+export interface Places {
   id: string,
   destination: Destination,
   price: number,

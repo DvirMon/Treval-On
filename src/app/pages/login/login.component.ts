@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Injector, WritableSignal, inject, runInInjectionContext, signal } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { LoginFormComponent } from 'src/app/auth/login-form/login-form.component';
 import { FloatingButtonComponent } from 'src/app/components/floating-button/floating-button.component';
@@ -11,13 +10,7 @@ import { EmailLinkFormComponent } from 'src/app/auth/email-link-form/email-link-
 import { AuthStore } from 'src/app/auth/store/auth.store.service';
 import { SignInEvent, SignInMethod } from 'src/app/auth/store/auth.model';
 import { FlipCardService } from 'src/app/components/flip-card/flip-card.service';
-import { DialogService } from 'src/app/components/dialog/dialog.service';
-import { saveToStorage } from 'src/app/utilities/helpers';
-import { StorageKey } from 'src/app/utilities/constants';
 
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { EmailLinkDialogComponent } from 'src/app/auth/email-link-dialog/email-link-dialog.component';
-import { tap } from 'rxjs';
 
 @Component({
   selector: 'to-login-page',
@@ -45,13 +38,6 @@ export class LoginPageComponent {
 
   constructor() {
     this.optFlag = signal(true);
-
-    // this.authStore.listenToSendEmailSuccess()
-    //   .pipe(
-    //     takeUntilDestroyed(),
-    //     tap((email: string) => saveToStorage(StorageKey.LOGGED, email))
-    //   )
-    //   .subscribe((value: string) => this.dialogService.openDialog(EmailLinkDialogComponent, { email: value }));
   }
 
   protected onSignIn(event: SignInEvent) {
