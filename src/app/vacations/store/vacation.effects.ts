@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { VacationsService } from 'src/app/vacations/vacations.service';
+import { PlacesService } from 'src/app/vacations/vacations.service';
 import { VacationActions } from './vacation.actions';
 import { concatMap, map, catchError, EMPTY } from 'rxjs';
-import { Vacation } from './vacation.model';
+import { Places } from './vacation.model';
 
 
 
 @Injectable()
-export class VacationEffects {
+export class PlacesEffects {
 
 
   constructor(
-    private VacationsService: VacationsService,
+    private PlacesService: PlacesService,
     private actions$: Actions
 
   ) { }
@@ -22,9 +22,9 @@ export class VacationEffects {
   loadVacations$ = createEffect(() =>
     this.actions$.pipe(
       ofType(VacationActions.loadVacations),
-      concatMap(() => this.VacationsService.getVacations$()
+      concatMap(() => this.PlacesService.getVacations$()
         .pipe(
-          map((vacations: Vacation[]) => VacationActions.loadVacationsSuccess({ vacations })),
+          map((vacations: Places[]) => VacationActions.loadVacationsSuccess({ vacations })),
           catchError(() => EMPTY)
         ))
     ))

@@ -3,11 +3,11 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ButtonSelectedChangedEvent, VacationCardButtonComponent } from '../vacation-item-button/vacation-card-button.component';
 import { DateTimestampPipe } from 'src/app/utilities/date.pipe';
-import { Vacation } from '../store/vacation.model';
+import { Places } from '../store/vacation.model';
 
-export interface VacationSelectedChangedEvent {
+export interface PlacesSelectedChangedEvent {
   /** The source button of the event. */
-  source: VacationCardComponent;
+  source: PlacesCardComponent;
   /** The new `selected` value of the button. */
   selected: boolean;
 }
@@ -19,9 +19,9 @@ export interface VacationSelectedChangedEvent {
   styleUrls: ['./vacation-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class VacationCardComponent {
+export class PlacesCardComponent {
 
-  @Input({ required: true }) vacation!: Vacation
+  @Input({ required: true }) vacation!: Places
 
   protected readonly isSelected: WritableSignal<boolean>;
 
@@ -34,15 +34,15 @@ export class VacationCardComponent {
     this.isSelected.set(value)
   }
 
-  @Output() readonly selectedChanged: EventEmitter<VacationSelectedChangedEvent> = new EventEmitter();
+  @Output() readonly selectedChanged: EventEmitter<PlacesSelectedChangedEvent> = new EventEmitter();
 
   protected onSelectedChanged(value: ButtonSelectedChangedEvent): void {
     const event = this._createChangeEvent(value)
     this.selectedChanged.emit(event)
   }
 
-  private _createChangeEvent(value: ButtonSelectedChangedEvent): VacationSelectedChangedEvent {
-    const event: VacationSelectedChangedEvent = {
+  private _createChangeEvent(value: ButtonSelectedChangedEvent): PlacesSelectedChangedEvent {
+    const event: PlacesSelectedChangedEvent = {
       selected : value.selected,
       source: this,
     };

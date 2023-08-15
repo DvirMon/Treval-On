@@ -1,10 +1,7 @@
-import { Injectable, Injector, inject, runInInjectionContext } from '@angular/core';
+import { Injectable, Injector, inject } from '@angular/core';
 import { CollectionReference, Firestore, collection, getDocs, where, query, addDoc } from '@angular/fire/firestore';
 import { SignInEvent, SignInMethod, User } from './store/auth.model';
 import { mapQuerySnapshotDoc } from '../utilities/helpers';
-import { DialogService } from '../components/dialog/dialog.service';
-import { openLoginDialogComponent } from './login-dialog/login-dialog.component';
-import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, from, of, switchMap, tap } from 'rxjs';
 import { FireAuthService } from './fireauth.service';
 import { ConfirmationResult, UserCredential } from '@angular/fire/auth';
@@ -21,8 +18,6 @@ interface EmailPasswordData {
 @Injectable({ providedIn: "root" })
 export class AuthService {
 
-  private readonly injector = inject(Injector);
-
   private readonly USERS_COLLECTION = 'users';
   private readonly usersRef: CollectionReference<User>
 
@@ -36,17 +31,10 @@ export class AuthService {
   }
 
   public getUserById(userId: string): Observable<User> {
-    return from(getDocs(query(this.usersRef, where('userId', '==', userId))))
-      .pipe(mapQuerySnapshotDoc<User>(), tap((value) => console.log('user', value)))
+    return from(getDocs(query(this.usersRef, where('userId', '==', userId)))).pipe(mapQuerySnapshotDoc<User>())
   }
 
   public saveUser(user: User): void { from(addDoc(this.usersRef, user)) }
-
-  public openLoginDialog(): MatDialogRef<openLoginDialogComponent, unknown> {
-    return runInInjectionContext(this.injector, () =>
-      inject(DialogService).openDialog(openLoginDialogComponent, {})
-    )
-  }
 
   // Sign in with different authentication methods based on the provided event.
   public signIn$(event: SignInEvent): Observable<UserCredential> {
@@ -77,6 +65,7 @@ export class AuthService {
       })
     );
   }
+
 
   // Create a new user account with the provided email and password.
   public createInWithEmailAndPassword$(email: string, password: string): Observable<UserCredential> {

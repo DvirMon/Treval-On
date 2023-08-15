@@ -45,24 +45,21 @@ export class AuthStore {
     )
   }
 
-  public getSignInEvent() {
-    return this.signInEvent
-  }
+  // public getSignInEvent() {
+  //   return this.signInEvent
+  // }
 
 
-  public setSignInEvent(value: SignInEvent): void {
-    this.signInEvent.set(value);
-  }
+  // public setSignInEvent(value: SignInEvent): void {
+  //   this.signInEvent.set(value);
+  // }
 
 
   public loginUser() : Signal<User | null>{
-    console.log('loginUser called')
     return computed(() => this.getUser(this.signInEvent()))
   }
 
   public getUser(signInEvent: SignInEvent | null): User{
-
-    console.log('getUser called', signInEvent)
 
     const loaded: Signal<boolean> = this.store.selectSignal(AuthSelectors.selectLoaded);
 
@@ -112,6 +109,8 @@ export class AuthStore {
     this.loginSource.next(signIn);
   }
 
+
+
   public sendEmailLink(email: string) {
     const action = AuthActions.sendEmailLink({ email })
     this.store.dispatch(action)
@@ -134,6 +133,11 @@ export class AuthStore {
             map((user: User) => user.userId))
         )
       )
+  }
+
+  public logout() : void {
+    this.store.dispatch(AuthActions.logout())
+
   }
 
 

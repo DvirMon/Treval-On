@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { FavoriteActions } from './favorite.actions';
 import { initialState } from './favorite.state';
 import { Favorite } from './favorite.model';
+import { AuthActions } from 'src/app/auth/store/auth.actions';
 
 
 export const favoriteReducer = createReducer(
@@ -21,8 +22,12 @@ export const favoriteReducer = createReducer(
         ...state,
         favorite: {
           ...state.favorite as Favorite,
-       vacationIds : [...Object.keys(action.selected)]
+          vacationIds: [...Object.keys(action.selected)]
         },
-      }))
+      })),
+
+  on(AuthActions.logout, () => ({
+    ...initialState
+  }))
 );
 

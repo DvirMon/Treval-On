@@ -3,10 +3,6 @@
 
   </div>
   <div class="login-form">
-    <!-- <to-floating-button
-      [label]="'Sign-Up'"
-      [navigation]="'/register'"
-    ></to-floating-button> -->
 
     <to-flip-card>
       <to-login-form
@@ -17,16 +13,16 @@
         class="front"
       >
       </to-login-form>
-      <ng-container class="back" *ngIf="showOpt()">
+      <ng-container class="back" *ngIf="optFlag()">
         <to-login-otp-form
           (otpSignIn)="onSignIn($event)"
           (signInWithEmailAndPassword)="onEmailAndPassword()"
         >
         </to-login-otp-form>
       </ng-container>
-      <ng-container class="back" *ngIf="!showOpt()">
+      <ng-container class="back" *ngIf="!optFlag()">
         <to-email-link-form
-          (emailLinkSignIn)="onSignIn($event)"
+          (emailLinkSignIn)="onEmailLink($event)"
         ></to-email-link-form>
       </ng-container>
     </to-flip-card>

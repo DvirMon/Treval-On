@@ -1,7 +1,15 @@
 <div class="places-wrapper">
-  <!-- <to-vacation-list
-    [vacations]="vacations"
-    [selection]="selection"
-    (selectionChanged)="onSelectionChanged($event)"
-  ></to-vacation-list> -->
+  <header>
+    <to-floating-button
+      [label]="'Logout'"
+      (clicked)="onButtonClick()"
+    ></to-floating-button>
+  </header>
+  <main>
+    <to-vacation-list
+      [vacations]="vacations"
+      [selection]="selection"
+      (selectionChanged)="onSelectionChanged($event)"
+    ></to-vacation-list>
+  </main>
 </div>

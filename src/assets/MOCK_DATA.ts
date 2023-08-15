@@ -1,7 +1,7 @@
 import { Timestamp } from '@angular/fire/firestore';
-import { Vacation } from 'src/app/vacations/store/vacation.model';
+import { Places } from 'src/app/vacations/store/vacation.model';
 
-export const VACATIONS_DATA: Vacation[] = [
+export const VACATIONS_DATA: Places[] = [
   {
     imageUrl: "https://media.worldnomads.com/travel-safety/poland/historic-houses-poland-gettyimages-137910613.jpg",
     price: 3546,
