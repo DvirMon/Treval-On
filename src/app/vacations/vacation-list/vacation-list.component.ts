@@ -1,30 +1,30 @@
 import { Component, EventEmitter, Input, Output, Signal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VacationCardComponent, VacationSelectedChangedEvent } from '../vacation-item/vacation-card.component';
-import { Vacation } from '../store/vacation.model';
+import { PlacesCardComponent, PlacesSelectedChangedEvent } from '../vacation-item/vacation-card.component';
+import { Places } from '../store/vacation.model';
 
 export interface SelectionListChange {
-  source: VacationListComponent
+  source: PlacesListComponent
   selection: Record<string, boolean>
 }
 
 @Component({
   selector: 'to-vacation-list',
   standalone: true,
-  imports: [CommonModule, VacationCardComponent],
+  imports: [CommonModule, PlacesCardComponent],
   templateUrl: './vacation-list.component.html',
   styleUrls: ['./vacation-list.component.scss']
 })
-export class VacationListComponent {
+export class PlacesListComponent {
 
-  @Input({ required: true }) vacations: Signal<Vacation[]> = signal([]);
+  @Input({ required: true }) vacations: Signal<Places[]> = signal([]);
 
   @Input({ required: true }) selection: Signal<Record<string, boolean>> = signal({});
 
   @Output() readonly selectionChanged: EventEmitter<SelectionListChange> = new EventEmitter<SelectionListChange>();
 
 
-  protected onSelectedChanged(event: VacationSelectedChangedEvent): void {
+  protected onSelectedChanged(event: PlacesSelectedChangedEvent): void {
     const { source, selected } = event
     const { vacation } = source
 
@@ -33,7 +33,7 @@ export class VacationListComponent {
 
   }
 
-  private _updateStoreSelection(selection: Record<string, boolean>, selected: boolean, vacation: Vacation): Record<string, boolean> {
+  private _updateStoreSelection(selection: Record<string, boolean>, selected: boolean, vacation: Places): Record<string, boolean> {
 
     let newSelection = { ...selection }; // Create a copy of the original selection
 

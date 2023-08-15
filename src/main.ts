@@ -19,7 +19,7 @@ import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 
 import { favoriteReducer } from './app/favorites/store/favorite.reducer';
 import { favoritesFeatureKey } from './app/favorites/store/favorite.state';
-import { VacationEffects } from './app/vacations/store/vacation.effects';
+import { PlacesEffects } from './app/vacations/store/vacation.effects';
 import { vacationReducer } from './app/vacations/store/vacation.reducer';
 import { vacationsFeatureKey } from './app/vacations/store/vacation.state';
 
@@ -49,7 +49,7 @@ bootstrapApplication(AppComponent, {
       [favoritesFeatureKey]: favoriteReducer
     }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects(AuthEffects, VacationEffects, FavoritesEffects),
+    provideEffects(AuthEffects, PlacesEffects, FavoritesEffects),
 
     { provide: MAT_DIALOG_DATA, useValue: DIALOG_DATA },
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: MatDialogConfig },

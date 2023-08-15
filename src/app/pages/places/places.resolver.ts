@@ -3,7 +3,7 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 import { Observable, combineLatest, filter, forkJoin, map, take } from 'rxjs';
 import { FavoriteStore } from 'src/app/favorites/favorite.store.service';
-import { Vacation } from 'src/app/vacations/store/vacation.model';
+import { Places } from 'src/app/vacations/store/vacation.model';
 import { VacationsStore } from 'src/app/vacations/store/vacations.store.service';
 
 export const placesResolver = (
@@ -25,6 +25,6 @@ function getSelectedFavorites(favoriteStore: FavoriteStore, userId: string): Obs
     );
 }
 
-function getVacations(vacationStore: VacationsStore): Observable<Vacation[]> {
+function getVacations(vacationStore: VacationsStore): Observable<Places[]> {
   return toObservable(vacationStore.getVacations())
 }

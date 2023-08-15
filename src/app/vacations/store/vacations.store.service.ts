@@ -1,7 +1,7 @@
 import { Injectable, Signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { VacationActions } from './vacation.actions';
-import { Vacation } from './vacation.model';
+import { Places } from './vacation.model';
 import { VacationSelectors } from './vacation.selectors';
 import { Observable, switchMap, tap } from 'rxjs';
 
@@ -12,7 +12,7 @@ export class VacationsStore {
 
 
   private readonly vacationLoaded: Signal<boolean>
-  private readonly vacations: Signal<Vacation[]>
+  private readonly vacations: Signal<Places[]>
 
   constructor(private store: Store) {
     this.vacationLoaded = this.store.selectSignal(VacationSelectors.selectVacationsLoaded);
@@ -20,10 +20,10 @@ export class VacationsStore {
   }
 
 
-  public getVacations$(): Observable<Vacation[]> {
+  public getVacations$(): Observable<Places[]> {
     const loaded$ = this.store.select(VacationSelectors.selectVacationsLoaded)
 
-    const vacations$: Observable<Vacation[]> = loaded$.pipe(
+    const vacations$: Observable<Places[]> = loaded$.pipe(
       switchMap((loaded: boolean) => {
 
         if (!loaded) {

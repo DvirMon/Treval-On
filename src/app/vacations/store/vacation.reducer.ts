@@ -14,20 +14,17 @@ export const vacationReducer = createReducer(
     })
   ),
 
-  on(VacationActions.addVacation,
+  on(VacationActions.addPlaces,
     (state, action) => adapter.addOne(action.vacation, state)
   ),
 
-  on(VacationActions.updateVacation,
+  on(VacationActions.updatePlaces,
     (state, action) => adapter.updateOne(action.vacation, state)
   ),
-  on(VacationActions.deleteVacation,
+  on(VacationActions.deletePlaces,
     (state, action) => adapter.removeOne(action.id, state)
   ),
-  on(VacationActions.clearVacations,
-    state => adapter.removeAll(state)
-  ),
-  
+
   on(AuthActions.logout, () => ({
     ...initialState
   }))
