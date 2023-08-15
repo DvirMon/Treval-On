@@ -109,7 +109,7 @@ export class AuthStore {
     this.loginSource.next(signIn);
   }
 
-  
+
 
   public sendEmailLink(email: string) {
     const action = AuthActions.sendEmailLink({ email })
@@ -133,6 +133,11 @@ export class AuthStore {
             map((user: User) => user.userId))
         )
       )
+  }
+
+  public logout() : void {
+    this.store.dispatch(AuthActions.logout())
+
   }
 
 

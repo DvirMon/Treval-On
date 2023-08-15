@@ -31,8 +31,7 @@ export class AuthService {
   }
 
   public getUserById(userId: string): Observable<User> {
-    return from(getDocs(query(this.usersRef, where('userId', '==', userId))))
-      .pipe(mapQuerySnapshotDoc<User>(), tap((value) => console.log('user', value)))
+    return from(getDocs(query(this.usersRef, where('userId', '==', userId)))).pipe(mapQuerySnapshotDoc<User>())
   }
 
   public saveUser(user: User): void { from(addDoc(this.usersRef, user)) }
@@ -67,18 +66,6 @@ export class AuthService {
     );
   }
 
-
-  // public signInWithGoogle$(): Observable<UserCredential> {
-  //   return this.fireAuth.signInWithGoogle$();
-  // }
-
-  // public signInWithEmailLink$(data: EmailLinkData): Observable<UserCredential> {
-  //   return this.fireAuth.signInWithEmailLink$(data.email, data.emailLink);
-  // }
-
-  // public signInWithEmailAndPassword$(data: EmailPasswordData): Observable<UserCredential> {
-  //   return this.fireAuth.signInWithEmailAndPassword$(data.email, data.password);
-  // }
 
   // Create a new user account with the provided email and password.
   public createInWithEmailAndPassword$(email: string, password: string): Observable<UserCredential> {

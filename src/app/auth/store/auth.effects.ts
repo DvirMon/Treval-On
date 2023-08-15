@@ -42,7 +42,7 @@ export class AuthEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loadUserSuccess),
-      // tap(() => saveToStorage(StorageKey.LOGGED, true, { useSessionStorage: true })),
+      tap(() => saveToStorage(StorageKey.LOGGED, true, { useSessionStorage: true })),
       tap(({ user }) => this.authService.saveUser(user)),
       tap(({ user }) => this.router.navigate(['/places/', user.userId]))
     ),
@@ -65,7 +65,6 @@ export class AuthEffects {
   emailLnkDialog$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.sendEmailLinkSuccess),
-      tap(() => console.log('called')),
       tap(({ email }) => this.dialogService.openDialog(EmailLinkDialogComponent, { email }))
     ),
     { dispatch: false }
@@ -82,5 +81,13 @@ export class AuthEffects {
       )
     )
   ))
+
+  logout$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.logout),
+    tap(() => sessionStorage.clear()),
+    tap(() => this.router.navigateByUrl('/'))
+    ),
+    { dispatch: false }
+  )
 
 }

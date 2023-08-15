@@ -20,7 +20,7 @@ import { RouterModule } from '@angular/router';
     [style.border-top-left-radius.px]="side === 'right' ? 25 : null"
     [style.border-bottom-left-radius.px]="side === 'right' ? 25 : null"
     [routerLink]="navigation ? navigation : null"
-    (click)="flipped.emit()"
+    (click)="clicked.emit()"
 
   >
     {{ label }}
@@ -44,7 +44,7 @@ export class FloatingButtonComponent {
   @Input() label!: string;
   @Input() navigation!: string;
 
-  @Output() flipped: EventEmitter<void> = new EventEmitter<void>();
+  @Output() clicked: EventEmitter<void> = new EventEmitter<void>();
 
 
 }

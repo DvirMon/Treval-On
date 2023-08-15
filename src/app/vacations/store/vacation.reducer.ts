@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { VacationActions } from './vacation.actions';
 import { initialState, adapter } from './vacation.state';
+import { AuthActions } from 'src/app/auth/store/auth.actions';
 
 export const vacationReducer = createReducer(
   initialState,
@@ -26,6 +27,10 @@ export const vacationReducer = createReducer(
   on(VacationActions.clearVacations,
     state => adapter.removeAll(state)
   ),
+  
+  on(AuthActions.logout, () => ({
+    ...initialState
+  }))
 
 );
 
