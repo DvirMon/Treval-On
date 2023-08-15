@@ -8,6 +8,7 @@ import { StorageKey } from 'src/app/utilities/constants';
 import { concatMap, tap, map, catchError, EMPTY, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { DialogService } from 'src/app/components/dialog/dialog.service';
+import { EmailLinkDialogComponent } from '../email-link-dialog/email-link-dialog.component';
 
 
 
@@ -60,10 +61,11 @@ export class AuthEffects {
     )
   ))
 
-  emailLonkDialog$ = createEffect(() =>
+  emailLnkDialog$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AuthActions.loadUserSuccess),
-      tap(({ user }) => this.router.navigate(['/places/', user.userId]))
+      ofType(AuthActions.sendEmailLinkSuccess),
+      tap(() => console.log('called')),
+      tap(({ email }) =>  this.dialogService.openDialog(EmailLinkDialogComponent, { email }))
     ),
     { dispatch: false }
   );

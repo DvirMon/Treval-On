@@ -41,19 +41,17 @@ export class LoginPageComponent {
   private readonly injector = inject(Injector);
 
   private readonly authStore = inject(AuthStore);
-  private readonly dialogService = inject(DialogService);
-
-  protected readonly showOpt: WritableSignal<boolean>;
+  protected readonly optFlag: WritableSignal<boolean>;
 
   constructor() {
-    this.showOpt = signal(true);
+    this.optFlag = signal(true);
 
-    this.authStore.listenToSendEmailSuccess()
-      .pipe(
-        takeUntilDestroyed(),
-        tap((email: string) => saveToStorage(StorageKey.LOGGED, email))
-      )
-      .subscribe((value: string) => this.dialogService.openDialog(EmailLinkDialogComponent, { email: value }));
+    // this.authStore.listenToSendEmailSuccess()
+    //   .pipe(
+    //     takeUntilDestroyed(),
+    //     tap((email: string) => saveToStorage(StorageKey.LOGGED, email))
+    //   )
+    //   .subscribe((value: string) => this.dialogService.openDialog(EmailLinkDialogComponent, { email: value }));
   }
 
   protected onSignIn(event: SignInEvent) {
@@ -76,6 +74,11 @@ export class LoginPageComponent {
     this._flipCard()
   }
 
+  protected onEmailLink(event: SignInEvent) {
+    const { data } = event
+    this.authStore.sendEmailLink(data as string)
+  }
+
 
   private _flipCard() {
     runInInjectionContext(this.injector, () => {
@@ -85,7 +88,7 @@ export class LoginPageComponent {
 
   private _updateShowOtp(method: SignInMethod): void {
     const show: boolean = method === SignInMethod.OPT
-    this.showOpt.set(show)
+    this.optFlag.set(show)
   }
 
 
