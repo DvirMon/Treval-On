@@ -53,6 +53,7 @@ export class AuthEffects {
     ofType(AuthActions.sendEmailLink),
     switchMap(({ email }) => this.authService.sendSignInLinkToEmail$(email)
       .pipe(
+        tap((email: string) => saveToStorage(StorageKey.LOGGED, email)),
         map((email) => AuthActions.sendEmailLinkSuccess({ email })),
         catchError(() => {
           return EMPTY
@@ -65,7 +66,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.sendEmailLinkSuccess),
       tap(() => console.log('called')),
-      tap(({ email }) =>  this.dialogService.openDialog(EmailLinkDialogComponent, { email }))
+      tap(({ email }) => this.dialogService.openDialog(EmailLinkDialogComponent, { email }))
     ),
     { dispatch: false }
   );
