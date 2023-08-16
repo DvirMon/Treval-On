@@ -42,7 +42,7 @@ export class AuthEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loadUserSuccess),
-      tap(() => saveToStorage(StorageKey.LOGGED, true, { useSessionStorage: true })),
+      // tap(() => saveToStorage(StorageKey.LOGGED, true, { useSessionStorage: true })),
       tap(({ user }) => this.authService.saveUser(user)),
       tap(({ user }) => this.router.navigate(['/places/', user.userId]))
     ),

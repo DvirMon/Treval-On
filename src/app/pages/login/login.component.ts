@@ -38,6 +38,7 @@ export class LoginPageComponent {
 
   constructor() {
     this.optFlag = signal(true);
+    this.authStore.loadUser();
   }
 
   protected onSignIn(event: SignInEvent) {

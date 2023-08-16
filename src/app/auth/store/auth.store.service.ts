@@ -6,7 +6,7 @@ import { AuthActions } from './auth.actions';
 import { AuthSelectors } from './auth.selectors';
 import { getFromStorage } from 'src/app/utilities/helpers';
 import { StorageKey } from 'src/app/utilities/constants';
-import { EMPTY, Observable, Subject, catchError, exhaustMap, filter, iif, map, of, switchMap, tap } from 'rxjs';
+import { EMPTY, Observable, Subject, catchError, exhaustMap, filter, iif, map, of, switchMap, take, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,60 +22,12 @@ export class AuthStore {
     private store: Store
   ) {
 
-    this._setUser()
+  }
+  public signIn(signIn: SignInEvent): void {
+    this.loginSource.next(signIn);
   }
 
-  public loadUser(userId: string): Observable<boolean> {
-
-    const loaded$ = this.store.select(AuthSelectors.selectLoaded);
-
-    const trueResult$ = loaded$;
-
-    const falseResult$ = loaded$.pipe(
-      tap(() => this.store.dispatch(AuthActions.loadUser({ userId }))),
-      map(() => true)
-    );
-
-    return loaded$.pipe(
-      switchMap((loaded: boolean) => iif(
-        () => loaded,
-        trueResult$,
-        falseResult$
-      ))
-    )
-  }
-
-  // public getSignInEvent() {
-  //   return this.signInEvent
-  // }
-
-
-  // public setSignInEvent(value: SignInEvent): void {
-  //   this.signInEvent.set(value);
-  // }
-
-
-  public loginUser() : Signal<User | null>{
-    return computed(() => this.getUser(this.signInEvent()))
-  }
-
-  public getUser(signInEvent: SignInEvent | null): User{
-
-    const loaded: Signal<boolean> = this.store.selectSignal(AuthSelectors.selectLoaded);
-
-    if (!loaded() && signInEvent !== null) {
-      this.store.dispatch(AuthActions.signIn({ signInEvent }))
-    }
-
-    const user: Signal<User> = this.store.selectSignal(AuthSelectors.selectUser);
-
-
-    return user()
-
-  }
-
-
-  private _setUser(): Signal<User> {
+  public loadUser(): Signal<User> {
     return toSignal(this._login$(), { initialValue: {} as User });
   }
 
@@ -105,8 +57,24 @@ export class AuthStore {
     return user$;
   }
 
-  public signIn(signIn: SignInEvent): void {
-    this.loginSource.next(signIn);
+
+  private loginUser(): Signal<User | null> {
+    return computed(() => this.getUser(this.signInEvent()))
+  }
+
+  private getUser(signInEvent: SignInEvent | null): User {
+
+    const loaded: Signal<boolean> = this.store.selectSignal(AuthSelectors.selectLoaded);
+
+    if (!loaded() && signInEvent !== null) {
+      this.store.dispatch(AuthActions.signIn({ signInEvent }))
+    }
+
+    const user: Signal<User> = this.store.selectSignal(AuthSelectors.selectUser);
+
+
+    return user()
+
   }
 
 
@@ -135,7 +103,7 @@ export class AuthStore {
       )
   }
 
-  public logout() : void {
+  public logout(): void {
     this.store.dispatch(AuthActions.logout())
 
   }
