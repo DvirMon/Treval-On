@@ -11,7 +11,7 @@ export const FavoriteActions = createActionGroup({
     'Update Favorite': emptyProps(),
     'Delete Favorite': props<{ id: string }>(),
     'Clear Favorites': emptyProps(),
-    'Update Selected Favorites Vacations': props<{ selected:Record<string, boolean> }>(),
+    'Update Selected Favorites Places': props<{ selected:Record<string, boolean> }>(),
 
   }
 });

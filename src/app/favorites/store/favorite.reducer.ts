@@ -16,7 +16,7 @@ export const favoriteReducer = createReducer(
     })
   ),
 
-  on(FavoriteActions.updateSelectedFavoritesVacations,
+  on(FavoriteActions.updateSelectedFavoritesPlaces,
     (state, action) => (
       {
         ...state,

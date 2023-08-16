@@ -12,7 +12,7 @@ export interface PlacesSelectedChangedEvent {
   selected: boolean;
 }
 @Component({
-  selector: 'to-vacation-card',
+  selector: 'to-places-card',
   standalone: true,
   imports: [CommonModule, NgOptimizedImage,  DateTimestampPipe, MatCardModule, VacationCardButtonComponent],
   templateUrl: './vacation-card.component.html',

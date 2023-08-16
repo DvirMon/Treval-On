@@ -9,7 +9,7 @@ export interface SelectionListChange {
 }
 
 @Component({
-  selector: 'to-vacation-list',
+  selector: 'to-places-list',
   standalone: true,
   imports: [CommonModule, PlacesCardComponent],
   templateUrl: './vacation-list.component.html',

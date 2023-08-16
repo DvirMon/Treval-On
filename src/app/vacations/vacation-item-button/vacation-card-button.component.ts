@@ -20,7 +20,7 @@ export enum SelectState {
 }
 
 @Component({
-  selector: 'to-vacation-button',
+  selector: 'to-places-button',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './vacation-card-button.component.html',

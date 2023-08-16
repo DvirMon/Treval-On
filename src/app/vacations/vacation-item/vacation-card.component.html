@@ -1,9 +1,4 @@
-<!-- <mat-card [style.background-image]="'url(' + vacation.imageUrl + ')'"> -->
 <mat-card>
-  <!-- <div
-    class="card-background"
-    [style.background-image]="'url(' + vacation.imageUrl + ')'"
-  ></div> -->
   <img mat-card-image [ngSrc]="vacation.imageUrl" height="300" width="1" alt="alternative"/>
 
   <mat-card-header>
@@ -14,10 +9,10 @@
     <mat-card-subtitle>{{
       vacation.price | currency : "USD" : "symbol" : "1.0-0"
     }}</mat-card-subtitle>
-    <to-vacation-button
+    <to-places-button
       (changed)="onSelectedChanged($event)"
       [selected]="isSelected()"
-    ></to-vacation-button>
+    ></to-places-button>
   </mat-card-header>
   <mat-card-content>
     <section class="schedule">
