@@ -1,27 +1,27 @@
 import { createReducer, on } from '@ngrx/store';
-import { VacationActions } from './vacation.actions';
+import { PlacesActions } from './vacation.actions';
 import { initialState, adapter } from './vacation.state';
 import { AuthActions } from 'src/app/auth/store/auth.actions';
 
 export const vacationReducer = createReducer(
   initialState,
-  on(VacationActions.loadVacations, (state) => state),
+  on(PlacesActions.loadPlaces, (state) => state),
 
-  on(VacationActions.loadVacationsSuccess,
+  on(PlacesActions.loadPlacesSuccess,
     (state, action) => ({
       ...adapter.setAll(action.vacations, state),
       loaded: true
     })
   ),
 
-  on(VacationActions.addPlaces,
+  on(PlacesActions.addPlaces,
     (state, action) => adapter.addOne(action.vacation, state)
   ),
 
-  on(VacationActions.updatePlaces,
+  on(PlacesActions.updatePlaces,
     (state, action) => adapter.updateOne(action.vacation, state)
   ),
-  on(VacationActions.deletePlaces,
+  on(PlacesActions.deletePlaces,
     (state, action) => adapter.removeOne(action.id, state)
   ),
 

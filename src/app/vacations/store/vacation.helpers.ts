@@ -6,6 +6,6 @@ export function selectUserId(vacation: Places): string {
   return vacation.id;
 }
 
-export function sortByDestination(a: Places, b: Places): number {
-  return a.destination.localeCompare(b.destination);
-}
+// export function sortByDestination(a: Places, b: Places): number {
+//   return a.destination.localeCompare(b.destination);
+// }

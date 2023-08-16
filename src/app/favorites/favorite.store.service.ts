@@ -29,7 +29,7 @@ export class FavoriteStore {
   }
 
   public updateSelection(selected: Record<string, boolean>) {
-    const action = FavoriteActions.updateSelectedFavoritesVacations({ selected })
+    const action = FavoriteActions.updateSelectedFavoritesPlaces({ selected })
     this.store.dispatch(action)
   }
 

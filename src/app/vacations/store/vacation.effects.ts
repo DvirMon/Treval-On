@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { PlacesService } from 'src/app/vacations/vacations.service';
-import { VacationActions } from './vacation.actions';
-import { concatMap, map, catchError, EMPTY } from 'rxjs';
+import { PlacesActions } from './vacation.actions';
 import { Places } from './vacation.model';
+import { concatMap, map, catchError, EMPTY } from 'rxjs';
 
 
 
@@ -19,12 +19,12 @@ export class PlacesEffects {
 
 
   // load coin from Http request
-  loadVacations$ = createEffect(() =>
+  loadPlaces$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(VacationActions.loadVacations),
+      ofType(PlacesActions.loadPlaces),
       concatMap(() => this.PlacesService.getVacations$()
         .pipe(
-          map((vacations: Places[]) => VacationActions.loadVacationsSuccess({ vacations })),
+          map((vacations: Places[]) => PlacesActions.loadPlacesSuccess({ vacations })),
           catchError(() => EMPTY)
         ))
     ))
