@@ -9,6 +9,7 @@ export interface EmailAndPasswordSignIn {
   email: string
   password: string
 }
+
 export interface Register {
   email: string
   phone: string
