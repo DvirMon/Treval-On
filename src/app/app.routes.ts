@@ -24,10 +24,10 @@ export const appRoutes: Routes = [
     // canActivate: [placesGuard],
     resolve: { placesResolver }
   },
-  {
-    path: "**",
-    loadComponent: () => import("./pages/pnf/pnf.component").then(m => m.PnfComponent)
-  },
+  // {
+  //   path: "**",
+  //   loadComponent: () => import("./pages/pnf/pnf.component").then(m => m.PnfComponent)
+  // },
   {
     path: "",
     pathMatch: 'full',

@@ -1,4 +1,4 @@
-import { Injectable, Signal, WritableSignal, computed, signal } from '@angular/core';
+import { Injectable, Signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SignInEvent, User } from './auth.model';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -6,7 +6,7 @@ import { AuthActions } from './auth.actions';
 import { AuthSelectors } from './auth.selectors';
 import { getFromStorage } from 'src/app/utilities/helpers';
 import { StorageKey } from 'src/app/utilities/constants';
-import { EMPTY, Observable, Subject, catchError, exhaustMap, filter, iif, map, of, switchMap, take, tap } from 'rxjs';
+import { Subject, Observable, exhaustMap, catchError, EMPTY, switchMap, of, filter, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
