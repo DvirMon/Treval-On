@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CollectionReference, Firestore, collection, getDocs, where, query, addDoc } from '@angular/fire/firestore';
-import { ConfirmationResult, UserCredential } from '@angular/fire/auth';
+import { CollectionReference, Firestore, collection, getDocs, where, query, addDoc, QuerySnapshot, DocumentReference } from '@angular/fire/firestore';
+import { ConfirmationResult, UserCredential, isSignInWithEmailLink } from '@angular/fire/auth';
 import { SignInEvent, SignInMethod, User } from './store/auth.model';
 import { mapQuerySnapshotDoc } from '../utilities/helpers';
 import { FireAuthService } from './fireauth.service';
-import { Observable, from, of, switchMap } from 'rxjs';
+import { Observable, from, map, of, switchMap, tap } from 'rxjs';
 
 interface EmailLinkData {
   email: string;
@@ -35,10 +35,38 @@ export class AuthService {
   }
 
   public getUserById(userId: string): Observable<User> {
-    return from(getDocs(query(this.usersRef, where('userId', '==', userId)))).pipe(mapQuerySnapshotDoc<User>())
+    const querySnapshot$ = this.getUserQuerySnapshot$('userId', userId)
+    return querySnapshot$.pipe(mapQuerySnapshotDoc<User>())
   }
 
   public saveUser(user: User): void { from(addDoc(this.usersRef, user)) }
+
+
+  addDocument(user: User): Observable<User> {
+    return this.checkDocumentExists(user.userId).pipe(
+      switchMap((empty: boolean) => {
+        if (empty) {
+          return from(addDoc(this.usersRef, user)).pipe(
+            map(() => user) // Return the user after successful addition
+          );
+        } else {
+          console.log('Document already exit');
+          return of(user);
+        }
+      })
+    );
+  }
+
+  private checkDocumentExists(userId: string): Observable<boolean> {
+    const querySnapshot$ = this.getUserQuerySnapshot$('userId', userId)
+    return querySnapshot$.pipe(map(querySnapshot => querySnapshot.empty));
+  }
+
+  private getUserQuerySnapshot$(getBy: keyof User, value: string): Observable<QuerySnapshot<User>> {
+    return from(getDocs(query(this.usersRef, where(getBy, '==', value))));
+  }
+
+
 
   // Sign in with different authentication methods based on the provided event.
   public signIn$(event: SignInEvent): Observable<UserCredential> {

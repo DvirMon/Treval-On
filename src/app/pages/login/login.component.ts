@@ -45,14 +45,14 @@ export class LoginPageComponent {
     this.authStore.loadUser();
 
 
-    this.cloudMessage().pipe(
-      catchError((error) => {
-        console.log(error);
-        return throwError(() => new Error(error));  // Make sure to re-throw the error after logging
-      })
-    ).subscribe(
-      (data) => console.log(data)  // log the actual data received
-    );
+    // this.cloudMessage().pipe(
+    //   catchError((error) => {
+    //     console.log(error);
+    //     return throwError(() => new Error(error));  // Make sure to re-throw the error after logging
+    //   })
+    // ).subscribe(
+    //   (data) => console.log(data)  // log the actual data received
+    // );
 
   }
 

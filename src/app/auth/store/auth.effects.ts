@@ -42,7 +42,6 @@ export class AuthEffects {
     concatMap(({ signInEvent }) => this.authService.signIn$(signInEvent)
       .pipe(
         mapUserCredentials(),
-
         map((user) => AuthActions.loadUserSuccess({ user })),
         catchError((() => {
           return EMPTY
@@ -54,9 +53,11 @@ export class AuthEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loadUserSuccess),
-      // tap(() => saveToStorage(StorageKey.LOGGED, true, { useSessionStorage: true })),
-      tap(({ user }) => this.authService.saveUser(user)),
-      tap(({ user }) => this.router.navigate(['/places/', user.userId]))
+      switchMap(({ user }) =>
+        this.authService.addDocument(user).pipe(
+          tap(user => this.router.navigate(['/places/', user.userId]))
+        )
+      )
     ),
     { dispatch: false }
   );
