@@ -24,13 +24,24 @@ export class AuthEffects {
   ) { }
 
 
+  register$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.createUser),
+    concatMap(({ email, password }) => this.authService.register$(email, password)
+      .pipe(
+        mapUserCredentials(),
+        map((user) => AuthActions.loadUserSuccess({ user })),
+        catchError((() => {
+          return EMPTY
+        })
+        ))
+    )
+  ))
 
   signIn$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.signIn),
     concatMap(({ signInEvent }) => this.authService.signIn$(signInEvent)
       .pipe(
         mapUserCredentials(),
-
         map((user) => AuthActions.loadUserSuccess({ user })),
         catchError((() => {
           return EMPTY
@@ -42,9 +53,11 @@ export class AuthEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loadUserSuccess),
-      // tap(() => saveToStorage(StorageKey.LOGGED, true, { useSessionStorage: true })),
-      tap(({ user }) => this.authService.saveUser(user)),
-      tap(({ user }) => this.router.navigate(['/places/', user.userId]))
+      switchMap(({ user }) =>
+        this.authService.addDocument(user).pipe(
+          tap(user => this.router.navigate(['/places/', user.userId]))
+        )
+      )
     ),
     { dispatch: false }
   );
@@ -86,7 +99,7 @@ export class AuthEffects {
     ofType(AuthActions.logout),
     tap(() => sessionStorage.clear()),
     tap(() => this.router.navigateByUrl('/'))
-    ),
+  ),
     { dispatch: false }
   )
 

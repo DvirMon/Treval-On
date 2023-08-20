@@ -1,10 +1,7 @@
 import { inject } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
-import { Observable, combineLatest, filter, forkJoin, map, take } from 'rxjs';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { FavoriteStore } from 'src/app/favorites/favorite.store.service';
-import { Places } from 'src/app/vacations/store/vacation.model';
-import { VacationsStore } from 'src/app/vacations/store/vacations.store.service';
+import { Observable, filter } from 'rxjs';
 
 export const placesResolver = (
   route: ActivatedRouteSnapshot,
@@ -25,6 +22,3 @@ function getSelectedFavorites(favoriteStore: FavoriteStore, userId: string): Obs
     );
 }
 
-function getVacations(vacationStore: VacationsStore): Observable<Places[]> {
-  return toObservable(vacationStore.getVacations())
-}

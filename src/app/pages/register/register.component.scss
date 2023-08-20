@@ -8,10 +8,9 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
-span {
-  font-size: 20px;
-  color: #fff;
-}

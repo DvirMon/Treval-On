@@ -8,10 +8,10 @@ export const AuthActions = createActionGroup({
     'Sign In': props<{ signInEvent: SignInEvent }>(),
     'Sign In Success': props<{ user: User }>(),
     'Send Email Link': props<{ email: string }>(),
-    'Send Email Link Success': props<{ email: string}>(),
+    'Send Email Link Success': props<{ email: string }>(),
     'Load User': props<{ userId: string }>(),
     'Load User Success': props<{ user: User }>(),
-    'Add User': props<{ register: Register }>(),
+    'Create User': props<{ email: string, password: string }>(),
     'Update User': props<{ register: Register }>(),
     'Logout': emptyProps(),
   }

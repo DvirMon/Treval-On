@@ -10,6 +10,9 @@ import { EmailLinkFormComponent } from 'src/app/auth/email-link-form/email-link-
 import { AuthStore } from 'src/app/auth/store/auth.store.service';
 import { SignInEvent, SignInMethod } from 'src/app/auth/store/auth.model';
 import { FlipCardService } from 'src/app/components/flip-card/flip-card.service';
+import { getMessaging, getToken } from "firebase/messaging";
+import { environment } from 'src/environments/environment';
+import { Observable, catchError, from, of, throwError } from 'rxjs';
 
 
 @Component({
@@ -34,11 +37,54 @@ export class LoginPageComponent {
   private readonly injector = inject(Injector);
 
   private readonly authStore = inject(AuthStore);
+
   protected readonly optFlag: WritableSignal<boolean>;
 
   constructor() {
     this.optFlag = signal(true);
     this.authStore.loadUser();
+
+
+    // this.cloudMessage().pipe(
+    //   catchError((error) => {
+    //     console.log(error);
+    //     return throwError(() => new Error(error));  // Make sure to re-throw the error after logging
+    //   })
+    // ).subscribe(
+    //   (data) => console.log(data)  // log the actual data received
+    // );
+
+  }
+
+
+  private requestPermissions(): Observable<NotificationPermission> {
+    if (!("Notification" in window)) {
+      return of('Notification API not available in this browser.' as unknown as NotificationPermission);
+    }
+
+    switch (Notification.permission) {
+      case 'denied':
+        console.log('User has blocked notifications.');
+        return from(Notification.requestPermission());
+
+      case 'granted':
+        console.log('User has granted notifications.');
+        return of('granted');
+
+      default:
+        console.log('User has not yet made a decision about notifications.');
+        return from(Notification.requestPermission());
+    }
+  }
+
+
+  private cloudMessage(): Observable<string> {
+
+
+
+    const messaging = getMessaging();
+    // Add the public key generated from the console here.
+    return from(getToken(messaging, { vapidKey: environment.VAPID_KEY }))
   }
 
   protected onSignIn(event: SignInEvent) {
