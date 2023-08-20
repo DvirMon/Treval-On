@@ -1,5 +1,5 @@
 <div class="register-wrapper">
   <to-floating-button [label]="'Home'" [navigation]="'/'"></to-floating-button>
-  
-  <to-register-form></to-register-form>
+
+  <to-register-form (register)="onRegister($event)"></to-register-form>
 </div>
