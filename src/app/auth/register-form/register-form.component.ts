@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { FormControl, FormGroup, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -37,6 +37,9 @@ export class RegisterFormComponent {
 
   protected readonly registerFormGroup: FormGroup<RegisterForm>;
 
+  @Output() register: EventEmitter<EmailAndPasswordSignIn> = new EventEmitter();
+
+
   constructor() {
     this.registerFormGroup = this._buildRegisterForm()
   }
@@ -51,7 +54,8 @@ export class RegisterFormComponent {
         Validators.required,
         // Validators.pattern(this.validationService.regex.password),
         Validators.minLength(8),
-        Validators.maxLength(24)]],
+        Validators.maxLength(24)]
+      ],
       // confirmPassword: ['',
       //   [Validators.required, Validators.pattern(this.validationService.regex.password)]],
     },
@@ -62,6 +66,7 @@ export class RegisterFormComponent {
 
   protected onSubmit(value: Partial<EmailAndPasswordSignIn>): void {
     console.log(value)
+    this.register.emit(value as EmailAndPasswordSignIn)
   }
 
 

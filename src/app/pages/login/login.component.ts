@@ -37,6 +37,7 @@ export class LoginPageComponent {
   private readonly injector = inject(Injector);
 
   private readonly authStore = inject(AuthStore);
+
   protected readonly optFlag: WritableSignal<boolean>;
 
   constructor() {

@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegisterFormComponent } from 'src/app/auth/register-form/register-form.component';
 import { FloatingButtonComponent } from 'src/app/components/floating-button/floating-button.component';
+import { AuthStore } from 'src/app/auth/store/auth.store.service';
 
 @Component({
   selector: 'to-register',
@@ -13,5 +14,8 @@ import { FloatingButtonComponent } from 'src/app/components/floating-button/floa
 
 })
 export class RegisterPageComponent {
+
+  private readonly authStore = inject(AuthStore);
+
 
 }
