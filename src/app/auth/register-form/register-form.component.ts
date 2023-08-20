@@ -6,7 +6,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { EmailAndPasswordSignIn } from '../store/auth.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
 import { DividerHeaderComponent } from 'src/app/components/divider-header/divider-header.component';
 
 
@@ -27,7 +26,6 @@ interface RegisterForm {
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDividerModule,
     DividerHeaderComponent
   ],
   templateUrl: './register-form.component.html',

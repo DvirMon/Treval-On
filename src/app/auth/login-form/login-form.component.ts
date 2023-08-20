@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { SignInEvent, EmailAndPasswordSignIn, SignInMethod } from '../store/auth.model';
+import { DividerHeaderComponent } from 'src/app/components/divider-header/divider-header.component';
 
 interface LoginForm {
   email: FormControl<string>
@@ -30,7 +31,7 @@ interface LoginForm {
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatDividerModule,
+    DividerHeaderComponent,
   ],
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],

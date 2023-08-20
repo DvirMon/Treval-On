@@ -22,6 +22,12 @@ export class AuthStore {
   ) {
 
   }
+
+  public register(email: string, password: string) {
+    const action = AuthActions.createUser({ email, password })
+    this.store.dispatch(action)
+  }
+
   public signIn(signInEvent: SignInEvent): void {
     this.loginSource.next(signInEvent);
   }

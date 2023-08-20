@@ -1,8 +1,7 @@
 <div class="register-wrapper">
   <mat-card>
     <mat-card-content>
-
-      <to-divider-header [label]="'Register'"></to-divider-header>
+      <to-divider-header label="Register"></to-divider-header>
       <form
         [formGroup]="registerFormGroup"
         (ngSubmit)="onSubmit(registerFormGroup.value)"

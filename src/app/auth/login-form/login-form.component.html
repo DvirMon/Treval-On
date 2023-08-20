@@ -1,31 +1,27 @@
 <!-- <div> -->
-  <mat-card-header class="center-header">
-    <img
-      ngSrc="../../../assets/images/logo2.png"
-      width="60"
-      height="60"
-      priority
-      alt="logo"
-    />
-  </mat-card-header>
-  <mat-card-content>
-    <ng-container
-      *ngTemplateOutlet="dividerTemplate; context: { $implicit: 'Sign In' }"
-    ></ng-container>
-
-    <div class="login-form-wrapper">
-
-      <section class="social-login-wrapper">
-        <button
-          mat-stroked-button
-          class="google-btn"
-          [disableRipple]="true"
-          (click)="oGoogleSignIn()"
-        >
-          <mat-icon svgIcon="google" class="google-icon"></mat-icon>
-          Continue with Google
-        </button>
-        <!-- <button
+<mat-card-header class="center-header">
+  <img
+    ngSrc="../../../assets/images/logo2.png"
+    width="60"
+    height="60"
+    priority
+    alt="logo"
+  />
+</mat-card-header>
+<mat-card-content>
+  <to-divider-header label="Sign In"></to-divider-header>
+  <div class="login-form-wrapper">
+    <section class="social-login-wrapper">
+      <button
+        mat-stroked-button
+        class="google-btn"
+        [disableRipple]="true"
+        (click)="oGoogleSignIn()"
+      >
+        <mat-icon svgIcon="google" class="google-icon"></mat-icon>
+        Continue with Google
+      </button>
+      <!-- <button
           mat-raised-button
           [disableRipple]="true"
           color="accent"
@@ -33,58 +29,48 @@
         >
           Sign in with OTP
         </button> -->
-        <button
-          mat-raised-button
-          [disableRipple]="true"
-          color="accent"
-          (click)="onEmailLinkSignIn()"
-        >
-          Sign in with Email Link
-        </button>
-      </section>
-
-      <ng-container
-        *ngTemplateOutlet="dividerTemplate; context: { $implicit: 'or' }"
-      ></ng-container>
-
-      <form
-        [formGroup]="loginFormGroup"
-        (ngSubmit)="onSubmit(loginFormGroup.value)"
+      <button
+        mat-raised-button
+        [disableRipple]="true"
+        color="accent"
+        (click)="onEmailLinkSignIn()"
       >
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <input autocomplete="off" formControlName="email" matInput />
-        </mat-form-field>
+        Sign in with Email Link
+      </button>
+    </section>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Password</mat-label>
-          <input autocomplete="off" formControlName="password" matInput />
-        </mat-form-field>
+    <to-divider-header label="or"></to-divider-header>
 
-        <button
-          class="login-btn"
-          mat-raised-button
-          type="submit"
-          color="primary"
-          [disabled]="!loginFormGroup.valid"
-        >
-          Login
-        </button>
-      </form>
+    <form
+      [formGroup]="loginFormGroup"
+      (ngSubmit)="onSubmit(loginFormGroup.value)"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input autocomplete="off" formControlName="email" matInput />
+      </mat-form-field>
 
-      <section class="forget-btn">
-        <button [disableRipple]="true" mat-button type="button">
-          Forget your password ?
-        </button>
-      </section>
-    </div>
-  </mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input autocomplete="off" formControlName="password" matInput />
+      </mat-form-field>
+
+      <button
+        class="login-btn"
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="!loginFormGroup.valid"
+      >
+        Login
+      </button>
+    </form>
+
+    <section class="forget-btn">
+      <button [disableRipple]="true" mat-button type="button">
+        Forget your password ?
+      </button>
+    </section>
+  </div>
+</mat-card-content>
 <!-- </div> -->
-
-<ng-template #dividerTemplate let-label>
-  <section class="divider">
-    <mat-divider></mat-divider>
-    <span> {{ label }} </span>
-    <mat-divider></mat-divider>
-  </section>
-</ng-template>

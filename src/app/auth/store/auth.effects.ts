@@ -24,6 +24,18 @@ export class AuthEffects {
   ) { }
 
 
+  register$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.createUser),
+    concatMap(({ email, password }) => this.authService.register$(email, password)
+      .pipe(
+        mapUserCredentials(),
+        map((user) => AuthActions.loadUserSuccess({ user })),
+        catchError((() => {
+          return EMPTY
+        })
+        ))
+    )
+  ))
 
   signIn$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.signIn),
@@ -86,7 +98,7 @@ export class AuthEffects {
     ofType(AuthActions.logout),
     tap(() => sessionStorage.clear()),
     tap(() => this.router.navigateByUrl('/'))
-    ),
+  ),
     { dispatch: false }
   )
 
