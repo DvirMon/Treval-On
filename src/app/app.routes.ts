@@ -7,22 +7,29 @@ import { placesResolver } from "./pages/places/places.resolver";
 export const appRoutes: Routes = [
   {
     path: "",
-    component: LoginPageComponent
+    component: LoginPageComponent,
   },
   {
-    path: 'verify-email',
-    loadComponent: () => import("./pages/verify/verify.component").then(m => m.VerifyPageComponent),
-    canActivate: [verifyGuard]
+    path: "verify-email",
+    loadComponent: () =>
+      import("./pages/verify/verify.component").then(
+        (m) => m.VerifyPageComponent
+      ),
+    canActivate: [verifyGuard],
   },
   {
-    path: 'register',
-    loadComponent: () => import("./pages/register/register.component").then(m => m.RegisterPageComponent)
+    path: "register",
+    loadComponent: () =>
+      import("./pages/register/register.component").then(
+        (m) => m.RegisterPageComponent
+      ),
   },
   {
-    path: 'places/:userId',
-    loadComponent: () => import("./pages/places/places.component").then(m => m.PlacesComponent),
+    path: "places/:userId",
+    loadComponent: () =>
+      import("./pages/places/places.component").then((m) => m.PlacesComponent),
     // canActivate: [placesGuard],
-    resolve: { placesResolver }
+    resolve: { placesResolver },
   },
   // {
   //   path: "**",
@@ -30,7 +37,7 @@ export const appRoutes: Routes = [
   // },
   {
     path: "",
-    pathMatch: 'full',
-    redirectTo: '/'
-  }
+    pathMatch: "full",
+    redirectTo: "/",
+  },
 ];
