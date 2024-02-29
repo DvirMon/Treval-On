@@ -48,7 +48,7 @@ bootstrapApplication(AppComponent, {
       [vacationsFeatureKey]: vacationReducer,
       [favoritesFeatureKey]: favoriteReducer
     }),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() , connectInZone: true, connectInZone: true}),
     provideEffects(AuthEffects, PlacesEffects, FavoritesEffects),
 
     { provide: MAT_DIALOG_DATA, useValue: DIALOG_DATA },
