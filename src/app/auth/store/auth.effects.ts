@@ -66,7 +66,7 @@ export class AuthEffects {
     ofType(AuthActions.sendEmailLink),
     switchMap(({ email }) => this.authService.sendSignInLinkToEmail$(email)
       .pipe(
-        tap((email: string) => saveToStorage(StorageKey.LOGGED, email)),
+        tap((email: string) => saveToStorage(StorageKey.EMAIL, email)),
         map((email) => AuthActions.sendEmailLinkSuccess({ email })),
         catchError(() => {
           return EMPTY

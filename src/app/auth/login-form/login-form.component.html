@@ -1,41 +1,29 @@
-<!-- <div> -->
 <mat-card-header class="center-header">
   <img
     ngSrc="../../../assets/images/logo2.png"
     width="60"
     height="60"
     priority
-    alt="logo"
-  />
+    alt="logo" />
 </mat-card-header>
 <mat-card-content>
   <to-divider-header label="Sign In"></to-divider-header>
   <div class="login-form-wrapper">
     <section class="social-login-wrapper">
       <button
-        mat-stroked-button
-        class="google-btn"
-        [disableRipple]="true"
-        (click)="oGoogleSignIn()"
-      >
-        <mat-icon svgIcon="google" class="google-icon"></mat-icon>
-        Continue with Google
-      </button>
-      <!-- <button
-          mat-raised-button
-          [disableRipple]="true"
-          color="accent"
-          (click)="onOtpSignIn()"
-        >
-          Sign in with OTP
-        </button> -->
-      <button
         mat-raised-button
         [disableRipple]="true"
         color="accent"
-        (click)="onEmailLinkSignIn()"
-      >
+        (click)="onEmailLinkSignIn()">
         Sign in with Email Link
+      </button>
+      <button
+        mat-stroked-button
+        class="google-btn"
+        [disableRipple]="true"
+        (click)="oGoogleSignIn()">
+        <mat-icon svgIcon="google" class="google-icon"></mat-icon>
+        Continue with Google
       </button>
     </section>
 
@@ -43,8 +31,7 @@
 
     <form
       [formGroup]="loginFormGroup"
-      (ngSubmit)="onSubmit(loginFormGroup.value)"
-    >
+      (ngSubmit)="onSubmit(loginFormGroup.value)">
       <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
         <input autocomplete="off" formControlName="email" matInput />
@@ -60,8 +47,7 @@
         mat-raised-button
         type="submit"
         color="primary"
-        [disabled]="!loginFormGroup.valid"
-      >
+        [disabled]="!loginFormGroup.valid">
         Login
       </button>
     </form>
@@ -73,4 +59,3 @@
     </section>
   </div>
 </mat-card-content>
-<!-- </div> -->

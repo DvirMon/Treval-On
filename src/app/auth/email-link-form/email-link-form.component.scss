@@ -1,29 +1,74 @@
 @use "variables" as main;
 
-div.email-link-form-wrapper {
+mat-card-header {
+  justify-content: center;
+}
+
+div.login-form-wrapper {
+  padding: 0 main.spacing(2);
+}
+
+section.divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  mat-divider {
+    width: 100%;
+  }
+
+  span {
+    margin: main.spacing(1);
+    flex-shrink: 0;
+    text-align: center;
+  }
+}
+
+section.email-password-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: main.spacing(2) 0;
+  gap: main.spacing(2);
+}
+
+section.email-link-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: main.spacing(3) 0;
+  gap: main.spacing(3);
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: main.spacing(2);
+  margin: spacing(2);
+
+  mat-icon {
+    scale: 2;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  padding: main.spacing(2) 0;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+
+section.email-link-form-wrapper {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   gap: main.spacing(1);
-
-  header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: main.spacing(2);
-
-    mat-icon {
-      scale: 2;
-    }
-  }
-
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: main.spacing(2);
-  }
 }
