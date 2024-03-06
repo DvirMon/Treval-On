@@ -11,6 +11,7 @@ export const AuthActions = createActionGroup({
     'Send Email Link Success': props<{ email: string }>(),
     'Load User': props<{ userId: string }>(),
     'Load User Success': props<{ user: User }>(),
+    'Load User Failure': props<{ message: string }>(),
     'Create User': props<{ email: string, password: string }>(),
     'Update User': props<{ register: Register }>(),
     'Logout': emptyProps(),

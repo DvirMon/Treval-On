@@ -99,8 +99,6 @@ export class FormInputComponent implements OnInit {
       return `${key} is required`;
     }
 
-    console.log(control.errors);
-
     if (control.hasError(FormErrorType.EmailPattern)) {
       return `invalid ${key} format`;
     }

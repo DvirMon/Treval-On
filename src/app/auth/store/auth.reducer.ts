@@ -14,6 +14,11 @@ export const authReducer = createReducer(
     loaded: true
   })),
 
+  on(AuthActions.loadUserFailure, (state, action) => ({
+    ...state,
+    serverError : action.message
+  })),
+
   on(AuthActions.sendEmailLinkSuccess, (state, action) => ({
     ...state,
     email: action.email

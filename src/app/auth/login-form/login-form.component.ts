@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Output,
   inject,
+  input,
 } from "@angular/core";
 import {
   FormControl,
@@ -58,7 +59,10 @@ interface LoginForm {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
+
   protected readonly loginFormGroup: FormGroup<LoginForm>;
+
+  serverError = input<string>();
 
   @Output() login: EventEmitter<SignInEvent> = new EventEmitter();
   @Output() googleSignIn: EventEmitter<SignInEvent> = new EventEmitter();
@@ -85,8 +89,10 @@ export class LoginFormComponent {
     nfb: NonNullableFormBuilder
   ): FormGroup<LoginForm> {
     return nfb.group({
-      email: nfb.control("", [Validators.required, Validators.email]),
-      password: nfb.control("", [Validators.required]),
+      // email: nfb.control("", [Validators.required, Validators.email]),
+      // password: nfb.control("", [Validators.required]),
+      email: nfb.control(""),
+      password: nfb.control(""),
     });
   }
 

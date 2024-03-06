@@ -7,11 +7,12 @@
 
     <to-flip-card>
       <to-login-form
+        class="front"
+        [serverError]="serverError()"
         (login)="onSignIn($event)"
         (googleSignIn)="onSignIn($event)"
         (otpSignIn)="onOtpSignIn($event)"
-        (emailLinkSignIn)="onEmailLinkSignIn($event)"
-        class="front">
+        (emailLinkSignIn)="onEmailLinkSignIn($event)">
       </to-login-form>
       <ng-container class="back" *ngIf="optFlag()">
         <to-login-otp-form

@@ -6,6 +6,7 @@ export interface State {
   user: User
   loaded: boolean;
   email: string;
+  serverError : string
 
 }
 
@@ -13,4 +14,5 @@ export const initialState: State = {
   user: {} as User,
   loaded: false,
   email: "",
+  serverError : ""
 }

@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Injector,
+  Signal,
   WritableSignal,
   inject,
   runInInjectionContext,
@@ -41,54 +42,19 @@ import { environment } from "src/environments/environment";
 export class LoginPageComponent {
   private readonly injector = inject(Injector);
 
-  private readonly authStore = inject(AuthStore);
+  #authStore = inject(AuthStore);
 
-  protected readonly optFlag: WritableSignal<boolean>;
+  public readonly optFlag: WritableSignal<boolean>;
+  public readonly serverError: Signal<string>;
 
   constructor() {
     this.optFlag = signal(true);
-    this.authStore.loadUser();
-
-    // this.cloudMessage().pipe(
-    //   catchError((error) => {
-    //     console.log(error);
-    //     return throwError(() => new Error(error));  // Make sure to re-throw the error after logging
-    //   })
-    // ).subscribe(
-    //   (data) => console.log(data)  // log the actual data received
-    // );
-  }
-
-  private requestPermissions(): Observable<NotificationPermission> {
-    if (!("Notification" in window)) {
-      return of(
-        "Notification API not available in this browser." as unknown as NotificationPermission
-      );
-    }
-
-    switch (Notification.permission) {
-      case "denied":
-        console.log("User has blocked notifications.");
-        return from(Notification.requestPermission());
-
-      case "granted":
-        console.log("User has granted notifications.");
-        return of("granted");
-
-      default:
-        console.log("User has not yet made a decision about notifications.");
-        return from(Notification.requestPermission());
-    }
-  }
-
-  private cloudMessage(): Observable<string> {
-    const messaging = getMessaging();
-    // Add the public key generated from the console here.
-    return from(getToken(messaging, { vapidKey: environment.VAPID_KEY }));
+    this.#authStore.loadUser();
+    this.serverError = this.#authStore.loginServerError();
   }
 
   protected onSignIn(event: SignInEvent) {
-    this.authStore.signIn(event);
+    this.#authStore.signIn(event);
   }
 
   protected onOtpSignIn(event: SignInEvent) {
@@ -109,7 +75,7 @@ export class LoginPageComponent {
 
   protected onEmailLink(event: SignInEvent) {
     const { data } = event;
-    this.authStore.sendEmailLink(data as string);
+    this.#authStore.sendEmailLink(data as string);
   }
 
   private _flipCard() {
