@@ -2,10 +2,11 @@ import { CommonModule, NgOptimizedImage, TitleCasePipe } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   EventEmitter,
-  Output,
   inject,
   input,
+  Output,
 } from "@angular/core";
 import {
   FormControl,
@@ -27,6 +28,7 @@ import { FormInputComponent } from "src/app/components/form-input/form-input.com
 
 import {
   EmailAndPasswordSignIn,
+  ServerError,
   SignInEvent,
   SignInMethod,
 } from "../store/auth.model";
@@ -59,20 +61,27 @@ interface LoginForm {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
+  public readonly loginFormGroup: FormGroup<LoginForm>;
 
-  protected readonly loginFormGroup: FormGroup<LoginForm>;
-
-  serverError = input<string>();
+  serverError = input<ServerError | null>({} as ServerError);
 
   @Output() login: EventEmitter<SignInEvent> = new EventEmitter();
-  @Output() googleSignIn: EventEmitter<SignInEvent> = new EventEmitter();
-  @Output() otpSignIn: EventEmitter<SignInEvent> = new EventEmitter();
-  @Output() emailLinkSignIn: EventEmitter<SignInEvent> = new EventEmitter();
+  @Output() google: EventEmitter<SignInEvent> = new EventEmitter();
+  @Output() otp: EventEmitter<SignInEvent> = new EventEmitter();
+  @Output() emailLink: EventEmitter<SignInEvent> = new EventEmitter();
+  @Output() forget: EventEmitter<string> = new EventEmitter();
 
   constructor() {
     this._setGoogleIcon();
     this.loginFormGroup = this._getLoginFormGroup(
       inject(NonNullableFormBuilder)
+    );
+
+    effect(
+      () => {
+        this._handleServerError(this.loginFormGroup, this.serverError());
+      },
+      { allowSignalWrites: true }
     );
   }
 
@@ -89,31 +98,33 @@ export class LoginFormComponent {
     nfb: NonNullableFormBuilder
   ): FormGroup<LoginForm> {
     return nfb.group({
-      // email: nfb.control("", [Validators.required, Validators.email]),
-      // password: nfb.control("", [Validators.required]),
-      email: nfb.control(""),
-      password: nfb.control(""),
+      email: nfb.control("", [Validators.required, Validators.email]),
+      password: nfb.control("", [Validators.required]),
     });
   }
 
-  protected oGoogleSignIn(): void {
+  public oGoogleSignIn(): void {
     const event = this._createSignInEvent(SignInMethod.GOOGLE);
-    this.googleSignIn.emit(event);
+    this.google.emit(event);
   }
 
-  protected onSubmit(value: Partial<EmailAndPasswordSignIn>): void {
+  public onSubmit(value: Partial<EmailAndPasswordSignIn>): void {
     const event = this._createSignInEvent(SignInMethod.EMAIL_PASSWORD, value);
     this.login.emit(event);
   }
 
-  protected onOtpSignIn(): void {
+  public onOtpSignIn(): void {
     const event = this._createSignInEvent(SignInMethod.OPT);
-    this.otpSignIn.emit(event);
+    this.otp.emit(event);
   }
 
-  protected onEmailLinkSignIn() {
+  public onEmailLinkSignIn() {
     const event = this._createSignInEvent(SignInMethod.EMAIL_LINK);
-    this.emailLinkSignIn.emit(event);
+    this.emailLink.emit(event);
+  }
+
+  public onForgetPassword() {
+    this.forget.emit("");
   }
 
   private _createSignInEvent(
@@ -124,5 +135,18 @@ export class LoginFormComponent {
       method,
       data,
     } as SignInEvent;
+  }
+
+  private _handleServerError(
+    group: FormGroup,
+    server: ServerError | null
+  ): void {
+    if (group !== null && server !== null) {
+      const control = group.get(server.control as string);
+
+      if (control != null) {
+        control.setErrors({ serverError: server.message });
+      }
+    }
   }
 }

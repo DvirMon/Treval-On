@@ -13,14 +13,27 @@ import {
   UserCredential,
   ActionCodeSettings,
   isSignInWithEmailLink,
+  sendPasswordResetEmail,
 } from "@angular/fire/auth";
 import { generateVerificationLink } from "./auth.helpers";
 import { Observable, from, map, of } from "rxjs";
+
+export interface FirebaseError {
+  code: string;
+  customData: Record<string, unknown>;
+  name: string;
+  message: string;
+}
 
 @Injectable({ providedIn: "root" })
 export class FireAuthService {
   private readonly injector = inject(Injector);
   private readonly auth = inject(Auth);
+
+  private authErrorMessages: { [errorCode: string]: string } = {
+    "auth/invalid-email": "The email address is not valid.",
+    "auth/invalid-password": "The password is not valid.",
+  };
 
   // Create a new user account with the provided email and password.
   public createInWithEmailAndPassword$(
@@ -77,5 +90,9 @@ export class FireAuthService {
     password: string
   ): Observable<UserCredential> {
     return from(signInWithEmailAndPassword(this.auth, email, password));
+  }
+
+  public sendPasswordResetEmail(email: string): Observable<void> {
+    return from(sendPasswordResetEmail(this.auth, email));
   }
 }

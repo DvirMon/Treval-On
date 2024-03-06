@@ -5,6 +5,7 @@ import {
   Injector,
   OnInit,
   Signal,
+  computed,
   inject,
   input,
   runInInjectionContext,
@@ -19,7 +20,7 @@ import {
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { Observable, map, startWith } from "rxjs";
-import { FormErrorType } from "./form.helper";
+import { errorMessageMap } from "./form.helper";
 
 @Component({
   selector: "to-form-input",
@@ -42,47 +43,43 @@ export class FormInputComponent implements OnInit {
   type = input<string>();
   label = input<string>();
   hint = input<string>();
+  errorsMap = input<ValidationErrors>();
 
-  formControl!: FormControl;
+  formControl!: Signal<FormControl>;
   errorMessage!: Signal<string | undefined>;
   hasError!: Signal<boolean>;
 
   ngOnInit(): void {
-    this.formControl = this.control() as FormControl;
-
-    this.errorMessage = this.setErrorMessageSignal(
-      this.formControl,
-      this.key()
-    );
-    this.hasError = this.setHasErrorSignal();
+    this.formControl = computed(() => this.control() as FormControl);
+    this.hasError = this._setHasErrorSignal(this.formControl());
+    this.errorMessage = this._setErrorMessageSignal(this.formControl());
   }
 
-  setErrorMessageSignal(formControl: FormControl, key: string): Signal<string> {
+  private _setErrorMessageSignal(formControl: FormControl): Signal<string> {
     return runInInjectionContext(this._injector, () =>
-      toSignal(this.setErrorObservable(formControl, key), {
-        initialValue: this._getErrorMessage(formControl, key),
+      toSignal(this._setErrorObservable(formControl), {
+        initialValue: this._getErrorMessage(formControl),
       })
     );
   }
 
-  setErrorObservable(
-    formControl: FormControl,
-    key: string
-  ): Observable<string> {
+  private _setErrorObservable(formControl: FormControl): Observable<string> {
     return formControl.statusChanges.pipe(
-      map(() => this._getErrorMessage(formControl, key))
+      map(() => this._getErrorMessage(formControl))
     );
   }
 
-  setHasErrorSignal(): Signal<boolean> {
+  private _setHasErrorSignal(formControl: FormControl): Signal<boolean> {
     return runInInjectionContext(this._injector, () =>
-      toSignal(this.setHasErrorObservable(this.formControl), {
+      toSignal(this._setHasErrorObservable(formControl), {
         initialValue: false,
       })
     );
   }
 
-  setHasErrorObservable(formControl: FormControl): Observable<boolean> {
+  private _setHasErrorObservable(
+    formControl: FormControl
+  ): Observable<boolean> {
     return formControl.statusChanges.pipe(
       startWith(formControl.status),
       map(() => formControl.errors),
@@ -91,16 +88,23 @@ export class FormInputComponent implements OnInit {
   }
 
   // handle input error messages
-  private _getErrorMessage(
-    control: FormControl | AbstractControl,
-    key: string
-  ): string {
-    if (control.hasError(FormErrorType.Required)) {
-      return `${key} is required`;
-    }
+  private _getErrorMessage(control: FormControl | AbstractControl): string {
+    const errors = { ...control.errors };
 
-    if (control.hasError(FormErrorType.EmailPattern)) {
-      return `invalid ${key} format`;
+    if (errors) {
+      const errorKeys: string[] = Object.keys(errors as object);
+
+      for (const error of errorKeys) {
+        if (control.hasError(error)) {
+          const errorMap = {
+            ...errors,
+            ...errorMessageMap,
+            ...this.errorsMap(),
+          };
+
+          return errorMap[error] as string;
+        }
+      }
     }
 
     return "";

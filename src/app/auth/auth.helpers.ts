@@ -1,26 +1,22 @@
-import { Injector, inject, runInInjectionContext } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import {
-  UserCredential,
-  User as UserFirebase,
-} from '@angular/fire/auth';
-import { User } from './store/auth.model';
-import { Observable, OperatorFunction } from 'rxjs';
-import { map } from 'rxjs/operators';
-
+import { Injector, inject, runInInjectionContext } from "@angular/core";
+import { Location } from "@angular/common";
+import { ActivatedRoute, Params, Router } from "@angular/router";
+import { UserCredential, User as UserFirebase } from "@angular/fire/auth";
+import { ServerError, User } from "./store/auth.model";
+import { Observable, OperatorFunction } from "rxjs";
+import { map } from "rxjs/operators";
 
 // Function to generate a valid URL for the email verification link
-export function generateVerificationLink(injector: Injector, param?: Params): string {
-
+export function generateVerificationLink(
+  injector: Injector,
+  param?: Params
+): string {
   return runInInjectionContext(injector, () => {
-
     const baseUrl = inject(Location).normalize(location.origin);
 
-
     // Create the URL tree with the desired route and any necessary query parameters
-    const urlTree = inject(Router).createUrlTree(['/verify-email'], {
-      queryParams: { token: 'verification_token', ...param },
+    const urlTree = inject(Router).createUrlTree(["/verify-email"], {
+      queryParams: { token: "verification_token", ...param },
     });
 
     // Convert the URL tree to a string
@@ -28,14 +24,18 @@ export function generateVerificationLink(injector: Injector, param?: Params): st
 
     const verificationLink = baseUrl + url;
 
-
     return verificationLink;
-  })
+  });
 }
 
-export function getUserEmailFromUrl(injector: Injector, param: string): string | null {
+export function getUserEmailFromUrl(
+  injector: Injector,
+  param: string
+): string | null {
   const activatedRoute = inject(ActivatedRoute);
-  return runInInjectionContext(injector, () => activatedRoute.snapshot.queryParamMap.get(param));
+  return runInInjectionContext(injector, () =>
+    activatedRoute.snapshot.queryParamMap.get(param)
+  );
 }
 
 export function mapUserCredentials(): OperatorFunction<UserCredential, User> {
@@ -56,5 +56,32 @@ function mapUser(user: UserFirebase): User {
     email: user.email,
     emailVerified: user.emailVerified,
     photoURL: user.photoURL,
-  } as User
+  } as User;
+}
+
+export function mapAuthServerError(code: string): ServerError {
+  const authErrorMessages: { [errorCode: string]: ServerError } = {
+    "auth/user-not-found": {
+      control: "email",
+      message: "This email is not register.",
+    },
+    "auth/invalid-email": {
+      control: "email",
+      message: "The email address is not valid.",
+    },
+    "auth/invalid-password": {
+      control: "password",
+      message: "The password is not valid.",
+    },
+    "auth/missing-password": {
+      control: "password",
+      message: "The password is not valid.",
+    },
+    "auth/wrong-password": {
+      control: "password",
+      message: "Password is not match.",
+    },
+  };
+
+  return authErrorMessages[code];
 }

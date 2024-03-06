@@ -15,7 +15,7 @@ import {
 import { StorageKey } from "src/app/utilities/constants";
 import { getFromStorage } from "src/app/utilities/helpers";
 import { AuthActions } from "./auth.actions";
-import { SignInEvent, User } from "./auth.model";
+import { ServerError, SignInEvent, User } from "./auth.model";
 import { AuthSelectors } from "./auth.selectors";
 
 @Injectable({
@@ -42,9 +42,8 @@ export class AuthStore {
 
   private _login$(): Observable<User> {
     return this.loginSource.asObservable().pipe(
-      exhaustMap((event: SignInEvent) => this._getUser$(event)),
+      switchMap((event: SignInEvent) => this._getUser$(event)),
       catchError((error: Error) => {
-        console.log("error", error);
         return EMPTY;
       })
     );
@@ -67,6 +66,11 @@ export class AuthStore {
 
   public sendEmailLink(email: string) {
     const action = AuthActions.sendEmailLink({ email });
+    this.store.dispatch(action);
+  }
+
+  public resetPassword(email: string) {
+    const action = AuthActions.resetPassword({ email });
     this.store.dispatch(action);
   }
 
@@ -95,7 +99,7 @@ export class AuthStore {
     this.store.dispatch(AuthActions.logout());
   }
 
-  public loginServerError(): Signal<string> {
+  public loginServerError(): Signal<ServerError | null> {
     return this.store.selectSignal(AuthSelectors.selectServerError);
   }
 }

@@ -1,10 +1,24 @@
-import { Injectable } from '@angular/core';
-import { CollectionReference, Firestore, collection, getDocs, where, query, addDoc, QuerySnapshot, DocumentReference } from '@angular/fire/firestore';
-import { ConfirmationResult, UserCredential, isSignInWithEmailLink } from '@angular/fire/auth';
-import { SignInEvent, SignInMethod, User } from './store/auth.model';
-import { mapQuerySnapshotDoc } from '../utilities/helpers';
-import { FireAuthService } from './fireauth.service';
-import { Observable, from, map, of, switchMap, tap } from 'rxjs';
+import { Injectable } from "@angular/core";
+import {
+  CollectionReference,
+  Firestore,
+  collection,
+  getDocs,
+  where,
+  query,
+  addDoc,
+  QuerySnapshot,
+  DocumentReference,
+} from "@angular/fire/firestore";
+import {
+  ConfirmationResult,
+  UserCredential,
+  isSignInWithEmailLink,
+} from "@angular/fire/auth";
+import { SignInEvent, SignInMethod, User } from "./store/auth.model";
+import { mapQuerySnapshotDoc } from "../utilities/helpers";
+import { FireAuthService } from "./fireauth.service";
+import { Observable, from, map, of, switchMap, tap } from "rxjs";
 
 interface EmailLinkData {
   email: string;
@@ -17,30 +31,31 @@ interface EmailPasswordData {
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
-
-  private readonly USERS_COLLECTION = 'users';
-  private readonly usersRef: CollectionReference<User>
+  private readonly USERS_COLLECTION = "users";
+  private readonly usersRef: CollectionReference<User>;
 
   constructor(
     private readonly firestore: Firestore,
     private readonly fireAuthService: FireAuthService
-
-
   ) {
-    this.usersRef = collection(this.firestore, this.USERS_COLLECTION) as CollectionReference<User>
+    this.usersRef = collection(
+      this.firestore,
+      this.USERS_COLLECTION
+    ) as CollectionReference<User>;
   }
 
   public register$(email: string, password: string) {
-    return this.fireAuthService.createInWithEmailAndPassword$(email, password)
+    return this.fireAuthService.createInWithEmailAndPassword$(email, password);
   }
 
   public getUserById(userId: string): Observable<User> {
-    const querySnapshot$ = this.getUserQuerySnapshot$('userId', userId)
-    return querySnapshot$.pipe(mapQuerySnapshotDoc<User>())
+    const querySnapshot$ = this.getUserQuerySnapshot$("userId", userId);
+    return querySnapshot$.pipe(mapQuerySnapshotDoc<User>());
   }
 
-  public saveUser(user: User): void { from(addDoc(this.usersRef, user)) }
-
+  public saveUser(user: User): void {
+    from(addDoc(this.usersRef, user));
+  }
 
   addDocument(user: User): Observable<User> {
     return this.checkDocumentExists(user.userId).pipe(
@@ -50,7 +65,6 @@ export class AuthService {
             map(() => user) // Return the user after successful addition
           );
         } else {
-          console.log('Document already exit');
           return of(user);
         }
       })
@@ -58,15 +72,16 @@ export class AuthService {
   }
 
   private checkDocumentExists(userId: string): Observable<boolean> {
-    const querySnapshot$ = this.getUserQuerySnapshot$('userId', userId)
-    return querySnapshot$.pipe(map(querySnapshot => querySnapshot.empty));
+    const querySnapshot$ = this.getUserQuerySnapshot$("userId", userId);
+    return querySnapshot$.pipe(map((querySnapshot) => querySnapshot.empty));
   }
 
-  private getUserQuerySnapshot$(getBy: keyof User, value: string): Observable<QuerySnapshot<User>> {
-    return from(getDocs(query(this.usersRef, where(getBy, '==', value))));
+  private getUserQuerySnapshot$(
+    getBy: keyof User,
+    value: string
+  ): Observable<QuerySnapshot<User>> {
+    return from(getDocs(query(this.usersRef, where(getBy, "==", value))));
   }
-
-
 
   // Sign in with different authentication methods based on the provided event.
   public signIn$(event: SignInEvent): Observable<UserCredential> {
@@ -74,33 +89,38 @@ export class AuthService {
 
     return of(method).pipe(
       switchMap((method: SignInMethod) => {
-
         switch (method) {
-
           case SignInMethod.GOOGLE:
             return this.fireAuthService.signInWithGoogle$();
 
           case SignInMethod.EMAIL_LINK: {
-
             const emailLinkData = data as EmailLinkData;
-            return this.fireAuthService.signInWithEmailLink$(emailLinkData.email, emailLinkData.emailLink);
+            return this.fireAuthService.signInWithEmailLink$(
+              emailLinkData.email,
+              emailLinkData.emailLink
+            );
           }
 
           case SignInMethod.EMAIL_PASSWORD: {
-
             const emailPasswordData = data as EmailPasswordData;
-            return this.fireAuthService.signInWithEmailAndPassword$(emailPasswordData.email, emailPasswordData.password);
+            return this.fireAuthService.signInWithEmailAndPassword$(
+              emailPasswordData.email,
+              emailPasswordData.password
+            );
           }
 
-          default: return of({} as UserCredential);
+          default:
+            return of({} as UserCredential);
         }
       })
     );
   }
 
-
   // Create a new user account with the provided email and password.
-  public createInWithEmailAndPassword$(email: string, password: string): Observable<UserCredential> {
+  public createInWithEmailAndPassword$(
+    email: string,
+    password: string
+  ): Observable<UserCredential> {
     return this.fireAuthService.signInWithEmailAndPassword$(email, password);
   }
 
@@ -111,13 +131,11 @@ export class AuthService {
 
   // Send a sign-in link (magic link) to the provided email.
   public sendSignInLinkToEmail$(email: string): Observable<string> {
-    return this.fireAuthService.sendSignInLinkToEmail$(email)
+    return this.fireAuthService.sendSignInLinkToEmail$(email);
   }
 
   // Check if the provided email link is a valid sign-in link.
   public isSignInWithEmailLink(emailLink: string): Observable<boolean> {
-    return this.fireAuthService.isSignInWithEmailLink$(emailLink)
+    return this.fireAuthService.isSignInWithEmailLink$(emailLink);
   }
-
 }
-

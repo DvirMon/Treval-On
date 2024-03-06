@@ -1,3 +1,4 @@
+import { CommonModule } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,21 +6,23 @@ import {
   Output,
   inject,
 } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { MatCardModule } from "@angular/material/card";
 import {
   FormControl,
   FormGroup,
   FormsModule,
   NonNullableFormBuilder,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from "@angular/forms";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { EmailAndPasswordSignIn } from "../store/auth.model";
-import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 import { DividerHeaderComponent } from "src/app/components/divider-header/divider-header.component";
+import { FormInputComponent } from "src/app/components/form-input/form-input.component";
+import { getFormKeys } from "src/app/components/form-input/form.helper";
+import { EmailAndPasswordSignIn } from "../store/auth.model";
 
 interface RegisterForm {
   email: FormControl<string>;
@@ -37,6 +40,7 @@ interface RegisterForm {
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    FormInputComponent,
     DividerHeaderComponent,
   ],
   templateUrl: "./register-form.component.html",
@@ -48,40 +52,39 @@ export class RegisterFormComponent {
 
   public formKeys: string[] = [];
 
+  public errorsMap: { [key: string]: ValidationErrors } = {
+    password: {
+      minlength: "password is to short",
+      maxlength: "password is to long",
+    },
+  };
+
   @Output() register: EventEmitter<EmailAndPasswordSignIn> = new EventEmitter();
 
   constructor() {
     this.registerFormGroup = this._buildRegisterForm();
+    this.formKeys = getFormKeys(this.registerFormGroup);
   }
 
   private _buildRegisterForm(): FormGroup<RegisterForm> {
     return inject(NonNullableFormBuilder).group(
       {
-        email: [
-          "",
-          [Validators.required],
-          // [this.validationService.emailUniqueAsyncValidation.bind(this)]
-        ],
+        email: ["", [Validators.required, Validators.email]],
         password: [
           "",
           [
             Validators.required,
-            // Validators.pattern(this.validationService.regex.password),
             Validators.minLength(8),
-            Validators.maxLength(24),
+            Validators.maxLength(16),
           ],
         ],
         // confirmPassword: ['',
         //   [Validators.required, Validators.pattern(this.validationService.regex.password)]],
       },
-      {
-        // validator: [this.validationService.mustMatch('password', 'confirmPassword')],
-      }
     );
   }
 
   public onSubmit(value: Partial<EmailAndPasswordSignIn>): void {
-    console.log(value);
     this.register.emit(value as EmailAndPasswordSignIn);
   }
 }

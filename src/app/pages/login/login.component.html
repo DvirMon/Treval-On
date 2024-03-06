@@ -10,9 +10,10 @@
         class="front"
         [serverError]="serverError()"
         (login)="onSignIn($event)"
-        (googleSignIn)="onSignIn($event)"
-        (otpSignIn)="onOtpSignIn($event)"
-        (emailLinkSignIn)="onEmailLinkSignIn($event)">
+        (google)="onSignIn($event)"
+        (otp)="onOtpSignIn($event)"
+        (emailLink)="onEmailLinkSignIn($event)"
+        (forget)="onForgetPassword($event)">
       </to-login-form>
       <ng-container class="back" *ngIf="optFlag()">
         <to-login-otp-form

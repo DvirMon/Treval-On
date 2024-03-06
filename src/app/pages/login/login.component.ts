@@ -18,7 +18,11 @@ import { FloatingButtonComponent } from "src/app/components/floating-button/floa
 
 import { getMessaging, getToken } from "firebase/messaging";
 import { Observable, from, of } from "rxjs";
-import { SignInEvent, SignInMethod } from "src/app/auth/store/auth.model";
+import {
+  ServerError,
+  SignInEvent,
+  SignInMethod,
+} from "src/app/auth/store/auth.model";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
 import { FlipCardService } from "src/app/components/flip-card/flip-card.service";
 import { environment } from "src/environments/environment";
@@ -45,7 +49,7 @@ export class LoginPageComponent {
   #authStore = inject(AuthStore);
 
   public readonly optFlag: WritableSignal<boolean>;
-  public readonly serverError: Signal<string>;
+  public readonly serverError: Signal<ServerError | null>;
 
   constructor() {
     this.optFlag = signal(true);
@@ -53,29 +57,33 @@ export class LoginPageComponent {
     this.serverError = this.#authStore.loginServerError();
   }
 
-  protected onSignIn(event: SignInEvent) {
+  public onSignIn(event: SignInEvent) {
     this.#authStore.signIn(event);
   }
 
-  protected onOtpSignIn(event: SignInEvent) {
+  public onOtpSignIn(event: SignInEvent) {
     const { method } = event;
     this._updateShowOtp(method);
     this._flipCard();
   }
 
-  protected onEmailLinkSignIn(event: SignInEvent) {
+  public onEmailLinkSignIn(event: SignInEvent) {
     const { method } = event;
     this._updateShowOtp(method);
     this._flipCard();
   }
 
-  protected onEmailAndPassword() {
+  public onEmailAndPassword() {
     this._flipCard();
   }
 
-  protected onEmailLink(event: SignInEvent) {
+  public onEmailLink(event: SignInEvent) {
     const { data } = event;
     this.#authStore.sendEmailLink(data as string);
+  }
+
+  public onForgetPassword(event: string) {
+    this.#authStore.resetPassword(event);
   }
 
   private _flipCard() {

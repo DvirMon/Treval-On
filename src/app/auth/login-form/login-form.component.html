@@ -7,7 +7,6 @@
     alt="logo" />
 </mat-card-header>
 <mat-card-content>
-  {{ serverError() }}
   <to-divider-header label="Sign In"></to-divider-header>
   <div class="login-form-wrapper">
     <section class="social-login-wrapper">
@@ -56,7 +55,11 @@
     </form>
 
     <section class="forget-btn">
-      <button [disableRipple]="true" mat-button type="button">
+      <button
+        [disableRipple]="true"
+        mat-button
+        type="button"
+        (click)="onForgetPassword()">
         Forget your password ?
       </button>
     </section>

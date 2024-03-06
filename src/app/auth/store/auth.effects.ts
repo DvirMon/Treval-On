@@ -1,15 +1,15 @@
 import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { AuthService } from "../auth.service";
-import { AuthActions } from "./auth.actions";
-import { mapUserCredentials } from "../auth.helpers";
-import { saveToStorage } from "src/app/utilities/helpers";
-import { StorageKey } from "src/app/utilities/constants";
-import { concatMap, tap, map, catchError, EMPTY, switchMap, of } from "rxjs";
 import { Router } from "@angular/router";
+import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { EMPTY, catchError, concatMap, map, of, switchMap, tap } from "rxjs";
 import { DialogService } from "src/app/components/dialog/dialog.service";
+import { StorageKey } from "src/app/utilities/constants";
+import { saveToStorage } from "src/app/utilities/helpers";
+import { mapUserCredentials } from "../auth.helpers";
+import { AuthService } from "../auth.service";
 import { EmailLinkDialogComponent } from "../email-link-dialog/email-link-dialog.component";
-import { HttpErrorResponse } from "@angular/common/http";
+import { AuthActions } from "./auth.actions";
+import { FirebaseError } from "../fireauth.service";
 
 @Injectable()
 export class AuthEffects {
@@ -38,13 +38,13 @@ export class AuthEffects {
   signIn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.signIn),
-      concatMap(({ signInEvent }) =>
+      switchMap(({ signInEvent }) =>
         this.authService.signIn$(signInEvent).pipe(
           mapUserCredentials(),
           map((user) => AuthActions.loadUserSuccess({ user })),
-          catchError((err: HttpErrorResponse) =>
-            of(AuthActions.loadUserFailure({ message: err.message }))
-          )
+          catchError((err: FirebaseError) => {
+            return of(AuthActions.loadUserFailure({ code: err.code }));
+          })
         )
       )
     )

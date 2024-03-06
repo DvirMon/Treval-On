@@ -4,16 +4,17 @@
     <form
       [formGroup]="registerFormGroup"
       (ngSubmit)="onSubmit(registerFormGroup.value)">
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input autocomplete="off" formControlName="email" matInput />
-      </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Password</mat-label>
-        <input autocomplete="off" formControlName="password" matInput />
-        <!-- <mat-error>{{ registerFormGroup.errors["password"] | json }}</mat-error> -->
-      </mat-form-field>
+      @for (key of formKeys; track key) {
+
+      <to-form-input
+        [control]="registerFormGroup.get(key)"
+        [key]="key"
+        [label]="key | titlecase"
+        [errorsMap]="errorsMap[key]"
+        >
+      </to-form-input>
+      }
 
       <button
         class="login-btn"

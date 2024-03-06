@@ -1,18 +1,17 @@
-import { User } from "./auth.model";
+import { ServerError, User } from "./auth.model";
 
-export const authFeatureKey = 'auth';
+export const authFeatureKey = "auth";
 
 export interface State {
-  user: User
+  user: User;
   loaded: boolean;
   email: string;
-  serverError : string
-
+  serverError: ServerError | null;
 }
 
 export const initialState: State = {
   user: {} as User,
   loaded: false,
   email: "",
-  serverError : ""
-}
+  serverError: null,
+};

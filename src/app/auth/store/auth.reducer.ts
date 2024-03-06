@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { AuthActions } from './auth.actions';
 import { initialState } from './auth.state';
+import { mapAuthServerError } from '../auth.helpers';
 
 
 export const authReducer = createReducer(
@@ -16,7 +17,7 @@ export const authReducer = createReducer(
 
   on(AuthActions.loadUserFailure, (state, action) => ({
     ...state,
-    serverError : action.message
+    serverError : mapAuthServerError(action.code)
   })),
 
   on(AuthActions.sendEmailLinkSuccess, (state, action) => ({
