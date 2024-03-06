@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from "@angular/common";
+import { CommonModule, NgOptimizedImage, TitleCasePipe } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -22,6 +22,8 @@ import { MatInputModule } from "@angular/material/input";
 import { DomSanitizer } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { DividerHeaderComponent } from "src/app/components/divider-header/divider-header.component";
+import { FormInputComponent } from "src/app/components/form-input/form-input.component";
+
 import {
   EmailAndPasswordSignIn,
   SignInEvent,
@@ -47,7 +49,9 @@ interface LoginForm {
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    TitleCasePipe,
     DividerHeaderComponent,
+    FormInputComponent,
   ],
   templateUrl: "./login-form.component.html",
   styleUrls: ["./login-form.component.scss"],

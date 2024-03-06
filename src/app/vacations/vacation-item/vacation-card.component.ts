@@ -1,9 +1,20 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, WritableSignal, signal } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { ButtonSelectedChangedEvent, VacationCardButtonComponent } from '../vacation-item-button/vacation-card-button.component';
-import { DateTimestampPipe } from 'src/app/utilities/date.pipe';
-import { Places } from '../store/vacation.model';
+import { CommonModule, NgOptimizedImage } from "@angular/common";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  WritableSignal,
+  signal,
+} from "@angular/core";
+import { MatCardModule } from "@angular/material/card";
+import { DateTimestampPipe } from "src/app/utilities/pipes/date.pipe";
+import { Places } from "../store/vacation.model";
+import {
+  ButtonSelectedChangedEvent,
+  VacationCardButtonComponent,
+} from "../vacation-item-button/vacation-card-button.component";
 
 export interface PlacesSelectedChangedEvent {
   /** The source button of the event. */
@@ -12,16 +23,21 @@ export interface PlacesSelectedChangedEvent {
   selected: boolean;
 }
 @Component({
-  selector: 'to-places-card',
+  selector: "to-places-card",
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage,  DateTimestampPipe, MatCardModule, VacationCardButtonComponent],
-  templateUrl: './vacation-card.component.html',
-  styleUrls: ['./vacation-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [
+    CommonModule,
+    NgOptimizedImage,
+    DateTimestampPipe,
+    MatCardModule,
+    VacationCardButtonComponent,
+  ],
+  templateUrl: "./vacation-card.component.html",
+  styleUrls: ["./vacation-card.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlacesCardComponent {
-
-  @Input({ required: true }) vacation!: Places
+  @Input({ required: true }) vacation!: Places;
 
   protected readonly isSelected: WritableSignal<boolean>;
 
@@ -31,27 +47,24 @@ export class PlacesCardComponent {
 
   @Input()
   set selected(value: boolean) {
-    this.isSelected.set(value)
+    this.isSelected.set(value);
   }
 
-  @Output() readonly selectedChanged: EventEmitter<PlacesSelectedChangedEvent> = new EventEmitter();
+  @Output() readonly selectedChanged: EventEmitter<PlacesSelectedChangedEvent> =
+    new EventEmitter();
 
   protected onSelectedChanged(value: ButtonSelectedChangedEvent): void {
-    const event = this._createChangeEvent(value)
-    this.selectedChanged.emit(event)
+    const event = this._createChangeEvent(value);
+    this.selectedChanged.emit(event);
   }
 
-  private _createChangeEvent(value: ButtonSelectedChangedEvent): PlacesSelectedChangedEvent {
+  private _createChangeEvent(
+    value: ButtonSelectedChangedEvent
+  ): PlacesSelectedChangedEvent {
     const event: PlacesSelectedChangedEvent = {
-      selected : value.selected,
+      selected: value.selected,
       source: this,
     };
     return event;
   }
-
-
-
-
 }
-
-

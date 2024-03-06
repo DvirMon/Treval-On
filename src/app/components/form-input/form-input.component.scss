@@ -1,0 +1,8 @@
+mat-form-field {
+  width: 100%;
+  display: inline-block;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}

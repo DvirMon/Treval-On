@@ -32,6 +32,7 @@ form {
   display: flex;
   flex-direction: column;
   padding: main.spacing(2) 0;
+  gap: main.spacing(3);
 
   mat-form-field {
     width: 100%;

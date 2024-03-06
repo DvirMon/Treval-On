@@ -1,0 +1,17 @@
+<mat-form-field class="full-width">
+  <mat-label>{{ label() }}</mat-label>
+  <input
+    #input
+    matInput
+    [type]="type() || 'text'"
+    [formControl]="formControl"
+    autocomplete="off"
+    [name]="key()" />
+
+  @if (hint()) {
+
+  <mat-hint> {{ "Please enter your " + hint() }}</mat-hint>
+  } @if (hasError()) {
+  <mat-error>{{ errorMessage() }}</mat-error>
+  }
+</mat-form-field>

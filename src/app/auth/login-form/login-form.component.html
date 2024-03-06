@@ -32,16 +32,18 @@
     <form
       [formGroup]="loginFormGroup"
       (ngSubmit)="onSubmit(loginFormGroup.value)">
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input autocomplete="off" formControlName="email" matInput />
-      </mat-form-field>
+      <to-form-input
+        [control]="loginFormGroup.get('email')"
+        key="email"
+        [label]="'email' | titlecase">
+      </to-form-input>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Password</mat-label>
-        <input autocomplete="off" formControlName="password" matInput />
-      </mat-form-field>
-
+      <to-form-input
+        [control]="loginFormGroup.get('password')"
+        key="password"
+        [label]="'password' | titlecase">
+      </to-form-input>
+      
       <button
         class="login-btn"
         mat-raised-button
