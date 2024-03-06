@@ -15,12 +15,14 @@
         (emailLink)="onEmailLinkSignIn($event)"
         (forget)="onForgetPassword($event)">
       </to-login-form>
+      
       <ng-container class="back" *ngIf="optFlag()">
         <to-login-otp-form
           (otpSignIn)="onSignIn($event)"
           (signInWithEmailAndPassword)="onEmailAndPassword()">
         </to-login-otp-form>
       </ng-container>
+
       <ng-container class="back" *ngIf="!optFlag()">
         <to-email-link-form
           (emailLinkSignIn)="onEmailLink($event)"></to-email-link-form>

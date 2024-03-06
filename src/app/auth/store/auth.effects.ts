@@ -80,6 +80,15 @@ export class AuthEffects {
     )
   );
 
+  resetPassword$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.resetPassword),
+        tap(({ email }) => this.authService.resetPassword(email))
+      ),
+    { dispatch: false }
+  );
+
   emailLnkDialog$ = createEffect(
     () =>
       this.actions$.pipe(

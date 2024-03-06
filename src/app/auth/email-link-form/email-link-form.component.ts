@@ -25,6 +25,7 @@ import { DividerHeaderComponent } from "src/app/components/divider-header/divide
 import { FlipCardService } from "src/app/components/flip-card/flip-card.service";
 import { InfoCardComponent } from "src/app/components/info-card/info-card.component";
 import { SignInEvent, SignInMethod } from "../store/auth.model";
+import { FormInputComponent } from "src/app/components/form-input/form-input.component";
 
 @Component({
   selector: "to-email-link-form",
@@ -42,6 +43,7 @@ import { SignInEvent, SignInMethod } from "../store/auth.model";
     DividerHeaderComponent,
     MatIconModule,
     InfoCardComponent,
+    FormInputComponent
   ],
   templateUrl: "./email-link-form.component.html",
   styleUrls: ["./email-link-form.component.scss"],

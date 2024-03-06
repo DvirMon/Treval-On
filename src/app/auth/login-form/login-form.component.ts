@@ -124,7 +124,7 @@ export class LoginFormComponent {
   }
 
   public onForgetPassword() {
-    this.forget.emit("");
+    this.forget.emit("dmenajem@gmail.com");
   }
 
   private _createSignInEvent(

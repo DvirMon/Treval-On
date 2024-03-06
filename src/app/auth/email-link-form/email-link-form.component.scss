@@ -6,6 +6,9 @@ mat-card-header {
 
 div.login-form-wrapper {
   padding: 0 main.spacing(2);
+  display: flex;
+  flex-direction: column;
+  gap: main.spacing(1);
 }
 
 section.divider {
@@ -57,6 +60,7 @@ form {
   display: flex;
   flex-direction: column;
   padding: main.spacing(2) 0;
+  gap: main.spacing(3);
 
   mat-form-field {
     width: 100%;

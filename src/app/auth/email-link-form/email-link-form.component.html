@@ -26,11 +26,12 @@
         <to-info-card text="Enter Your Email Address"></to-info-card>
       </header>
       <form>
-        <mat-form-field appearance="fill">
-          <mat-label>Emil Address</mat-label>
-          <input matInput [formControl]="formControl" />
-          <mat-error>Text</mat-error>
-        </mat-form-field>
+        <to-form-input
+          [control]="formControl"
+          key="email"
+          [label]="'email' | titlecase">
+        </to-form-input>
+
         <button
           mat-raised-button
           color="primary"
@@ -43,36 +44,3 @@
     </section>
   </div>
 </mat-card-content>
-
-<!-- <div class="email-link-form-wrapper">
-  <header class="header">
-    <to-info-card text="Enter Your Email Address"></to-info-card>
-  </header>
-  <main class="content" role="main">
-    <mat-form-field appearance="fill">
-      <mat-label>Emil Address</mat-label>
-      <input matInput [formControl]="formControl" />
-      <mat-error>Text</mat-error>
-    </mat-form-field>
-    <button
-      mat-raised-button
-      color="primary"
-      type="submit"
-      [disableRipple]="true"
-      (click)="onSubmit(formControl.value)"
-    >
-      Sign-In with Email Link
-    </button>
-  </main>
-  <footer class="footer">
-    <button
-      mat-raised-button
-      color="accent"
-      type="submit"
-      [disableRipple]="true"
-      (click)="onEmailAndPasswordSighIn()"
-    >
-      Sign-In with Email and Password
-    </button>
-  </footer>
-</div> -->

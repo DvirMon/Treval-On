@@ -138,4 +138,8 @@ export class AuthService {
   public isSignInWithEmailLink(emailLink: string): Observable<boolean> {
     return this.fireAuthService.isSignInWithEmailLink$(emailLink);
   }
+
+  public resetPassword(email: string): Observable<void> {
+    return this.fireAuthService.sendPasswordResetEmail(email);
+  }
 }

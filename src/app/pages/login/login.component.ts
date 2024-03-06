@@ -52,7 +52,7 @@ export class LoginPageComponent {
   public readonly serverError: Signal<ServerError | null>;
 
   constructor() {
-    this.optFlag = signal(true);
+    this.optFlag = signal(false);
     this.#authStore.loadUser();
     this.serverError = this.#authStore.loginServerError();
   }
