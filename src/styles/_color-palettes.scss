@@ -1,20 +1,20 @@
 // _color-palettes.scss
 
 $plt-primary: (
-  50: #fff8e1,
-  100: #ffecb5,
-  200: #ffe083,
-  300: #ffd451,
-  400: #ffca2c,
-  500: #ffc107,
-  600: #ffbb06,
-  700: #ffb305,
-  800: #ffab04,
-  900: #ff9e02,
+  50: #ffeef4,
+  100: #ffd6e3,
+  200: #ffbad0,
+  300: #ff9ebd,
+  400: #ff8aae,
+  500: #ff75a0,
+  600: #ff6d98,
+  700: #ff628e,
+  800: #ff5884,
+  900: #ff4573,
   A100: #ffffff,
-  A200: #fffaf2,
-  A400: #ffe4bf,
-  A700: #ffd9a6,
+  A200: #ffffff,
+  A400: #ffecf1,
+  A700: #ffd3dd,
   contrast: (
     50: #000000,
     100: #000000,
@@ -34,20 +34,20 @@ $plt-primary: (
 );
 
 $plt-accent: (
-  50: #ffebe4,
-  100: #ffcdbd,
-  200: #ffab91,
-  300: #ff8964,
-  400: #ff7043,
-  500: #ff5722,
-  600: #ff4f1e,
-  700: #ff4619,
-  800: #ff3c14,
-  900: #ff2c0c,
-  A100: #ffffff,
-  A200: #fff7f6,
-  A400: #ffc9c3,
-  A700: #ffb2a9,
+  50: #f5f1f2,
+  100: #e6dbdd,
+  200: #d5c4c7,
+  300: #c4acb1,
+  400: #b79aa0,
+  500: #aa888f,
+  600: #a38087,
+  700: #99757c,
+  800: #906b72,
+  900: #7f5860,
+  A100: #ffeaee,
+  A200: #ffb7c5,
+  A400: #ff849c,
+  A700: #ff6a87,
   contrast: (
     50: #000000,
     100: #000000,
@@ -55,8 +55,8 @@ $plt-accent: (
     300: #000000,
     400: #000000,
     500: #000000,
-    600: #ffffff,
-    700: #ffffff,
+    600: #000000,
+    700: #000000,
     800: #ffffff,
     900: #ffffff,
     A100: #000000,
@@ -76,5 +76,3 @@ $plt-accent: (
 @function accent-palette() {
   @return $plt-accent;
 }
-
-

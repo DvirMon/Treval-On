@@ -9,18 +9,18 @@ import {
   signal,
 } from "@angular/core";
 
-import { LoginFormComponent } from "src/app/auth/login-form/login-form.component";
-import { FloatingButtonComponent } from "src/app/components/floating-button/floating-button.component";
-import { FlipCardComponent } from "src/app/components/flip-card/flip-card.component";
-import { LoginOtpFormComponent } from "src/app/auth/login-otp-form/login-otp-form.component";
 import { EmailLinkFormComponent } from "src/app/auth/email-link-form/email-link-form.component";
+import { LoginFormComponent } from "src/app/auth/login-form/login-form.component";
+import { LoginOtpFormComponent } from "src/app/auth/login-otp-form/login-otp-form.component";
+import { FlipCardComponent } from "src/app/components/flip-card/flip-card.component";
+import { FloatingButtonComponent } from "src/app/components/floating-button/floating-button.component";
 
-import { AuthStore } from "src/app/auth/store/auth.store.service";
-import { SignInEvent, SignInMethod } from "src/app/auth/store/auth.model";
-import { FlipCardService } from "src/app/components/flip-card/flip-card.service";
 import { getMessaging, getToken } from "firebase/messaging";
+import { Observable, from, of } from "rxjs";
+import { SignInEvent, SignInMethod } from "src/app/auth/store/auth.model";
+import { AuthStore } from "src/app/auth/store/auth.store.service";
+import { FlipCardService } from "src/app/components/flip-card/flip-card.service";
 import { environment } from "src/environments/environment";
-import { Observable, catchError, from, of, throwError } from "rxjs";
 
 @Component({
   selector: "to-login-page",

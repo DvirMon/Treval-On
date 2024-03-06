@@ -46,13 +46,15 @@ interface RegisterForm {
 export class RegisterFormComponent {
   protected readonly registerFormGroup: FormGroup<RegisterForm>;
 
+  public formKeys: string[] = [];
+
   @Output() register: EventEmitter<EmailAndPasswordSignIn> = new EventEmitter();
 
   constructor() {
     this.registerFormGroup = this._buildRegisterForm();
   }
 
- private _buildRegisterForm(): FormGroup<RegisterForm> {
+  private _buildRegisterForm(): FormGroup<RegisterForm> {
     return inject(NonNullableFormBuilder).group(
       {
         email: [

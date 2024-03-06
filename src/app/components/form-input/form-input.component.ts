@@ -5,7 +5,6 @@ import {
   Injector,
   OnInit,
   Signal,
-  ViewChild,
   inject,
   input,
   runInInjectionContext,
@@ -18,9 +17,9 @@ import {
   ValidationErrors,
 } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInput, MatInputModule } from "@angular/material/input";
+import { MatInputModule } from "@angular/material/input";
 import { Observable, map, startWith } from "rxjs";
-import { FormErrorType } from "./errors.helper";
+import { FormErrorType } from "./form.helper";
 
 @Component({
   selector: "to-form-input",
@@ -38,8 +37,6 @@ import { FormErrorType } from "./errors.helper";
 export class FormInputComponent implements OnInit {
   private readonly _injector: Injector = inject(Injector);
 
-  @ViewChild(MatInput) input!: HTMLInputElement;
-
   control = input.required<AbstractControl<unknown, unknown> | null>();
   key = input.required<string>();
   type = input<string>();
@@ -52,11 +49,12 @@ export class FormInputComponent implements OnInit {
 
   ngOnInit(): void {
     this.formControl = this.control() as FormControl;
+
     this.errorMessage = this.setErrorMessageSignal(
       this.formControl,
       this.key()
     );
-    this.hasError = this.setHastErrorSignal();
+    this.hasError = this.setHasErrorSignal();
   }
 
   setErrorMessageSignal(formControl: FormControl, key: string): Signal<string> {
@@ -76,7 +74,7 @@ export class FormInputComponent implements OnInit {
     );
   }
 
-  setHastErrorSignal(): Signal<boolean> {
+  setHasErrorSignal(): Signal<boolean> {
     return runInInjectionContext(this._injector, () =>
       toSignal(this.setHasErrorObservable(this.formControl), {
         initialValue: false,
@@ -101,7 +99,9 @@ export class FormInputComponent implements OnInit {
       return `${key} is required`;
     }
 
-    if (control.hasError(FormErrorType.Pattern)) {
+    console.log(control.errors);
+
+    if (control.hasError(FormErrorType.EmailPattern)) {
       return `invalid ${key} format`;
     }
 
