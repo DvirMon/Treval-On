@@ -19,7 +19,7 @@
             "src/styles"
           ]
         },
-        "outputPath": "dist/client",
+        "outputPath": "public/client",
         "index": "src/index.html",
         "main": "src/main.ts",
         "polyfills": [

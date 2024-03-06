@@ -1,9 +1,9 @@
 <div class="login-wrapper">
-  <div class="login-card">
-
-  </div>
+  <div class="login-card"></div>
   <div class="login-form">
-  <to-floating-button [label]="'Register'" [navigation]="'register'"></to-floating-button>
+    <to-floating-button
+      [label]="'Register'"
+      [routerLink]="'register'"></to-floating-button>
 
     <to-flip-card>
       <to-login-form
@@ -11,20 +11,17 @@
         (googleSignIn)="onSignIn($event)"
         (otpSignIn)="onOtpSignIn($event)"
         (emailLinkSignIn)="onEmailLinkSignIn($event)"
-        class="front"
-      >
+        class="front">
       </to-login-form>
       <ng-container class="back" *ngIf="optFlag()">
         <to-login-otp-form
           (otpSignIn)="onSignIn($event)"
-          (signInWithEmailAndPassword)="onEmailAndPassword()"
-        >
+          (signInWithEmailAndPassword)="onEmailAndPassword()">
         </to-login-otp-form>
       </ng-container>
       <ng-container class="back" *ngIf="!optFlag()">
         <to-email-link-form
-          (emailLinkSignIn)="onEmailLink($event)"
-        ></to-email-link-form>
+          (emailLinkSignIn)="onEmailLink($event)"></to-email-link-form>
       </ng-container>
     </to-flip-card>
   </div>
