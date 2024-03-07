@@ -1,8 +1,13 @@
 @use "variables" as main;
 
+div.register-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: main.spacing(2);
+}
+
 mat-card {
   padding: main.spacing(2);
-  height: 100%;
 
   mat-card-content {
     display: flex;

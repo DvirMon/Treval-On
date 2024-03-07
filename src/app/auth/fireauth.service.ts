@@ -14,6 +14,8 @@ import {
   ActionCodeSettings,
   isSignInWithEmailLink,
   sendPasswordResetEmail,
+  verifyPasswordResetCode,
+  confirmPasswordReset
 } from "@angular/fire/auth";
 import { generateVerificationLink } from "./auth.helpers";
 import { Observable, from, map, of } from "rxjs";

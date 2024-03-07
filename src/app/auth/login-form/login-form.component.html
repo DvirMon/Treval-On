@@ -9,26 +9,6 @@
 <mat-card-content>
   <to-divider-header label="Sign In"></to-divider-header>
   <div class="login-form-wrapper">
-    <section class="social-login-wrapper">
-      <button
-        mat-raised-button
-        [disableRipple]="true"
-        color="accent"
-        (click)="onEmailLinkSignIn()">
-        Sign in with Email Link
-      </button>
-      <button
-        mat-stroked-button
-        class="google-btn"
-        [disableRipple]="true"
-        (click)="oGoogleSignIn()">
-        <mat-icon svgIcon="google" class="google-icon"></mat-icon>
-        Continue with Google
-      </button>
-    </section>
-
-    <to-divider-header label="or"></to-divider-header>
-
     <form
       [formGroup]="loginFormGroup"
       (ngSubmit)="onSubmit(loginFormGroup.value)">
@@ -54,14 +34,36 @@
       </button>
     </form>
 
-    <section class="forget-btn">
+    <to-divider-header label="or"></to-divider-header>
+
+    <section class="social-login-wrapper">
       <button
+        mat-stroked-button
+        class="google-btn"
         [disableRipple]="true"
-        mat-button
-        type="button"
-        (click)="onForgetPassword()">
-        Forget your password ?
+        (click)="oGoogleSignIn()">
+        <mat-icon svgIcon="google" class="google-icon"></mat-icon>
+        Continue with Google
       </button>
+      <!-- <button
+        mat-raised-button
+        [disableRipple]="true"
+        color="accent"
+        (click)="onEmailLinkSignIn()">
+        Sign in with Email Link
+      </button> -->
+
+      <section class="forget-btn">
+        <button
+          [disableRipple]="true"
+          mat-button
+          type="button"
+          (click)="onForgetPassword()">
+          Forget your password ?
+        </button>
+      </section>
+
+
     </section>
   </div>
 </mat-card-content>

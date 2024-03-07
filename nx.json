@@ -42,5 +42,10 @@
       "!{projectRoot}/.eslintrc.json",
       "!{projectRoot}/eslint.config.js"
     ]
+  },
+  "generators": {
+    "@nx/angular:component": {
+      "style": "scss"
+    }
   }
 }

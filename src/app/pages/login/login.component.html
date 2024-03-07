@@ -1,11 +1,11 @@
 <div class="login-wrapper">
-  <div class="login-card"></div>
-  <div class="login-form">
-    <to-floating-button
+  <div class="login-info-card"></div>
+  <div class="login-form-card">
+    <!-- <to-floating-button
       [label]="'Register'"
-      [routerLink]="'register'"></to-floating-button>
+      [routerLink]="'register'"></to-floating-button> -->
 
-    <to-flip-card>
+    <to-flip-card [height]="540">
       <to-login-form
         class="front"
         [serverError]="serverError()"
@@ -13,9 +13,9 @@
         (google)="onSignIn($event)"
         (otp)="onOtpSignIn($event)"
         (emailLink)="onEmailLinkSignIn($event)"
-        (forget)="onForgetPassword($event)">
+        (forget)="onForgetPassword()">
       </to-login-form>
-      
+
       <ng-container class="back" *ngIf="optFlag()">
         <to-login-otp-form
           (otpSignIn)="onSignIn($event)"
@@ -27,6 +27,9 @@
         <to-email-link-form
           (emailLinkSignIn)="onEmailLink($event)"></to-email-link-form>
       </ng-container>
+    </to-flip-card>
+    <to-flip-card [height]="100">
+      <to-register-card class="front"> </to-register-card>
     </to-flip-card>
   </div>
 </div>

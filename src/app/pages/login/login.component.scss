@@ -5,13 +5,6 @@
     height: 100%;
   }
 
-  div.login-card {
-    pre {
-      font-size: main.spacing(3);
-      color: white;
-    }
-  }
-
   div.login-wrapper {
     background-image: url("../../../assets/images/backgrounds/login.jpeg");
     background-repeat: no-repeat;
@@ -20,10 +13,12 @@
     display: grid;
     grid-template-columns: 1fr 0.6fr;
 
-    div.login-form {
+    div.login-form-card {
       justify-content: center;
       display: flex;
+      flex-direction: column;
       align-items: center;
+      gap: main.spacing(2);
       background-color: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(10px);
     }

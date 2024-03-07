@@ -39,12 +39,12 @@ form {
   }
 }
 
-section.forget-btn {
+section {
   width: 100%;
   display: flex;
   justify-content: center;
 
-  button {
+  &.forget-btn button {
     text-decoration: underline;
   }
 }

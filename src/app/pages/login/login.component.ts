@@ -16,8 +16,6 @@ import { LoginOtpFormComponent } from "src/app/auth/login-otp-form/login-otp-for
 import { FlipCardComponent } from "src/app/components/flip-card/flip-card.component";
 import { FloatingButtonComponent } from "src/app/components/floating-button/floating-button.component";
 
-import { getMessaging, getToken } from "firebase/messaging";
-import { Observable, from, of } from "rxjs";
 import {
   ServerError,
   SignInEvent,
@@ -25,18 +23,21 @@ import {
 } from "src/app/auth/store/auth.model";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
 import { FlipCardService } from "src/app/components/flip-card/flip-card.service";
-import { environment } from "src/environments/environment";
+import { MatButtonModule } from "@angular/material/button";
+import { RegisterCardComponent } from "src/app/auth/register-card/register-card.component";
 
 @Component({
   selector: "to-login-page",
   standalone: true,
   imports: [
     CommonModule,
+    MatButtonModule,
     FloatingButtonComponent,
     FlipCardComponent,
     LoginFormComponent,
     LoginOtpFormComponent,
     EmailLinkFormComponent,
+    RegisterCardComponent,
   ],
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
@@ -82,8 +83,8 @@ export class LoginPageComponent {
     this.#authStore.sendEmailLink(data as string);
   }
 
-  public onForgetPassword(event: string) {
-    this.#authStore.resetPassword(event);
+  public onForgetPassword() {
+    // this.#authStore.resetPassword(event);
   }
 
   private _flipCard() {

@@ -23,6 +23,7 @@ import { DividerHeaderComponent } from "src/app/components/divider-header/divide
 import { FormInputComponent } from "src/app/components/form-input/form-input.component";
 import { getFormKeys } from "src/app/components/form-input/form.helper";
 import { EmailAndPasswordSignIn } from "../store/auth.model";
+import { RouterModule } from "@angular/router";
 
 interface RegisterForm {
   email: FormControl<string>;
@@ -36,6 +37,7 @@ interface RegisterForm {
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,

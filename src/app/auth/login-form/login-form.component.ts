@@ -69,7 +69,7 @@ export class LoginFormComponent {
   @Output() google: EventEmitter<SignInEvent> = new EventEmitter();
   @Output() otp: EventEmitter<SignInEvent> = new EventEmitter();
   @Output() emailLink: EventEmitter<SignInEvent> = new EventEmitter();
-  @Output() forget: EventEmitter<string> = new EventEmitter();
+  @Output() forget: EventEmitter<void> = new EventEmitter();
 
   constructor() {
     this._setGoogleIcon();
@@ -124,7 +124,7 @@ export class LoginFormComponent {
   }
 
   public onForgetPassword() {
-    this.forget.emit("dmenajem@gmail.com");
+    this.forget.emit();
   }
 
   private _createSignInEvent(
