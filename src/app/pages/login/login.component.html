@@ -1,10 +1,10 @@
-<div class="login-wrapper">
-  <div class="login-form-card">
+<div class="login-page-wrapper">
+  <div class="login-wrapper">
     <!-- <to-floating-button
       [label]="'Register'"
       [routerLink]="'register'"></to-floating-button> -->
 
-    <to-flip-card [height]="540">
+    <to-flip-container>
       <to-login-form
         class="front"
         [serverError]="serverError()"
@@ -16,20 +16,23 @@
       </to-login-form>
 
       <ng-container class="back" *ngIf="optFlag()">
-        <to-login-otp-form
+        <to-otp-login-form
           (otpSignIn)="onSignIn($event)"
           (signInWithEmailAndPassword)="onEmailAndPassword()">
-        </to-login-otp-form>
+        </to-otp-login-form>
       </ng-container>
 
       <ng-container class="back" *ngIf="!optFlag()">
         <to-email-link-form
           (emailLinkSignIn)="onEmailLink($event)"></to-email-link-form>
       </ng-container>
-    </to-flip-card>
-    <to-flip-card [height]="100">
-      <to-register-card class="front"> </to-register-card>
-    </to-flip-card>
+    </to-flip-container>
+
+    <to-auth-action
+      class="front"
+      [routerLink]="'/register'"
+      label="Don't have an account?"
+      boldLabel="Sign up"></to-auth-action>
   </div>
   <div class="login-info-card"></div>
 </div>

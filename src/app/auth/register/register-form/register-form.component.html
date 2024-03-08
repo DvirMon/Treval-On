@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-content>
+    <to-divider-header label="Register"></to-divider-header>
+    <form
+      [formGroup]="registerFormGroup"
+      (ngSubmit)="onSubmit(registerFormGroup.value)">
+      @for (key of formKeys; track key) {
+
+      <to-form-input
+        [control]="registerFormGroup.get(key)"
+        [key]="key"
+        [label]="key | titlecase"
+        [errorsMap]="errorsMap[key]">
+      </to-form-input>
+      }
+
+      <button
+        class="login-btn"
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="!registerFormGroup.valid">
+        Register
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

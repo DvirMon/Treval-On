@@ -1,8 +1,5 @@
 import { Injectable } from "@angular/core";
-import {
-  ConfirmationResult,
-  UserCredential
-} from "@angular/fire/auth";
+import { ConfirmationResult, UserCredential } from "@angular/fire/auth";
 import {
   CollectionReference,
   Firestore,
@@ -11,7 +8,7 @@ import {
   collection,
   getDocs,
   query,
-  where
+  where,
 } from "@angular/fire/firestore";
 import { Observable, from, map, of, switchMap } from "rxjs";
 import { mapQuerySnapshotDoc } from "../utilities/helpers";

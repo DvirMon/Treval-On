@@ -1,8 +1,9 @@
-@use "variables" as main;
-
 :host {
-  div.register-page-wrapper {
+  div {
     height: 100%;
+  }
+
+  div.reset-wrapper {
     background-image: url("../../../assets/images/backgrounds/register.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -10,13 +11,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
 
-  div.register-wrapper {
-    width: 20%;
-    height: 40%;
-    display: flex;
-    flex-direction: column;
-    gap: main.spacing(2);
+    section 
+    {
+      width: 20%;
+      height: 40%;
+    }
   }
 }
+

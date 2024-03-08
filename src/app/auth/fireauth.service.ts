@@ -13,7 +13,7 @@ import {
   signInWithEmailAndPassword,
   signInWithEmailLink,
   signInWithPhoneNumber,
-  signInWithPopup
+  signInWithPopup,
 } from "@angular/fire/auth";
 import { Observable, from, map, of } from "rxjs";
 import { generateVerificationLink } from "./auth.helpers";

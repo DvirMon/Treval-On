@@ -1,0 +1,16 @@
+
+<div
+
+  [@flip]="isFlipped() ? 'back' : 'front'"
+  (click)="onClick()"
+  (keyup)="handleKeyUp($event)"
+  tabindex="0">
+  <div class="card-inner">
+    <div class="card-front">
+      <ng-content select=".front"></ng-content>
+    </div>
+    <div class="card-back">
+      <ng-content select=".back"></ng-content>
+    </div>
+  </div>
+</div>

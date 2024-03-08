@@ -10,21 +10,23 @@ import {
   signal,
 } from "@angular/core";
 
-import { EmailLinkFormComponent } from "src/app/auth/email-link-form/email-link-form.component";
-import { LoginFormComponent } from "src/app/auth/login-form/login-form.component";
-import { LoginOtpFormComponent } from "src/app/auth/login-otp-form/login-otp-form.component";
-import { FlipCardComponent } from "src/app/components/flip-card/flip-card.component";
+import { EmailLinkFormComponent } from "src/app/auth/email-link/email-link-form/email-link-form.component";
+import { LoginFormComponent } from "src/app/auth/login/login-form/login-form.component";
+import { FlipCardComponent } from "src/app/components/flip-container/flip-container.component";
 import { FloatingButtonComponent } from "src/app/components/floating-button/floating-button.component";
 
+import { MatButtonModule } from "@angular/material/button";
+import { Router } from "@angular/router";
+import { LoginCardComponent } from "src/app/auth/login/login-card/login-card.component";
+import { OtpLoginFormComponent } from "src/app/auth/otp/otp-login-form/otp-login-form.component";
+import { AuthActionComponent } from "src/app/auth/auth-action/auth-action.component";
 import {
   ServerError,
   SignInEvent,
   SignInMethod,
 } from "src/app/auth/store/auth.model";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
-import { FlipCardService } from "src/app/components/flip-card/flip-card.service";
-import { MatButtonModule } from "@angular/material/button";
-import { RegisterCardComponent } from "src/app/auth/register-card/register-card.component";
+import { FlipContainerService } from "src/app/components/flip-container/flip-container.service";
 
 @Component({
   selector: "to-login-page",
@@ -35,14 +37,15 @@ import { RegisterCardComponent } from "src/app/auth/register-card/register-card.
     FloatingButtonComponent,
     FlipCardComponent,
     LoginFormComponent,
-    LoginOtpFormComponent,
+    OtpLoginFormComponent,
     EmailLinkFormComponent,
-    RegisterCardComponent,
+    LoginCardComponent,
+    AuthActionComponent,
   ],
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [FlipCardService],
+  providers: [FlipContainerService],
 })
 export class LoginPageComponent {
   private readonly injector = inject(Injector);
@@ -84,12 +87,14 @@ export class LoginPageComponent {
   }
 
   public onForgetPassword() {
-    // this.#authStore.resetPassword(event);
+    runInInjectionContext(this.injector, () => {
+      inject(Router).navigateByUrl("reset");
+    });
   }
 
   private _flipCard() {
     runInInjectionContext(this.injector, () => {
-      inject(FlipCardService).flip();
+      inject(FlipContainerService).flip();
     });
   }
 
