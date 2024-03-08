@@ -5,15 +5,15 @@
     height: 100%;
   }
 
-  div.login-wrapper {
+  div.login-page-wrapper {
     background-image: url("../../../assets/images/backgrounds/login.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
 
     display: grid;
-    grid-template-columns: 0.7fr 1fr ;
+    grid-template-columns: 0.7fr 1fr;
 
-    div.login-form-card {
+    div.login-wrapper {
       justify-content: center;
       display: flex;
       flex-direction: column;
@@ -21,6 +21,15 @@
       gap: main.spacing(2);
       background-color: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(10px);
+
+      to-flip-container {
+        width: 400px;
+        height: 550px;
+      }
+
+      to-auth-action {
+        width: 400px;
+      }
     }
   }
 }

@@ -12,15 +12,15 @@ import {
   Output,
   Signal,
   inject,
-  input
+  input,
 } from "@angular/core";
-import { FlipCardService } from "./flip-card.service";
+import { FlipContainerService } from "./flip-container.service";
 
 @Component({
-  selector: "to-flip-card",
+  selector: "to-flip-container",
   standalone: true,
-  templateUrl: "./flip-card.component.html",
-  styleUrls: ["./flip-card.component.scss"],
+  templateUrl: "./flip-container.component.html",
+  styleUrls: ["./flip-container.component.scss"],
   animations: [
     trigger("flip", [
       state(
@@ -41,14 +41,11 @@ import { FlipCardService } from "./flip-card.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlipCardComponent {
-  width = input<number>();
-  height = input<number>();
-
   @Output() flip: EventEmitter<void> = new EventEmitter();
 
   public readonly isFlipped: Signal<boolean>;
   constructor() {
-    this.isFlipped = inject(FlipCardService).getFipState();
+    this.isFlipped = inject(FlipContainerService).getFlipState();
   }
 
   public onClick() {
@@ -56,6 +53,6 @@ export class FlipCardComponent {
   }
 
   handleKeyUp(event: KeyboardEvent): KeyboardEvent {
-    return event
+    return event;
   }
 }

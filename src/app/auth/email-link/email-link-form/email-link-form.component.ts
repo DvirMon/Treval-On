@@ -22,7 +22,6 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatTabsModule } from "@angular/material/tabs";
 import { DividerHeaderComponent } from "src/app/components/divider-header/divider-header.component";
-import { FlipCardService } from "src/app/components/flip-container/flip-card.service";
 import { FormInputComponent } from "src/app/components/form-input/form-input.component";
 import { InfoCardComponent } from "src/app/components/info-card/info-card.component";
 import { SignInEvent, SignInMethod } from "../../store/auth.model";
@@ -72,8 +71,6 @@ export class EmailLinkFormComponent {
   }
 
   public onEmailAndPasswordSighIn(): void {
-    runInInjectionContext(this.injector, () => {
-      inject(FlipCardService).flip();
-    });
+
   }
 }

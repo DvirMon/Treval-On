@@ -12,7 +12,7 @@ import {
 
 import { EmailLinkFormComponent } from "src/app/auth/email-link/email-link-form/email-link-form.component";
 import { LoginFormComponent } from "src/app/auth/login/login-form/login-form.component";
-import { FlipCardComponent } from "src/app/components/flip-container/flip-card.component";
+import { FlipCardComponent } from "src/app/components/flip-container/flip-container.component";
 import { FloatingButtonComponent } from "src/app/components/floating-button/floating-button.component";
 
 import { MatButtonModule } from "@angular/material/button";
@@ -26,7 +26,7 @@ import {
   SignInMethod,
 } from "src/app/auth/store/auth.model";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
-import { FlipCardService } from "src/app/components/flip-container/flip-card.service";
+import { FlipContainerService } from "src/app/components/flip-container/flip-container.service";
 
 @Component({
   selector: "to-login-page",
@@ -45,7 +45,7 @@ import { FlipCardService } from "src/app/components/flip-container/flip-card.ser
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [FlipCardService],
+  providers: [FlipContainerService],
 })
 export class LoginPageComponent {
   private readonly injector = inject(Injector);
@@ -94,7 +94,7 @@ export class LoginPageComponent {
 
   private _flipCard() {
     runInInjectionContext(this.injector, () => {
-      inject(FlipCardService).flip();
+      inject(FlipContainerService).flip();
     });
   }
 

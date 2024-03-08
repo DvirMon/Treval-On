@@ -1,3 +1,4 @@
+import { CommonModule } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,9 +6,7 @@ import {
   inject,
   runInInjectionContext,
 } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
-import { FlipCardService } from "src/app/components/flip-container/flip-card.service";
 
 @Component({
   selector: "to-otp-form-template",
@@ -21,8 +20,6 @@ export class OtpFormTemplateComponent {
   private readonly injector = inject(Injector);
 
   protected onEmailAndPasswordSighIn(): void {
-    runInInjectionContext(this.injector, () => {
-      inject(FlipCardService).flip();
-    });
+
   }
 }

@@ -1,7 +1,6 @@
 
 <div
-  [style.width.px]="width() || 400"
-  [style.height.px]="height() || 600"
+
   [@flip]="isFlipped() ? 'back' : 'front'"
   (click)="onClick()"
   (keyup)="handleKeyUp($event)"
