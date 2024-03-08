@@ -83,8 +83,8 @@ export class AuthEffects {
   resetPassword$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AuthActions.resetPassword),
-        tap(({ email }) => this.authService.resetPassword(email))
+        ofType(AuthActions.sendResetEmail),
+        tap(({ email }) => this.authService.sendResetEmail(email))
       ),
     { dispatch: false }
   );

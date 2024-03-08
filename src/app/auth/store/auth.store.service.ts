@@ -68,8 +68,8 @@ export class AuthStore {
     this.store.dispatch(action);
   }
 
-  public resetPassword(email: string) {
-    const action = AuthActions.resetPassword({ email });
+  public sendResetEmail(email: string) {
+    const action = AuthActions.sendResetEmail({ email });
     this.store.dispatch(action);
   }
 
