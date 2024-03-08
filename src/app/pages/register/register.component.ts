@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { AuthActionComponent } from "src/app/auth/auth-action/auth-action.component";
-import { RegisterFormComponent } from "src/app/auth/register/register-form/register-form.component";
 import { EmailAndPasswordSignIn } from "src/app/auth/auth.model";
+import { RegisterFormComponent } from "src/app/auth/register-form/register-form.component";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
 
 @Component({

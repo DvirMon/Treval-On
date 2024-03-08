@@ -31,7 +31,7 @@ import {
   EmailAndPasswordSignIn,
   SignInEvent,
   SignInMethod,
-} from "../../auth.model";
+} from "../auth.model";
 
 interface LoginForm {
   email: FormControl<string>;

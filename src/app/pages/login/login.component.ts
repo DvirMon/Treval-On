@@ -11,7 +11,7 @@ import {
 } from "@angular/core";
 
 import { EmailLinkFormComponent } from "src/app/auth/email-link/email-link-form/email-link-form.component";
-import { LoginFormComponent } from "src/app/auth/login/login-form/login-form.component";
+import { LoginFormComponent } from "src/app/auth/login-form/login-form.component";
 import { FlipCardComponent } from "src/app/components/flip-container/flip-container.component";
 import { FloatingButtonComponent } from "src/app/components/floating-button/floating-button.component";
 
