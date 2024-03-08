@@ -80,11 +80,22 @@ export class AuthEffects {
     )
   );
 
-  resetPassword$ = createEffect(
+  sendResetEmail$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(AuthActions.sendResetEmail),
         tap(({ email }) => this.authService.sendResetEmail(email))
+      ),
+    { dispatch: false }
+  );
+
+  confirmResetPassword$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.confirmResetPassword),
+        tap(({ newPassword, oobCode }) =>
+          this.authService.confirmPasswordReset(oobCode, newPassword)
+        )
       ),
     { dispatch: false }
   );

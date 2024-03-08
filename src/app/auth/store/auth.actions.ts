@@ -13,7 +13,7 @@ export const AuthActions = createActionGroup({
     'Load User Success': props<{ user: User }>(),
     'Load User Failure': props<{ code: string }>(),
     'Send Reset Email': props<{ email: string }>(),
-    'Reset Password': props<{ newPassword: string, oobCode : string }>(),
+    'Confirm Reset Password': props<{ newPassword: string, oobCode : string }>(),
     'Create User': props<{ email: string, password: string }>(),
     'Update User': props<{ register: Register }>(),
     'Logout': emptyProps(),

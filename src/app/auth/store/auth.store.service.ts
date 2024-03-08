@@ -9,7 +9,7 @@ import {
   filter,
   map,
   of,
-  switchMap
+  switchMap,
 } from "rxjs";
 import { StorageKey } from "src/app/utilities/constants";
 import { getFromStorage } from "src/app/utilities/helpers";
@@ -70,6 +70,11 @@ export class AuthStore {
 
   public sendResetEmail(email: string) {
     const action = AuthActions.sendResetEmail({ email });
+    this.store.dispatch(action);
+  }
+
+  public confirmResetPassword(newPassword: string, oobCode: string) {
+    const action = AuthActions.confirmResetPassword({ newPassword, oobCode });
     this.store.dispatch(action);
   }
 
