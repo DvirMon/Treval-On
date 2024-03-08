@@ -22,7 +22,7 @@ jobs:
         run: npm ci
 
       - name: Linting
-        run: npx nx lint your-app-name
+        run: npx nx lint
 
       # Uncomment and replace `your-app-name` with your actual app name for unit tests
       # - name: Unit tests
