@@ -106,4 +106,8 @@ export class AuthStore {
   public loginServerError(): Signal<AuthServerError | null> {
     return this.store.selectSignal(AuthSelectors.selectServerError);
   }
+
+  public cleanup(): void {
+    this.store.dispatch(AuthActions.cleanup());
+  }
 }

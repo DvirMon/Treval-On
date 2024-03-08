@@ -86,12 +86,7 @@ export class LoginFormComponent {
       () => {
         const serverError = this.serverError();
 
-        if (serverError?.mode === AuthEvent.LOGIN) {
-          handleServerError(
-            this.loginFormGroup,
-            serverError as FormServerError
-          );
-        }
+        handleServerError(this.loginFormGroup, serverError as FormServerError);
       },
       { allowSignalWrites: true }
     );

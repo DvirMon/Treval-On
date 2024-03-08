@@ -1,9 +1,7 @@
-import { createReducer, on } from '@ngrx/store';
-import { AuthActions } from './auth.actions';
-import { initialState } from './auth.state';
-import { mapAuthServerError } from '../auth.helpers';
-import { AuthEvent } from '../auth.model';
-
+import { createReducer, on } from "@ngrx/store";
+import { mapAuthServerError } from "../auth.helpers";
+import { AuthActions } from "./auth.actions";
+import { initialState } from "./auth.state";
 
 export const authReducer = createReducer(
   initialState,
@@ -11,28 +9,32 @@ export const authReducer = createReducer(
   on(AuthActions.loadUserSuccess, (state, action) => ({
     ...state,
     user: {
-      ...action.user
+      ...action.user,
     },
-    loaded: true
+    loaded: true,
   })),
 
   on(AuthActions.loadUserFailure, (state, action) => ({
     ...state,
-    serverError : mapAuthServerError(action.code, action.event)
+    serverError: mapAuthServerError(action.code, action.event),
   })),
 
   on(AuthActions.sendResetEmailFailure, (state, action) => ({
     ...state,
-    serverError : mapAuthServerError(action.code, action.event)
+    serverError: mapAuthServerError(action.code, action.event),
   })),
 
   on(AuthActions.sendEmailLinkSuccess, (state, action) => ({
     ...state,
-    email: action.email
+    email: action.email,
+  })),
+
+  on(AuthActions.cleanup, (state) => ({
+    ...state,
+    serverError: null,
   })),
 
   on(AuthActions.logout, () => ({
-    ...initialState
+    ...initialState,
   }))
 );
-

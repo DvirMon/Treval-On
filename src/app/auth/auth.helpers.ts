@@ -4,8 +4,8 @@ import { UserCredential, User as UserFirebase } from "@angular/fire/auth";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, OperatorFunction } from "rxjs";
 import { map } from "rxjs/operators";
-import { AuthServerError, User } from "./auth.model";
 import { FormServerError } from "../components/form-input/form.helper";
+import { AuthEvent, AuthServerError, User } from "./auth.model";
 
 // Function to generate a valid URL for the email verification link
 export function generateVerificationLink(
@@ -62,10 +62,9 @@ function mapUser(user: UserFirebase): User {
 
 export function mapAuthServerError(
   code: string,
-  mode: string
+  event: AuthEvent
 ): AuthServerError {
   const authErrorMessages: { [errorCode: string]: FormServerError } = {
-    
     "auth/user-not-found": {
       control: "email",
       message: "This email is not register.",
@@ -94,5 +93,5 @@ export function mapAuthServerError(
     },
   };
 
-  return { mode, ...authErrorMessages[code] };
+  return { event, ...authErrorMessages[code] };
 }

@@ -76,12 +76,10 @@ export class RegisterFormComponent {
       () => {
         const serverError = this.serverError();
 
-        if (serverError?.mode === AuthEvent.REGISTER) {
-          handleServerError(
-            this.registerFormGroup,
-            serverError as FormServerError
-          );
-        }
+        handleServerError(
+          this.registerFormGroup,
+          serverError as FormServerError
+        );
       },
       { allowSignalWrites: true }
     );

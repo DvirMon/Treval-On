@@ -43,5 +43,5 @@ export enum AuthEvent {
 }
 
 export interface AuthServerError extends FormServerError {
-  mode: string;
+  event: AuthEvent;
 }

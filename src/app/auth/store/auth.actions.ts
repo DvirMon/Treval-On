@@ -16,6 +16,7 @@ export const AuthActions = createActionGroup({
     "Send Reset Email Failure": props<{ code: string; event: AuthEvent }>(),
     "Confirm Reset Password": props<{ newPassword: string; oobCode: string }>(),
     "Create User": props<{ email: string; password: string }>(),
+    Cleanup: emptyProps(),
     Logout: emptyProps(),
   },
 });
