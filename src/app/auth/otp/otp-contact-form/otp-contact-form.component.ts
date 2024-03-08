@@ -31,7 +31,7 @@ export interface ContactSubmitEvent {
 }
 
 @Component({
-  selector: "to-contact-form",
+  selector: "to-otp-contact-form",
   standalone: true,
   imports: [
     CommonModule,
@@ -43,8 +43,8 @@ export interface ContactSubmitEvent {
     MatButtonModule,
     OtpFormTemplateComponent,
   ],
-  templateUrl: "./contact-form.component.html",
-  styleUrls: ["./contact-form.component.scss"],
+  templateUrl: "./otp-contact-form.component.html",
+  styleUrls: ["./otp-contact-form.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactFormComponent implements OnInit {

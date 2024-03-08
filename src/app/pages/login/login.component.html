@@ -16,10 +16,10 @@
       </to-login-form>
 
       <ng-container class="back" *ngIf="optFlag()">
-        <to-login-otp-form
+        <to-otp-login-form
           (otpSignIn)="onSignIn($event)"
           (signInWithEmailAndPassword)="onEmailAndPassword()">
-        </to-login-otp-form>
+        </to-otp-login-form>
       </ng-container>
 
       <ng-container class="back" *ngIf="!optFlag()">

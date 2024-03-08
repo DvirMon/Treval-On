@@ -1,10 +1,10 @@
-import { Injector, inject, runInInjectionContext } from "@angular/core";
 import { Location } from "@angular/common";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { Injector, inject, runInInjectionContext } from "@angular/core";
 import { UserCredential, User as UserFirebase } from "@angular/fire/auth";
-import { ServerError, User } from "./store/auth.model";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, OperatorFunction } from "rxjs";
 import { map } from "rxjs/operators";
+import { ServerError, User } from "./store/auth.model";
 
 // Function to generate a valid URL for the email verification link
 export function generateVerificationLink(

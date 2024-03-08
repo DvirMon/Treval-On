@@ -51,11 +51,11 @@
 
 <ng-template #contentTemplate let-type>
   <section class="tab-content">
-    <to-contact-form
+    <to-otp-contact-form
       [type]="type"
       (sendOPT)="onSendOPT($event)"
       (signInWithEmailAndPassword)="onEmailAndPassword()"
-    ></to-contact-form>
+    ></to-otp-contact-form>
 
   </section>
 </ng-template>

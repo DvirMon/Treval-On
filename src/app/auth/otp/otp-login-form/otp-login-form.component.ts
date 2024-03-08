@@ -16,7 +16,7 @@ import {
   ContactFormComponent,
   ContactSubmitEvent,
   MessageType,
-} from "../contact-form/contact-form.component";
+} from "../otp-contact-form/otp-contact-form.component";
 import { OtpFormComponent } from "../otp-form/otp-form.component";
 import { SignInEvent } from "../../store/auth.model";
 
@@ -27,7 +27,7 @@ interface Tab {
 }
 
 @Component({
-  selector: "to-login-otp-form",
+  selector: "to-otp-login-form",
   standalone: true,
   imports: [
     CommonModule,
@@ -38,11 +38,11 @@ interface Tab {
     ContactFormComponent,
     OtpFormComponent,
   ],
-  templateUrl: "./login-otp-form.component.html",
-  styleUrls: ["./login-otp-form.component.scss"],
+  templateUrl: "./otp-login-form.component.html",
+  styleUrls: ["./otp-login-form.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginOtpFormComponent {
+export class OtpLoginFormComponent {
   protected readonly tabs: Tab[] = [
     { icon: "sms", label: "SMS", type: MessageType.SMS },
     { icon: "mail", label: "Email", type: MessageType.EMAIL },

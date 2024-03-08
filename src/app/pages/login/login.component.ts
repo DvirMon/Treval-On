@@ -16,7 +16,7 @@ import { FlipCardComponent } from "src/app/components/flip-card/flip-card.compon
 import { FloatingButtonComponent } from "src/app/components/floating-button/floating-button.component";
 
 import { MatButtonModule } from "@angular/material/button";
-import { LoginOtpFormComponent } from "src/app/auth/otp/login-otp-form/login-otp-form.component";
+import { OtpLoginFormComponent } from "src/app/auth/otp/otp-login-form/otp-login-form.component";
 import { RegisterCardComponent } from "src/app/auth/register/register-card/register-card.component";
 import {
   ServerError,
@@ -35,7 +35,7 @@ import { FlipCardService } from "src/app/components/flip-card/flip-card.service"
     FloatingButtonComponent,
     FlipCardComponent,
     LoginFormComponent,
-    LoginOtpFormComponent,
+    OtpLoginFormComponent,
     EmailLinkFormComponent,
     RegisterCardComponent,
   ],
