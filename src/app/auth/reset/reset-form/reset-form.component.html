@@ -1,1 +1,31 @@
-<p>reset-form works!</p>
+<mat-card>
+  <mat-card-content>
+    <to-divider-header label="Reset Password"></to-divider-header>
+
+    <section>
+      <mat-icon color="primary" fontIcon="attach_email"></mat-icon>
+    </section>
+
+    <form
+      [formGroup]="resetFormGroup"
+      (ngSubmit)="onSubmit(resetFormGroup.value)">
+      @for (key of formKeys; track key) {
+
+      <to-form-input
+        [control]="resetFormGroup.get(key)"
+        [key]="key"
+        [label]="key | titlecase">
+      </to-form-input>
+      }
+
+      <button
+        class="login-btn"
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="!resetFormGroup.valid">
+        reset
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>
