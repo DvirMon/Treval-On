@@ -88,7 +88,9 @@ export class LoginPageComponent {
 
   public onForgetPassword() {
     runInInjectionContext(this.injector, () => {
-      inject(Router).navigateByUrl("reset");
+      inject(Router).navigateByUrl(
+        "reset?mode=resetPassword&oobCode=gWBFAp0v3FTiDu8tbLLudvfqddTZ3_jEmiB0y2kqLz4AAAGOHee8YA & apiKey=AIzaSyAWE61Vm0CpfUtHq4G48aJVMbdY6REEtrA & lang=en"
+      );
     });
   }
 
