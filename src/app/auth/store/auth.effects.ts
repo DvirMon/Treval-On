@@ -7,7 +7,7 @@ import { StorageKey } from "src/app/utilities/constants";
 import { saveToStorage } from "src/app/utilities/helpers";
 import { mapUserCredentials } from "../auth.helpers";
 import { AuthService } from "../auth.service";
-import { EmailLinkDialogComponent } from "../email-link-dialog/email-link-dialog.component";
+import { EmailLinkDialogComponent } from "../email-link/email-link-dialog/email-link-dialog.component";
 import { AuthActions } from "./auth.actions";
 import { FirebaseError } from "../fireauth.service";
 

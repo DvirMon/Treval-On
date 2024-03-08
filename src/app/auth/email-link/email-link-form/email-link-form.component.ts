@@ -23,9 +23,9 @@ import { MatInputModule } from "@angular/material/input";
 import { MatTabsModule } from "@angular/material/tabs";
 import { DividerHeaderComponent } from "src/app/components/divider-header/divider-header.component";
 import { FlipCardService } from "src/app/components/flip-card/flip-card.service";
-import { InfoCardComponent } from "src/app/components/info-card/info-card.component";
-import { SignInEvent, SignInMethod } from "../store/auth.model";
 import { FormInputComponent } from "src/app/components/form-input/form-input.component";
+import { InfoCardComponent } from "src/app/components/info-card/info-card.component";
+import { SignInEvent, SignInMethod } from "../../store/auth.model";
 
 @Component({
   selector: "to-email-link-form",
@@ -40,10 +40,10 @@ import { FormInputComponent } from "src/app/components/form-input/form-input.com
     MatTabsModule,
     MatButtonModule,
     MatCardModule,
-    DividerHeaderComponent,
     MatIconModule,
+    DividerHeaderComponent,
     InfoCardComponent,
-    FormInputComponent
+    FormInputComponent,
   ],
   templateUrl: "./email-link-form.component.html",
   styleUrls: ["./email-link-form.component.scss"],
