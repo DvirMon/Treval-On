@@ -34,7 +34,7 @@ jobs:
         run: ng build --configuration=production
 
       - name: Deploy to Firebase Hosting
-        uses: w9jds/firebase-action@master
+        uses: w9jds/firebase-action@v12.9.0
         with:
           args: deploy --only hosting --project travel-on-811d5
         env:
