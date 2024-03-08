@@ -46,7 +46,7 @@ export class ResetContactFormComponent {
   public readonly resetFormGroup: FormGroup<ResetContactForm>;
   public readonly formKeys: WritableSignal<string[]>;
 
-  @Output() sendContact: EventEmitter<string> = new EventEmitter();
+  @Output() resetEmail: EventEmitter<string> = new EventEmitter();
 
   constructor() {
     this.resetFormGroup = this._buildResetForm();
@@ -55,11 +55,11 @@ export class ResetContactFormComponent {
 
   private _buildResetForm(): FormGroup<ResetContactForm> {
     return inject(NonNullableFormBuilder).group({
-      email: ["demnajem@gmail.com", [Validators.required, Validators.email]],
+      email: ["dmenajem@gmail.com", [Validators.required, Validators.email]],
     });
   }
 
   public onSubmit(value: Partial<{ email: string }>): void {
-    this.sendContact.emit(value.email as string);
+    this.resetEmail.emit(value.email as string);
   }
 }

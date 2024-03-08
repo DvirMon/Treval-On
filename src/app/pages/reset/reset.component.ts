@@ -6,20 +6,18 @@ import {
   Signal,
   computed,
   inject,
-  runInInjectionContext,
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { Store } from "@ngrx/store";
+import { ActivatedRoute, Params } from "@angular/router";
 import { AuthActionComponent } from "src/app/auth/auth-action/auth-action.component";
 import { ResetContactFormComponent } from "src/app/auth/reset/reset-contact-form/reset-contact-form.component";
 import { ResetPasswordFormComponent } from "src/app/auth/reset/reset-password-form/reset-password-form.component";
+import { AuthStore } from "src/app/auth/store/auth.store.service";
 
 @Component({
   selector: "to-reset",
   standalone: true,
   imports: [
-    JsonPipe,
     ResetContactFormComponent,
     ResetPasswordFormComponent,
     AuthActionComponent,
@@ -30,7 +28,7 @@ import { ResetPasswordFormComponent } from "src/app/auth/reset/reset-password-fo
 })
 export class ResetPageComponent {
   #injector = inject(Injector);
-  #store = inject(Store);
+  #authStore = inject(AuthStore);
   #activatedRoute = inject(ActivatedRoute);
 
   public readonly paramsSignal: Signal<Params>;
@@ -45,21 +43,22 @@ export class ResetPageComponent {
     this.showNewPassword = computed(() => !!this.paramsSignal()["mode"]);
   }
 
-  public onSendLink(email: string) {
-    runInInjectionContext(this.#injector, () => {
-      inject(Router).navigateByUrl(
-        "reset?mode=resetPassword&oobCode=gWBFAp0v3FTiDu8tbLLudvfqddTZ3_jEmiB0y2kqLz4AAAGOHee8YA & apiKey=AIzaSyAWE61Vm0CpfUtHq4G48aJVMbdY6REEtrA & lang=en"
-      );
-    });
+  public onResetEmail(email: string) {
+    // runInInjectionContext(this.#injector, () => {
+    //   inject(Router).navigateByUrl(
+    //     "reset?mode=resetPassword&oobCode=gWBFAp0v3FTiDu8tbLLudvfqddTZ3_jEmiB0y2kqLz4AAAGOHee8YA & apiKey=AIzaSyAWE61Vm0CpfUtHq4G48aJVMbdY6REEtrA & lang=en"
+    //   );
+    // });
+
+    this.#authStore.sendResetEmail(email);
   }
 
   public onResetPassword(newPassword: string) {
     const oobCode = this.paramsSignal()["oobCode"];
-    console.log(newPassword);
-    console.log(oobCode);
+    this.#authStore.confirmResetPassword(newPassword, oobCode);
 
-    runInInjectionContext(this.#injector, () => {
-      inject(Router).navigateByUrl("reset");
-    });
+    // runInInjectionContext(this.#injector, () => {
+    //   inject(Router).navigateByUrl("reset");
+    // });
   }
 }

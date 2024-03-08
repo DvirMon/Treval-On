@@ -7,19 +7,16 @@ import { AuthStore } from "src/app/auth/store/auth.store.service";
 @Component({
   selector: "to-register",
   standalone: true,
-  imports: [
-    RegisterFormComponent,
-    AuthActionComponent,
-  ],
+  imports: [RegisterFormComponent, AuthActionComponent],
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterPageComponent {
-  private readonly authStore = inject(AuthStore);
+  #authStore = inject(AuthStore);
 
   onRegister(value: EmailAndPasswordSignIn): void {
     const { email, password } = value;
-    this.authStore.register(email, password);
+    this.#authStore.register(email, password);
   }
 }

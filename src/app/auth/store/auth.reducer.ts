@@ -20,6 +20,11 @@ export const authReducer = createReducer(
     serverError : mapAuthServerError(action.code)
   })),
 
+  on(AuthActions.sendResetEmailFailure, (state, action) => ({
+    ...state,
+    serverError : mapAuthServerError(action.code)
+  })),
+
   on(AuthActions.sendEmailLinkSuccess, (state, action) => ({
     ...state,
     email: action.email

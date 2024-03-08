@@ -7,7 +7,7 @@
       (resetPassword)="onResetPassword($event)"></to-reset-password-form>
     } @else {
     <to-reset-contact-form
-      (sendContact)="onSendLink($event)"></to-reset-contact-form>
+      (resetEmail)="onResetEmail($event)"></to-reset-contact-form>
     <to-auth-action
       class="front"
       [routerLink]="'/register'"

@@ -55,7 +55,7 @@ export class ResetPasswordFormComponent {
   private _buildResetForm(): FormGroup<ResetPasswordForm> {
     return inject(NonNullableFormBuilder).group({
       newPassword: [
-        "12345678",
+        "abcdefgh",
         [
           Validators.required,
           Validators.minLength(8),
