@@ -17,14 +17,13 @@ import { FloatingButtonComponent } from "src/app/components/floating-button/floa
 
 import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
-import { LoginCardComponent } from "src/app/auth/login/login-card/login-card.component";
-import { OtpLoginFormComponent } from "src/app/auth/otp/otp-login-form/otp-login-form.component";
 import { AuthActionComponent } from "src/app/auth/auth-action/auth-action.component";
 import {
   AuthServerError,
   SignInEvent,
   SignInMethod,
 } from "src/app/auth/auth.model";
+import { OtpLoginFormComponent } from "src/app/auth/otp/otp-login-form/otp-login-form.component";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
 import { FlipContainerService } from "src/app/components/flip-container/flip-container.service";
 
@@ -39,7 +38,6 @@ import { FlipContainerService } from "src/app/components/flip-container/flip-con
     LoginFormComponent,
     OtpLoginFormComponent,
     EmailLinkFormComponent,
-    LoginCardComponent,
     AuthActionComponent,
   ],
   templateUrl: "./login.component.html",

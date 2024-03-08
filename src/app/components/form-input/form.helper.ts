@@ -1,7 +1,6 @@
 import { WritableSignal, signal } from "@angular/core";
 import { FormGroup, ValidationErrors } from "@angular/forms";
 
-
 export interface FormServerError {
   control: string;
   message: string;
@@ -24,7 +23,10 @@ export const errorMessageMap: ValidationErrors = {
   email: "invalid email format",
 };
 
-export function handleServerError(group: FormGroup, server: FormServerError): void {
+export function handleServerError(
+  group: FormGroup,
+  server: FormServerError
+): void {
   if (group !== null && server !== null) {
     const control = group.get(server.control as string);
 

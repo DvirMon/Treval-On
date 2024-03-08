@@ -5,7 +5,9 @@ import {
   EventEmitter,
   Output,
   WritableSignal,
+  effect,
   inject,
+  input,
 } from "@angular/core";
 import {
   FormControl,
@@ -19,8 +21,16 @@ import { MatButton } from "@angular/material/button";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { DividerHeaderComponent } from "src/app/components/divider-header/divider-header.component";
 import { FormInputComponent } from "src/app/components/form-input/form-input.component";
-import { getFormKeys } from "src/app/components/form-input/form.helper";
-import { EmailAndPasswordSignIn } from "../auth.model";
+import {
+  FormServerError,
+  getFormKeys,
+  handleServerError,
+} from "src/app/components/form-input/form.helper";
+import {
+  AuthEvent,
+  AuthServerError,
+  EmailAndPasswordSignIn,
+} from "../auth.model";
 
 interface RegisterForm {
   email: FormControl<string>;
@@ -44,9 +54,10 @@ interface RegisterForm {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterFormComponent {
-  protected readonly registerFormGroup: FormGroup<RegisterForm>;
+  serverError = input<AuthServerError | null>({} as AuthServerError);
 
-  public formKeys: WritableSignal<string[]>;
+  public readonly registerFormGroup: FormGroup<RegisterForm>;
+  public readonly formKeys: WritableSignal<string[]>;
 
   public errorsMap: { [key: string]: ValidationErrors } = {
     password: {
@@ -60,13 +71,27 @@ export class RegisterFormComponent {
   constructor() {
     this.registerFormGroup = this._buildRegisterForm();
     this.formKeys = getFormKeys(this.registerFormGroup);
+
+    effect(
+      () => {
+        const serverError = this.serverError();
+
+        if (serverError?.mode === AuthEvent.REGISTER) {
+          handleServerError(
+            this.registerFormGroup,
+            serverError as FormServerError
+          );
+        }
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   private _buildRegisterForm(): FormGroup<RegisterForm> {
     return inject(NonNullableFormBuilder).group({
-      email: ["", [Validators.required, Validators.email]],
+      email: ["dmenajem@gmail.com", [Validators.required, Validators.email]],
       password: [
-        "",
+        "12345678",
         [
           Validators.required,
           Validators.minLength(8),

@@ -1,6 +1,8 @@
 <div class="register-page-wrapper">
   <div class="register-wrapper">
-    <to-register-form (register)="onRegister($event)"></to-register-form>
+    <to-register-form
+      (register)="onRegister($event)"
+      [serverError]="serverError()"></to-register-form>
     <to-auth-action
       routerLink="/"
       label="Have an account?"

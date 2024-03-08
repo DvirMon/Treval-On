@@ -27,11 +27,16 @@ import { DividerHeaderComponent } from "src/app/components/divider-header/divide
 import { FormInputComponent } from "src/app/components/form-input/form-input.component";
 
 import {
+  AuthEvent,
   AuthServerError,
   EmailAndPasswordSignIn,
   SignInEvent,
   SignInMethod,
 } from "../auth.model";
+import {
+  FormServerError,
+  handleServerError,
+} from "src/app/components/form-input/form.helper";
 
 interface LoginForm {
   email: FormControl<string>;
@@ -79,7 +84,14 @@ export class LoginFormComponent {
 
     effect(
       () => {
-        this._handleServerError(this.loginFormGroup, this.serverError());
+        const serverError = this.serverError();
+
+        if (serverError?.mode === AuthEvent.LOGIN) {
+          handleServerError(
+            this.loginFormGroup,
+            serverError as FormServerError
+          );
+        }
       },
       { allowSignalWrites: true }
     );
@@ -144,16 +156,17 @@ export class LoginFormComponent {
     } as SignInEvent;
   }
 
-  private _handleServerError(
-    group: FormGroup,
-    server: AuthServerError | null
-  ): void {
-    if (group !== null && server !== null) {
-      const control = group.get(server.control as string);
+  //   private _handleServerError(
+  //     group: FormGroup,
+  //     server: AuthServerError | null
+  //   ): void {
+  //     if (group !== null && server !== null) {
+  //       const control = group.get(server.control as string);
 
-      if (control != null) {
-        control.setErrors({ serverError: server.message });
-      }
-    }
-  }
+  //       if (control != null) {
+  //         control.setErrors({ serverError: server.message });
+  //       }
+  //     }
+  //   }
+  // }
 }
