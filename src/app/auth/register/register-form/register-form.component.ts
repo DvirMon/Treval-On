@@ -24,6 +24,7 @@ import { FormInputComponent } from "src/app/components/form-input/form-input.com
 import { getFormKeys } from "src/app/components/form-input/form.helper";
 import { RouterModule } from "@angular/router";
 import { EmailAndPasswordSignIn } from "../../store/auth.model";
+import { AuthActionComponent } from "../../auth-action/auth-action.component";
 
 interface RegisterForm {
   email: FormControl<string>;
@@ -69,21 +70,19 @@ export class RegisterFormComponent {
   }
 
   private _buildRegisterForm(): FormGroup<RegisterForm> {
-    return inject(NonNullableFormBuilder).group(
-      {
-        email: ["", [Validators.required, Validators.email]],
-        password: [
-          "",
-          [
-            Validators.required,
-            Validators.minLength(8),
-            Validators.maxLength(16),
-          ],
+    return inject(NonNullableFormBuilder).group({
+      email: ["", [Validators.required, Validators.email]],
+      password: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(16),
         ],
-        // confirmPassword: ['',
-        //   [Validators.required, Validators.pattern(this.validationService.regex.password)]],
-      },
-    );
+      ],
+      // confirmPassword: ['',
+      //   [Validators.required, Validators.pattern(this.validationService.regex.password)]],
+    });
   }
 
   public onSubmit(value: Partial<EmailAndPasswordSignIn>): void {

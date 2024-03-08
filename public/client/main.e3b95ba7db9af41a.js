@@ -12857,7 +12857,7 @@
           });
           static #t = (this.ɵcmp = m.In1({
             type: c,
-            selectors: [["to-register-card"]],
+            selectors: [["to-register-action"]],
             standalone: !0,
             features: [m.UHJ],
             decls: 5,
@@ -13020,7 +13020,7 @@
                 ),
                 m.C$Y(),
                 m.I0R(7, "to-flip-card", 3),
-                m.wR5(8, "to-register-card", 6),
+                m.wR5(8, "to-register-action", 6),
                 m.C$Y()()()),
                 2 & u &&
                   (m.yG2(3),
@@ -59090,13 +59090,11 @@
                       A.push(B.batchId);
                       for (const Y of B.mutations) O = O.add(Y.key);
                     }
-                    return i.localDocuments
-                      .getDocuments(l, O)
-                      .next((B) => ({
-                        us: B,
-                        removedBatchIds: b,
-                        addedBatchIds: A,
-                      }));
+                    return i.localDocuments.getDocuments(l, O).next((B) => ({
+                      us: B,
+                      removedBatchIds: b,
+                      addedBatchIds: A,
+                    }));
                   });
               }
             );

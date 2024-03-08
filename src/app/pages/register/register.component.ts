@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import { AuthActionComponent } from "src/app/auth/auth-action/auth-action.component";
 import { RegisterFormComponent } from "src/app/auth/register/register-form/register-form.component";
 import { EmailAndPasswordSignIn } from "src/app/auth/store/auth.model";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
@@ -8,7 +9,12 @@ import { FloatingButtonComponent } from "src/app/components/floating-button/floa
 @Component({
   selector: "to-register",
   standalone: true,
-  imports: [CommonModule, RegisterFormComponent, FloatingButtonComponent],
+  imports: [
+    CommonModule,
+    RegisterFormComponent,
+    FloatingButtonComponent,
+    AuthActionComponent,
+  ],
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,

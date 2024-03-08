@@ -1,7 +1,11 @@
-<div class="register-wrapper">
+<div class="register-page-wrapper">
   <!-- <to-floating-button [label]="'home'" [routerLink]="'/'"></to-floating-button> -->
 
-  <section class="register-form-wrapper">
+  <div class="register-wrapper">
     <to-register-form (register)="onRegister($event)"></to-register-form>
-  </section>
+    <to-auth-action
+      routerLink="/"
+      label="Have an account?"
+      boldLabel="Log in"></to-auth-action>
+  </div>
 </div>

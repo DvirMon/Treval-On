@@ -19,7 +19,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
 import { LoginCardComponent } from "src/app/auth/login/login-card/login-card.component";
 import { OtpLoginFormComponent } from "src/app/auth/otp/otp-login-form/otp-login-form.component";
-import { RegisterCardComponent } from "src/app/auth/register/register-card/register-card.component";
+import { AuthActionComponent } from "src/app/auth/auth-action/auth-action.component";
 import {
   ServerError,
   SignInEvent,
@@ -40,7 +40,7 @@ import { FlipCardService } from "src/app/components/flip-card/flip-card.service"
     OtpLoginFormComponent,
     EmailLinkFormComponent,
     LoginCardComponent,
-    RegisterCardComponent,
+    AuthActionComponent,
   ],
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],

@@ -28,7 +28,11 @@
       </ng-container>
     </to-flip-card>
     <to-flip-card [height]="100">
-      <to-register-card class="front"> </to-register-card>
+      <to-auth-action
+        class="front"
+        [routerLink]="'/register'"
+        label="Don't have an account?"
+        boldLabel="Sign up"></to-auth-action>
     </to-flip-card>
   </div>
   <div class="login-info-card"></div>
