@@ -1,4 +1,22 @@
 :host {
-  display: block;
+  div {
+    height: 100%;
+  }
+
+  div.reset-wrapper {
+    background-image: url("../../../assets/images/backgrounds/register.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    section 
+    {
+      width: 20%;
+      height: 40%;
+    }
+  }
 }
 

@@ -16,6 +16,8 @@ import { FlipCardComponent } from "src/app/components/flip-card/flip-card.compon
 import { FloatingButtonComponent } from "src/app/components/floating-button/floating-button.component";
 
 import { MatButtonModule } from "@angular/material/button";
+import { Router } from "@angular/router";
+import { LoginCardComponent } from "src/app/auth/login/login-card/login-card.component";
 import { OtpLoginFormComponent } from "src/app/auth/otp/otp-login-form/otp-login-form.component";
 import { RegisterCardComponent } from "src/app/auth/register/register-card/register-card.component";
 import {
@@ -37,6 +39,7 @@ import { FlipCardService } from "src/app/components/flip-card/flip-card.service"
     LoginFormComponent,
     OtpLoginFormComponent,
     EmailLinkFormComponent,
+    LoginCardComponent,
     RegisterCardComponent,
   ],
   templateUrl: "./login.component.html",
@@ -84,7 +87,9 @@ export class LoginPageComponent {
   }
 
   public onForgetPassword() {
-    // this.#authStore.resetPassword(event);
+    runInInjectionContext(this.injector, () => {
+      inject(Router).navigateByUrl("reset");
+    });
   }
 
   private _flipCard() {

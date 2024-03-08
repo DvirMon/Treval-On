@@ -25,6 +25,11 @@ export const appRoutes: Routes = [
       ),
   },
   {
+    path: "reset",
+    loadComponent: () =>
+      import("./pages/reset/reset.component").then((m) => m.ResetPageComponent),
+  },
+  {
     path: "places/:userId",
     loadComponent: () =>
       import("./pages/places/places.component").then((m) => m.PlacesComponent),

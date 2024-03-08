@@ -9,4 +9,4 @@ import { CommonModule } from '@angular/common';
   styleUrl: './reset.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResetComponent {}
+export class ResetPageComponent {}
