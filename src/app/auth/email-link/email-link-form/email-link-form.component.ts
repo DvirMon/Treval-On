@@ -5,8 +5,7 @@ import {
   EventEmitter,
   Injector,
   Output,
-  inject,
-  runInInjectionContext,
+  inject
 } from "@angular/core";
 import {
   FormControl,
@@ -70,7 +69,5 @@ export class EmailLinkFormComponent {
     this.emailLinkSignIn.emit(event);
   }
 
-  public onEmailAndPasswordSighIn(): void {
 
-  }
 }

@@ -11,8 +11,7 @@ import {
   EventEmitter,
   Output,
   Signal,
-  inject,
-  input,
+  inject
 } from "@angular/core";
 import { FlipContainerService } from "./flip-container.service";
 

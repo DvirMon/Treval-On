@@ -3,8 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Injector,
-  inject,
-  runInInjectionContext,
+  inject
 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 
@@ -19,7 +18,5 @@ import { MatButtonModule } from "@angular/material/button";
 export class OtpFormTemplateComponent {
   private readonly injector = inject(Injector);
 
-  protected onEmailAndPasswordSighIn(): void {
 
-  }
 }
