@@ -6,11 +6,10 @@ import {
   Observable,
   Subject,
   catchError,
-  exhaustMap,
   filter,
   map,
   of,
-  switchMap,
+  switchMap
 } from "rxjs";
 import { StorageKey } from "src/app/utilities/constants";
 import { getFromStorage } from "src/app/utilities/helpers";
@@ -43,7 +42,7 @@ export class AuthStore {
   private _login$(): Observable<User> {
     return this.loginSource.asObservable().pipe(
       switchMap((event: SignInEvent) => this._getUser$(event)),
-      catchError((error: Error) => {
+      catchError(() => {
         return EMPTY;
       })
     );

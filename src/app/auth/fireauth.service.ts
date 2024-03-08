@@ -1,24 +1,22 @@
 import { Injectable, Injector, inject } from "@angular/core";
 import {
+  ActionCodeSettings,
   Auth,
-  signInWithPopup,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendSignInLinkToEmail,
-  signInWithEmailLink,
-  signInWithPhoneNumber,
+  ConfirmationResult,
   GoogleAuthProvider,
   RecaptchaVerifier,
-  ConfirmationResult,
   UserCredential,
-  ActionCodeSettings,
+  createUserWithEmailAndPassword,
   isSignInWithEmailLink,
   sendPasswordResetEmail,
-  verifyPasswordResetCode,
-  confirmPasswordReset
+  sendSignInLinkToEmail,
+  signInWithEmailAndPassword,
+  signInWithEmailLink,
+  signInWithPhoneNumber,
+  signInWithPopup
 } from "@angular/fire/auth";
-import { generateVerificationLink } from "./auth.helpers";
 import { Observable, from, map, of } from "rxjs";
+import { generateVerificationLink } from "./auth.helpers";
 
 export interface FirebaseError {
   code: string;

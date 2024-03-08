@@ -1,8 +1,8 @@
-import { Component, Injector, inject, runInInjectionContext } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { MatCardContent } from "@angular/material/card";
+import { Component } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { RouterLink, RouterModule } from "@angular/router";
+import { MatCardContent } from "@angular/material/card";
+import { RouterModule } from "@angular/router";
 
 @Component({
   selector: "to-register-card",

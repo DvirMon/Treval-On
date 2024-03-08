@@ -1,24 +1,22 @@
 import { Injectable } from "@angular/core";
 import {
+  ConfirmationResult,
+  UserCredential
+} from "@angular/fire/auth";
+import {
   CollectionReference,
   Firestore,
+  QuerySnapshot,
+  addDoc,
   collection,
   getDocs,
-  where,
   query,
-  addDoc,
-  QuerySnapshot,
-  DocumentReference,
+  where
 } from "@angular/fire/firestore";
-import {
-  ConfirmationResult,
-  UserCredential,
-  isSignInWithEmailLink,
-} from "@angular/fire/auth";
-import { SignInEvent, SignInMethod, User } from "./store/auth.model";
+import { Observable, from, map, of, switchMap } from "rxjs";
 import { mapQuerySnapshotDoc } from "../utilities/helpers";
 import { FireAuthService } from "./fireauth.service";
-import { Observable, from, map, of, switchMap, tap } from "rxjs";
+import { SignInEvent, SignInMethod, User } from "./store/auth.model";
 
 interface EmailLinkData {
   email: string;
