@@ -1,3 +1,5 @@
+import { FormServerError } from "../components/form-input/form.helper";
+
 export interface User {
   userId: string;
   email: string;
@@ -33,7 +35,13 @@ export interface SignInEvent {
   data: unknown;
 }
 
-export interface ServerError {
-  control: string;
-  message: string;
+export enum AuthEvent {
+  LOGIN = "login",
+  REGISTER = "register",
+  RESET = "reset",
+  EMAIL_LINK = "emailLink",
+}
+
+export interface AuthServerError extends FormServerError {
+  mode: string;
 }

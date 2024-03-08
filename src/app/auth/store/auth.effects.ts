@@ -10,12 +10,15 @@ import { AuthService } from "../auth.service";
 import { EmailLinkDialogComponent } from "../email-link/email-link-dialog/email-link-dialog.component";
 import { AuthActions } from "./auth.actions";
 import { FirebaseError } from "../fireauth.service";
+import { ResetService } from "../reset/reset.service";
+import { AuthEvent } from "../auth.model";
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
+    private resetService: ResetService,
     private router: Router,
     private dialogService: DialogService
   ) {}
@@ -27,8 +30,13 @@ export class AuthEffects {
         this.authService.register$(email, password).pipe(
           mapUserCredentials(),
           map((user) => AuthActions.loadUserSuccess({ user })),
-          catchError(() => {
-            return EMPTY;
+          catchError((err: FirebaseError) => {
+            return of(
+              AuthActions.loadUserFailure({
+                code: err.code,
+                event: AuthEvent.REGISTER,
+              })
+            );
           })
         )
       )
@@ -43,7 +51,12 @@ export class AuthEffects {
           mapUserCredentials(),
           map((user) => AuthActions.loadUserSuccess({ user })),
           catchError((err: FirebaseError) => {
-            return of(AuthActions.loadUserFailure({ code: err.code }));
+            return of(
+              AuthActions.loadUserFailure({
+                code: err.code,
+                event: AuthEvent.LOGIN,
+              })
+            );
           })
         )
       )
@@ -84,10 +97,15 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.sendResetEmail),
       switchMap(({ email }) =>
-        this.authService.sendResetEmail(email).pipe(
+        this.resetService.sendResetEmail(email).pipe(
           map(() => AuthActions.sendEmailLinkSuccess({ email })),
           catchError((err: FirebaseError) => {
-            return of(AuthActions.sendResetEmailFailure({ code: err.code }));
+            return of(
+              AuthActions.sendResetEmailFailure({
+                code: err.code,
+                event: AuthEvent.RESET,
+              })
+            );
           })
         )
       )
@@ -98,11 +116,15 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.confirmResetPassword),
       switchMap(({ oobCode, newPassword }) =>
-        this.authService.confirmPasswordReset(oobCode, newPassword).pipe(
-          map(() => AuthActions.sendEmailLinkSuccess({ email: "" })),
+        this.resetService.confirmPasswordReset(oobCode, newPassword).pipe(
+          map(() => AuthActions.sendResetEmailSuccess({ email: "" })),
           catchError((err: FirebaseError) => {
-            console.log(err)
-            return of(AuthActions.sendResetEmailFailure({ code: err.code }));
+            return of(
+              AuthActions.sendResetEmailFailure({
+                code: err.code,
+                event: AuthEvent.RESET,
+              })
+            );
           })
         )
       )

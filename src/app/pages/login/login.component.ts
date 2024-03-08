@@ -21,10 +21,10 @@ import { LoginCardComponent } from "src/app/auth/login/login-card/login-card.com
 import { OtpLoginFormComponent } from "src/app/auth/otp/otp-login-form/otp-login-form.component";
 import { AuthActionComponent } from "src/app/auth/auth-action/auth-action.component";
 import {
-  ServerError,
+  AuthServerError,
   SignInEvent,
   SignInMethod,
-} from "src/app/auth/store/auth.model";
+} from "src/app/auth/auth.model";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
 import { FlipContainerService } from "src/app/components/flip-container/flip-container.service";
 
@@ -52,7 +52,7 @@ export class LoginPageComponent {
   #authStore = inject(AuthStore);
 
   public readonly optFlag: WritableSignal<boolean>;
-  public readonly serverError: Signal<ServerError | null>;
+  public readonly serverError: Signal<AuthServerError | null>;
 
   constructor() {
     this.optFlag = signal(false);

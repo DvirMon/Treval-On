@@ -13,7 +13,7 @@ import {
 import { Observable, from, map, of, switchMap } from "rxjs";
 import { mapQuerySnapshotDoc } from "../utilities/helpers";
 import { FireAuthService } from "./fireauth.service";
-import { SignInEvent, SignInMethod, User } from "./store/auth.model";
+import { SignInEvent, SignInMethod, User } from "./auth.model";
 
 interface EmailLinkData {
   email: string;
@@ -134,13 +134,5 @@ export class AuthService {
     return this.fireAuthService.isSignInWithEmailLink$(emailLink);
   }
 
-  public sendResetEmail(email: string): Observable<void> {
-    return this.fireAuthService.sendPasswordResetEmail(email);
-  }
-  public confirmPasswordReset(
-    oobCode: string,
-    newPassword: string
-  ): Observable<void> {
-    return this.fireAuthService.confirmPasswordReset(oobCode, newPassword);
-  }
+
 }

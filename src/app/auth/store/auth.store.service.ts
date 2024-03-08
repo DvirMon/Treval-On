@@ -13,8 +13,8 @@ import {
 } from "rxjs";
 import { StorageKey } from "src/app/utilities/constants";
 import { getFromStorage } from "src/app/utilities/helpers";
+import { AuthServerError, SignInEvent, User } from "../auth.model";
 import { AuthActions } from "./auth.actions";
-import { ServerError, SignInEvent, User } from "./auth.model";
 import { AuthSelectors } from "./auth.selectors";
 
 @Injectable({
@@ -103,7 +103,7 @@ export class AuthStore {
     this.store.dispatch(AuthActions.logout());
   }
 
-  public loginServerError(): Signal<ServerError | null> {
+  public loginServerError(): Signal<AuthServerError | null> {
     return this.store.selectSignal(AuthSelectors.selectServerError);
   }
 }

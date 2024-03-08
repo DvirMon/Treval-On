@@ -5,7 +5,7 @@ import {
   EventEmitter,
   Injector,
   Output,
-  inject
+  inject,
 } from "@angular/core";
 import {
   FormControl,
@@ -23,7 +23,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { DividerHeaderComponent } from "src/app/components/divider-header/divider-header.component";
 import { FormInputComponent } from "src/app/components/form-input/form-input.component";
 import { InfoCardComponent } from "src/app/components/info-card/info-card.component";
-import { SignInEvent, SignInMethod } from "../../store/auth.model";
+import { SignInEvent, SignInMethod } from "../../auth.model";
 
 @Component({
   selector: "to-email-link-form",
@@ -68,6 +68,4 @@ export class EmailLinkFormComponent {
     const event: SignInEvent = { method: SignInMethod.EMAIL_LINK, data: value };
     this.emailLinkSignIn.emit(event);
   }
-
-
 }

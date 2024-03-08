@@ -27,11 +27,11 @@ import { DividerHeaderComponent } from "src/app/components/divider-header/divide
 import { FormInputComponent } from "src/app/components/form-input/form-input.component";
 
 import {
+  AuthServerError,
   EmailAndPasswordSignIn,
-  ServerError,
   SignInEvent,
   SignInMethod,
-} from "../../store/auth.model";
+} from "../../auth.model";
 
 interface LoginForm {
   email: FormControl<string>;
@@ -63,7 +63,7 @@ interface LoginForm {
 export class LoginFormComponent {
   public readonly loginFormGroup: FormGroup<LoginForm>;
 
-  serverError = input<ServerError | null>({} as ServerError);
+  serverError = input<AuthServerError | null>({} as AuthServerError);
 
   @Output() login: EventEmitter<SignInEvent> = new EventEmitter();
   @Output() google: EventEmitter<SignInEvent> = new EventEmitter();
@@ -146,7 +146,7 @@ export class LoginFormComponent {
 
   private _handleServerError(
     group: FormGroup,
-    server: ServerError | null
+    server: AuthServerError | null
   ): void {
     if (group !== null && server !== null) {
       const control = group.get(server.control as string);
