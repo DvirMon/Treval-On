@@ -1,9 +1,10 @@
 @use "variables" as main;
 
-mat-card {
+div {
   // border-radius: main.spacing(2);
   transform-style: preserve-3d;
   perspective: 800px;
+  cursor: pointer;
 }
 
 .card-inner {

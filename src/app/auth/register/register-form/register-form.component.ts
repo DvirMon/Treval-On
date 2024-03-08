@@ -19,12 +19,11 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { RouterModule } from "@angular/router";
 import { DividerHeaderComponent } from "src/app/components/divider-header/divider-header.component";
 import { FormInputComponent } from "src/app/components/form-input/form-input.component";
 import { getFormKeys } from "src/app/components/form-input/form.helper";
-import { RouterModule } from "@angular/router";
 import { EmailAndPasswordSignIn } from "../../store/auth.model";
-import { AuthActionComponent } from "../../auth-action/auth-action.component";
 
 interface RegisterForm {
   email: FormControl<string>;
