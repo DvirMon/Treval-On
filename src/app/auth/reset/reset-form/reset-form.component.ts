@@ -25,6 +25,7 @@ import { EmailAndPasswordSignIn } from "../../store/auth.model";
 import { MatIcon } from "@angular/material/icon";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { patchState, signalState } from "@ngrx/signals";
+import { SignalState } from "@ngrx/signals/src/signal-state";
 
 interface ResetForm {
   email: FormControl<string>;
@@ -50,7 +51,7 @@ type ResetCredentials = { mode: string; oobCode: string };
   styleUrl: "./reset-form.component.scss",
 })
 export class ResetFormComponent implements OnInit {
-  #activeRoute = inject(ActivatedRoute);
+  #activatedRoute = inject(ActivatedRoute);
 
   public readonly resetFormGroup: FormGroup<ResetForm>;
   public readonly formKeys: WritableSignal<string[]>;
@@ -60,6 +61,8 @@ export class ResetFormComponent implements OnInit {
     oobCode: "",
   });
 
+  public credentials: ResetCredentials = Object();
+
   @Output() resetPassword: EventEmitter<string> = new EventEmitter();
 
   constructor() {
@@ -68,13 +71,20 @@ export class ResetFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const params: ParamMap = this.#activeRoute.snapshot.queryParamMap;
+    this.updateFromUrl(this.resetCredentials, this.#activatedRoute);
+  }
+
+  private updateFromUrl(
+    cred: SignalState<ResetCredentials>,
+    activatedRoute: ActivatedRoute
+  ) {
+    const params: ParamMap = activatedRoute.snapshot.queryParamMap;
 
     params.keys.forEach((key: string) => {
-
-      patchState(this.resetCredentials, { [key]: params.get(key) });
+      if (Object.hasOwn(cred(), key)) {
+        patchState(cred, { [key]: params.get(key) });
+      }
     });
-
   }
 
   private _buildResetForm(): FormGroup<ResetForm> {
