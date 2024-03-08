@@ -30,11 +30,11 @@ jobs:
 
       - name: Build Angular App for Production
         # Replace `your-app-name` with your actual app name. Add any additional build options you need.
-        run: npx nx build your-app-name --configuration=production
+        run: npx nx build --configuration=production
 
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@v12.9.0
         with:
-          args: deploy --only hosting --project your-firebase-project-id
+          args: deploy --only hosting --project travel-on-811d5
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
