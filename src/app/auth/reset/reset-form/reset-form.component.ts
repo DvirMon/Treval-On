@@ -1,11 +1,19 @@
 import { TitleCasePipe } from "@angular/common";
-import { Component, EventEmitter, Output, inject } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Output,
+  Signal,
+  WritableSignal,
+  inject,
+  signal,
+} from "@angular/core";
 import {
   FormControl,
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
-  Validators
+  Validators,
 } from "@angular/forms";
 import { MatButton } from "@angular/material/button";
 import { MatCard, MatCardContent } from "@angular/material/card";
@@ -36,15 +44,14 @@ interface ResetForm {
   styleUrl: "./reset-form.component.scss",
 })
 export class ResetFormComponent {
-  protected readonly resetFormGroup: FormGroup<ResetForm>;
-
-  public formKeys: string[] = [];
+  public readonly resetFormGroup: FormGroup<ResetForm>;
+  public readonly formKeys: WritableSignal<string[]>;
 
   @Output() resetPassword: EventEmitter<string> = new EventEmitter();
 
   constructor() {
     this.resetFormGroup = this._buildResetForm();
-    this.formKeys = getFormKeys(this.resetFormGroup);
+    this.formKeys =  getFormKeys(this.resetFormGroup);
   }
 
   private _buildResetForm(): FormGroup<ResetForm> {
@@ -57,3 +64,6 @@ export class ResetFormComponent {
     this.resetPassword.emit(value as string);
   }
 }
+
+// http://localhost:4200/reset?mode=resetPassword&oobCode=
+// gWBFAp0v3FTiDu8tbLLudvfqddTZ3_jEmiB0y2kqLz4AAAGOHee8YA & apiKey=AIzaSyAWE61Vm0CpfUtHq4G48aJVMbdY6REEtrA & lang=en

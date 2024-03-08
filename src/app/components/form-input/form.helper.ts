@@ -1,8 +1,9 @@
+import { WritableSignal, signal } from "@angular/core";
 import { FormGroup, ValidationErrors } from "@angular/forms";
 import { ServerError } from "src/app/auth/store/auth.model";
 
-export function getFormKeys(obj: FormGroup): string[] {
-  return Object.keys(obj.controls);
+export function getFormKeys(obj: FormGroup): WritableSignal<string[]> {
+  return signal(Object.keys(obj.controls));
 }
 
 export enum FormErrorType {

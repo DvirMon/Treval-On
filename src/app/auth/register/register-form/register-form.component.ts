@@ -4,7 +4,8 @@ import {
   Component,
   EventEmitter,
   Output,
-  inject,
+  WritableSignal,
+  inject
 } from "@angular/core";
 import {
   FormControl,
@@ -12,7 +13,7 @@ import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
   ValidationErrors,
-  Validators
+  Validators,
 } from "@angular/forms";
 import { MatButton } from "@angular/material/button";
 import { MatCard, MatCardContent } from "@angular/material/card";
@@ -43,9 +44,10 @@ interface RegisterForm {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterFormComponent {
+  
   protected readonly registerFormGroup: FormGroup<RegisterForm>;
 
-  public formKeys: string[] = [];
+  public formKeys: WritableSignal<string[]>;
 
   public errorsMap: { [key: string]: ValidationErrors } = {
     password: {

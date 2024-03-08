@@ -9,7 +9,7 @@
     <form
       [formGroup]="resetFormGroup"
       (ngSubmit)="onSubmit(resetFormGroup.value)">
-      @for (key of formKeys; track key) {
+      @for (key of formKeys(); track key) {
 
       <to-form-input
         [control]="resetFormGroup.get(key)"
