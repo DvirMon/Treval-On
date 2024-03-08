@@ -1,11 +1,19 @@
 <div class="reset-page-wrapper">
+
+
   <div class="reset-wrapper">
-    <to-reset-password-form></to-reset-password-form>
-    <to-reset-contact-form></to-reset-contact-form>
+    @if(showNewPassword()) {
+    <to-reset-password-form
+      (resetPassword)="onResetPassword($event)"></to-reset-password-form>
+    } @else {
+    <to-reset-contact-form
+      (sendContact)="onSendLink($event)"></to-reset-contact-form>
     <to-auth-action
       class="front"
       [routerLink]="'/register'"
       label="Don't have an account?"
       boldLabel="Sign up"></to-auth-action>
+
+    }
   </div>
 </div>

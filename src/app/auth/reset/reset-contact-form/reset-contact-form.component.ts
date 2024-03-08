@@ -55,11 +55,11 @@ export class ResetContactFormComponent {
 
   private _buildResetForm(): FormGroup<ResetContactForm> {
     return inject(NonNullableFormBuilder).group({
-      email: ["", [Validators.required, Validators.email]],
+      email: ["demnajem@gmail.com", [Validators.required, Validators.email]],
     });
   }
 
-  public onSubmit(value: Partial<EmailAndPasswordSignIn>): void {
-    this.sendContact.emit(value as string);
+  public onSubmit(value: Partial<{ email: string }>): void {
+    this.sendContact.emit(value.email as string);
   }
 }

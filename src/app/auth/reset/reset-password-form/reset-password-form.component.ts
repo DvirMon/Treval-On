@@ -55,7 +55,7 @@ export class ResetPasswordFormComponent {
   private _buildResetForm(): FormGroup<ResetPasswordForm> {
     return inject(NonNullableFormBuilder).group({
       newPassword: [
-        "",
+        "12345678",
         [
           Validators.required,
           Validators.minLength(8),
@@ -66,6 +66,6 @@ export class ResetPasswordFormComponent {
   }
 
   public onSubmit(value: Partial<{ newPassword: string }>): void {
-    this.resetPassword.emit(value as string);
+    this.resetPassword.emit(value.newPassword);
   }
 }
