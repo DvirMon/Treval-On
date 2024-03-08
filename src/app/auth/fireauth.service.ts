@@ -97,7 +97,10 @@ export class FireAuthService {
     return from(sendPasswordResetEmail(this.auth, email));
   }
 
-  public confirmPasswordReset(oobCode: string, newPassword: string) {
+  public confirmPasswordReset(
+    oobCode: string,
+    newPassword: string
+  ): Observable<void> {
     return from(confirmPasswordReset(this.auth, oobCode, newPassword));
   }
 }
