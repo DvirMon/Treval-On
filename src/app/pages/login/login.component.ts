@@ -11,11 +11,13 @@ import {
 } from "@angular/core";
 
 import { EmailLinkFormComponent } from "src/app/auth/email-link-form/email-link-form.component";
-import { LoginFormComponent } from "src/app/auth/login-form/login-form.component";
-import { LoginOtpFormComponent } from "src/app/auth/login-otp-form/login-otp-form.component";
+import { LoginFormComponent } from "src/app/auth/login/login-form/login-form.component";
 import { FlipCardComponent } from "src/app/components/flip-card/flip-card.component";
 import { FloatingButtonComponent } from "src/app/components/floating-button/floating-button.component";
 
+import { MatButtonModule } from "@angular/material/button";
+import { LoginOtpFormComponent } from "src/app/auth/otp/login-otp-form/login-otp-form.component";
+import { RegisterCardComponent } from "src/app/auth/register/register-card/register-card.component";
 import {
   ServerError,
   SignInEvent,
@@ -23,8 +25,6 @@ import {
 } from "src/app/auth/store/auth.model";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
 import { FlipCardService } from "src/app/components/flip-card/flip-card.service";
-import { MatButtonModule } from "@angular/material/button";
-import { RegisterCardComponent } from "src/app/auth/register-card/register-card.component";
 
 @Component({
   selector: "to-login-page",

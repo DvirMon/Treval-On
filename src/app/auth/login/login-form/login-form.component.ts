@@ -31,7 +31,7 @@ import {
   ServerError,
   SignInEvent,
   SignInMethod,
-} from "../store/auth.model";
+} from "../../store/auth.model";
 
 interface LoginForm {
   email: FormControl<string>;
