@@ -2,11 +2,11 @@ import { CommonModule, NgOptimizedImage, TitleCasePipe } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   EventEmitter,
+  Output,
+  effect,
   inject,
   input,
-  Output,
 } from "@angular/core";
 import {
   FormControl,
