@@ -134,7 +134,13 @@ export class AuthService {
     return this.fireAuthService.isSignInWithEmailLink$(emailLink);
   }
 
-  public resetPassword(email: string): Observable<void> {
+  public sendResetEmail(email: string): Observable<void> {
     return this.fireAuthService.sendPasswordResetEmail(email);
+  }
+  public confirmPasswordReset(
+    oobCode: string,
+    newPassword: string
+  ): Observable<void> {
+    return this.fireAuthService.confirmPasswordReset(oobCode, newPassword);
   }
 }

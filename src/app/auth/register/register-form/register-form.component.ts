@@ -1,25 +1,22 @@
-import { CommonModule } from "@angular/common";
+import { TitleCasePipe } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Output,
-  inject,
+  WritableSignal,
+  inject
 } from "@angular/core";
 import {
   FormControl,
   FormGroup,
-  FormsModule,
   NonNullableFormBuilder,
   ReactiveFormsModule,
   ValidationErrors,
   Validators,
 } from "@angular/forms";
-import { MatButtonModule } from "@angular/material/button";
-import { MatCardModule } from "@angular/material/card";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { RouterModule } from "@angular/router";
+import { MatButton } from "@angular/material/button";
+import { MatCard, MatCardContent } from "@angular/material/card";
 import { DividerHeaderComponent } from "src/app/components/divider-header/divider-header.component";
 import { FormInputComponent } from "src/app/components/form-input/form-input.component";
 import { getFormKeys } from "src/app/components/form-input/form.helper";
@@ -34,14 +31,11 @@ interface RegisterForm {
   selector: "to-register-form",
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
     ReactiveFormsModule,
-    RouterModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
+    TitleCasePipe,
+    MatCard,
+    MatCardContent,
+    MatButton,
     FormInputComponent,
     DividerHeaderComponent,
   ],
@@ -50,9 +44,10 @@ interface RegisterForm {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterFormComponent {
+  
   protected readonly registerFormGroup: FormGroup<RegisterForm>;
 
-  public formKeys: string[] = [];
+  public formKeys: WritableSignal<string[]>;
 
   public errorsMap: { [key: string]: ValidationErrors } = {
     password: {

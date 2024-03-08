@@ -1,22 +1,21 @@
-:host {
-  div {
-    height: 100%;
-  }
+@use "variables" as main;
 
-  div.reset-wrapper {
-    background-image: url("../../../assets/images/backgrounds/register.jpg");
+:host {
+  div.reset-page-wrapper {
+    height: 100%;
+    background-image: url("../../../assets/images/backgrounds/reset.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
 
-    section 
-    {
-      width: 20%;
-      height: 40%;
-    }
+  div.reset-wrapper {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: main.spacing(2);
   }
 }
-

@@ -98,8 +98,15 @@ export class LoginFormComponent {
     nfb: NonNullableFormBuilder
   ): FormGroup<LoginForm> {
     return nfb.group({
-      email: nfb.control("", [Validators.required, Validators.email]),
-      password: nfb.control("", [Validators.required]),
+      email: nfb.control("dmenajem@gmail.com", [
+        Validators.required,
+        Validators.email,
+      ]),
+      password: nfb.control("", [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(16),
+      ]),
     });
   }
 

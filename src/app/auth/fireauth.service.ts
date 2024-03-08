@@ -14,6 +14,7 @@ import {
   signInWithEmailLink,
   signInWithPhoneNumber,
   signInWithPopup,
+  confirmPasswordReset,
 } from "@angular/fire/auth";
 import { Observable, from, map, of } from "rxjs";
 import { generateVerificationLink } from "./auth.helpers";
@@ -94,5 +95,12 @@ export class FireAuthService {
 
   public sendPasswordResetEmail(email: string): Observable<void> {
     return from(sendPasswordResetEmail(this.auth, email));
+  }
+
+  public confirmPasswordReset(
+    oobCode: string,
+    newPassword: string
+  ): Observable<void> {
+    return from(confirmPasswordReset(this.auth, oobCode, newPassword));
   }
 }

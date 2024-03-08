@@ -48,8 +48,7 @@ import { FlipContainerService } from "src/app/components/flip-container/flip-con
   providers: [FlipContainerService],
 })
 export class LoginPageComponent {
-  private readonly injector = inject(Injector);
-
+  #injector = inject(Injector);
   #authStore = inject(AuthStore);
 
   public readonly optFlag: WritableSignal<boolean>;
@@ -87,13 +86,13 @@ export class LoginPageComponent {
   }
 
   public onForgetPassword() {
-    runInInjectionContext(this.injector, () => {
+    runInInjectionContext(this.#injector, () => {
       inject(Router).navigateByUrl("reset");
     });
   }
 
   private _flipCard() {
-    runInInjectionContext(this.injector, () => {
+    runInInjectionContext(this.#injector, () => {
       inject(FlipContainerService).flip();
     });
   }

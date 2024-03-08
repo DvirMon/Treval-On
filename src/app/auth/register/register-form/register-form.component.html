@@ -4,7 +4,7 @@
     <form
       [formGroup]="registerFormGroup"
       (ngSubmit)="onSubmit(registerFormGroup.value)">
-      @for (key of formKeys; track key) {
+      @for (key of formKeys(); track key) {
 
       <to-form-input
         [control]="registerFormGroup.get(key)"
