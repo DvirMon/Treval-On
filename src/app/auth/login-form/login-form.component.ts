@@ -27,16 +27,17 @@ import { DividerHeaderComponent } from "src/app/components/divider-header/divide
 import { FormInputComponent } from "src/app/components/form-input/form-input.component";
 
 import {
-  AuthEvent,
+  FormServerError,
+  handleServerError,
+} from "src/app/components/form-input/form.helper";
+import { environment } from "src/environments/environment";
+import {
   AuthServerError,
   EmailAndPasswordSignIn,
   SignInEvent,
   SignInMethod,
 } from "../auth.model";
-import {
-  FormServerError,
-  handleServerError,
-} from "src/app/components/form-input/form.helper";
+import { DEFAULT_EMAIL } from "src/app/utilities/constants";
 
 interface LoginForm {
   email: FormControl<string>;
@@ -105,7 +106,7 @@ export class LoginFormComponent {
     nfb: NonNullableFormBuilder
   ): FormGroup<LoginForm> {
     return nfb.group({
-      email: nfb.control("dmenajem@gmail.com", [
+      email: nfb.control(DEFAULT_EMAIL, [
         Validators.required,
         Validators.email,
       ]),

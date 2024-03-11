@@ -4,7 +4,7 @@ import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { getAuth, provideAuth } from "@angular/fire/auth";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
 import { getMessaging, provideMessaging } from "@angular/fire/messaging";
-import { environment } from "src/environments/environment";
+import { environment } from "src/environments/environment.prod";
 
 export function provideFirebase() {
   return [

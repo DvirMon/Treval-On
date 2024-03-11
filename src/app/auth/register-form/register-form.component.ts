@@ -31,6 +31,7 @@ import {
   AuthServerError,
   EmailAndPasswordSignIn,
 } from "../auth.model";
+import { DEFAULT_EMAIL } from "src/app/utilities/constants";
 
 interface RegisterForm {
   email: FormControl<string>;
@@ -87,9 +88,9 @@ export class RegisterFormComponent {
 
   private _buildRegisterForm(): FormGroup<RegisterForm> {
     return inject(NonNullableFormBuilder).group({
-      email: ["dmenajem@gmail.com", [Validators.required, Validators.email]],
+      email: [DEFAULT_EMAIL, [Validators.required, Validators.email]],
       password: [
-        "12345678",
+        "",
         [
           Validators.required,
           Validators.minLength(8),
