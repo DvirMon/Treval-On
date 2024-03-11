@@ -105,6 +105,10 @@ export class LoginFormComponent {
   private _getLoginFormGroup(
     nfb: NonNullableFormBuilder
   ): FormGroup<LoginForm> {
+
+
+    console.log(DEFAULT_EMAIL)
+
     return nfb.group({
       email: nfb.control(DEFAULT_EMAIL, [
         Validators.required,

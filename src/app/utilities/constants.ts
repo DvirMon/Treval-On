@@ -7,4 +7,4 @@ export enum StorageKey {
   PENDING = "PENDING",
 }
 
-export const DEFAULT_EMAIL = environment.email
+export const DEFAULT_EMAIL = environment.production ? "" : environment.email
