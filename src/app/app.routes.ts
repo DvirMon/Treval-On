@@ -3,11 +3,13 @@ import { LoginPageComponent } from "./pages/login/login.component";
 // import { placesResolver } from "./pages/places/places.resolver";
 import { verifyGuard } from "./pages/verify/verify.guard";
 import { placesResolver } from "./pages/places/places.resolver";
+import { cleanupGuard } from "./auth/cleanup.guard";
 
 export const appRoutes: Routes = [
   {
     path: "",
     component: LoginPageComponent,
+    canDeactivate: [cleanupGuard],
   },
   {
     path: "verify-email",
@@ -23,11 +25,13 @@ export const appRoutes: Routes = [
       import("./pages/register/register.component").then(
         (m) => m.RegisterPageComponent
       ),
+    canDeactivate: [cleanupGuard],
   },
   {
     path: "reset",
     loadComponent: () =>
       import("./pages/reset/reset.component").then((m) => m.ResetPageComponent),
+    canDeactivate: [cleanupGuard],
   },
   {
     path: "places/:userId",

@@ -18,7 +18,7 @@ import {
   MessageType,
 } from "../otp-contact-form/otp-contact-form.component";
 import { OtpFormComponent } from "../otp-form/otp-form.component";
-import { SignInEvent } from "../../store/auth.model";
+import { SignInEvent } from "../../auth.model";
 
 interface Tab {
   icon: string;

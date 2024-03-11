@@ -27,11 +27,17 @@ import { DividerHeaderComponent } from "src/app/components/divider-header/divide
 import { FormInputComponent } from "src/app/components/form-input/form-input.component";
 
 import {
+  FormServerError,
+  handleServerError,
+} from "src/app/components/form-input/form.helper";
+import { environment } from "src/environments/environment";
+import {
+  AuthServerError,
   EmailAndPasswordSignIn,
-  ServerError,
   SignInEvent,
   SignInMethod,
-} from "../../store/auth.model";
+} from "../auth.model";
+import { DEFAULT_EMAIL } from "src/app/utilities/constants";
 
 interface LoginForm {
   email: FormControl<string>;
@@ -63,7 +69,7 @@ interface LoginForm {
 export class LoginFormComponent {
   public readonly loginFormGroup: FormGroup<LoginForm>;
 
-  serverError = input<ServerError | null>({} as ServerError);
+  serverError = input<AuthServerError | null>({} as AuthServerError);
 
   @Output() login: EventEmitter<SignInEvent> = new EventEmitter();
   @Output() google: EventEmitter<SignInEvent> = new EventEmitter();
@@ -79,7 +85,9 @@ export class LoginFormComponent {
 
     effect(
       () => {
-        this._handleServerError(this.loginFormGroup, this.serverError());
+        const serverError = this.serverError();
+
+        handleServerError(this.loginFormGroup, serverError as FormServerError);
       },
       { allowSignalWrites: true }
     );
@@ -98,7 +106,7 @@ export class LoginFormComponent {
     nfb: NonNullableFormBuilder
   ): FormGroup<LoginForm> {
     return nfb.group({
-      email: nfb.control("dmenajem@gmail.com", [
+      email: nfb.control(DEFAULT_EMAIL, [
         Validators.required,
         Validators.email,
       ]),
@@ -144,16 +152,17 @@ export class LoginFormComponent {
     } as SignInEvent;
   }
 
-  private _handleServerError(
-    group: FormGroup,
-    server: ServerError | null
-  ): void {
-    if (group !== null && server !== null) {
-      const control = group.get(server.control as string);
+  //   private _handleServerError(
+  //     group: FormGroup,
+  //     server: AuthServerError | null
+  //   ): void {
+  //     if (group !== null && server !== null) {
+  //       const control = group.get(server.control as string);
 
-      if (control != null) {
-        control.setErrors({ serverError: server.message });
-      }
-    }
-  }
+  //       if (control != null) {
+  //         control.setErrors({ serverError: server.message });
+  //       }
+  //     }
+  //   }
+  // }
 }
