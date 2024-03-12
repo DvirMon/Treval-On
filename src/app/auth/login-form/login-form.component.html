@@ -14,19 +14,15 @@
       <form
         [formGroup]="loginFormGroup"
         (ngSubmit)="onSubmit(loginFormGroup.value)">
-        <to-form-input
-          [control]="loginFormGroup.get('email')"
-          key="email"
-          [label]="'email' | titlecase"
-          [errorsMap]="errorsMap">
-        </to-form-input>
+        @for (key of formKeys(); track key) {
 
         <to-form-input
-          [control]="loginFormGroup.get('password')"
-          key="password"
-          [label]="'password' | titlecase">
+          [control]="loginFormGroup.get(key)"
+          [key]="key"
+          [label]="key | titlecase"
+          [errorsMap]="errorsMap[key]">
         </to-form-input>
-
+        }
         <button
           class="login-btn"
           mat-raised-button

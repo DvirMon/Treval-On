@@ -26,7 +26,6 @@ import {
 import { OtpLoginFormComponent } from "src/app/auth/otp/otp-login-form/otp-login-form.component";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
 import { FlipContainerService } from "src/app/components/flip-container/flip-container.service";
-import { environment } from "src/environments/environment";
 
 @Component({
   selector: "to-login-page",
@@ -58,7 +57,6 @@ export class LoginPageComponent {
     this.#authStore.loadUser();
     this.serverError = this.#authStore.loginServerError();
 
-    console.log(environment.production);
   }
 
   public onSignIn(event: SignInEvent) {
