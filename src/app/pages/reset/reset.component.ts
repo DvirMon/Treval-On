@@ -54,7 +54,8 @@ export class ResetPageComponent {
 
   public onResetPassword(newPassword: string) {
     const oobCode = this.paramsSignal()["oobCode"];
-    this.#authStore.confirmResetPassword(newPassword, oobCode);
+    // this.#authStore.confirmResetPassword(newPassword, oobCode);
+    this.#authStore.sendResetEmail("email");
 
     // runInInjectionContext(this.#injector, () => {
     //   inject(Router).navigateByUrl("reset");

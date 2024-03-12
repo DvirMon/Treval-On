@@ -10,7 +10,7 @@ import {
   signal,
 } from "@angular/core";
 
-import { EmailLinkFormComponent } from "src/app/auth/email-link/email-link-form/email-link-form.component";
+import { EmailLinkFormComponent } from "src/app/auth/email-link-form/email-link-form.component";
 import { LoginFormComponent } from "src/app/auth/login-form/login-form.component";
 import { FlipCardComponent } from "src/app/components/flip-container/flip-container.component";
 import { FloatingButtonComponent } from "src/app/components/floating-button/floating-button.component";
@@ -56,7 +56,6 @@ export class LoginPageComponent {
     this.optFlag = signal(false);
     this.#authStore.loadUser();
     this.serverError = this.#authStore.loginServerError();
-
   }
 
   public onSignIn(event: SignInEvent) {

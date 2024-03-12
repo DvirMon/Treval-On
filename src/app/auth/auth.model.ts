@@ -42,6 +42,11 @@ export enum AuthEvent {
   EMAIL_LINK = "emailLink",
 }
 
+export enum AuthDialogEvent {
+  RESET_PASSWORD = "resetPassword",
+  CONFIRM_EMAIL = "confirmEmail",
+}
+
 export interface AuthServerError extends FormServerError {
   event: AuthEvent;
 }

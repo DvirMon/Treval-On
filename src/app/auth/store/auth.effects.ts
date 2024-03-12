@@ -1,17 +1,27 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { EMPTY, catchError, concatMap, map, of, switchMap, tap } from "rxjs";
+import {
+  EMPTY,
+  catchError,
+  concatMap,
+  map,
+  mergeMap,
+  of,
+  switchMap,
+  tap,
+} from "rxjs";
 import { DialogService } from "src/app/components/dialog/dialog.service";
 import { StorageKey } from "src/app/utilities/constants";
 import { saveToStorage } from "src/app/utilities/helpers";
 import { mapUserCredentials } from "../auth.helpers";
 import { AuthService } from "../auth.service";
-import { EmailLinkDialogComponent } from "../email-link/email-link-dialog/email-link-dialog.component";
+import { EmailLinkDialogComponent } from "../dialogs/email-link-dialog/email-link-dialog.component";
 import { AuthActions } from "./auth.actions";
 import { FirebaseError } from "../fireauth.service";
 import { ResetService } from "../reset/reset.service";
-import { AuthEvent } from "../auth.model";
+import { AuthDialogEvent, AuthEvent } from "../auth.model";
+import { ConfirmDialogComponent } from "../dialogs/confirm-dialog/confirm-dialog.component";
 
 @Injectable()
 export class AuthEffects {
@@ -97,8 +107,14 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.sendResetEmail),
       switchMap(({ email }) =>
-        this.resetService.sendResetEmail(email).pipe(
-          map(() => AuthActions.sendEmailLinkSuccess({ email })),
+        // this.resetService.sendResetEmail(email).pipe(
+        of("email").pipe(
+          map(() =>
+            AuthActions.sendResetEmailSuccess({
+              email,
+              event: AuthDialogEvent.RESET_PASSWORD,
+            })
+          ),
           catchError((err: FirebaseError) => {
             return of(
               AuthActions.sendResetEmailFailure({
@@ -115,9 +131,16 @@ export class AuthEffects {
   confirmResetPassword$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.confirmResetPassword),
+      tap(() => console.log("action")),
       switchMap(({ oobCode, newPassword }) =>
-        this.resetService.confirmPasswordReset(oobCode, newPassword).pipe(
-          map(() => AuthActions.sendResetEmailSuccess({ email: "" })),
+        // this.resetService.confirmPasswordReset(oobCode, newPassword).pipe(
+        of("email").pipe(
+          map(() =>
+            AuthActions.confirmResetPasswordSuccess({
+              email : "",
+              event: AuthDialogEvent.CONFIRM_EMAIL,
+            })
+          ),
           catchError((err: FirebaseError) => {
             return of(
               AuthActions.sendResetEmailFailure({
@@ -131,23 +154,18 @@ export class AuthEffects {
     )
   );
 
-  emailLnkDialog$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AuthActions.sendEmailLinkSuccess),
-        tap(({ email }) =>
-          this.dialogService.openDialog(EmailLinkDialogComponent, { email })
-        )
-      ),
-    { dispatch: false }
-  );
-
   authDialog$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AuthActions.sendResetEmailSuccess),
-        tap(({ email }) =>
-          this.dialogService.openDialog(EmailLinkDialogComponent, { email })
+        ofType(
+          AuthActions.confirmResetPasswordSuccess,
+          AuthActions.sendResetEmailSuccess
+        ),
+        tap(({ email, event }) =>
+          this.dialogService.openDialog(ConfirmDialogComponent, {
+            email,
+            event,
+          })
         )
       ),
     { dispatch: false }
