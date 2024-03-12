@@ -23,7 +23,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { DividerHeaderComponent } from "src/app/components/divider-header/divider-header.component";
 import { FormInputComponent } from "src/app/components/form-input/form-input.component";
 import { InfoCardComponent } from "src/app/components/info-card/info-card.component";
-import { SignInEvent, SignInMethod } from "../../auth.model";
+import { SignInEvent, SignInMethod } from "../auth.model";
 
 @Component({
   selector: "to-email-link-form",

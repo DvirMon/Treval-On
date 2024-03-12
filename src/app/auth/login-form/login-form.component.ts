@@ -4,6 +4,7 @@ import {
   Component,
   EventEmitter,
   Output,
+  WritableSignal,
   effect,
   inject,
   input,
@@ -14,6 +15,7 @@ import {
   FormsModule,
   NonNullableFormBuilder,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -28,6 +30,7 @@ import { FormInputComponent } from "src/app/components/form-input/form-input.com
 
 import {
   FormServerError,
+  getFormKeys,
   handleServerError,
 } from "src/app/components/form-input/form.helper";
 import { environment } from "src/environments/environment";
@@ -69,7 +72,18 @@ interface LoginForm {
 export class LoginFormComponent {
   public readonly loginFormGroup: FormGroup<LoginForm>;
 
-  serverError = input<AuthServerError | null>({} as AuthServerError);
+  public readonly serverError = input<AuthServerError | null>(
+    {} as AuthServerError
+  );
+
+  public readonly errorsMap: { [key: string]: ValidationErrors } = {
+    password: {
+      minlength: "password is to short",
+      maxlength: "password is to long",
+    },
+  };
+
+  public readonly formKeys: WritableSignal<string[]>;
 
   @Output() login: EventEmitter<SignInEvent> = new EventEmitter();
   @Output() google: EventEmitter<SignInEvent> = new EventEmitter();
@@ -79,9 +93,10 @@ export class LoginFormComponent {
 
   constructor() {
     this._setGoogleIcon();
-    this.loginFormGroup = this._getLoginFormGroup(
-      inject(NonNullableFormBuilder)
-    );
+
+    this.loginFormGroup = this.buildLoginForm();
+
+    this.formKeys = getFormKeys(this.loginFormGroup);
 
     effect(
       () => {
@@ -102,23 +117,17 @@ export class LoginFormComponent {
     );
   }
 
-  private _getLoginFormGroup(
-    nfb: NonNullableFormBuilder
-  ): FormGroup<LoginForm> {
-
-
-    console.log(DEFAULT_EMAIL)
-
-    return nfb.group({
-      email: nfb.control(DEFAULT_EMAIL, [
-        Validators.required,
-        Validators.email,
-      ]),
-      password: nfb.control("", [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(16),
-      ]),
+  private buildLoginForm(): FormGroup<LoginForm> {
+    return inject(NonNullableFormBuilder).group({
+      email: [DEFAULT_EMAIL, [Validators.required, Validators.email]],
+      password: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(16),
+        ],
+      ],
     });
   }
 

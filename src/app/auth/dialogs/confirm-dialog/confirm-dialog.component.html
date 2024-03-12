@@ -1,0 +1,23 @@
+<header mat-dialog-title>
+  <to-info-card icon="task_alt" text="Email Confirmation"></to-info-card>
+</header>
+
+<mat-divider></mat-divider>
+
+<main mat-dialog-content>
+  <p>
+    We have sent email to <span class="email">{{ data.email }}</span>
+  </p>
+  <p>
+    To complete the {{ data.event }} process, please check your inbox and follow
+    the instructions provided.
+  </p>
+  <p>
+    If you haven't received the email within a few minutes, don't forget to
+    check your spam or junk folder.
+  </p>
+</main>
+
+<footer mat-dialog-actions>
+  <button mat-flat-button mat-dialog-close cdkFocusInitial>ok</button>
+</footer>

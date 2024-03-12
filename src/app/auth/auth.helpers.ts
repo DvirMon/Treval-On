@@ -39,7 +39,10 @@ export function getUserEmailFromUrl(
   );
 }
 
-export function mapUserCredentials(): OperatorFunction<UserCredential, User> {
+export function mapFirebaseCredentials(): OperatorFunction<
+  UserCredential,
+  User
+> {
   return (source: Observable<UserCredential>): Observable<User> =>
     source.pipe(
       map((credential: UserCredential) => credential.user),

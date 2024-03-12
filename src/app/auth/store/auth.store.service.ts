@@ -35,8 +35,8 @@ export class AuthStore {
     this.loginSource.next(signInEvent);
   }
 
-  public loadUser(): Signal<User> {
-    return toSignal(this._login$(), { initialValue: {} as User });
+  public loadUser(): Observable<User> {
+    return this._login$();
   }
 
   private _login$(): Observable<User> {
