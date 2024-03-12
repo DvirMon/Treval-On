@@ -13,13 +13,11 @@ import {
 } from "rxjs";
 import { DialogService } from "src/app/components/dialog/dialog.service";
 import { StorageKey } from "src/app/utilities/constants";
-import { saveToStorage } from "src/app/utilities/helpers";
+import { clearStorage, setToStorage } from "src/app/utilities/helpers";
 import { mapFirebaseCredentials } from "../auth.helpers";
 import { AuthDialogEvent, AuthEvent, authDialogMap } from "../auth.model";
 import { AuthService } from "../auth.service";
-import { ConfirmDialogComponent } from "../dialogs/confirm-dialog/confirm-dialog.component";
 import { FirebaseError } from "../fireauth.service";
-import { ResetService } from "../reset/reset.service";
 import { AuthActions } from "./auth.actions";
 
 @Injectable()
@@ -36,6 +34,7 @@ export class AuthEffects {
       ofType(AuthActions.signIn),
       switchMap(({ signInEvent }) =>
         this.authService.signIn$(signInEvent).pipe(
+          tap(() => console.log(signInEvent)),
           mapFirebaseCredentials(),
           map((user) => AuthActions.loadUserSuccess({ user })),
           catchError((err: FirebaseError) => {
@@ -75,6 +74,7 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.loadUserSuccess),
+        tap(() => setToStorage(StorageKey.LOGGED, true)),
         mergeMap(({ user }) =>
           this.authService
             .addDocument(user)
@@ -105,7 +105,7 @@ export class AuthEffects {
       ofType(AuthActions.sendEmailLink),
       switchMap(({ email }) =>
         this.authService.sendSignInLinkToEmail$(email).pipe(
-          tap((email: string) => saveToStorage(StorageKey.EMAIL, email)),
+          tap((email: string) => setToStorage(StorageKey.EMAIL, email)),
           map((email) => AuthActions.sendEmailLinkSuccess({ email })),
           catchError(() => {
             return EMPTY;
@@ -186,7 +186,7 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.logout),
-        tap(() => sessionStorage.clear()),
+        tap(() => clearStorage()),
         tap(() => this.router.navigateByUrl("/"))
       ),
     { dispatch: false }

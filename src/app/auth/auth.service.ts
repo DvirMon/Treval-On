@@ -52,8 +52,8 @@ export class AuthService {
     from(addDoc(this.usersRef, user));
   }
 
-  addDocument(user: User): Observable<User> {
-    return this.checkDocumentExists(user.userId).pipe(
+  public addDocument(user: User): Observable<User> {
+    return this._checkDocumentExists(user.userId).pipe(
       switchMap((empty: boolean) => {
         if (empty) {
           return from(addDoc(this.usersRef, user)).pipe(
@@ -66,7 +66,7 @@ export class AuthService {
     );
   }
 
-  private checkDocumentExists(userId: string): Observable<boolean> {
+  private _checkDocumentExists(userId: string): Observable<boolean> {
     const querySnapshot$ = this.getUserQuerySnapshot$("userId", userId);
     return querySnapshot$.pipe(map((querySnapshot) => querySnapshot.empty));
   }
@@ -133,6 +133,4 @@ export class AuthService {
   public isSignInWithEmailLink(emailLink: string): Observable<boolean> {
     return this.fireAuthService.isSignInWithEmailLink$(emailLink);
   }
-
-
 }
