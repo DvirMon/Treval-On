@@ -60,7 +60,7 @@ export class RegisterFormComponent {
   public readonly registerFormGroup: FormGroup<RegisterForm>;
   public readonly formKeys: WritableSignal<string[]>;
 
-  public errorsMap: { [key: string]: ValidationErrors } = {
+  public readonly errorsMap: { [key: string]: ValidationErrors } = {
     password: {
       minlength: "password is to short",
       maxlength: "password is to long",

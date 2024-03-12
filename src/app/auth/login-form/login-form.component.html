@@ -17,7 +17,8 @@
         <to-form-input
           [control]="loginFormGroup.get('email')"
           key="email"
-          [label]="'email' | titlecase">
+          [label]="'email' | titlecase"
+          [errorsMap]="errorsMap">
         </to-form-input>
 
         <to-form-input

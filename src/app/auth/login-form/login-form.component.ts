@@ -14,6 +14,7 @@ import {
   FormsModule,
   NonNullableFormBuilder,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -69,7 +70,14 @@ interface LoginForm {
 export class LoginFormComponent {
   public readonly loginFormGroup: FormGroup<LoginForm>;
 
-  serverError = input<AuthServerError | null>({} as AuthServerError);
+  public readonly serverError = input<AuthServerError | null>({} as AuthServerError);
+
+  public readonly errorsMap: { [key: string]: ValidationErrors } = {
+    password: {
+      minlength: "password is to short",
+      maxlength: "password is to long",
+    },
+  };
 
   @Output() login: EventEmitter<SignInEvent> = new EventEmitter();
   @Output() google: EventEmitter<SignInEvent> = new EventEmitter();
