@@ -10,6 +10,7 @@ import {
   map,
   of,
   switchMap,
+  tap,
 } from "rxjs";
 import { StorageKey } from "src/app/utilities/constants";
 import { getFromStorage } from "src/app/utilities/helpers";
@@ -63,7 +64,12 @@ export class AuthStore {
     return user$;
   }
 
-  public sendEmailLink(email: string) {
+  public loadUserById(userId: string): void {
+    const action = AuthActions.loadUser({ userId });
+    this.store.dispatch(action);
+  }
+
+  public sendEmailLink(email: string): void {
     const action = AuthActions.sendEmailLink({ email });
     this.store.dispatch(action);
   }
@@ -79,7 +85,7 @@ export class AuthStore {
   }
 
   public isStorageLogged(): Observable<boolean> {
-    return of(!!getFromStorage(StorageKey.LOGGED, { useSessionStorage: true }));
+    return of(getFromStorage<boolean>(StorageKey.LOGGED) || false);
   }
 
   public listenToSendEmailSuccess(): Observable<string> {
