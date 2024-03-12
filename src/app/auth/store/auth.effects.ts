@@ -1,34 +1,21 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import {
-  EMPTY,
-  catchError,
-  concatMap,
-  map,
-  mergeMap,
-  of,
-  switchMap,
-  tap,
-} from "rxjs";
+import { EMPTY, catchError, concatMap, map, of, switchMap, tap } from "rxjs";
 import { DialogService } from "src/app/components/dialog/dialog.service";
 import { StorageKey } from "src/app/utilities/constants";
 import { saveToStorage } from "src/app/utilities/helpers";
 import { mapUserCredentials } from "../auth.helpers";
+import { AuthDialogEvent, AuthEvent, authDialogMap } from "../auth.model";
 import { AuthService } from "../auth.service";
-import { EmailLinkDialogComponent } from "../dialogs/email-link-dialog/email-link-dialog.component";
-import { AuthActions } from "./auth.actions";
 import { FirebaseError } from "../fireauth.service";
-import { ResetService } from "../reset/reset.service";
-import { AuthDialogEvent, AuthEvent } from "../auth.model";
-import { ConfirmDialogComponent } from "../dialogs/confirm-dialog/confirm-dialog.component";
+import { AuthActions } from "./auth.actions";
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private resetService: ResetService,
     private router: Router,
     private dialogService: DialogService
   ) {}
@@ -131,13 +118,12 @@ export class AuthEffects {
   confirmResetPassword$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.confirmResetPassword),
-      tap(() => console.log("action")),
       switchMap(({ oobCode, newPassword }) =>
         // this.resetService.confirmPasswordReset(oobCode, newPassword).pipe(
-        of("email").pipe(
+        of("eil").pipe(
           map(() =>
             AuthActions.confirmResetPasswordSuccess({
-              email : "",
+              email: "test",
               event: AuthDialogEvent.CONFIRM_EMAIL,
             })
           ),
@@ -162,7 +148,7 @@ export class AuthEffects {
           AuthActions.sendResetEmailSuccess
         ),
         tap(({ email, event }) =>
-          this.dialogService.openDialog(ConfirmDialogComponent, {
+          this.dialogService.openDialog(authDialogMap[event], {
             email,
             event,
           })

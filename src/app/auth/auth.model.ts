@@ -1,4 +1,7 @@
+import { ComponentType } from "@angular/cdk/portal";
 import { FormServerError } from "../components/form-input/form.helper";
+import { ConfirmDialogComponent } from "./dialogs/confirm-dialog/confirm-dialog.component";
+import { ResetPasswordDialogComponent } from "./dialogs/reset-password/reset-password-dialog.component";
 
 export interface User {
   userId: string;
@@ -50,3 +53,10 @@ export enum AuthDialogEvent {
 export interface AuthServerError extends FormServerError {
   event: AuthEvent;
 }
+
+type AuthDialogMap = Record<AuthDialogEvent, ComponentType<unknown>>;
+
+export const authDialogMap: AuthDialogMap = {
+  [AuthDialogEvent.CONFIRM_EMAIL]: ConfirmDialogComponent,
+  [AuthDialogEvent.RESET_PASSWORD]: ResetPasswordDialogComponent,
+};
