@@ -1,14 +1,25 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { EMPTY, catchError, concatMap, map, of, switchMap, tap } from "rxjs";
+import {
+  EMPTY,
+  catchError,
+  concatMap,
+  map,
+  mergeMap,
+  of,
+  switchMap,
+  tap,
+} from "rxjs";
 import { DialogService } from "src/app/components/dialog/dialog.service";
 import { StorageKey } from "src/app/utilities/constants";
 import { saveToStorage } from "src/app/utilities/helpers";
-import { mapUserCredentials } from "../auth.helpers";
+import { mapFirebaseCredentials } from "../auth.helpers";
 import { AuthDialogEvent, AuthEvent, authDialogMap } from "../auth.model";
 import { AuthService } from "../auth.service";
+import { ConfirmDialogComponent } from "../dialogs/confirm-dialog/confirm-dialog.component";
 import { FirebaseError } from "../fireauth.service";
+import { ResetService } from "../reset/reset.service";
 import { AuthActions } from "./auth.actions";
 
 @Injectable()
@@ -20,32 +31,12 @@ export class AuthEffects {
     private dialogService: DialogService
   ) {}
 
-  register$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.createUser),
-      concatMap(({ email, password }) =>
-        this.authService.register$(email, password).pipe(
-          mapUserCredentials(),
-          map((user) => AuthActions.loadUserSuccess({ user })),
-          catchError((err: FirebaseError) => {
-            return of(
-              AuthActions.loadUserFailure({
-                code: err.code,
-                event: AuthEvent.REGISTER,
-              })
-            );
-          })
-        )
-      )
-    )
-  );
-
   signIn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.signIn),
       switchMap(({ signInEvent }) =>
         this.authService.signIn$(signInEvent).pipe(
-          mapUserCredentials(),
+          mapFirebaseCredentials(),
           map((user) => AuthActions.loadUserSuccess({ user })),
           catchError((err: FirebaseError) => {
             return of(
@@ -60,11 +51,31 @@ export class AuthEffects {
     )
   );
 
+  register$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.createUser),
+      concatMap(({ email, password }) =>
+        this.authService.register$(email, password).pipe(
+          mapFirebaseCredentials(),
+          map((user) => AuthActions.loadUserSuccess({ user })),
+          catchError((err: FirebaseError) => {
+            return of(
+              AuthActions.loadUserFailure({
+                code: err.code,
+                event: AuthEvent.REGISTER,
+              })
+            );
+          })
+        )
+      )
+    )
+  );
+
   login$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(AuthActions.loadUserSuccess),
-        switchMap(({ user }) =>
+        mergeMap(({ user }) =>
           this.authService
             .addDocument(user)
             .pipe(
@@ -73,6 +84,20 @@ export class AuthEffects {
         )
       ),
     { dispatch: false }
+  );
+
+  loadUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.loadUser),
+      switchMap(({ userId }) =>
+        this.authService.getUserById(userId).pipe(
+          map((user) => AuthActions.loadUserSuccess({ user })),
+          catchError(() => {
+            return EMPTY;
+          })
+        )
+      )
+    )
   );
 
   emailLink$ = createEffect(() =>
@@ -99,7 +124,7 @@ export class AuthEffects {
           map(() =>
             AuthActions.sendResetEmailSuccess({
               email,
-              event: AuthDialogEvent.RESET_PASSWORD,
+              event: AuthDialogEvent.CONFIRM_EMAIL,
             })
           ),
           catchError((err: FirebaseError) => {
@@ -124,7 +149,7 @@ export class AuthEffects {
           map(() =>
             AuthActions.confirmResetPasswordSuccess({
               email: "test",
-              event: AuthDialogEvent.CONFIRM_EMAIL,
+              event: AuthDialogEvent.RESET_PASSWORD,
             })
           ),
           catchError((err: FirebaseError) => {
@@ -155,20 +180,6 @@ export class AuthEffects {
         )
       ),
     { dispatch: false }
-  );
-
-  loadUser$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.loadUser),
-      switchMap(({ userId }) =>
-        this.authService.getUserById(userId).pipe(
-          map((user) => AuthActions.loadUserSuccess({ user })),
-          catchError(() => {
-            return EMPTY;
-          })
-        )
-      )
-    )
   );
 
   logout$ = createEffect(

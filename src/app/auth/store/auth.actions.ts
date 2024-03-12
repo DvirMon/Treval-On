@@ -5,7 +5,7 @@ export const AuthActions = createActionGroup({
   source: "Auth/API",
   events: {
     "Sign In": props<{ signInEvent: SignInEvent }>(),
-    "Sign In Success": props<{ user: User }>(),
+    "Create User": props<{ email: string; password: string }>(),
     "Send Email Link": props<{ email: string }>(),
     "Send Email Link Success": props<{ email: string }>(),
     "Send Email Link Failure": props<{ email: string }>(),
@@ -23,7 +23,6 @@ export const AuthActions = createActionGroup({
       email: string;
       event: AuthDialogEvent;
     }>(),
-    "Create User": props<{ email: string; password: string }>(),
     Cleanup: emptyProps(),
     Logout: emptyProps(),
   },

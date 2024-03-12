@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router } from '@angular/router';
+import { Observable, from, iif, switchMap } from 'rxjs';
 import { AuthStore } from 'src/app/auth/store/auth.store.service';
-import { switchMap, Observable, from, iif } from 'rxjs';
 
 export const placesGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -25,7 +25,7 @@ export const placesGuard: CanActivateFn = (
 
 function onLoggedTrue(authStore: AuthStore, route: ActivatedRouteSnapshot) {
   const userId: string = route.paramMap.get('userId') as string
-  return authStore.loadUser(userId)
+  return authStore.loadUser()
 }
 
 function onLoggedFalse(router: Router): Observable<boolean> {

@@ -1,7 +1,7 @@
 import { ComponentType } from "@angular/cdk/portal";
 import { FormServerError } from "../components/form-input/form.helper";
 import { ConfirmDialogComponent } from "./dialogs/confirm-dialog/confirm-dialog.component";
-import { ResetPasswordDialogComponent } from "./dialogs/reset-password/reset-password-dialog.component";
+import { ResetPasswordDialogComponent } from "./dialogs/reset-passwor-dialog/reset-password-dialog.component";
 
 export interface User {
   userId: string;

@@ -83,7 +83,7 @@ export class LoginFormComponent {
     },
   };
 
-  public readonly formKeys : WritableSignal<string[]>
+  public readonly formKeys: WritableSignal<string[]>;
 
   @Output() login: EventEmitter<SignInEvent> = new EventEmitter();
   @Output() google: EventEmitter<SignInEvent> = new EventEmitter();
@@ -92,7 +92,6 @@ export class LoginFormComponent {
   @Output() forget: EventEmitter<void> = new EventEmitter();
 
   constructor() {
-    
     this._setGoogleIcon();
 
     this.loginFormGroup = this.buildLoginForm();
@@ -120,12 +119,14 @@ export class LoginFormComponent {
 
   private buildLoginForm(): FormGroup<LoginForm> {
     return inject(NonNullableFormBuilder).group({
-      email: [DEFAULT_EMAIL, Validators.required, Validators.email],
+      email: [DEFAULT_EMAIL, [Validators.required, Validators.email]],
       password: [
         "",
-        Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(16),
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(16),
+        ],
       ],
     });
   }
