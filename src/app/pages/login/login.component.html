@@ -11,17 +11,21 @@
         (forget)="onForgetPassword()">
       </to-login-form>
 
-      <ng-container class="back" *ngIf="optFlag()">
+      @if(showOtp()){
+
+      <ng-container class="back">
         <to-otp-login-form
           (otpSignIn)="onSignIn($event)"
           (signInWithEmailAndPassword)="onEmailAndPassword()">
         </to-otp-login-form>
       </ng-container>
+      } @else {
 
-      <ng-container class="back" *ngIf="!optFlag()">
+      <ng-container class="back">
         <to-email-link-form
           (emailLinkSignIn)="onEmailLink($event)"></to-email-link-form>
       </ng-container>
+      }
     </to-flip-container>
 
     <to-auth-action

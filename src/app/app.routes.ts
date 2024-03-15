@@ -11,6 +11,7 @@ export const appRoutes: Routes = [
     path: "",
     component: LoginPageComponent,
     canDeactivate: [authCleanupGuard],
+    title : 'Login'
   },
   {
     path: "verify-email",
@@ -27,19 +28,23 @@ export const appRoutes: Routes = [
         (m) => m.RegisterPageComponent
       ),
     canDeactivate: [authCleanupGuard],
+    title : 'Register'
+    
   },
   {
     path: "reset",
     loadComponent: () =>
-      import("./pages/reset/reset.component").then((m) => m.ResetPageComponent),
+    import("./pages/reset/reset.component").then((m) => m.ResetPageComponent),
     canDeactivate: [authCleanupGuard],
+    title : 'Reset Password'
   },
   {
     path: "places/:userId",
     loadComponent: () =>
-      import("./pages/places/places.component").then((m) => m.PlacesComponent),
+    import("./pages/places/places.component").then((m) => m.PlacesComponent),
     canActivate: [placesGuard],
     resolve: { authLoadUserResolver, placesResolver },
+    title : 'Travel-On'
   },
   // {
   //   path: "**",
