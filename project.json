@@ -14,17 +14,12 @@
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "src",
-            "src/styles"
-          ]
+          "includePaths": ["src", "src/styles"]
         },
         "outputPath": "public/client",
         "index": "src/index.html",
         "main": "src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -32,9 +27,7 @@
           "src/assets",
           "src/firebase-messaging-sw.js"
         ],
-        "styles": [
-          "src/styles.scss"
-        ],
+        "styles": ["src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -51,6 +44,12 @@
               "maximumError": "4kb"
             }
           ],
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.ts",
+              "with": "src/environments/environment.prod.ts"
+            }
+          ],
           "outputHashing": "all"
         },
         "development": {
@@ -63,9 +62,7 @@
         }
       },
       "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "outputs": ["{options.outputPath}"]
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
@@ -88,10 +85,7 @@
     "test": {
       "executor": "@angular-devkit/build-angular:karma",
       "options": {
-        "polyfills": [
-          "zone.js",
-          "zone.js/testing"
-        ],
+        "polyfills": ["zone.js", "zone.js/testing"],
         "tsConfig": "tsconfig.spec.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -99,23 +93,16 @@
           "src/assets",
           "src/firebase-messaging-sw.js"
         ],
-        "styles": [
-          "src/styles.scss"
-        ],
+        "styles": ["src/styles.scss"],
         "scripts": []
       }
     },
     "lint": {
       "executor": "@angular-eslint/builder:lint",
       "options": {
-        "lintFilePatterns": [
-          "src/**/*.ts",
-          "src/**/*.html"
-        ]
+        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
       },
-      "outputs": [
-        "{options.outputFile}"
-      ]
+      "outputs": ["{options.outputFile}"]
     }
   }
 }

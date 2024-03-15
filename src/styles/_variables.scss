@@ -38,28 +38,46 @@ $grid-breakpoints: (
 }
 
 @mixin cardForm {
-  padding: main.spacing(2);
+  mat-card {
+    padding: spacing(2);
 
-  mat-card-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: main.spacing(3);
-
-    section {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-
-      mat-icon {
-        scale: 1.5;
-      }
-    }
-
-    form {
+    mat-card-content {
       display: flex;
       flex-direction: column;
-      gap: main.spacing(3);
+      justify-content: center;
+      gap: spacing(3);
+
+      section {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        mat-icon {
+          scale: 1.5;
+        }
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: spacing(3);
+      }
     }
+  }
+}
+
+// Mixin for flexbox layout
+@mixin flexLayout(
+  $direction: column,
+  $justify: center,
+  $align: center,
+  $gap: null
+) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  @if $gap != null {
+    gap: spacing($gap);
   }
 }
