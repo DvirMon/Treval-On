@@ -17,6 +17,5 @@ export const environment = {
     appId: "1:443306265288:web:0362cd9bd5a605e5d533fd",
     measurementId: "G-BSDTG44DV2",
   },
-  // email: "dmenajem@gmail.com",
-  email: "",
+  email: "dmenajem@gmail.com",
 };

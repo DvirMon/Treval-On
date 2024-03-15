@@ -6,6 +6,7 @@ import {
   Signal,
   WritableSignal,
   inject,
+  isDevMode,
   runInInjectionContext,
   signal,
 } from "@angular/core";
@@ -26,6 +27,7 @@ import {
 import { OtpLoginFormComponent } from "src/app/auth/otp/otp-login-form/otp-login-form.component";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
 import { FlipContainerService } from "src/app/components/flip-container/flip-container.service";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "to-login-page",
@@ -49,11 +51,11 @@ export class LoginPageComponent {
   #injector = inject(Injector);
   #authStore = inject(AuthStore);
 
-  public readonly optFlag: WritableSignal<boolean>;
+  public readonly showOtp: WritableSignal<boolean>;
   public readonly serverError: Signal<AuthServerError | null>;
 
   constructor() {
-    this.optFlag = signal(false);
+    this.showOtp = signal(false);
     this.#authStore.loadUser();
     this.serverError = this.#authStore.loginServerError();
   }
@@ -97,6 +99,6 @@ export class LoginPageComponent {
 
   private _updateShowOtp(method: SignInMethod): void {
     const show: boolean = method === SignInMethod.OPT;
-    this.optFlag.set(show);
+    this.showOtp.set(show);
   }
 }

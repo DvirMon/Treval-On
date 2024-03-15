@@ -1,17 +1,5 @@
 @use "variables" as main;
 
-mat-card {
-  padding: main.spacing(2);
-
-  mat-card-content {
-    display: flex;
-    flex-direction: column;
-    gap: main.spacing(3);
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: main.spacing(3);
-  }
+:host {
+  @include main.cardForm;
 }

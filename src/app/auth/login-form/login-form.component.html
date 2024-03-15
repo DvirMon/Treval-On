@@ -1,67 +1,59 @@
-<mat-card>
+<mat-card class="login-form">
   <mat-card-header class="center-header">
     <img
+      mat-card-sm-image
       ngSrc="../../../assets/images/logo2.png"
       width="60"
       height="60"
       priority
       alt="logo" />
+    <to-divider-header label="Sign In"></to-divider-header>
   </mat-card-header>
 
-  <mat-card-content>
-    <to-divider-header label="Sign In"></to-divider-header>
-    <div class="login-form-wrapper">
-      <form
-        [formGroup]="loginFormGroup"
-        (ngSubmit)="onSubmit(loginFormGroup.value)">
-        @for (key of formKeys(); track key) {
+  <mat-card-content class="login-form-wrapper">
+    <form
+      [formGroup]="loginFormGroup"
+      (ngSubmit)="onSubmit(loginFormGroup.value)">
+      @for (key of formKeys(); track key) {
 
-        <to-form-input
-          [control]="loginFormGroup.get(key)"
-          [key]="key"
-          [label]="key | titlecase"
-          [errorsMap]="errorsMap[key]">
-        </to-form-input>
-        }
-        <button
-          class="login-btn"
-          mat-raised-button
-          type="submit"
-          color="primary"
-          [disabled]="!loginFormGroup.valid">
-          Login
-        </button>
-      </form>
-
-      <to-divider-header label="or"></to-divider-header>
-
-      <section class="social-login-wrapper">
-        <button
-          mat-stroked-button
-          class="google-btn"
-          [disableRipple]="true"
-          (click)="oGoogleSignIn()">
-          <mat-icon svgIcon="google" class="google-icon"></mat-icon>
-          Continue with Google
-        </button>
-        <!-- <button
+      <to-form-input
+        [control]="loginFormGroup.get(key)"
+        [key]="key"
+        [label]="key | titlecase"
+        [errorsMap]="errorsMap[key]">
+      </to-form-input>
+      }
+      <button
+        class="login-btn"
         mat-raised-button
-        [disableRipple]="true"
-        color="accent"
-        (click)="onEmailLinkSignIn()">
-        Sign in with Email Link
-      </button> -->
+        type="submit"
+        color="primary"
+        [disabled]="!loginFormGroup.valid">
+        Login
+      </button>
+    </form>
 
-        <section class="forget-btn">
-          <button
-            [disableRipple]="true"
-            mat-button
-            type="button"
-            (click)="onForgetPassword()">
-            Forget your password ?
-          </button>
-        </section>
-      </section>
-    </div>
+    <to-divider-header label="or"></to-divider-header>
+
+    <section class="actions-buttons-wrapper">
+      <button
+        mat-stroked-button
+        class="google-btn"
+        [disableRipple]="true"
+        (click)="oGoogleSignIn()">
+        <mat-icon svgIcon="google" class="google-icon"></mat-icon>
+        Continue with Google
+      </button>
+      <button
+        class="forget-btn"
+        [disableRipple]="true"
+        mat-button
+        type="button"
+        (click)="onForgetPassword()">
+        Forget your password ?
+      </button>
+      <!-- <section class="forget-btn">
+      </section> -->
+    </section>
   </mat-card-content>
 </mat-card>
