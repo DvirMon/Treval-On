@@ -15,7 +15,7 @@ import {
   DocumentReference,
 } from "@angular/fire/firestore";
 import { Favorite } from "./store/favorite.model";
-import { mapQuerySnapshotDoc } from "../utilities/helpers";
+import { mapQuerySnapshotDoc } from "../shared/helpers";
 import { Observable, from, switchMap, iif, of } from "rxjs";
 
 @Injectable({

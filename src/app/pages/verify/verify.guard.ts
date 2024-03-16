@@ -1,7 +1,7 @@
 import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
 import { inject } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
 import { tap } from 'rxjs';
+import { AuthService } from 'src/app/auth';
 
 export const verifyGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot, auth: AuthService = inject(AuthService)
 ) => {

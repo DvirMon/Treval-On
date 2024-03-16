@@ -11,13 +11,14 @@ import {
   switchMap,
   tap,
 } from "rxjs";
-import { DialogService } from "src/app/components/dialog/dialog.service";
-import { StorageKey } from "src/app/utilities/constants";
-import { clearStorage, setToStorage } from "src/app/utilities/helpers";
-import { mapFirebaseCredentials } from "../auth.helpers";
-import { AuthDialogEvent, AuthEvent, authDialogMap } from "../auth.model";
-import { AuthService } from "../auth.service";
-import { FirebaseError } from "../fireauth.service";
+import { StorageKey } from "src/app/shared/constants";
+import { DialogService } from "src/app/shared/dialog/dialog.service";
+import { clearStorage, setToStorage } from "src/app/shared/helpers";
+import { AuthDialogEvent, authDialogMap } from "../auth-dialogs";
+import { mapFirebaseCredentials } from "../utils/auth.helpers";
+import { AuthEvent } from "../utils/auth.model";
+import { AuthService } from "../utils/auth.service";
+import { FirebaseError } from "../utils/fireauth.service";
 import { AuthActions } from "./auth.actions";
 
 @Injectable()

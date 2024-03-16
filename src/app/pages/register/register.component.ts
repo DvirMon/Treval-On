@@ -1,13 +1,21 @@
-import { ChangeDetectionStrategy, Component, Signal, inject } from "@angular/core";
-import { AuthActionComponent } from "src/app/auth/auth-action/auth-action.component";
-import { AuthServerError, EmailAndPasswordSignIn } from "src/app/auth/auth.model";
-import { RegisterFormComponent } from "src/app/auth/register-form/register-form.component";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Signal,
+  inject,
+} from "@angular/core";
+import {
+  AuthServerError,
+  EmailAndPasswordSignIn,
+  RegisterFormComponent,
+} from "src/app/auth";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
+import { CardButtonComponent } from "src/app/shared/components/card-button/card-button.component";
 
 @Component({
-  selector: "to-register",
+  selector: "to-register-page",
   standalone: true,
-  imports: [RegisterFormComponent, AuthActionComponent],
+  imports: [RegisterFormComponent, CardButtonComponent],
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,7 +26,6 @@ export class RegisterPageComponent {
   public readonly serverError: Signal<AuthServerError | null>;
 
   constructor() {
-
     this.serverError = this.#authStore.loginServerError();
   }
   onRegister(value: EmailAndPasswordSignIn): void {

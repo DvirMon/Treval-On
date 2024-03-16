@@ -1,4 +1,4 @@
-import { AuthServerError, User } from "../auth.model";
+import { AuthServerError, User } from "../utils/auth.model";
 
 export const authFeatureKey = "auth";
 

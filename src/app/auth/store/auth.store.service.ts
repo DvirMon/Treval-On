@@ -10,13 +10,12 @@ import {
   map,
   of,
   switchMap,
-  tap,
 } from "rxjs";
-import { StorageKey } from "src/app/utilities/constants";
-import { getFromStorage } from "src/app/utilities/helpers";
-import { AuthServerError, SignInEvent, User } from "../auth.model";
+import { getFromStorage } from "src/app/shared/helpers";
+import { AuthServerError, SignInEvent, User } from "../utils/auth.model";
 import { AuthActions } from "./auth.actions";
 import { AuthSelectors } from "./auth.selectors";
+import { StorageKey } from "src/app/shared/constants";
 
 @Injectable({
   providedIn: "root",
