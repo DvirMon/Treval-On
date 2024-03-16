@@ -1,4 +1,4 @@
-import { Places } from "./vacation.model";
+import { Places } from "./places.model";
 
 
 export function selectUserId(vacation: Places): string {

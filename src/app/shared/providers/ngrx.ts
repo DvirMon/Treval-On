@@ -9,15 +9,16 @@ import { authFeatureKey } from "../../auth/store/auth.state";
 import { FavoritesEffects } from "../../favorites/store/favorite.effects";
 import { favoriteReducer } from "../../favorites/store/favorite.reducer";
 import { favoritesFeatureKey } from "../../favorites/store/favorite.state";
-import { PlacesEffects } from "../../vacations/store/vacation.effects";
-import { vacationReducer } from "../../vacations/store/vacation.reducer";
-import { vacationsFeatureKey } from "../../vacations/store/vacation.state";
+import { PlacesEffects } from "../../places/store/places.effects";
+import { placesFeatureKey } from "src/app/places/store/places.state";
+import { placesReducer } from "src/app/places/store/places.reducer";
+
 
 export function provideNgRx() {
   return [
     provideStore({
       [authFeatureKey]: authReducer,
-      [vacationsFeatureKey]: vacationReducer,
+      [placesFeatureKey]: placesReducer,
       [favoritesFeatureKey]: favoriteReducer,
     }),
     provideEffects(AuthEffects, PlacesEffects, FavoritesEffects),

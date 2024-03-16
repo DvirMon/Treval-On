@@ -10,11 +10,8 @@ import {
 } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { DateTimestampPipe } from "src/app/shared/pipes/date.pipe";
-import { Places } from "../store/vacation.model";
-import {
-  ButtonSelectedChangedEvent,
-  VacationCardButtonComponent,
-} from "../vacation-item-button/vacation-card-button.component";
+import { Places } from "../store/places.model";
+import { ButtonSelectedChangedEvent } from "../place-item-button/place-card-button.component";
 
 export interface PlacesSelectedChangedEvent {
   /** The source button of the event. */
@@ -30,14 +27,14 @@ export interface PlacesSelectedChangedEvent {
     NgOptimizedImage,
     DateTimestampPipe,
     MatCardModule,
-    VacationCardButtonComponent,
   ],
-  templateUrl: "./vacation-card.component.html",
-  styleUrls: ["./vacation-card.component.scss"],
+  templateUrl: "./places-card.component.html",
+  styleUrls: ["./places-card.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlacesCardComponent {
-  @Input({ required: true }) vacation!: Places;
+
+  @Input({ required: true }) place!: Places;
 
   protected readonly isSelected: WritableSignal<boolean>;
 

@@ -14,12 +14,12 @@ import { map } from "rxjs";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
 import { FloatingButtonComponent } from "src/app/shared/components/floating-button/floating-button.component";
 import { FavoriteStore } from "src/app/favorites/favorite.store.service";
-import { Places } from "src/app/vacations/store/vacation.model";
-import { VacationsStore } from "src/app/vacations/store/vacations.store.service";
 import {
   PlacesListComponent,
   SelectionListChange,
-} from "src/app/vacations/vacation-list/vacation-list.component";
+} from "src/app/places/place-list/place-list.component";
+import { Places } from "src/app/places/store/places.model";
+import { VacationsStore } from "src/app/places/store/places.store.service";
 
 @Component({
   selector: "to-places",
@@ -36,11 +36,11 @@ export class PlacesComponent {
   private readonly favoriteStore: FavoriteStore = inject(FavoriteStore);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
 
-  protected readonly vacations: Signal<Places[]>;
+  protected readonly places: Signal<Places[]>;
   protected readonly selection: Signal<Record<string, boolean>>;
 
   constructor() {
-    this.vacations = inject(VacationsStore).getVacations();
+    this.places = inject(VacationsStore).getPlaces();
     this.selection = this._getSelectionFroRoute();
   }
 

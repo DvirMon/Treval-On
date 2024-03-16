@@ -1,8 +1,8 @@
 <div class="vacation-list-wrapper">
-  <ng-container *ngFor="let v of vacations()">
+  <ng-container *ngFor="let v of places()">
     <section class="vacation-card-wrapper">
       <to-places-card
-        [vacation]="v"
+        [place]="v"
         [selected]="selection()[v.id]"
         (selectedChanged)="onSelectedChanged($event)"
       >

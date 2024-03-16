@@ -23,8 +23,8 @@ export enum SelectState {
   selector: 'to-places-button',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule],
-  templateUrl: './vacation-card-button.component.html',
-  styleUrls: ['./vacation-card-button.component.scss'],
+  templateUrl: './place-card-button.component.html',
+  styleUrls: ['./place-card-button.component.scss'],
   animations: [
     trigger('iconAnimation', [
       state('default', style({
