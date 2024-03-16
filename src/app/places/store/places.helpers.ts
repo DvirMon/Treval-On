@@ -1,11 +1,6 @@
 import { Places } from "./places.model";
 
-
-export function selectUserId(vacation: Places): string {
+export function selectUserId(place: Places): string {
   //In this case this would be optional since primary key is id
-  return vacation.id;
+  return place.id;
 }
-
-// export function sortByDestination(a: Places, b: Places): number {
-//   return a.destination.localeCompare(b.destination);
-// }

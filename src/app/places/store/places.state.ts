@@ -12,6 +12,5 @@ export interface State extends EntityState<Places> {
 export const adapter: EntityAdapter<Places> = createEntityAdapter<Places>();
 
 export const initialState: State = adapter.getInitialState({
-  // additional entity state properties
   loaded: false,
 });

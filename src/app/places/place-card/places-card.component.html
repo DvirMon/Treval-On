@@ -1,34 +1,37 @@
+@if (place()) {
 <mat-card>
   <img
     mat-card-image
-    [ngSrc]="place.imageUrl"
+    [ngSrc]="place().imageUrl"
     height="300"
     width="1"
     alt="alternative" />
 
   <mat-card-header>
     <mat-card-title
-      >{{ place.destination.city }},
-      {{ place.destination.country }}</mat-card-title
+      >{{ place().destination.city }},
+      {{ place().destination.country }}</mat-card-title
     >
     <mat-card-subtitle>{{
-      place.price | currency : "USD" : "symbol" : "1.0-0"
+      place().price | currency : "USD" : "symbol" : "1.0-0"
     }}</mat-card-subtitle>
-    <!-- <to-places-button
+    <to-place-card-button
       (changed)="onSelectedChanged($event)"
-      [selected]="isSelected()"></to-places-button> -->
+      [selected]="selected()"></to-place-card-button>
   </mat-card-header>
   <mat-card-content>
     <section class="schedule">
       <span>
         <b>Takeoff:</b>
-        {{ place.takeoff | dateTimestampPipe : "EEEE, MMMM d, h:mm a" }}
+        {{ place().takeoff | dateTimestampPipe : "EEEE, MMMM d, h:mm a" }}
       </span>
       <span>
         <b>Landing:</b>
-        {{ place.landing | dateTimestampPipe : "EEEE, MMMM d, h:mm a" }}
+        {{ place().landing | dateTimestampPipe : "EEEE, MMMM d, h:mm a" }}
       </span>
     </section>
   </mat-card-content>
   <mat-card-footer></mat-card-footer>
 </mat-card>
+
+}

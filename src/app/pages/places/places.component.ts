@@ -41,10 +41,10 @@ export class PlacesComponent {
 
   constructor() {
     this.places = inject(VacationsStore).getPlaces();
-    this.selection = this._getSelectionFroRoute();
+    this.selection = this._getSelectionFromRoute();
   }
 
-  private _getSelectionFroRoute(): Signal<Record<string, boolean>> {
+  private _getSelectionFromRoute(): Signal<Record<string, boolean>> {
     return toSignal(
       this.route.data.pipe(map((data: Data) => data["placesResolver"])),
       { initialValue: {} }

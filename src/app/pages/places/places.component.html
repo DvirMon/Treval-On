@@ -7,8 +7,8 @@
   </header>
   <main>
     <to-places-list
-      [places]="places"
-      [selection]="selection"
+      [places]="places()"
+      [selection]="selection()"
       (selectionChanged)="onSelectionChanged($event)"
     ></to-places-list>
   </main>

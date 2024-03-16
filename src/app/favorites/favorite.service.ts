@@ -32,7 +32,8 @@ export class FavoriteService {
     ) as CollectionReference<Favorite>;
   }
 
-  getFavorite$(userId: string): Observable<Favorite> {
+  public getFavorite$(userId: string): Observable<Favorite> {
+    
     const querySnapshot$ = from(
       getDocs(query(this.favoritesRef, where("userId", "==", userId)))
     );

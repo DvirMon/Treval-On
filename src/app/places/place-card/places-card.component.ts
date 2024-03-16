@@ -6,12 +6,16 @@ import {
   Input,
   Output,
   WritableSignal,
+  input,
   signal,
 } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { DateTimestampPipe } from "src/app/shared/pipes/date.pipe";
 import { Places } from "../store/places.model";
-import { ButtonSelectedChangedEvent } from "../place-item-button/place-card-button.component";
+import {
+  ButtonSelectionChangedEvent,
+  PlaceCardButtonComponent,
+} from "../place-card-button/place-card-button.component";
 
 export interface PlacesSelectedChangedEvent {
   /** The source button of the event. */
@@ -27,36 +31,36 @@ export interface PlacesSelectedChangedEvent {
     NgOptimizedImage,
     DateTimestampPipe,
     MatCardModule,
+    PlaceCardButtonComponent,
   ],
   templateUrl: "./places-card.component.html",
   styleUrls: ["./places-card.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlacesCardComponent {
+  place = input.required<Places>();
 
-  @Input({ required: true }) place!: Places;
-
-  protected readonly isSelected: WritableSignal<boolean>;
+  // protected readonly isSelected: WritableSignal<boolean>;
+  selected = input.required<boolean>();
 
   constructor() {
-    this.isSelected = signal(false);
+    // this.isSelected = signal(false);
   }
 
-  @Input()
-  set selected(value: boolean) {
-    this.isSelected.set(value);
-  }
+  // @Input()
+  //   this.isSelected.set(value);
+  // }
 
   @Output() readonly selectedChanged: EventEmitter<PlacesSelectedChangedEvent> =
     new EventEmitter();
 
-  protected onSelectedChanged(value: ButtonSelectedChangedEvent): void {
+  public onSelectedChanged(value: ButtonSelectionChangedEvent): void {
     const event = this._createChangeEvent(value);
     this.selectedChanged.emit(event);
   }
 
   private _createChangeEvent(
-    value: ButtonSelectedChangedEvent
+    value: ButtonSelectionChangedEvent
   ): PlacesSelectedChangedEvent {
     const event: PlacesSelectedChangedEvent = {
       selected: value.selected,

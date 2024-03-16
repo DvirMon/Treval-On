@@ -1,21 +1,16 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  Signal,
-  signal,
-} from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Places } from "../store/places.model";
+import { Component, EventEmitter, Output, input } from "@angular/core";
 import {
   PlacesCardComponent,
   PlacesSelectedChangedEvent,
-} from "../place-item/places-card.component";
+} from "../place-card/places-card.component";
+import { Places } from "../store/places.model";
+
+type PlaceSelection = Record<string, boolean>;
 
 export interface SelectionListChange {
   source: PlacesListComponent;
-  selection: Record<string, boolean>;
+  selection: PlaceSelection;
 }
 
 @Component({
@@ -26,11 +21,9 @@ export interface SelectionListChange {
   styleUrls: ["./place-list.component.scss"],
 })
 export class PlacesListComponent {
-  
-  @Input({ required: true }) places: Signal<Places[]> = signal([]);
+  places = input.required<Places[]>();
 
-  @Input({ required: true }) selection: Signal<Record<string, boolean>> =
-    signal({});
+  selection = input.required<PlaceSelection>();
 
   @Output() readonly selectionChanged: EventEmitter<SelectionListChange> =
     new EventEmitter<SelectionListChange>();
@@ -42,7 +35,7 @@ export class PlacesListComponent {
     const newSelection = this._updateStoreSelection(
       this.selection(),
       selected,
-      place
+      place()
     );
     this._emitChangeEvent(newSelection);
   }
