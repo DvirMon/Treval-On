@@ -47,8 +47,8 @@ interface RegisterForm {
     FormInputComponent,
     DividerHeaderComponent,
   ],
-  templateUrl: "./register-form.component.html",
-  styleUrls: ["./register-form.component.scss"],
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterFormComponent {

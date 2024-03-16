@@ -1,6 +1,4 @@
 <div class="reset-page-wrapper">
-
-
   <div class="reset-wrapper">
     @if(showNewPassword()) {
     <to-reset-password-form
@@ -8,15 +6,14 @@
     } @else {
     <to-reset-contact-form
       (resetEmail)="onResetEmail($event)"></to-reset-contact-form>
-    <to-auth-action
+    <to-card-button
       class="front"
       [routerLink]="'/register'"
       label="Don't have an account?"
-      boldLabel="Sign up"></to-auth-action>
+      boldLabel="Sign up"></to-card-button>
 
     }
   </div>
 </div>
-
 
 <!-- http://localhost:4200/reset?mode=resetPassword&oobCode=nn-n7nG0uDqVLs8BYT8Ap414HwREGzXHZwfwwtMNxSEAAAGOMahD1g&apiKey=AIzaSyAWE61Vm0CpfUtHq4G48aJVMbdY6REEtrA&lang=en -->

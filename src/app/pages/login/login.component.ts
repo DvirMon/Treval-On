@@ -7,7 +7,7 @@ import {
   WritableSignal,
   inject,
   runInInjectionContext,
-  signal
+  signal,
 } from "@angular/core";
 
 import { FlipCardComponent } from "src/app/components/flip-container/flip-container.component";
@@ -15,9 +15,16 @@ import { FloatingButtonComponent } from "src/app/components/floating-button/floa
 
 import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
-import { AuthServerError, EmailLinkFormComponent, LoginFormComponent, OtpLoginFormComponent, SignInEvent, SignInMethod } from "src/app/auth";
-import { AuthActionComponent } from "src/app/auth/auth-action/auth-action.component";
+import {
+  AuthServerError,
+  EmailLinkFormComponent,
+  LoginFormComponent,
+  OtpLoginFormComponent,
+  SignInEvent,
+  SignInMethod,
+} from "src/app/auth";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
+import { CardButtonComponent } from "src/app/components/card-button/card-button.component";
 import { FlipContainerService } from "src/app/components/flip-container/flip-container.service";
 
 @Component({
@@ -31,7 +38,7 @@ import { FlipContainerService } from "src/app/components/flip-container/flip-con
     LoginFormComponent,
     OtpLoginFormComponent,
     EmailLinkFormComponent,
-    AuthActionComponent,
+    CardButtonComponent,
   ],
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],

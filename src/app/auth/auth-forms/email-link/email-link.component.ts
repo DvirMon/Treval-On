@@ -43,8 +43,8 @@ import { SignInEvent, SignInMethod } from "../../index";
     InfoCardComponent,
     FormInputComponent,
   ],
-  templateUrl: "./email-link-form.component.html",
-  styleUrls: ["./email-link-form.component.scss"],
+  templateUrl: "./email-link.component.html",
+  styleUrls: ["./email-link.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmailLinkFormComponent {

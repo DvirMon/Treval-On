@@ -10,7 +10,6 @@ import {
   map,
   of,
   switchMap,
-  tap,
 } from "rxjs";
 import { StorageKey } from "src/app/utilities/constants";
 import { getFromStorage } from "src/app/utilities/helpers";

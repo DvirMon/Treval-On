@@ -4,14 +4,14 @@ import {
   Signal,
   inject,
 } from "@angular/core";
-import { RegisterFormComponent, AuthServerError, EmailAndPasswordSignIn } from "src/app/auth";
-import { AuthActionComponent } from "src/app/auth/auth-action/auth-action.component";
+import { AuthServerError, EmailAndPasswordSignIn, RegisterFormComponent } from "src/app/auth";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
+import { CardButtonComponent } from "src/app/components/card-button/card-button.component";
 
 @Component({
-  selector: "to-register",
+  selector: "to-register-page",
   standalone: true,
-  imports: [RegisterFormComponent, AuthActionComponent],
+  imports: [RegisterFormComponent, CardButtonComponent],
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,

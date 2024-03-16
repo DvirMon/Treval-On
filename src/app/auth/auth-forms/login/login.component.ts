@@ -64,8 +64,8 @@ interface LoginForm {
     DividerHeaderComponent,
     FormInputComponent,
   ],
-  templateUrl: "./login-form.component.html",
-  styleUrls: ["./login-form.component.scss"],
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
