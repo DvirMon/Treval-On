@@ -10,8 +10,8 @@ import {
   signal,
 } from "@angular/core";
 
-import { FlipCardComponent } from "src/app/components/flip-container/flip-container.component";
-import { FloatingButtonComponent } from "src/app/components/floating-button/floating-button.component";
+import { FlipCardComponent } from "src/app/shared/components/flip-container/flip-container.component";
+import { FloatingButtonComponent } from "src/app/shared/components/floating-button/floating-button.component";
 
 import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
@@ -24,8 +24,8 @@ import {
   SignInMethod,
 } from "src/app/auth";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
-import { CardButtonComponent } from "src/app/components/card-button/card-button.component";
-import { FlipContainerService } from "src/app/components/flip-container/flip-container.service";
+import { CardButtonComponent } from "src/app/shared/components/card-button/card-button.component";
+import { FlipContainerService } from "src/app/shared/components/flip-container/flip-container.service";
 
 @Component({
   selector: "to-login-page",

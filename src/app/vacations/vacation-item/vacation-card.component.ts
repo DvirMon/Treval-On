@@ -9,7 +9,7 @@ import {
   signal,
 } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
-import { DateTimestampPipe } from "src/app/utils/pipes/date.pipe";
+import { DateTimestampPipe } from "src/app/shared/pipes/date.pipe";
 import { Places } from "../store/vacation.model";
 import {
   ButtonSelectedChangedEvent,

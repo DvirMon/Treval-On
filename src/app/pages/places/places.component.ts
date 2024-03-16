@@ -12,7 +12,7 @@ import { toSignal } from "@angular/core/rxjs-interop";
 import { ActivatedRoute, Data } from "@angular/router";
 import { map } from "rxjs";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
-import { FloatingButtonComponent } from "src/app/components/floating-button/floating-button.component";
+import { FloatingButtonComponent } from "src/app/shared/components/floating-button/floating-button.component";
 import { FavoriteStore } from "src/app/favorites/favorite.store.service";
 import { Places } from "src/app/vacations/store/vacation.model";
 import { VacationsStore } from "src/app/vacations/store/vacations.store.service";

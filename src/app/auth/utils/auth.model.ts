@@ -1,5 +1,4 @@
-import { ComponentType } from "@angular/cdk/portal";
-import { FormServerError } from "../../components/form-input/form.helper";
+import { FormServerError } from "../../shared/components/form-input/form.helper";
 
 export interface User {
   userId: string;

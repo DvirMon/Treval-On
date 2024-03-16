@@ -19,16 +19,16 @@ import {
 } from "@angular/forms";
 import { MatButton } from "@angular/material/button";
 import { MatCard, MatCardContent } from "@angular/material/card";
-import { DividerHeaderComponent } from "src/app/components/divider-header/divider-header.component";
-import { FormInputComponent } from "src/app/components/form-input/form-input.component";
+import { DividerHeaderComponent } from "src/app/shared/components/divider-header/divider-header.component";
+import { FormInputComponent } from "src/app/shared/components/form-input/form-input.component";
 import {
   FormServerError,
   getFormKeys,
   handleServerError,
-} from "src/app/components/form-input/form.helper";
+} from "src/app/shared/components/form-input/form.helper";
 
-import { DEFAULT_EMAIL } from "src/app/utils/constants";
 import { AuthServerError, EmailAndPasswordSignIn } from "../../index";
+import { DEFAULT_EMAIL } from "src/app/shared/constants";
 
 interface RegisterForm {
   email: FormControl<string>;

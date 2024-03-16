@@ -4,9 +4,13 @@ import {
   Signal,
   inject,
 } from "@angular/core";
-import { AuthServerError, EmailAndPasswordSignIn, RegisterFormComponent } from "src/app/auth";
+import {
+  AuthServerError,
+  EmailAndPasswordSignIn,
+  RegisterFormComponent,
+} from "src/app/auth";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
-import { CardButtonComponent } from "src/app/components/card-button/card-button.component";
+import { CardButtonComponent } from "src/app/shared/components/card-button/card-button.component";
 
 @Component({
   selector: "to-register-page",

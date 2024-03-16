@@ -20,10 +20,10 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatTabsModule } from "@angular/material/tabs";
-import { DividerHeaderComponent } from "src/app/components/divider-header/divider-header.component";
-import { FormInputComponent } from "src/app/components/form-input/form-input.component";
-import { InfoCardComponent } from "src/app/components/info-card/info-card.component";
+import { DividerHeaderComponent } from "src/app/shared/components/divider-header/divider-header.component";
+import { FormInputComponent } from "src/app/shared/components/form-input/form-input.component";
 import { SignInEvent, SignInMethod } from "../../index";
+import { InfoCardComponent } from "src/app/shared/components/info-card/info-card.component";
 
 @Component({
   selector: "to-email-link-form",
