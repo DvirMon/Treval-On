@@ -3,7 +3,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MAT_DIALOG_DATA, MatDialogModule } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
-import { InfoCardComponent } from "src/app/components/info-card/info-card.component";
+import { InfoCardComponent } from "src/app/shared/components/info-card/info-card.component";
 import { AuthDialogEvent } from "../models";
 
 @Component({
