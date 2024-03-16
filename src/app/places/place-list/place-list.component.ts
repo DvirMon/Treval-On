@@ -1,8 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Output, input } from "@angular/core";
 import {
+  SelectChangedEvent,
   PlacesCardComponent,
-  PlacesSelectedChangedEvent,
 } from "../place-card/places-card.component";
 import { Places } from "../store/places.model";
 
@@ -28,7 +28,7 @@ export class PlacesListComponent {
   @Output() readonly selectionChanged: EventEmitter<SelectionListChange> =
     new EventEmitter<SelectionListChange>();
 
-  protected onSelectedChanged(event: PlacesSelectedChangedEvent): void {
+  protected onSelectedChanged(event: SelectChangedEvent): void {
     const { source, selected } = event;
     const { place } = source;
 

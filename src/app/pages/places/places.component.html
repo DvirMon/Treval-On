@@ -2,14 +2,12 @@
   <header>
     <to-floating-button
       [label]="'Logout'"
-      (clicked)="onButtonClick()"
-    ></to-floating-button>
+      (clicked)="onButtonClick()"></to-floating-button>
   </header>
   <main>
     <to-places-list
       [places]="places()"
       [selection]="selection()"
-      (selectionChanged)="onSelectionChanged($event)"
-    ></to-places-list>
+      (selectionChanged)="onSelectionChanged($event)"></to-places-list>
   </main>
 </div>
