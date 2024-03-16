@@ -33,7 +33,7 @@ import {
   getFormKeys,
   handleServerError,
 } from "src/app/components/form-input/form.helper";
-import { DEFAULT_EMAIL } from "src/app/utilities/constants";
+import { DEFAULT_EMAIL } from "src/app/utils/constants";
 import {
   AuthServerError,
   EmailAndPasswordSignIn,

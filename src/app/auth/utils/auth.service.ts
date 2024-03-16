@@ -11,7 +11,7 @@ import {
   where,
 } from "@angular/fire/firestore";
 import { Observable, from, map, of, switchMap } from "rxjs";
-import { mapQuerySnapshotDoc } from "../../utilities/helpers";
+import { mapQuerySnapshotDoc } from "../../utils/helpers";
 import { FireAuthService } from "./fireauth.service";
 import { SignInEvent, SignInMethod, User } from "./auth.model";
 

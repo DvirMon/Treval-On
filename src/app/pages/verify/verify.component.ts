@@ -9,8 +9,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { InfoCardComponent } from "src/app/components/info-card/info-card.component";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
-import { getFromStorage } from "src/app/utilities/helpers";
-import { StorageKey } from "src/app/utilities/constants";
+import { getFromStorage } from "src/app/utils/helpers";
+import { StorageKey } from "src/app/utils/constants";
 import { SignInEvent, SignInMethod } from "src/app/auth";
 
 @Component({

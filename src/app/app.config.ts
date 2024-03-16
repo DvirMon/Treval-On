@@ -9,10 +9,10 @@ import {
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { provideRouter, withComponentInputBinding } from "@angular/router";
 import { appRoutes } from "./app.routes";
-import { provideFirebase } from "./utilities/providers/firebase";
-import { provideNgRx } from "./utilities/providers/ngrx";
-import { errorInterceptor } from "./utilities/http/error.interceptor";
-import { urlInterceptor } from "./utilities/http/url.interceptor";
+import { provideFirebase } from "./utils/providers/firebase";
+import { provideNgRx } from "./utils/providers/ngrx";
+import { errorInterceptor } from "./utils/http/error.interceptor";
+import { urlInterceptor } from "./utils/http/url.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [

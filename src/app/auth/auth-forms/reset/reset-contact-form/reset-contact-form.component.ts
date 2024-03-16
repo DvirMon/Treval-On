@@ -19,7 +19,7 @@ import { MatIcon } from "@angular/material/icon";
 import { DividerHeaderComponent } from "src/app/components/divider-header/divider-header.component";
 import { FormInputComponent } from "src/app/components/form-input/form-input.component";
 import { getFormKeys } from "src/app/components/form-input/form.helper";
-import { DEFAULT_EMAIL } from "src/app/utilities/constants";
+import { DEFAULT_EMAIL } from "src/app/utils/constants";
 
 interface ResetContactForm {
   email: FormControl<string>;

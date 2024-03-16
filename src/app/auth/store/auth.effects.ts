@@ -12,8 +12,8 @@ import {
   tap,
 } from "rxjs";
 import { DialogService } from "src/app/components/dialog/dialog.service";
-import { StorageKey } from "src/app/utilities/constants";
-import { clearStorage, setToStorage } from "src/app/utilities/helpers";
+import { StorageKey } from "src/app/utils/constants";
+import { clearStorage, setToStorage } from "src/app/utils/helpers";
 import { mapFirebaseCredentials } from "../utils/auth.helpers";
 import { AuthService } from "../utils/auth.service";
 import { FirebaseError } from "../utils/fireauth.service";
