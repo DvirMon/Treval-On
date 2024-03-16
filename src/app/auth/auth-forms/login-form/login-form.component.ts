@@ -33,14 +33,13 @@ import {
   getFormKeys,
   handleServerError,
 } from "src/app/components/form-input/form.helper";
-import { environment } from "src/environments/environment";
+import { DEFAULT_EMAIL } from "src/app/utilities/constants";
 import {
   AuthServerError,
   EmailAndPasswordSignIn,
   SignInEvent,
   SignInMethod,
-} from "../auth.model";
-import { DEFAULT_EMAIL } from "src/app/utilities/constants";
+} from "../../index";
 
 interface LoginForm {
   email: FormControl<string>;

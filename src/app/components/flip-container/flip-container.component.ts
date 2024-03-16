@@ -11,14 +11,29 @@ import {
   EventEmitter,
   Output,
   Signal,
-  inject
+  inject,
 } from "@angular/core";
 import { FlipContainerService } from "./flip-container.service";
 
 @Component({
   selector: "to-flip-container",
   standalone: true,
-  templateUrl: "./flip-container.component.html",
+  template: `
+    <div
+      [@flip]="isFlipped() ? 'back' : 'front'"
+      (click)="onClick()"
+      (keyup)="handleKeyUp($event)"
+      tabindex="0">
+      <div class="card-inner">
+        <div class="card-front">
+          <ng-content select=".front"></ng-content>
+        </div>
+        <div class="card-back">
+          <ng-content select=".back"></ng-content>
+        </div>
+      </div>
+    </div>
+  `,
   styleUrls: ["./flip-container.component.scss"],
   animations: [
     trigger("flip", [

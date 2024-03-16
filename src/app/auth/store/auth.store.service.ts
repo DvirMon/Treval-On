@@ -14,7 +14,7 @@ import {
 } from "rxjs";
 import { StorageKey } from "src/app/utilities/constants";
 import { getFromStorage } from "src/app/utilities/helpers";
-import { AuthServerError, SignInEvent, User } from "../auth.model";
+import { AuthServerError, SignInEvent, User } from "../utils/auth.model";
 import { AuthActions } from "./auth.actions";
 import { AuthSelectors } from "./auth.selectors";
 

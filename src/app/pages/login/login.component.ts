@@ -6,28 +6,19 @@ import {
   Signal,
   WritableSignal,
   inject,
-  isDevMode,
   runInInjectionContext,
-  signal,
+  signal
 } from "@angular/core";
 
-import { EmailLinkFormComponent } from "src/app/auth/email-link-form/email-link-form.component";
-import { LoginFormComponent } from "src/app/auth/login-form/login-form.component";
 import { FlipCardComponent } from "src/app/components/flip-container/flip-container.component";
 import { FloatingButtonComponent } from "src/app/components/floating-button/floating-button.component";
 
 import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
+import { AuthServerError, EmailLinkFormComponent, LoginFormComponent, OtpLoginFormComponent, SignInEvent, SignInMethod } from "src/app/auth";
 import { AuthActionComponent } from "src/app/auth/auth-action/auth-action.component";
-import {
-  AuthServerError,
-  SignInEvent,
-  SignInMethod,
-} from "src/app/auth/auth.model";
-import { OtpLoginFormComponent } from "src/app/auth/otp/otp-login-form/otp-login-form.component";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
 import { FlipContainerService } from "src/app/components/flip-container/flip-container.service";
-import { environment } from "src/environments/environment";
 
 @Component({
   selector: "to-login-page",

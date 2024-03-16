@@ -6,7 +6,6 @@ import {
   MatDialogConfig,
   MatDialogRef,
 } from "@angular/material/dialog";
-import { AuthDialogEvent } from "src/app/auth/auth.model";
 
 @Injectable({
   providedIn: "root",

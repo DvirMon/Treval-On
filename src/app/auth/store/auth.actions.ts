@@ -1,5 +1,6 @@
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
-import { User, SignInEvent, AuthEvent, AuthDialogEvent } from "../auth.model";
+import { User, SignInEvent, AuthEvent } from "../utils/auth.model";
+import { AuthDialogEvent } from "../auth-dialogs";
 
 export const AuthActions = createActionGroup({
   source: "Auth/API",

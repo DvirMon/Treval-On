@@ -1,12 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { FireAuthService } from "../fireauth.service";
+import { FireAuthService } from "../../utils/fireauth.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class ResetService {
-  
   constructor(private readonly fireAuthService: FireAuthService) {}
 
   public sendResetEmail(email: string): Observable<void> {

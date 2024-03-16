@@ -14,11 +14,12 @@ import {
 import { DialogService } from "src/app/components/dialog/dialog.service";
 import { StorageKey } from "src/app/utilities/constants";
 import { clearStorage, setToStorage } from "src/app/utilities/helpers";
-import { mapFirebaseCredentials } from "../auth.helpers";
-import { AuthDialogEvent, AuthEvent, authDialogMap } from "../auth.model";
-import { AuthService } from "../auth.service";
-import { FirebaseError } from "../fireauth.service";
+import { mapFirebaseCredentials } from "../utils/auth.helpers";
+import { AuthService } from "../utils/auth.service";
+import { FirebaseError } from "../utils/fireauth.service";
 import { AuthActions } from "./auth.actions";
+import { AuthDialogEvent, authDialogMap } from "../auth-dialogs";
+import { AuthEvent } from "../utils/auth.model";
 
 @Injectable()
 export class AuthEffects {

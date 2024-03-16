@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { mapAuthServerError } from "../auth.helpers";
+import { mapAuthServerError } from "../utils/auth.helpers";
 import { AuthActions } from "./auth.actions";
 import { initialState } from "./auth.state";
 

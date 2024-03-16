@@ -8,9 +8,7 @@ import {
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { ActivatedRoute, Params } from "@angular/router";
-import { AuthActionComponent } from "src/app/auth/auth-action/auth-action.component";
-import { ResetContactFormComponent } from "src/app/auth/reset/reset-contact-form/reset-contact-form.component";
-import { ResetPasswordFormComponent } from "src/app/auth/reset/reset-password-form/reset-password-form.component";
+import { ResetContactFormComponent, ResetPasswordFormComponent, AuthActionComponent } from "src/app/auth";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
 
 @Component({

@@ -26,12 +26,9 @@ import {
   getFormKeys,
   handleServerError,
 } from "src/app/components/form-input/form.helper";
-import {
-  AuthEvent,
-  AuthServerError,
-  EmailAndPasswordSignIn,
-} from "../auth.model";
+
 import { DEFAULT_EMAIL } from "src/app/utilities/constants";
+import { AuthServerError, EmailAndPasswordSignIn } from "../../index";
 
 interface RegisterForm {
   email: FormControl<string>;

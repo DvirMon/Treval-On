@@ -1,7 +1,11 @@
-import { ChangeDetectionStrategy, Component, Signal, inject } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Signal,
+  inject,
+} from "@angular/core";
+import { RegisterFormComponent, AuthServerError, EmailAndPasswordSignIn } from "src/app/auth";
 import { AuthActionComponent } from "src/app/auth/auth-action/auth-action.component";
-import { AuthServerError, EmailAndPasswordSignIn } from "src/app/auth/auth.model";
-import { RegisterFormComponent } from "src/app/auth/register-form/register-form.component";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
 
 @Component({
@@ -18,7 +22,6 @@ export class RegisterPageComponent {
   public readonly serverError: Signal<AuthServerError | null>;
 
   constructor() {
-
     this.serverError = this.#authStore.loginServerError();
   }
   onRegister(value: EmailAndPasswordSignIn): void {

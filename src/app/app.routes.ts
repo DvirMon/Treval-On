@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
-import { authCleanupGuard } from "./auth/auth-cleanup.guard";
-import { authLoadUserResolver } from "./auth/auth-load-user.resolver";
+import { authCleanupGuard } from "./auth/utils/auth-cleanup.guard";
+import { authLoadUserResolver } from "./auth/utils/auth-load-user.resolver";
 import { LoginPageComponent } from "./pages/login/login.component";
 import { placesGuard } from "./pages/places/places.guard";
 import { placesResolver } from "./pages/places/places.resolver";
@@ -11,7 +11,7 @@ export const appRoutes: Routes = [
     path: "",
     component: LoginPageComponent,
     canDeactivate: [authCleanupGuard],
-    title : 'Login'
+    title: "Login",
   },
   {
     path: "verify-email",
@@ -28,23 +28,22 @@ export const appRoutes: Routes = [
         (m) => m.RegisterPageComponent
       ),
     canDeactivate: [authCleanupGuard],
-    title : 'Register'
-    
+    title: "Register",
   },
   {
     path: "reset",
     loadComponent: () =>
-    import("./pages/reset/reset.component").then((m) => m.ResetPageComponent),
+      import("./pages/reset/reset.component").then((m) => m.ResetPageComponent),
     canDeactivate: [authCleanupGuard],
-    title : 'Reset Password'
+    title: "Reset Password",
   },
   {
     path: "places/:userId",
     loadComponent: () =>
-    import("./pages/places/places.component").then((m) => m.PlacesComponent),
+      import("./pages/places/places.component").then((m) => m.PlacesComponent),
     canActivate: [placesGuard],
     resolve: { authLoadUserResolver, placesResolver },
-    title : 'Travel-On'
+    title: "Travel-On",
   },
   // {
   //   path: "**",
