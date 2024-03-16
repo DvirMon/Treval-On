@@ -1,27 +1,27 @@
 import { Injectable } from "@angular/core";
 import {
   CollectionReference,
-  QuerySnapshot,
-  getDocs,
-  where,
-  doc,
-  updateDoc,
   DocumentData,
-  addDoc,
-  Firestore,
-  collection,
-  query,
-  Timestamp,
   DocumentReference,
+  Firestore,
+  QuerySnapshot,
+  Timestamp,
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
 } from "@angular/fire/firestore";
-import { Favorite } from "./store/favorite.model";
-import { mapQuerySnapshotDoc } from "../shared/helpers";
-import { Observable, from, switchMap, iif, of } from "rxjs";
+import { Observable, from, iif, of, switchMap } from "rxjs";
+import { mapQuerySnapshotDoc } from "../../shared/helpers";
+import { Favorite } from "./favorite.model";
 
 @Injectable({
   providedIn: "root",
 })
-export class FavoriteService {
+export class FavoriteHttpService {
   private readonly FAVORITES_COLLECTION = "favorites";
   private readonly favoritesRef: CollectionReference<Favorite>;
 
@@ -33,7 +33,6 @@ export class FavoriteService {
   }
 
   public getFavorite$(userId: string): Observable<Favorite> {
-    
     const querySnapshot$ = from(
       getDocs(query(this.favoritesRef, where("userId", "==", userId)))
     );

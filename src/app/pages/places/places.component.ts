@@ -12,10 +12,13 @@ import { toSignal } from "@angular/core/rxjs-interop";
 import { ActivatedRoute, Data } from "@angular/router";
 import { map } from "rxjs";
 import { AuthStore } from "src/app/auth/store/auth.store.service";
-import { FavoriteStore } from "src/app/favorites/favorite.store.service";
-import { PlacesListComponent, SelectionListChange } from "src/app/places/place-list/place-list.component";
-import { Places } from "src/app/places/store/places.model";
-import { VacationsStore } from "src/app/places/store/places.store.service";
+import { FavoriteStore } from "src/app/store/favorites/favorite.store.service";
+import {
+  PlacesListComponent,
+  SelectionListChange,
+} from "src/app/places/place-list/place-list.component";
+import { Places } from "src/app/store/places/places.model";
+import { VacationsStore } from "src/app/store/places/places.store.service";
 import { FloatingButtonComponent } from "src/app/shared/components/floating-button/floating-button.component";
 
 @Component({

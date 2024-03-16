@@ -6,13 +6,12 @@ import { provideStoreDevtools } from "@ngrx/store-devtools";
 import { AuthEffects } from "../../auth/store/auth.effects";
 import { authReducer } from "../../auth/store/auth.reducer";
 import { authFeatureKey } from "../../auth/store/auth.state";
-import { FavoritesEffects } from "../../favorites/store/favorite.effects";
-import { favoriteReducer } from "../../favorites/store/favorite.reducer";
-import { favoritesFeatureKey } from "../../favorites/store/favorite.state";
-import { PlacesEffects } from "../../places/store/places.effects";
-import { placesFeatureKey } from "src/app/places/store/places.state";
-import { placesReducer } from "src/app/places/store/places.reducer";
-
+import { FavoritesEffects } from "../../store/favorites/favorite.effects";
+import { favoriteReducer } from "../../store/favorites/favorite.reducer";
+import { favoritesFeatureKey } from "../../store/favorites/favorite.state";
+import { PlacesEffects } from "../../store/places/places.effects";
+import { placesFeatureKey } from "src/app/store/places/places.state";
+import { placesReducer } from "src/app/store/places/places.reducer";
 
 export function provideNgRx() {
   return [

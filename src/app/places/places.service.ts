@@ -8,7 +8,7 @@ import {
   limit,
 } from "@angular/fire/firestore";
 import { Observable, from, map } from "rxjs";
-import { Places } from "./store/places.model";
+import { Places } from "../store/places/places.model";
 
 @Injectable({
   providedIn: "root",

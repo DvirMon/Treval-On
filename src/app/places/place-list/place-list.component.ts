@@ -4,7 +4,7 @@ import {
   SelectChangedEvent,
   PlacesCardComponent,
 } from "../place-card/places-card.component";
-import { Places } from "../store/places.model";
+import { Places } from "../../store/places/places.model";
 
 type PlaceSelection = Record<string, boolean>;
 
@@ -22,13 +22,12 @@ export interface SelectionListChange {
 })
 export class PlacesListComponent {
   places = input.required<Places[]>();
-
   selection = input.required<PlaceSelection>();
 
   @Output() readonly selectionChanged: EventEmitter<SelectionListChange> =
     new EventEmitter<SelectionListChange>();
 
-  protected onSelectedChanged(event: SelectChangedEvent): void {
+  public onSelectedChanged(event: SelectChangedEvent): void {
     const { source, selected } = event;
     const { place } = source;
 

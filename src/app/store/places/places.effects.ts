@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { concatMap, map, catchError, EMPTY } from "rxjs";
 import { PlacesActions } from "./places.actions";
 import { Places } from "./places.model";
-import { PlacesService } from "../places.service";
+import { PlacesService } from "../../places/places.service";
 
 @Injectable()
 export class PlacesEffects {

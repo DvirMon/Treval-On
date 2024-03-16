@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FavoritesSelectors } from '../favorites/store/favorite.selectors';
-import { FavoriteActions } from '../favorites/store/favorite.actions';
+
 import { Observable, switchMap } from 'rxjs';
+import { FavoriteActions } from './favorite.actions';
+import { FavoritesSelectors } from './favorite.selectors';
 
 @Injectable({
   providedIn: 'root'

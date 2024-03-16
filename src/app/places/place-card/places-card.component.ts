@@ -12,7 +12,7 @@ import {
   ButtonSelectionChangedEvent,
   PlaceCardButtonComponent,
 } from "../place-card-button/place-card-button.component";
-import { Places } from "../store/places.model";
+import { Places } from "../../store/places/places.model";
 
 export interface SelectChangedEvent {
   /** The source button of the event. */
@@ -38,7 +38,6 @@ export class PlacesCardComponent {
   place = input.required<Places>();
 
   selected = input.required<boolean>();
-
 
   @Output() readonly selectedChanged: EventEmitter<SelectChangedEvent> =
     new EventEmitter();
